@@ -1,0 +1,9 @@
+<?php
+$px->site()->set_page_info(
+	$px->site()->get_current_page_info( 'id' ) ,
+	array(
+		'layout' => 'naked'
+	)
+);
+print (new \tomk79\pickles2\px2dthelper\main($px))->document_modules()->build_js();
+?>

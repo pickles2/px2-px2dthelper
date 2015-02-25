@@ -1,0 +1,5 @@
+"*path","*content","*id","*title","*title_breadcrumb","*title_h1","*title_label","*title_full","*logical_path","*list_flg","*layout","*orderby","*keywords","*description","*category_top_flg"
+"/",,,"ホーム",,,,,,1,"top",,,,
+"/test1_load.html",,,"Test for load",,,,,,1,,,"","",1
+"/test1_build_css.html",,,"Test for build_css",,,,,,1,,,"","",1
+"/test1_build_js.html",,,"Test for build_js",,,,,,1,,,"","",1

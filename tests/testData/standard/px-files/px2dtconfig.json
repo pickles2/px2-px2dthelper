@@ -1,0 +1,6 @@
+{
+    "paths_module_template": {
+        "Modules1": "./px-files/resources/module_templates_1/",
+        "Modules2": "./px-files/resources/module_templates_2/"
+    }
+}
