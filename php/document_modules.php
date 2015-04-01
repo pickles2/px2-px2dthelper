@@ -74,6 +74,7 @@ class document_modules{
 		}
 		return trim($rtn);
 	}
+
 	/**
 	 * ドキュメントモジュール定義のスクリプトを統合
 	 */
@@ -86,6 +87,31 @@ class document_modules{
 		$rtn = '';
 		foreach( $array_files as $path ){
 			$rtn .= $this->px->fs()->read_file( $path );
+		}
+		return trim($rtn);
+	}
+
+	/**
+	 * スタイルガイドを生成
+	 */
+	public function build_styleguide(){
+		$conf = $this->main->get_px2dtconfig();
+		$array_files = array();
+		foreach( $conf->paths_module_template as $key=>$row ){
+			$array_files[$key] = array();
+			$array_files[$key] = array_merge( $array_files[$key], glob($row."**/**/template.html") );
+		}
+		$rtn = '';
+		foreach( $array_files as $packageId=>$array_files_row ){
+			$rtn .= '<h2>module: '.$packageId.'</h2>'."\n";
+			foreach( $array_files_row as $path ){
+				preg_match( '/\/([a-zA-Z0-9\.\-\_]+?)\/([a-zA-Z0-9\.\-\_]+?)\/[a-zA-Z0-9\.\-\_]+?$/i', $path, $matched );
+				$rtn .= '<h3>'.$matched[1].'/'.$matched[2].'</h3>'."\n";
+				$tmp_bin = $this->px->fs()->read_file( $path );
+				$rtn .= $tmp_bin;
+				$rtn .= '<pre style="margin:1em 0; overflow:auto; max-height:12em;">'.htmlspecialchars($tmp_bin).'</pre>';
+				$rtn .= "\n"."\n";
+			}
 		}
 		return trim($rtn);
 	}
