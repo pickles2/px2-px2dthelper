@@ -65,7 +65,7 @@ class document_modules{
 				}
 
 				$tmp_bin = $this->build_css_resources( $path, $tmp_bin );
-					$rtn .= $tmp_bin;
+				$rtn .= $tmp_bin;
 				$rtn .= "\n"."\n";
 
 				unset($tmp_bin);
@@ -102,7 +102,7 @@ class document_modules{
 			$rtn .= '")';
 			$bin = $matched[3];
 		}
-// var_dump($path);
+
 		return $rtn;
 	}
 
@@ -127,6 +127,7 @@ class document_modules{
 	 */
 	public function build_styleguide(){
 		$conf = $this->main->get_px2dtconfig();
+		$obj_module_templates = $this->main->module_templates();
 		$array_files = array();
 		foreach( $conf->paths_module_template as $key=>$row ){
 			$array_files[$key] = array();
@@ -137,9 +138,16 @@ class document_modules{
 			$rtn .= '<h2>module: '.$packageId.'</h2>'."\n";
 			foreach( $array_files_row as $path ){
 				preg_match( '/\/([a-zA-Z0-9\.\-\_]+?)\/([a-zA-Z0-9\.\-\_]+?)\/[a-zA-Z0-9\.\-\_]+?$/i', $path, $matched );
-				$rtn .= '<h3>'.$matched[1].'/'.$matched[2].'</h3>'."\n";
-				$tmp_bin = $this->px->fs()->read_file( $path );
+
+				$mod = $obj_module_templates->get( $packageId.':'.$matched[1].'/'.$matched[2] );
+
+				$tmp_bin = $mod->get_template();
+				$tmp_bin = $obj_module_templates->bind( $packageId.':'.$matched[1].'/'.$matched[2], @$infoJson->sample_data );
+
+				$rtn .= '<h3>'.$mod->get_name().'</h3>'."\n";
+				$rtn .= "\n"."\n";
 				$rtn .= $tmp_bin;
+				$rtn .= "\n"."\n";
 				$rtn .= '<pre style="margin:1em 0; overflow:auto; max-height:12em;">'.htmlspecialchars($tmp_bin).'</pre>';
 				$rtn .= "\n"."\n";
 			}

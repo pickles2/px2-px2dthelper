@@ -1,0 +1,17 @@
+{
+ "bowl": {
+  "main": {
+   "modId": "_sys/root",
+   "fields": {
+    "main": [
+     {
+      "modId": "Modules2:hoge/fuga",
+      "fields": {
+       "sample_html": "<p>HTMLを入力してみました。</p>"
+      }
+     }
+    ]
+   }
+  }
+ }
+}

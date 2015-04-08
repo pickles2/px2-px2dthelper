@@ -25,6 +25,11 @@ class main{
 	private $px2dtconfig;
 
 	/**
+	 * $module_templates
+	 */
+	private $obj_module_templates;
+
+	/**
 	 * entry
 	 */
 	static public function register($px){
@@ -81,6 +86,9 @@ class main{
 			$this->px2dtconfig = json_decode( $this->px->fs()->read_file( $this->px->get_path_homedir().'px2dtconfig.json' ) );
 		}
 
+		require_once( __DIR__.'/module_templates.php' );
+		$this->obj_module_templates = new module_templates($this->px, $this);
+
 	}
 
 	/**
@@ -98,6 +106,13 @@ class main{
 		$rtn = '';
 		$rtn = new document_modules($this->px, $this);
 		return $rtn;
+	}
+
+	/**
+	 * ドキュメントモジュール定義をロードする
+	 */
+	public function module_templates(){
+		return $this->obj_module_templates;
 	}
 
 	/**
