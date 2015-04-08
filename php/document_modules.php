@@ -1,11 +1,11 @@
 <?php
 /**
- * px2-px2dthelper.php
+ * px2-px2dthelper
  */
 namespace tomk79\pickles2\px2dthelper;
 
 /**
- * entry.php
+ * document_modules.php
  */
 class document_modules{
 
@@ -57,22 +57,53 @@ class document_modules{
 				$rtn .= ' */'."\n";
 				$tmp_bin = $this->px->fs()->read_file( $path );
 				if( $this->px->fs()->get_extension( $path ) == 'scss' ){
-
 					$tmp_current_dir = realpath('./');
 					chdir( dirname( $path ) );
 					$scss = new \scssc();
 					$tmp_bin = $scss->compile( $tmp_bin );
 					chdir( $tmp_current_dir );
-
-					$rtn .= $tmp_bin;
-					unset($tmp_bin);
-				}else{
-					$rtn .= $tmp_bin;
 				}
+
+				$tmp_bin = $this->build_css_resources( $path, $tmp_bin );
+					$rtn .= $tmp_bin;
 				$rtn .= "\n"."\n";
+
+				unset($tmp_bin);
 			}
 		}
 		return trim($rtn);
+	}
+	private function build_css_resources( $path, $bin ){
+		$rtn = '';
+		while( 1 ){
+			if( !preg_match( '/^(.*?)url\s*\\((.*?)\\)(.*)$/si', $bin, $matched ) ){
+				$rtn .= $bin;
+				break;
+			}
+			$rtn .= $matched[1];
+			$rtn .= 'url("';
+			$res = trim( $matched[2] );
+			if( preg_match( '/^(\"|\')(.*)\1$/si', $res, $matched2 ) ){
+				$res = trim( $matched2[2] );
+			}
+			if( is_file( dirname($path).'/'.$res ) ){
+				$ext = $this->px->fs()->get_extension( dirname($path).'/'.$res );
+				$ext = strtolower( $ext );
+				$mime = 'image/png';
+				switch( $ext ){
+					case 'png': $mime = 'image/png'; break;
+					case 'gif': $mime = 'image/gif'; break;
+					case 'jpg': case 'jpeg': case 'jpe': $mime = 'image/jpeg'; break;
+					case 'svg': $mime = 'image/svg+xml'; break;
+				}
+				$res = 'data:'.$mime.';base64,'.base64_encode($this->px->fs()->read_file(dirname($path).'/'.$res));
+			}
+			$rtn .= $res;
+			$rtn .= '")';
+			$bin = $matched[3];
+		}
+// var_dump($path);
+		return $rtn;
 	}
 
 	/**

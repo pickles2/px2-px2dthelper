@@ -1,6 +1,6 @@
 <?php
 /**
- * px2-px2dthelper.php
+ * px2-px2dthelper
  */
 namespace tomk79\pickles2\px2dthelper;
 
