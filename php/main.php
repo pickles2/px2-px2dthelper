@@ -109,6 +109,22 @@ class main{
 	}
 
 	/**
+	 * フィールド定義オブジェクトを取得
+	 */
+	public function get_field_definition( $field_type ){
+		require_once( __DIR__.'/field_base.php' );
+		$rtn = null;
+		if( is_file( __DIR__.'/fields/field.'.$field_type.'.php' ) ){
+			require_once( __DIR__.'/fields/field.'.$field_type.'.php' );
+			$class_name = '\\tomk79\\pickles2\\px2dthelper\\field_'.$field_type;
+			$rtn = new $class_name();
+		}else{
+			$rtn = new field_base();
+		}
+		return $rtn;
+	}
+
+	/**
 	 * ドキュメントモジュール定義をロードする
 	 */
 	public function module_templates(){

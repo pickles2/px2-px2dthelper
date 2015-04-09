@@ -171,7 +171,7 @@ class module_templates_module{
 	/**
 	 * モジュールにデータをバインドして返す
 	 */
-	public function bind( $data ){
+	public function bind( $data, $mode = 'finalize' ){
 		$src = $this->template;
 		$rtn = '';
 		while( 1 ){
@@ -185,7 +185,10 @@ class module_templates_module{
 
 			if( @$field->input ){
 				// input field
-				$tmpVal = $data->fields->{@$field->input->name};
+				$tmpVal = '';
+
+				$tmpVal .= $this->main->get_field_definition( $field->input->type )->bind( $data->fields->{@$field->input->name}, $mode );
+
 				if( !@$field->input->hidden ){//← "hidden": true だったら、非表示(=出力しない)
 					$rtn .= $tmpVal;
 				}
