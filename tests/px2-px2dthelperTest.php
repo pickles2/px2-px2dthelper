@@ -50,7 +50,8 @@ class px2px2dthelperTest extends PHPUnit_Framework_TestCase{
 		] );
 		// var_dump($outputCss);
 		$this->assertTrue( strpos( $outputCss, '.bar{' ) !== false );//←素のCSSがそのまま出ている。
-		$this->assertTrue( strpos( $outputCss, '.fuga .fuga-child {' ) !== false );//←SCSSが機能している。
+		$this->assertTrue( strpos( $outputCss, '.hoge_fuga .hoge_fuga-child {' ) !== false );//←SCSSが機能している。
+		$this->assertTrue( strpos( $outputCss, 'data:image/png;base64,' ) !== false );//←SCSSが機能している。
 
 
 		// ビルドJavaScript
