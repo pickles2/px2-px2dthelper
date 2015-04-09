@@ -45,6 +45,11 @@ class module_templates_module{
 	private $info = array();
 
 	/**
+	 * README.md
+	 */
+	private $readme = '';
+
+	/**
 	 * 編集フィールド情報
 	 */
 	private $fields = array();
@@ -53,6 +58,11 @@ class module_templates_module{
 	 * sub modules
 	 */
 	private $sub_modules = array();
+
+	/**
+	 * モジュール個別の名前領域
+	 */
+	private $nameSpace = array();
 
 	/**
 	 * constructor
@@ -68,7 +78,12 @@ class module_templates_module{
 		$this->template = $this->px->fs()->read_file( $mod_path.'/template.html' );
 		$this->info = json_decode('{}');
 		if( $this->px->fs()->is_file( $mod_path.'/info.json' ) ){
-			$this->info = json_decode($this->px->fs()->read_file( $mod_path.'/info.json' ));
+			$this->info = json_decode( $this->px->fs()->read_file( $mod_path.'/info.json' ) );
+		}
+		if( $this->px->fs()->is_file( $mod_path.'/README.html' ) ){
+			$this->readme = $this->px->fs()->read_file( $mod_path.'/README.html' );
+		}elseif( $this->px->fs()->is_file( $mod_path.'/README.md' ) ){
+			$this->readme = \Michelf\MarkdownExtra::defaultTransform( $this->px->fs()->read_file( $mod_path.'/README.md' ) );
 		}
 		$this->sub_modules = array();
 		$this->fields = array();
@@ -80,7 +95,31 @@ class module_templates_module{
 	 * モジュールIDをパースする
 	 */
 	private function parse( $src ){
-		// UTODO: 未実装
+		while( 1 ){
+			if( !preg_match( '/^(.*?)\\{\\&(.*?)\\&\\}(.*)$/si', $src, $matched ) ){
+				break;
+			}
+			$field = json_decode(trim($matched[2]));
+			$src = $matched[3];
+
+			if( @$field->input ){
+				$this->fields[$field->input->name] = $field->input;
+				$this->fields[$field->input->name]->fieldType = 'input';
+
+			}elseif( @$field->module ){
+				$this->fields[$field->module->name] = $field->module;
+				$this->fields[$field->module->name]->fieldType = 'module';
+
+			}elseif( @$field->loop ){
+
+			}elseif( @$field->if ){
+
+			}elseif( @$field->echo ){
+
+			}
+
+			continue;
+		}
 		return true;
 	}
 
@@ -89,6 +128,20 @@ class module_templates_module{
 	 */
 	public function get_id(){
 		return $this->mod_id;
+	}
+
+	/**
+	 * info.json の内容を取得する
+	 */
+	public function get_info(){
+		return $this->info;
+	}
+
+	/**
+	 * README.md の内容を取得する
+	 */
+	public function get_readme(){
+		return $this->readme;
 	}
 
 	/**
@@ -119,8 +172,45 @@ class module_templates_module{
 	 * モジュールにデータをバインドして返す
 	 */
 	public function bind( $data ){
-		// UTODO: 暫定的にそのまま返す
-		return $this->template;
+		$src = $this->template;
+		$rtn = '';
+		while( 1 ){
+			if( !preg_match( '/^(.*?)\\{\\&(.*?)\\&\\}(.*)$/si', $src, $matched ) ){
+				$rtn .= $src;
+				break;
+			}
+			$rtn .= $matched[1];
+			$field = json_decode(trim($matched[2]));
+			$src = $matched[3];
+
+			if( @$field->input ){
+				// input field
+				$tmpVal = $data->fields->{@$field->input->name};
+				if( !@$field->input->hidden ){//← "hidden": true だったら、非表示(=出力しない)
+					$rtn .= $tmpVal;
+				}
+				@$this->nameSpace->vars[@$field->input->name] = [
+					"fieldType"=>"input",
+					"type"=>$field->input->type,
+					"val"=>"tmpVal"
+				];
+
+
+			}elseif( @$field->module ){
+				// $this->fields[$field->module->name] = $field->module;
+				// $this->fields[$field->module->name]->fieldType = 'module';
+
+			}elseif( @$field->loop ){
+
+			}elseif( @$field->if ){
+
+			}elseif( @$field->echo ){
+
+			}
+
+			continue;
+		}
+		return $rtn;
 	}
 
 }

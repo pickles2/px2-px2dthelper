@@ -239,3 +239,23 @@ pre code{
 .anchor_links{
 	margin:2em 7%;
 }
+
+/**
+ * headers
+ */
+h1{
+	font-size: 3em;
+}
+h2{
+	background-color: #00a0e6;
+	color: #f9f9f9;
+	padding: 0.4em 1em 0.3em;
+	margin-left: -1em;
+	margin-right: 0em;
+}
+h3{
+	border-bottom: 2px solid #666;
+}
+h4{
+	border-bottom: 1px solid #999;
+}

@@ -141,15 +141,37 @@ class document_modules{
 
 				$mod = $obj_module_templates->get( $packageId.':'.$matched[1].'/'.$matched[2] );
 
-				$tmp_bin = $mod->get_template();
-				$tmp_bin = $obj_module_templates->bind( $packageId.':'.$matched[1].'/'.$matched[2], @$infoJson->sample_data );
+				$sample_data = null;
+				if( is_array( @$mod->get_info()->sample_data ) && count( @$mod->get_info()->sample_data ) ){
+					$sample_data = @$mod->get_info()->sample_data;
+				}
 
+				$tmp_bin = $mod->get_template();
 				$rtn .= '<h3>'.$mod->get_name().'</h3>'."\n";
-				$rtn .= "\n"."\n";
-				$rtn .= $tmp_bin;
-				$rtn .= "\n"."\n";
+				if( strlen( $mod->get_readme() ) ){
+					$rtn .= $mod->get_readme();
+				}
+
+				if( !is_array( $sample_data ) ){
+					$rtn .= "\n"."\n";
+					$rtn .= $tmp_bin;
+					$rtn .= "\n"."\n";
+				}
 				$rtn .= '<pre style="margin:1em 0; overflow:auto; max-height:12em;">'.htmlspecialchars($tmp_bin).'</pre>';
 				$rtn .= "\n"."\n";
+
+				if( is_array( $sample_data ) ){
+					foreach( $sample_data as $rowData ){
+						$tmp_sample_html = $obj_module_templates->bind( $packageId.':'.$matched[1].'/'.$matched[2], $rowData->data );
+						$rtn .= '<h4>'.htmlspecialchars($rowData->title).'</h4>'."\n";
+						$rtn .= "\n"."\n";
+						$rtn .= $tmp_sample_html;
+						$rtn .= "\n"."\n";
+						$rtn .= '<pre style="margin:1em 0; overflow:auto; max-height:12em;">'.htmlspecialchars($tmp_sample_html).'</pre>';
+						$rtn .= "\n"."\n";
+					}
+				}
+
 			}
 		}
 		return trim($rtn);
