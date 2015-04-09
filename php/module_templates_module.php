@@ -105,6 +105,8 @@ class module_templates_module{
 			$this->modTop = $options->modTop;
 			$this->template = $options->src;
 			$this->sub_mod_name = $options->subModName;
+		}else{
+			$this->modTop = $this;
 		}
 
 		$this->parse( $this->template );
@@ -241,7 +243,7 @@ class module_templates_module{
 	 * サブモジュールを取得する
 	 */
 	public function get_sub_module( $sub_module_name ){
-		return $this->sub_modules[ $sub_module_name ];
+		return @$this->sub_modules[ $sub_module_name ];
 	}
 
 	/**
@@ -276,14 +278,14 @@ class module_templates_module{
 
 
 			}elseif( @$field->module ){
-				foreach( $data->fields->{$field->module->name} as $tmp_row ){
-					// $rtn .= $tmp_row;
+				foreach( $data->fields->{$field->module->name} as $tmp_data ){
+					// $rtn .= $tmp_data;
 				}
 
 			}elseif( @$field->loop ){
 				$tmpSearchResult = $this->search_end_tag( $src, 'loop' );
-				foreach( $data->fields->{$field->loop->name} as $tmp_row ){
-					// $rtn .= $tmp_row;
+				foreach( $data->fields->{$field->loop->name} as $tmp_data ){
+					$rtn .= $this->get_sub_module( $field->loop->name )->bind( $tmp_data );
 				}
 				$src = $tmpSearchResult->nextSrc;
 
