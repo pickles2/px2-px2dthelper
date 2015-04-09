@@ -279,7 +279,7 @@ class module_templates_module{
 
 			}elseif( @$field->module ){
 				foreach( $data->fields->{$field->module->name} as $tmp_data ){
-					// $rtn .= $tmp_data;
+					$rtn .= $this->main->module_templates()->get( $tmp_data->modId )->bind( $tmp_data );
 				}
 
 			}elseif( @$field->loop ){
