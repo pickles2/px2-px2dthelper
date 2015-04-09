@@ -65,9 +65,19 @@ class module_templates_module{
 	private $nameSpace = array();
 
 	/**
+	 * 最上位モジュール(サブモジュールにセットされる)
+	 */
+	private $modTop = null;
+
+	/**
+	 * sub module name (サブモジュールにセットされる)
+	 */
+	private $sub_mod_name = array();
+
+	/**
 	 * constructor
 	 */
-	public function __construct( $px, $main, $mod_id, $mod_path ){
+	public function __construct( $px, $main, $mod_id, $mod_path, $options = null ){
 		$this->px = $px;
 		$this->main = $main;
 
@@ -75,24 +85,33 @@ class module_templates_module{
 		$this->modTpls = $this->main->module_templates();
 
 		$this->mod_id = $mod_id;
-		$this->template = $this->px->fs()->read_file( $mod_path.'/template.html' );
-		$this->info = json_decode('{}');
-		if( $this->px->fs()->is_file( $mod_path.'/info.json' ) ){
-			$this->info = json_decode( $this->px->fs()->read_file( $mod_path.'/info.json' ) );
+
+		if( strlen( $mod_path ) && is_dir( $mod_path ) ){
+			$this->template = $this->px->fs()->read_file( $mod_path.'/template.html' );
+			$this->info = json_decode('{}');
+			if( $this->px->fs()->is_file( $mod_path.'/info.json' ) ){
+				$this->info = json_decode( $this->px->fs()->read_file( $mod_path.'/info.json' ) );
+			}
+			if( $this->px->fs()->is_file( $mod_path.'/README.html' ) ){
+				$this->readme = $this->px->fs()->read_file( $mod_path.'/README.html' );
+			}elseif( $this->px->fs()->is_file( $mod_path.'/README.md' ) ){
+				$this->readme = \Michelf\MarkdownExtra::defaultTransform( $this->px->fs()->read_file( $mod_path.'/README.md' ) );
+			}
 		}
-		if( $this->px->fs()->is_file( $mod_path.'/README.html' ) ){
-			$this->readme = $this->px->fs()->read_file( $mod_path.'/README.html' );
-		}elseif( $this->px->fs()->is_file( $mod_path.'/README.md' ) ){
-			$this->readme = \Michelf\MarkdownExtra::defaultTransform( $this->px->fs()->read_file( $mod_path.'/README.md' ) );
-		}
-		$this->sub_modules = array();
+		$this->sub_modules = [];
 		$this->fields = array();
+
+		if( is_object( $options ) ){
+			$this->modTop = $options->modTop;
+			$this->template = $options->src;
+			$this->sub_mod_name = $options->subModName;
+		}
 
 		$this->parse( $this->template );
 	}
 
 	/**
-	 * モジュールIDをパースする
+	 * モジュールをパースする
 	 */
 	private function parse( $src ){
 		while( 1 ){
@@ -111,6 +130,25 @@ class module_templates_module{
 				$this->fields[$field->module->name]->fieldType = 'module';
 
 			}elseif( @$field->loop ){
+				$this->fields[$field->loop->name] = $field->loop;
+				$this->fields[$field->loop->name]->fieldType = 'loop';
+
+				$tmpSearchResult = $this->search_end_tag( $src, 'loop' );
+				if( !is_array( $this->sub_modules ) ){
+					$this->sub_modules = [];
+				}
+				@$this->modTop->sub_modules[@$field->loop->name] = new module_templates_module(
+					$this->px,
+					$this->main,
+					$this->get_id(),
+					null,
+					json_decode( json_encode([
+						"src"=>$tmpSearchResult->content,
+						"subModName"=>$field->loop->name,
+						"modTop"=>$this->modTop
+					]) )
+				);
+				$src = $tmpSearchResult->nextSrc;
 
 			}elseif( @$field->if ){
 
@@ -120,7 +158,45 @@ class module_templates_module{
 
 			continue;
 		}
+
 		return true;
+	}
+
+	/* 閉じタグを探す */
+	private function search_end_tag( $src, $fieldType ){
+		$rtn = json_decode('{
+			"content": "",
+			"nextSrc": ""
+		}');
+		$rtn->nextSrc = $src;
+
+		$depth = 0;
+		while( 1 ){
+			if( !preg_match( '/^(.*?)\\{\\&(.*?)\\&\\}(.*)$/is', $rtn->nextSrc, $matched ) ){
+				break;
+			}
+			$rtn->content .= $matched[1];
+			$fieldSrc = trim($matched[2]);
+			$field = json_decode( $fieldSrc );
+			$rtn->nextSrc = $matched[3];
+
+			if( $field == 'end'.$fieldType ){
+				if( $depth ){
+					$depth --;
+					$rtn->content .= '{&'.$fieldSrc.'&}';
+					continue;
+				}
+				return $rtn;
+			}else if( @$field->{$fieldType} ){
+				$depth ++;
+				$rtn->content .= '{&'.$fieldSrc.'&}';
+				continue;
+			}else{
+				$rtn->content .= '{&'.$fieldSrc.'&}';
+				continue;
+			}
+		}
+		return $rtn;
 	}
 
 	/**
@@ -200,14 +276,33 @@ class module_templates_module{
 
 
 			}elseif( @$field->module ){
-				// $this->fields[$field->module->name] = $field->module;
-				// $this->fields[$field->module->name]->fieldType = 'module';
+				foreach( $data->fields->{$field->module->name} as $tmp_row ){
+					// $rtn .= $tmp_row;
+				}
 
 			}elseif( @$field->loop ){
+				$tmpSearchResult = $this->search_end_tag( $src, 'loop' );
+				foreach( $data->fields->{$field->loop->name} as $tmp_row ){
+					// $rtn .= $tmp_row;
+				}
+				$src = $tmpSearchResult->nextSrc;
 
 			}elseif( @$field->if ){
+				// if field
+				// is_set に指定されたフィールドに値があったら、という評価ロジックを取り急ぎ実装。
+				// もうちょっとマシな条件の書き方がありそうな気がするが、あとで考える。
+				$tmpSearchResult = $this->search_end_tag( $src, 'if' );
+				$src = '';
+				if( @$this->nameSpace->vars[@$field->if->is_set] && strlen(trim(@$this->nameSpace->vars[@$field->if->is_set]->val)) ){
+					$src .= $tmpSearchResult->content;
+				}
+				$src .= $tmpSearchResult->nextSrc;
 
 			}elseif( @$field->echo ){
+				// echo field
+				if( @$this->nameSpace->vars[@$field->echo->ref] && @$this->nameSpace->vars[@$field->echo->ref]->val ){
+					$rtn .= $this->nameSpace->vars[$field->echo->ref]->val;
+				}
 
 			}
 
