@@ -62,7 +62,7 @@ class module_templates_module{
 	/**
 	 * モジュール個別の名前領域
 	 */
-	private $nameSpace = array();
+	private $name_space = array();
 
 	/**
 	 * 最上位モジュール(サブモジュールにセットされる)
@@ -72,7 +72,7 @@ class module_templates_module{
 	/**
 	 * sub module name (サブモジュールにセットされる)
 	 */
-	private $sub_mod_name = array();
+	private $sub_mod_name = null;
 
 	/**
 	 * constructor
@@ -102,14 +102,23 @@ class module_templates_module{
 		$this->fields = array();
 
 		if( is_object( $options ) ){
-			$this->modTop = $options->modTop;
+			// $this->modTop = $options->modTop;
 			$this->template = $options->src;
 			$this->sub_mod_name = $options->subModName;
 		}else{
-			$this->modTop = $this;
+			// $this->modTop = $this;
 		}
+		$this->set_mod_top( @$options->modTop );
 
 		$this->parse( $this->template );
+	}
+
+	private function set_mod_top( $modTop ){
+		if( is_object( $modTop ) ){
+			$this->modTop = $modTop;
+		}
+		$this->modTop = $this;
+		return true;
 	}
 
 	/**
@@ -247,6 +256,28 @@ class module_templates_module{
 	}
 
 	/**
+	 * 名前領域に値をセット
+	 */
+	public function set_name_space( $name, $val ){
+		if( !is_object( $this->name_space ) ){ $this->name_space = new \stdClass(); }
+		if( !is_array( @$this->name_space->val ) ){ $this->name_space->val = array(); }
+		@$this->name_space->val[ $name ] = $val;
+		if( $this->name_space->val[ $name ] !== $val ){
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * 名前領域から値を取得
+	 */
+	public function get_name_space( $name ){
+		if( !is_object( $this->name_space ) ){ $this->name_space = new \stdClass(); }
+		if( !is_array( $this->name_space->val ) ){ $this->name_space->val = array(); }
+		return @$this->name_space->val[ $name ];
+	}
+
+	/**
 	 * モジュールにデータをバインドして返す
 	 */
 	public function bind( $data, $mode = 'finalize' ){
@@ -270,11 +301,11 @@ class module_templates_module{
 				if( !@$field->input->hidden ){//← "hidden": true だったら、非表示(=出力しない)
 					$rtn .= $tmpVal;
 				}
-				@$this->nameSpace->vars[@$field->input->name] = [
+				$this->modTop->set_name_space( @$field->input->name, json_decode(json_encode([
 					"fieldType"=>"input",
 					"type"=>$field->input->type,
-					"val"=>"tmpVal"
-				];
+					"val"=>$tmpVal
+				])) );
 
 
 			}elseif( @$field->module ){
@@ -295,15 +326,15 @@ class module_templates_module{
 				// もうちょっとマシな条件の書き方がありそうな気がするが、あとで考える。
 				$tmpSearchResult = $this->search_end_tag( $src, 'if' );
 				$src = '';
-				if( @$this->nameSpace->vars[@$field->if->is_set] && strlen(trim(@$this->nameSpace->vars[@$field->if->is_set]->val)) ){
+				if( @$this->modTop->get_name_space( @$field->if->is_set ) && strlen(trim(@$this->modTop->get_name_space( @$field->if->is_set )->val)) ){
 					$src .= $tmpSearchResult->content;
 				}
 				$src .= $tmpSearchResult->nextSrc;
 
 			}elseif( @$field->echo ){
 				// echo field
-				if( @$this->nameSpace->vars[@$field->echo->ref] && @$this->nameSpace->vars[@$field->echo->ref]->val ){
-					$rtn .= $this->nameSpace->vars[$field->echo->ref]->val;
+				if( @$this->modTop->get_name_space( @$field->echo->ref ) && @$this->modTop->get_name_space( @$field->echo->ref )->val ){
+					$rtn .= $this->modTop->get_name_space( @$field->echo->ref )->val;
 				}
 
 			}
