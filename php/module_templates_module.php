@@ -62,7 +62,7 @@ class module_templates_module{
 	/**
 	 * モジュール個別の名前領域
 	 */
-	private $name_space = array();
+	private $name_space = null;
 
 	/**
 	 * 最上位モジュール(サブモジュールにセットされる)
@@ -77,7 +77,7 @@ class module_templates_module{
 	/**
 	 * constructor
 	 */
-	public function __construct( $px, $main, $mod_id, $mod_path, $options = null ){
+	public function __construct( $px, $main, $mod_id, $mod_path, $options = null, $modTop = null ){
 		$this->px = $px;
 		$this->main = $main;
 
@@ -101,24 +101,35 @@ class module_templates_module{
 		$this->sub_modules = [];
 		$this->fields = array();
 
-		if( is_object( $options ) ){
-			// $this->modTop = $options->modTop;
+		if( is_object( $options ) && strlen($options->subModName) ){
 			$this->template = $options->src;
 			$this->sub_mod_name = $options->subModName;
-		}else{
-			// $this->modTop = $this;
 		}
-		$this->set_mod_top( @$options->modTop );
+		$this->set_mod_top( @$modTop );
 
 		$this->parse( $this->template );
 	}
 
+	/**
+	 * 最上位モジュールオブジェクトをセット
+	 */
 	private function set_mod_top( $modTop ){
 		if( is_object( $modTop ) ){
 			$this->modTop = $modTop;
+			return true;
 		}
 		$this->modTop = $this;
 		return true;
+	}
+
+	/**
+	 * 最上位モジュールオブジェクトを取得
+	 */
+	private function get_mod_top(){
+		if( strlen( $this->sub_mod_name ) ){
+			return $this->modTop;
+		}
+		return $this;
 	}
 
 	/**
@@ -148,16 +159,16 @@ class module_templates_module{
 				if( !is_array( $this->sub_modules ) ){
 					$this->sub_modules = [];
 				}
-				@$this->modTop->sub_modules[@$field->loop->name] = new module_templates_module(
+				@$this->get_mod_top()->sub_modules[@$field->loop->name] = new self(
 					$this->px,
 					$this->main,
 					$this->get_id(),
 					null,
 					json_decode( json_encode([
 						"src"=>$tmpSearchResult->content,
-						"subModName"=>$field->loop->name,
-						"modTop"=>$this->modTop
-					]) )
+						"subModName"=>$field->loop->name
+					]) ) ,
+					$this->get_mod_top()
 				);
 				$src = $tmpSearchResult->nextSrc;
 
@@ -256,6 +267,14 @@ class module_templates_module{
 	}
 
 	/**
+	 * sub_mod_name を取得する
+	 * 自身がサブモジュールではない場合、nullが返ります。
+	 */
+	public function get_sub_mod_name(){
+		return $this->sub_mod_name;
+	}
+
+	/**
 	 * 名前領域に値をセット
 	 */
 	public function set_name_space( $name, $val ){
@@ -276,6 +295,7 @@ class module_templates_module{
 		if( !is_array( $this->name_space->val ) ){ $this->name_space->val = array(); }
 		return @$this->name_space->val[ $name ];
 	}
+
 
 	/**
 	 * モジュールにデータをバインドして返す
@@ -301,7 +321,7 @@ class module_templates_module{
 				if( !@$field->input->hidden ){//← "hidden": true だったら、非表示(=出力しない)
 					$rtn .= $tmpVal;
 				}
-				$this->modTop->set_name_space( @$field->input->name, json_decode(json_encode([
+				$this->get_mod_top()->set_name_space( @$field->input->name, json_decode(json_encode([
 					"fieldType"=>"input",
 					"type"=>$field->input->type,
 					"val"=>$tmpVal
@@ -326,15 +346,15 @@ class module_templates_module{
 				// もうちょっとマシな条件の書き方がありそうな気がするが、あとで考える。
 				$tmpSearchResult = $this->search_end_tag( $src, 'if' );
 				$src = '';
-				if( @$this->modTop->get_name_space( @$field->if->is_set ) && strlen(trim(@$this->modTop->get_name_space( @$field->if->is_set )->val)) ){
+				if( @$this->get_mod_top()->get_name_space( @$field->if->is_set ) && strlen(trim(@$this->get_mod_top()->get_name_space( @$field->if->is_set )->val)) ){
 					$src .= $tmpSearchResult->content;
 				}
 				$src .= $tmpSearchResult->nextSrc;
 
 			}elseif( @$field->echo ){
 				// echo field
-				if( @$this->modTop->get_name_space( @$field->echo->ref ) && @$this->modTop->get_name_space( @$field->echo->ref )->val ){
-					$rtn .= $this->modTop->get_name_space( @$field->echo->ref )->val;
+				if( @$this->get_mod_top()->get_name_space( @$field->echo->ref ) && @$this->get_mod_top()->get_name_space( @$field->echo->ref )->val ){
+					$rtn .= $this->get_mod_top()->get_name_space( @$field->echo->ref )->val;
 				}
 
 			}
