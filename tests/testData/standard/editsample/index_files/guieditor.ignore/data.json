@@ -5,6 +5,21 @@
    "fields": {
     "main": [
      {
+      "modId": "Modules2:hoge/attention_box",
+      "fields": {
+       "heading": "",
+       "main": [
+        {
+         "modId": "Modules1:foo/bar",
+         "fields": {
+          "input": "別のモジュールを入れ子にしたサンプル",
+          "mainLoop": []
+         }
+        }
+       ]
+      }
+     },
+     {
       "modId": "Modules2:hoge/fuga",
       "fields": {
        "sample_html": "<p>HTMLを入力してみました。</p>"
