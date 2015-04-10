@@ -154,7 +154,7 @@ class document_modules{
 
 				if( !is_array( $sample_data ) ){
 					$rtn .= "\n"."\n";
-					$rtn .= $tmp_bin;
+					$rtn .= '<script>document.write('.json_encode($tmp_bin).');</script>';
 					$rtn .= "\n"."\n";
 				}
 				$rtn .= '<pre style="margin:1em 0; overflow:auto; max-height:12em;">'.htmlspecialchars($tmp_bin).'</pre>';
@@ -165,7 +165,7 @@ class document_modules{
 						$tmp_sample_html = $obj_module_templates->bind( $packageId.':'.$matched[1].'/'.$matched[2], $rowData->data );
 						$rtn .= '<h4>'.htmlspecialchars($rowData->title).'</h4>'."\n";
 						$rtn .= "\n"."\n";
-						$rtn .= $tmp_sample_html;
+						$rtn .= '<script>document.write('.json_encode($tmp_sample_html).');</script>';
 						$rtn .= "\n"."\n";
 						$rtn .= '<pre style="margin:1em 0; overflow:auto; max-height:12em;">'.htmlspecialchars($tmp_sample_html).'</pre>';
 						$rtn .= "\n"."\n";
