@@ -76,6 +76,13 @@ class module_templates_module{
 
 	/**
 	 * constructor
+	 * 
+	 * @param object $px $pxオブジェクト
+	 * @param object $main main.php のインスタンス
+	 * @param string $mod_id モジュールID
+	 * @param string $mod_path モジュールのパス
+	 * @param object $options オプション
+	 * @param object $modTop 最上位モジュールオブジェクト (self のインスタンス)
 	 */
 	public function __construct( $px, $main, $mod_id, $mod_path, $options = null, $modTop = null ){
 		$this->px = $px;
@@ -125,8 +132,10 @@ class module_templates_module{
 
 	/**
 	 * 最上位モジュールオブジェクトをセット
+	 * @param object $modTop 最上位オブジェクト (省略時 $this を適用)
+	 * @return bool true
 	 */
-	private function set_mod_top( $modTop ){
+	private function set_mod_top( $modTop = null ){
 		if( is_object( $modTop ) ){
 			$this->modTop = $modTop;
 			return true;
@@ -137,6 +146,7 @@ class module_templates_module{
 
 	/**
 	 * 最上位モジュールオブジェクトを取得
+	 * @return object 最上位モジュールオブジェクト
 	 */
 	private function get_mod_top(){
 		if( strlen( $this->sub_mod_name ) ){

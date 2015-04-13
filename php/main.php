@@ -76,6 +76,8 @@ class main{
 
 	/**
 	 * constructor
+	 * 
+	 * @param object $px $pxオブジェクト
 	 */
 	public function __construct( $px ){
 		$this->px = $px;

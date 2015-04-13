@@ -19,7 +19,8 @@
     "require-dev": {
         "tomk79/px-fw-2.x": "dev-develop" ,
         "tomk79/filesystem": "1.*",
-        "phpunit/phpunit": "4.1.*"
+        "phpunit/phpunit": "4.1.*",
+        "phpdocumentor/phpdocumentor": "2.7.*"
     },
     "autoload": {
         "files": [

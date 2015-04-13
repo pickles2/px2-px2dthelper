@@ -31,6 +31,9 @@ class module_templates{
 
 	/**
 	 * constructor
+	 * 
+	 * @param object $px $pxオブジェクト
+	 * @param object $main main.php のインスタンス
 	 */
 	public function __construct( $px, $main ){
 		$this->px = $px;
