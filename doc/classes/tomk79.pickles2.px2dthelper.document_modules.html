@@ -114,7 +114,7 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">19</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">16</span>
                                 </a>
                             </li>
                             <li>
@@ -144,37 +144,37 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1573097508"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1720646440"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1573097508" class="accordion-body collapse in">
+            <div id="namespace-1720646440" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1301844085"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-369763056"></a>
                                 <a href="../namespaces/tomk79.html" style="margin-left: 30px; padding-left: 0">tomk79</a>
             </div>
-            <div id="namespace-1301844085" class="accordion-body collapse ">
+            <div id="namespace-369763056" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2126045271"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1688132386"></a>
                                 <a href="../namespaces/tomk79.pickles2.html" style="margin-left: 30px; padding-left: 0">pickles2</a>
             </div>
-            <div id="namespace-2126045271" class="accordion-body collapse ">
+            <div id="namespace-1688132386" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-235467921"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-537683916"></a>
                                 <a href="../namespaces/tomk79.pickles2.px2dthelper.html" style="margin-left: 30px; padding-left: 0">px2dthelper</a>
             </div>
-            <div id="namespace-235467921" class="accordion-body collapse ">
+            <div id="namespace-537683916" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -424,13 +424,20 @@
             <article class="method">
                 <h3 class="public ">load()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">load() </pre>
+                <pre class="signature" style="margin-right: 54px;">load() : string</pre>
                 <p><em>ドキュメントモジュール定義をロードする</em></p>
-                
+                <p>モジュール定義の情報から、スタイルシートとJavaScriptコードを生成します。</p>
+<p>HTMLのheadセクション内に、下記のようにコードを記述します。</p>
+<pre><code>&lt;?php
+print (new \tomk79\pickles2\px2dthelper\main($px))-&gt;document_modules()-&gt;load();
+?&gt;</code></pre>
 
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>HTMLコード(styleタグ、およびscriptタグ)</p>
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -450,13 +457,20 @@
             <article class="method">
                 <h3 class="public ">build_css()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">build_css() </pre>
+                <pre class="signature" style="margin-right: 54px;">build_css() : string</pre>
                 <p><em>ドキュメントモジュール定義のスタイルを統合</em></p>
-                
+                <p>モジュール定義の情報から、スタイルシートを生成します。</p>
+<p>スタイルシートファイル(例: <code>/common/styles/contents.css</code> など)に、下記のようにコードを記述します。</p>
+<pre><code>&lt;?php
+print (new \tomk79\pickles2\px2dthelper\main($px))-&gt;document_modules()-&gt;build_css();
+?&gt;</code></pre>
 
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>CSSコード</p>
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -476,13 +490,20 @@
             <article class="method">
                 <h3 class="public ">build_js()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">build_js() </pre>
+                <pre class="signature" style="margin-right: 54px;">build_js() : string</pre>
                 <p><em>ドキュメントモジュール定義のスクリプトを統合</em></p>
-                
+                <p>モジュール定義の情報から、JavaScriptコードを生成します。</p>
+<p>スクリプトファイル(例: <code>/common/scripts/contents.js</code> など)に、下記のようにコードを記述します。</p>
+<pre><code>&lt;?php
+print (new \tomk79\pickles2\px2dthelper\main($px))-&gt;document_modules()-&gt;build_js();
+?&gt;</code></pre>
 
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>JavaScriptコード</p>
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -502,13 +523,22 @@
             <article class="method">
                 <h3 class="public ">build_styleguide()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">build_styleguide() </pre>
+                <pre class="signature" style="margin-right: 54px;">build_styleguide() : string</pre>
                 <p><em>スタイルガイドを生成</em></p>
-                
+                <p>モジュール定義の情報から、スタイルガイドページを生成します。</p>
+<p>コンテンツに、下記のコードを記述します。</p>
+<pre><code>&lt;!-- autoindex --&gt;
+
+&lt;?php
+print (new \tomk79\pickles2\px2dthelper\main($px))-&gt;document_modules()-&gt;build_styleguide();
+?&gt;</code></pre>
 
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>スタイルガイドのHTMLコード</p>
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -530,7 +560,11 @@
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">build_content() : string</pre>
                 <p><em>コンテンツソースを生成する</em></p>
-                
+                <p>Pickles 2 Desktop Tool が生成する <code>data.json</code> から、カレントコンテンツのHTMLコードを生成します。</p>
+<p>コンテンツに、下記のコードを記述します。</p>
+<pre><code>&lt;?php
+print (new \tomk79\pickles2\px2dthelper\main($px))-&gt;document_modules()-&gt;build_content();
+?&gt;</code></pre>
 
                 
                 
@@ -557,26 +591,29 @@
             <article class="method">
                 <h3 class="private ">build_css_resources()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">build_css_resources(  <span class="argument">$path</span>,   <span class="argument">$bin</span>) </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">build_css_resources(string  <span class="argument">$path</span>, string  <span class="argument">$bin</span>) : string</pre>
+                <p><em>CSSリソースをビルドする</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>string</td>
                                 <td>$path </td>
-                                <td></td>
+                                <td><p>CSSファイルのパス</p></td>
                             </tr>
                                                     <tr>
-                                <td></td>
+                                <td>string</td>
                                 <td>$bin </td>
-                                <td></td>
+                                <td><p>ビルド前のCSSコード</p></td>
                             </tr>
                                             </table>
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>CSSコード</p>
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -684,7 +721,7 @@
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
                     on 
 Warning: date_default_timezone_get(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in /mydoc_TomK/Dropbox/localhosts/pickles2projects/px2-px2dthelper/vendor/twig/twig/lib/Twig/Extension/Core.php on line 89
-April 13th, 2015 at 04:14.
+April 13th, 2015 at 04:54.
                 </section>
             </section>
         </section>

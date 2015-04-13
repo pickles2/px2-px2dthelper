@@ -32,6 +32,18 @@ class document_modules{
 
 	/**
 	 * ドキュメントモジュール定義をロードする
+	 * 
+	 * モジュール定義の情報から、スタイルシートとJavaScriptコードを生成します。
+	 * 
+	 * HTMLのheadセクション内に、下記のようにコードを記述します。
+	 * 
+	 * ```
+	 * <?php
+	 * print (new \tomk79\pickles2\px2dthelper\main($px))->document_modules()->load();
+	 * ?>
+	 * ```
+	 * 
+	 * @return string HTMLコード(styleタグ、およびscriptタグ)
 	 */
 	public function load(){
 		$rtn = '';
@@ -42,6 +54,18 @@ class document_modules{
 
 	/**
 	 * ドキュメントモジュール定義のスタイルを統合
+	 * 
+	 * モジュール定義の情報から、スタイルシートを生成します。
+	 * 
+	 * スタイルシートファイル(例: `/common/styles/contents.css` など)に、下記のようにコードを記述します。
+	 * 
+	 * ```
+	 * <?php
+	 * print (new \tomk79\pickles2\px2dthelper\main($px))->document_modules()->build_css();
+	 * ?>
+	 * ```
+	 * 
+	 * @return string CSSコード
 	 */
 	public function build_css(){
 		$conf = $this->main->get_px2dtconfig();
@@ -76,6 +100,12 @@ class document_modules{
 		}
 		return trim($rtn);
 	}
+	/**
+	 * CSSリソースをビルドする
+	 * @param string $path CSSファイルのパス
+	 * @param string $bin ビルド前のCSSコード
+	 * @return string CSSコード
+	 */
 	private function build_css_resources( $path, $bin ){
 		$rtn = '';
 		while( 1 ){
@@ -111,6 +141,18 @@ class document_modules{
 
 	/**
 	 * ドキュメントモジュール定義のスクリプトを統合
+	 * 
+	 * モジュール定義の情報から、JavaScriptコードを生成します。
+	 * 
+	 * スクリプトファイル(例: `/common/scripts/contents.js` など)に、下記のようにコードを記述します。
+	 * 
+	 * ```
+	 * <?php
+	 * print (new \tomk79\pickles2\px2dthelper\main($px))->document_modules()->build_js();
+	 * ?>
+	 * ```
+	 * 
+	 * @return string JavaScriptコード
 	 */
 	public function build_js(){
 		$conf = $this->main->get_px2dtconfig();
@@ -127,6 +169,20 @@ class document_modules{
 
 	/**
 	 * スタイルガイドを生成
+	 * 
+	 * モジュール定義の情報から、スタイルガイドページを生成します。
+	 * 
+	 * コンテンツに、下記のコードを記述します。
+	 * 
+	 * ```
+	 * <!-- autoindex -->
+	 * 
+	 * <?php
+	 * print (new \tomk79\pickles2\px2dthelper\main($px))->document_modules()->build_styleguide();
+	 * ?>
+	 * ```
+	 * 
+	 * @return string スタイルガイドのHTMLコード
 	 */
 	public function build_styleguide(){
 		$conf = $this->main->get_px2dtconfig();
@@ -175,6 +231,7 @@ class document_modules{
 		}
 		return trim($rtn);
 	}
+
 	/**
 	 * プレビュー表示HTMLコードを生成する
 	 * 
@@ -199,6 +256,17 @@ class document_modules{
 
 	/**
 	 * コンテンツソースを生成する
+	 * 
+	 * Pickles 2 Desktop Tool が生成する `data.json` から、カレントコンテンツのHTMLコードを生成します。
+	 * 
+	 * コンテンツに、下記のコードを記述します。
+	 * 
+	 * ```
+	 * <?php
+	 * print (new \tomk79\pickles2\px2dthelper\main($px))->document_modules()->build_content();
+	 * ?>
+	 * ```
+	 * 
 	 * @return string 生成されたコンテンツのHTMLコード
 	 */
 	public function build_content(){
