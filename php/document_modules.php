@@ -21,6 +21,9 @@ class document_modules{
 
 	/**
 	 * constructor
+	 * 
+	 * @param object $px $pxオブジェクト
+	 * @param object $main main.php のインスタンス
 	 */
 	public function __construct( $px, $main ){
 		$this->px = $px;
@@ -152,22 +155,18 @@ class document_modules{
 					$rtn .= $mod->get_readme();
 				}
 
-				if( !is_array( $sample_data ) ){
-					$rtn .= "\n"."\n";
-					$rtn .= '<script>document.write('.json_encode($tmp_bin).');</script>';
-					$rtn .= "\n"."\n";
-				}
-				$rtn .= '<pre style="margin:1em 0; overflow:auto; max-height:12em;">'.htmlspecialchars($tmp_bin).'</pre>';
+				$rtn .= $this->build_styleguide_mk_code_view($tmp_bin, array('title'=>'module template code'));
 				$rtn .= "\n"."\n";
 
 				if( is_array( $sample_data ) ){
 					foreach( $sample_data as $rowData ){
 						$tmp_sample_html = $obj_module_templates->bind( $packageId.':'.$matched[1].'/'.$matched[2], $rowData->data );
-						$rtn .= '<h4>'.htmlspecialchars($rowData->title).'</h4>'."\n";
+						$tmp_title = $rowData->title;
+						$rtn .= '<h4>'.htmlspecialchars($tmp_title).'</h4>'."\n";
 						$rtn .= "\n"."\n";
 						$rtn .= '<script>document.write('.json_encode($tmp_sample_html).');</script>';
 						$rtn .= "\n"."\n";
-						$rtn .= '<pre style="margin:1em 0; overflow:auto; max-height:12em;">'.htmlspecialchars($tmp_sample_html).'</pre>';
+						$rtn .= $this->build_styleguide_mk_code_view($tmp_sample_html, array('title'=>'sample code of "'.$tmp_title.'"'));
 						$rtn .= "\n"."\n";
 					}
 				}
@@ -176,9 +175,31 @@ class document_modules{
 		}
 		return trim($rtn);
 	}
+	/**
+	 * プレビュー表示HTMLコードを生成する
+	 * 
+	 * @param string $code プレビューしたいコード
+	 * @param array $opt オプション(省略可)
+	 * @return string プレビュー表示HTMLコード
+	 */
+	private function build_styleguide_mk_code_view($code, $opt = array()){
+		$rtn = '';
+		$rtn .= '<div style="margin:2em 1em 3em; border:1px solid #ddd; padding: 0; background:#f9f9f9; color:#999; border-radius:3px;">';
+		$rtn .= '<div style="font-size:xx-small; padding:0.3em 1em;">CODE: '.@htmlspecialchars($opt['title']).'</div>';
+		$rtn .= '<pre style="margin:0; border:none; padding: 0; background:transparent; color:inherit;">';
+		$rtn .= '<code style="display:block; background:transparent; border:none;">';
+		$rtn .= '<textarea style="height:12em; width:100%; border:none; background:transparent; padding: 1em; border-radius:0.5em; color:#000; font-size:small;" readonly="readonly">';
+		$rtn .= htmlspecialchars($code);
+		$rtn .= '</textarea>';
+		$rtn .= '</code>';
+		$rtn .= '</pre>';
+		$rtn .= '</div>';
+		return $rtn;
+	}
 
 	/**
 	 * コンテンツソースを生成する
+	 * @return string 生成されたコンテンツのHTMLコード
 	 */
 	public function build_content(){
 		$obj_module_templates = $this->main->module_templates();
