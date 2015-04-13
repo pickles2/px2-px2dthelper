@@ -41,6 +41,25 @@ class module_templates{
 		require_once(__DIR__.'/module_templates_module.php');
 
 		$this->mod_templates = [];
+		$this->mod_templates['_sys/root'] = new module_templates_module(
+			$this->px ,
+			$this->main ,
+			'_sys/root' ,
+			null
+		);
+		$this->mod_templates['_sys/unknown'] = new module_templates_module(
+			$this->px ,
+			$this->main ,
+			'_sys/unknown' ,
+			null
+		);
+		$this->mod_templates['_sys/html'] = new module_templates_module(
+			$this->px ,
+			$this->main ,
+			'_sys/html' ,
+			null
+		);
+
 		foreach( $this->px2dtconf->paths_module_template as $package_id=>$row ){
 			$categories = $this->px->fs()->ls( $row );
 			foreach( $categories as $category_id ){

@@ -177,4 +177,30 @@ class document_modules{
 		return trim($rtn);
 	}
 
+	/**
+	 * コンテンツソースを生成する
+	 */
+	public function build_content(){
+		$obj_module_templates = $this->main->module_templates();
+
+		$c_page_info = $this->px->site()->get_current_page_info();
+		$realpath_cont = $this->px->fs()->get_realpath( $this->px->get_path_docroot().$this->px->get_path_controot().'/'.$this->px->get_path_content() );
+		$realpath_files = $this->px->fs()->get_realpath( $this->px->get_path_docroot().$this->px->path_files() );
+		$realpath_json = $this->px->fs()->get_realpath( $realpath_files.'guieditor.ignore/data.json' );
+		if( !is_file( $realpath_json ) ){
+			$this->px->error( 'datafile is NOT defined. -> '.$realpath_files.'guieditor.ignore/data.json' );
+			return '';
+		}
+		$json = json_decode( $this->px->fs()->read_file( $realpath_json ) );
+
+		$rtn = '';
+
+		foreach( $json->bowl as $bowl_name=>$data ){
+			$rtn .= $obj_module_templates->bind( $data->modId, $data );
+			// var_dump( $bowl_name, $data );
+		}
+
+		return $rtn;
+	}
+
 }

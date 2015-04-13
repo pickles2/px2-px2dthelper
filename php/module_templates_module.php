@@ -98,6 +98,19 @@ class module_templates_module{
 				$this->readme = \Michelf\MarkdownExtra::defaultTransform( $this->px->fs()->read_file( $mod_path.'/README.md' ) );
 			}
 		}
+
+		// 特殊なシステムモジュール
+		if( $this->mod_id == '_sys/root' ){
+			$this->template = '{&{"module":{"name":"main"}}&}';
+
+		}elseif( $this->mod_id == '_sys/unknown' ){
+			$this->template = '<div style="background:#f00;padding:10px;color:#fff;text-align:center;border:1px solid #fdd;">[ERROR] 未知のモジュールテンプレートです。<!-- .error --></div>';
+
+		}elseif( $this->mod_id == '_sys/html' ){
+			$this->template = '{&{"input":{"type":"html","name":"main"}}&}';
+
+		}
+
 		$this->sub_modules = [];
 		$this->fields = array();
 
