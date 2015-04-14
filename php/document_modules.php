@@ -217,7 +217,8 @@ class document_modules{
 				if( is_array( $sample_data ) ){
 					foreach( $sample_data as $rowData ){
 						$tmp_sample_html = $obj_module_templates->bind( $packageId.':'.$matched[1].'/'.$matched[2], $rowData->data );
-						$tmp_title = $rowData->title;
+						$tmp_title = @$rowData->title;
+						if( !strlen( $tmp_title ) ){ $tmp_title = 'Coding sample'; }
 						$rtn .= '<h4>'.htmlspecialchars($tmp_title).'</h4>'."\n";
 						$rtn .= "\n"."\n";
 						$rtn .= '<script>document.write('.json_encode($tmp_sample_html).');</script>';
