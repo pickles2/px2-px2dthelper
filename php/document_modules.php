@@ -194,7 +194,15 @@ class document_modules{
 		}
 		$rtn = '';
 		foreach( $array_files as $packageId=>$array_files_row ){
-			$rtn .= '<h2>module: '.$packageId.'</h2>'."\n";
+			$package_info = $obj_module_templates->get_package_info( $packageId );
+			if( strlen( @$package_info->info->name ) ){
+				$rtn .= '<h2>'.htmlspecialchars( $package_info->info->name ).'</h2>'."\n";
+			}else{
+				$rtn .= '<h2>'.$packageId.'</h2>'."\n";
+			}
+			if( strlen( @$package_info->readme ) ){
+				$rtn .= '<div>'.$package_info->readme.'</div>'."\n";
+			}
 			foreach( $array_files_row as $path ){
 				preg_match( '/\/([a-zA-Z0-9\.\-\_]+?)\/([a-zA-Z0-9\.\-\_]+?)\/[a-zA-Z0-9\.\-\_]+?$/i', $path, $matched );
 
@@ -219,7 +227,7 @@ class document_modules{
 						$tmp_sample_html = $obj_module_templates->bind( $packageId.':'.$matched[1].'/'.$matched[2], $rowData->data );
 						$tmp_title = @$rowData->title;
 						if( !strlen( $tmp_title ) ){ $tmp_title = 'Coding sample'; }
-						$rtn .= '<h4>'.htmlspecialchars($tmp_title).'</h4>'."\n";
+						$rtn .= '<div style="padding:0.5em; background:#ddd; color:#666; font-size:xx-small; margin:1em 0; border:0; border-top:1px solid #999; border-bottom:1px solid #999;">sample: '.htmlspecialchars($tmp_title).'</div>'."\n";
 						$rtn .= "\n"."\n";
 						$rtn .= '<script>document.write('.json_encode($tmp_sample_html).');</script>';
 						$rtn .= "\n"."\n";

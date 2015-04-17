@@ -30,6 +30,11 @@ class module_templates{
 	private $mod_templates;
 
 	/**
+	 * package info list
+	 */
+	private $package_infos;
+
+	/**
 	 * constructor
 	 * 
 	 * @param object $px $pxオブジェクト
@@ -63,9 +68,24 @@ class module_templates{
 			null
 		);
 
+		$this->package_infos = [];
+		$this->package_readmes = [];
+
 		foreach( $this->px2dtconf->paths_module_template as $package_id=>$row ){
 			$categories = $this->px->fs()->ls( $row );
+			$this->package_infos[$package_id] = new \stdClass();
+			if( $this->px->fs()->is_file( $row.'/info.json' ) ){
+				$this->package_infos[$package_id]->info = json_decode( $this->px->fs()->read_file( $row.'/info.json' ) );
+			}
+			if( $this->px->fs()->is_file( $row.'/README.html' ) ){
+				$this->package_infos[$package_id]->readme = $this->px->fs()->read_file( $row.'/README.html' );
+			}elseif( $this->px->fs()->is_file( $row.'/README.md' ) ){
+				$this->package_infos[$package_id]->readme = \Michelf\MarkdownExtra::defaultTransform( $this->px->fs()->read_file( $row.'/README.md' ) );
+			}
 			foreach( $categories as $category_id ){
+				if( !$this->px->fs()->is_dir( $row.'/'.$category_id ) ){
+					continue;
+				}
 				$module_names = $this->px->fs()->ls( $row.'/'.$category_id );
 				foreach( $module_names as $module_name ){
 					if( !$this->px->fs()->is_file( $row.'/'.$category_id.'/'.$module_name.'/template.html' ) ){
@@ -102,6 +122,13 @@ class module_templates{
 			$mod = $mod->get_sub_module( $subModName );
 		}
 		return $mod;
+	}
+
+	/**
+	 * パッケージ情報を取得する
+	 */
+	public function get_package_info( $packageId ){
+		return @$this->package_infos[$packageId];
 	}
 
 }
