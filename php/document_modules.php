@@ -294,9 +294,20 @@ class document_modules{
 		$rtn = '';
 
 		foreach( $json->bowl as $bowl_name=>$data ){
-			$rtn .= $obj_module_templates->bind( $data->modId, $data );
-			// var_dump( $bowl_name, $data );
+			if( $bowl_name == 'main' ){
+				$rtn .= $obj_module_templates->bind( $data->modId, $data );
+			}else{
+				$rtn .= '<'.'?php ob_start(); ?'.'>'."\n";
+				$rtn .= $obj_module_templates->bind( $data->modId, $data );
+				$rtn .= '<'.'?php $px->bowl()->send( ob_get_clean(), '.json_encode($bowl_name).' ); ?'.'>'."\n";
+			}
 		}
+
+		$path_cache = $this->px->realpath_files_private_cache('/__contents.ignore.html');
+		$this->px->fs()->save_file( $path_cache, $rtn );
+		ob_start();
+		include( $path_cache );
+		$rtn = ob_get_clean();
 
 		return $rtn;
 	}
