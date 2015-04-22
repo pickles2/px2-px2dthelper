@@ -82,11 +82,27 @@ class module_templates{
 			}elseif( $this->px->fs()->is_file( $row.'/README.md' ) ){
 				$this->package_infos[$package_id]->readme = \Michelf\MarkdownExtra::defaultTransform( $this->px->fs()->read_file( $row.'/README.md' ) );
 			}
+
+			$categories = $this->sort( $categories, @$this->package_infos[$package_id]->info->sort );
+
 			foreach( $categories as $category_id ){
 				if( !$this->px->fs()->is_dir( $row.'/'.$category_id ) ){
 					continue;
 				}
+				$this->package_infos[$package_id.'/'.$category_id] = new \stdClass();
+				if( $this->px->fs()->is_file( $row.'/'.$category_id.'/info.json' ) ){
+					$this->package_infos[$package_id.'/'.$category_id]->info = json_decode( $this->px->fs()->read_file( $row.'/'.$category_id.'/info.json' ) );
+				}
+				if( $this->px->fs()->is_file( $row.'/'.$category_id.'/README.html' ) ){
+					$this->package_infos[$package_id.'/'.$category_id]->readme = $this->px->fs()->read_file( $row.'/'.$category_id.'/README.html' );
+				}elseif( $this->px->fs()->is_file( $row.'/'.$category_id.'/README.md' ) ){
+					$this->package_infos[$package_id.'/'.$category_id]->readme = \Michelf\MarkdownExtra::defaultTransform( $this->px->fs()->read_file( $row.'/'.$category_id.'/README.md' ) );
+				}
+
 				$module_names = $this->px->fs()->ls( $row.'/'.$category_id );
+
+				$module_names = $this->sort( $module_names, @$this->package_infos[$package_id.'/'.$category_id]->info->sort );
+
 				foreach( $module_names as $module_name ){
 					if( !$this->px->fs()->is_file( $row.'/'.$category_id.'/'.$module_name.'/template.html' ) ){
 						continue;
@@ -102,6 +118,28 @@ class module_templates{
 
 			}
 		}
+
+	}
+
+	/**
+	 * モジュールを並べ替える
+	 */
+	private function sort( $ary, $sortGuide ){
+		sort($ary);
+		$rtn = array();
+		if( is_array($sortGuide) ){
+			foreach( $sortGuide as $row ){
+				array_push( $rtn, $row );
+				$res = array_search( $row, $ary );
+				if( is_int($res) ){
+					unset($ary[$res]);
+				}
+			}
+		}
+		foreach( $ary as $row ){
+			array_push( $rtn, $row );
+		}
+		return $rtn;
 	}
 
 	/**
@@ -117,7 +155,7 @@ class module_templates{
 	 * 指定のモジュールオブジェクトを取得する
 	 */
 	public function get( $modId, $subModName = null ){
-		$mod = $this->mod_templates[ $modId ];
+		$mod = @$this->mod_templates[ $modId ];
 		if( strlen( $subModName ) ){
 			$mod = $mod->get_sub_module( $subModName );
 		}
@@ -125,10 +163,29 @@ class module_templates{
 	}
 
 	/**
+	 * モジュールの一覧を取得する
+	 */
+	public function get_module_list(){
+		return array_keys( @$this->mod_templates );
+	}
+
+	/**
 	 * パッケージ情報を取得する
+	 * @param string $packageId Package ID
+	 * @return object package info
 	 */
 	public function get_package_info( $packageId ){
 		return @$this->package_infos[$packageId];
+	}
+
+	/**
+	 * カテゴリ情報を取得する
+	 * @param string $packageId Package ID
+	 * @param string $categoryId Category ID
+	 * @return object category info
+	 */
+	public function get_category_info( $packageId, $categoryId ){
+		return @$this->package_infos[$packageId.'/'.$categoryId];
 	}
 
 }

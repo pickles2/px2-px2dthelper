@@ -353,7 +353,12 @@ class module_templates_module{
 
 			}elseif( @$field->module ){
 				foreach( $data->fields->{$field->module->name} as $tmp_data ){
-					$rtn .= $this->main->module_templates()->get( $tmp_data->modId )->bind( $tmp_data );
+					$tmp_mod = $this->main->module_templates()->get( $tmp_data->modId );
+					if( is_object($tmp_mod) ){
+						$rtn .= $tmp_mod->bind( $tmp_data );
+					}else{
+						$rtn .= '<div style="background:#f00; color:#fff; text-align:center;">Module Undefined.</div>';
+					}
 				}
 
 			}elseif( @$field->loop ){
