@@ -5,8 +5,10 @@
    "fields": {
     "main": [
      {
-      "modId": "Modules2:hoge/new_module",
-      "fields": {}
+      "modId": "Modules2:hoge2/ifCond",
+      "fields": {
+       "sample_text": "true"
+      }
      },
      {
       "modId": "Modules2:hoge/attention_box",

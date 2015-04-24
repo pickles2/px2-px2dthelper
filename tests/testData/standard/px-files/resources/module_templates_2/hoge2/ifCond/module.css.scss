@@ -1,0 +1,22 @@
+// module.css.scss
+.if_field_test{
+	border: 1px solid #008;
+	margin: 1em 0;
+	padding: 1em;
+
+	&-is_set{
+		color: #f00;
+		font-weight: bold;
+	}
+
+	&-cond{
+		color: #090;
+		font-weight: bold;
+	}
+
+	&-cond_is{
+		color: #f93;
+		font-weight: normal;
+	}
+
+}

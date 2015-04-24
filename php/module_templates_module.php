@@ -372,9 +372,55 @@ class module_templates_module{
 				// if field
 				// is_set に指定されたフィールドに値があったら、という評価ロジックを取り急ぎ実装。
 				// もうちょっとマシな条件の書き方がありそうな気がするが、あとで考える。
+				// → 2015-04-25: cond のルールを追加。
 				$tmpSearchResult = $this->search_end_tag( $src, 'if' );
+				$boolResult = false;
 				$src = '';
+				if( @$field->if->cond && (is_array( @$field->if->cond ) || is_object(@$field->if->cond)) ){
+					// cond に、2次元配列を受け取った場合。
+					// 1次元目は or 条件、2次元目は and 条件で評価する。
+					foreach( $field->if->cond as $condIdx=>$condRow1 ){
+						$condBool = true;
+						foreach( $field->if->cond[$condIdx] as $condIdx2=>$condRow2 ){
+							$tmpCond = $field->if->cond[$condIdx][$condIdx2];
+							if( preg_match( '/^([\\s\\S]*?)\\:([\\s\\S]*)$/', $tmpCond, $matched ) ){
+								$tmpMethod = trim($matched[1]);
+								$tmpValue = trim($matched[2]);
+
+								if( $tmpMethod == 'is_set' ){
+									if( !@$this->get_mod_top()->get_name_space( $tmpValue ) || !strlen( trim(@$this->get_mod_top()->get_name_space( $tmpValue )->val) ) ){
+										$condBool = false;
+										break;
+									}
+								}
+							}else if( preg_match( '/^([\\s\\S]*?)(\\!\\=|\\=\\=)([\\s\\S]*)$/', $tmpCond, $matched ) ){
+								$tmpValue = trim($matched[1]);
+								$tmpOpe = trim($matched[2]);
+								$tmpDiff = trim($matched[3]);
+								if( $tmpOpe == '==' ){
+									if( @$this->get_mod_top()->get_name_space( $tmpValue )->val != $tmpDiff ){
+										$condBool = false;
+										break;
+									}
+								}else if( $tmpOpe == '!=' ){
+									if( @$this->get_mod_top()->get_name_space( $tmpValue )->val == $tmpDiff ){
+										$condBool = false;
+										break;
+									}
+								}
+							}
+
+						}
+						if( $condBool ){
+							$boolResult = true;
+							break;
+						}
+					}
+				}
 				if( @$this->get_mod_top()->get_name_space( @$field->if->is_set ) && strlen(trim(@$this->get_mod_top()->get_name_space( @$field->if->is_set )->val)) ){
+					$boolResult = true;
+				}
+				if( $boolResult ){
 					$src .= $tmpSearchResult->content;
 				}
 				$src .= $tmpSearchResult->nextSrc;
