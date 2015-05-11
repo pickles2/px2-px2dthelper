@@ -72,6 +72,9 @@ class module_templates{
 		$this->package_readmes = [];
 
 		foreach( $this->px2dtconf->paths_module_template as $package_id=>$row ){
+			if( !$this->px->fs()->is_dir( $row ) ){
+				continue;
+			}
 			$categories = $this->px->fs()->ls( $row );
 			$this->package_infos[$package_id] = new \stdClass();
 			if( $this->px->fs()->is_file( $row.'/info.json' ) ){
