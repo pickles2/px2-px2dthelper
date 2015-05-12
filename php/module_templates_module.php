@@ -392,6 +392,11 @@ class module_templates_module{
 										$condBool = false;
 										break;
 									}
+								}elseif( $tmpMethod == 'is_mode' ){
+									if( $tmpValue != $mode ){
+										$condBool = false;
+										break;
+									}
 								}
 							}else if( preg_match( '/^([\\s\\S]*?)(\\!\\=|\\=\\=)([\\s\\S]*)$/', $tmpCond, $matched ) ){
 								$tmpValue = trim($matched[1]);
