@@ -22,7 +22,7 @@ MIT License
 ### テスト - Test
 
 ```
-$ ./vendor/phpunit/phpunit/phpunit tests/px2-px2dthelperTest.php px2px2dthelper
+$ ./vendor/phpunit/phpunit/phpunit
 ```
 
 ### ドキュメント出力 - phpDocumentor

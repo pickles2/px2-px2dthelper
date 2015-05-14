@@ -102,12 +102,13 @@ return call_user_func( function(){
 	// processor
 	$conf->funcs->processor = new stdClass;
 
+	@require_once( __DIR__.'/themes/pickles/php/theme.php' );
 	$conf->funcs->processor->html = [
 		// ページ内目次を自動生成する
 		'picklesFramework2\processors\autoindex\autoindex::exec' ,
 
 		// テーマ
-		'theme'=>'pickles2\themes\pickles\theme::exec' , 
+		'theme'=>'tomk79\pickles2\px2dthelper\themes\pickles\theme::exec' , 
 
 		// Apache互換のSSIの記述を解決する
 		'picklesFramework2\processors\ssi\ssi::exec' ,

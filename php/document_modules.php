@@ -319,14 +319,18 @@ class document_modules{
 			if( $bowl_name == 'main' ){
 				$rtn .= $obj_module_templates->bind( $data->modId, $data );
 			}else{
+				$rtn .= "\n";
 				$rtn .= '<'.'?php ob_start(); ?'.'>'."\n";
 				$rtn .= $obj_module_templates->bind( $data->modId, $data );
 				$rtn .= '<'.'?php $px->bowl()->send( ob_get_clean(), '.json_encode($bowl_name).' ); ?'.'>'."\n";
+				$rtn .= "\n";
+				$rtn .= "\n";
 			}
 		}
 
 		$path_cache = $this->px->realpath_files_private_cache('/__contents.ignore.html');
 		$this->px->fs()->save_file( $path_cache, $rtn );
+		$px = $this->px;
 		ob_start();
 		include( $path_cache );
 		$rtn = ob_get_clean();

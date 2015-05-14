@@ -12,7 +12,9 @@
 	<div class="if_field_test-cond_is">sample_text is set => <q>true</q></div>
 
 </div>
-<div class="attention_box">
+<div class="attention_box_hoge">
+
+	<p class="attention_box_hoge-heading">見出し文字列</p>
 
 	<div class="bar">
 	<p>
@@ -39,7 +41,7 @@
 	</tr>
 </table>
 
-</div><!-- /.attention_box -->
+</div><!-- /.attention_box_hoge -->
 <div class="hoge_fuga">
 	<p>template.html</p>
 	<div class="hoge_fuga-child">
@@ -49,3 +51,12 @@
 		<p>HTMLを入力してみました。</p>
 	</div>
 </div>
+
+
+<?php ob_start(); ?>
+<p>コンテンツエリア <code>sidebar</code> に配置したコンテンツです。</p>
+
+<p>mainコンテンツとは分離され、sidebar と名付けられた bowl にレイアウトされます。</p>
+
+<p>このエリアは、テーマの実装は、<code>.contents</code> および <code>#sidebar</code> を付与したエリアとして実装するようにしてください。</p><?php $px->bowl()->send( ob_get_clean(), "sidebar" ); ?>
+

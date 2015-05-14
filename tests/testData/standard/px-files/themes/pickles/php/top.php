@@ -2,7 +2,7 @@
 /**
  * theme "pickles"
  */
-namespace pickles2\themes\pickles;
+namespace tomk79\pickles2\px2dthelper\themes\pickles;
 
 /**
  * theme "pickles" class

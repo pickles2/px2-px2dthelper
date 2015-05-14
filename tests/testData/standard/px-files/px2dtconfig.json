@@ -1,6 +1,8 @@
 {
     "paths_module_template": {
+        "PlainHTMLElements": "../../../vendor/tomk79/px2-mod-plain-html-elements/modules/",
         "Modules1": "./px-files/resources/module_templates_1/",
-        "Modules2": "./px-files/resources/module_templates_2/"
+        "Modules2": "./px-files/resources/module_templates_2/",
+        "FESS": "../../../vendor/tomk79/px2-fess/modules/"
     }
 }

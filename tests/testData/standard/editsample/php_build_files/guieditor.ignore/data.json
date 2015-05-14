@@ -13,7 +13,7 @@
      {
       "modId": "Modules2:hoge/attention_box",
       "fields": {
-       "heading": "",
+       "heading": "見出し文字列",
        "main": [
         {
          "modId": "Modules1:foo/bar",
@@ -29,6 +29,19 @@
       "modId": "Modules2:hoge/fuga",
       "fields": {
        "sample_html": "<p>HTMLを入力してみました。</p>"
+      }
+     }
+    ]
+   }
+  },
+  "sidebar": {
+   "modId": "_sys/root",
+   "fields": {
+    "main": [
+     {
+      "modId": "PlainHTMLElements:PlainHTML/Markdown",
+      "fields": {
+       "main": "コンテンツエリア `sidebar` に配置したコンテンツです。\n\nmainコンテンツとは分離され、sidebar と名付けられた bowl にレイアウトされます。\n\nこのエリアは、テーマの実装は、`.contents` および `#sidebar` を付与したエリアとして実装するようにしてください。"
       }
      }
     ]
