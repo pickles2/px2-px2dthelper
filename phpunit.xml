@@ -1,6 +1,6 @@
 <phpunit>
 	<testsuites>
-		<testsuite name="defaulr">
+		<testsuite name="default">
 			<directory>tests/</directory>
 		</testsuite>
 	</testsuites>
