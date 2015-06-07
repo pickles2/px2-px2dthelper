@@ -9,6 +9,11 @@
             "email": "tomk79@gmail.com"
         }
     ],
+    "scripts":{
+        "test": [
+            "php ./vendor/phpunit/phpunit/phpunit"
+        ]
+    } ,
     "repositories": [
     ],
     "require": {
@@ -19,6 +24,7 @@
     "require-dev": {
         "tomk79/px-fw-2.x": "dev-develop" ,
         "tomk79/filesystem": "1.*",
+        "tomk79/php-excel2html": "dev-master",
         "phpunit/phpunit": "4.1.*",
         "tomk79/pickles-sitemap-excel-2": "2.*",
         "tomk79/px2-fess": "dev-master",
