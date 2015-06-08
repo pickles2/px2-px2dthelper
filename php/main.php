@@ -156,7 +156,13 @@ class main{
 					break;
 				}
 				$excel2html = new \tomk79\excel2html\main($path_xlsx);
-				$val = $excel2html->get_html();
+				$val = $excel2html->get_html(array(
+					'header_row' => $this->px->req()->get_param('header_row') ,
+					'header_col' => $this->px->req()->get_param('header_col') ,
+					'renderer' => $this->px->req()->get_param('renderer') ,
+					'cell_renderer' => $this->px->req()->get_param('cell_renderer') ,
+					'strip_table_tag' => true
+				));
 				print $this->data_convert( $val );
 				exit;
 				break;
