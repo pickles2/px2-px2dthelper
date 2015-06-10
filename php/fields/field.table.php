@@ -5,9 +5,9 @@
 namespace tomk79\pickles2\px2dthelper;
 
 /**
- * field.image.php
+ * field.table.php
  */
-class field_image extends field_base{
+class field_table extends field_base{
 
 	/**
 	 * データをバインドする
@@ -28,11 +28,11 @@ class field_image extends field_base{
 		// 	rtn.path = 'data:'+res.type+';base64,' + res.base64;
 
 		// 	if( !res.base64 ){
-		// 		// ↓ ダミーの Sample Image
+		// 		// ↓ ダミーの Sample table
 		// 		rtn.path = _imgDummy;
 		// 	}
 		// }
-		return @$rtn->path;
+		return @$rtn->output;
 	}
 
 }
