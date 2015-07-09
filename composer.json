@@ -18,7 +18,7 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "tomk79/php-excel2html": "*",
+        "tomk79/php-excel2html": "dev-master",
         "michelf/php-markdown": "1.4.*",
         "leafo/scssphp": "0.1.*"
     },

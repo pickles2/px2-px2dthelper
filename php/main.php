@@ -161,6 +161,7 @@ class main{
 					'header_col' => $this->px->req()->get_param('header_col') ,
 					'renderer' => $this->px->req()->get_param('renderer') ,
 					'cell_renderer' => $this->px->req()->get_param('cell_renderer') ,
+					'render_cell_width' => true ,
 					'strip_table_tag' => true
 				));
 				print $this->data_convert( $val );
