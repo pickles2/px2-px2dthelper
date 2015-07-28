@@ -85,7 +85,6 @@ class px2px2dthelperTest extends PHPUnit_Framework_TestCase{
 	public function testTableApi(){
 
 		// Excelをtableに変換させる
-		// 存在しないファイルパスを渡したら、falseが返る。
 		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.convert_table_excel2html&path='.urlencode(__DIR__.'/testData/xlsx/default.xlsx') ] );
 		$output = json_decode($output);
 		// var_dump($output);
