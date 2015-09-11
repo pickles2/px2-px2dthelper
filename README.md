@@ -34,6 +34,105 @@ tomk79/px2-px2dthelper
 
 Pickles 2 用のプラグインです。Pickles 2 Desktop Tool と連携させるためのAPIを提供します。
 
+## インストール - Install
+
+次の手順でセットアップしてください。
+
+### composer.json に追記する。
+
+```json
+{
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/tomk79/px2-px2dthelper.git"
+        }
+    ] ,
+    "require": {
+        "tomk79/px2-px2dthelper": "dev-master"
+    }
+}
+```
+
+### composer を更新する。
+
+```bash
+$ composer update
+```
+
+### Pickles2 のコンフィグに追記する。
+```php
+<?php
+return call_user_func( function(){
+
+    /* 中略 */
+
+	// funcs: Before sitemap
+	$conf->funcs->before_sitemap = [
+		// PX=px2dthelper
+		'tomk79\pickles2\px2dthelper\main::register'
+	];
+
+    /* 中略 */
+
+	return $conf;
+} );
+```
+
+## API
+
+### モジュールの CSS をビルドする
+
+```php
+/* CSSファイルに下記を記述 */
+<?php
+// CSSのソースコードが返されます。
+// このコードには、画像などのリソースもdataスキーマ化した状態で含められます。
+print (new \tomk79\pickles2\px2dthelper\main($px))->document_modules()->build_css();
+?>
+```
+
+### モジュールの JavaScript をビルドする
+
+```php
+// JavaScriptファイルに下記を記述
+<?php
+// JavaScriptのソースコードが返されます。
+// スクリプト内から画像などのリソースを呼び出している場合、
+// このメソッドには、リンクを解決するなどの機能はありません。
+// 予め、出力後のパスを起点にパスが解決できるように作成してください。
+print (new \tomk79\pickles2\px2dthelper\main($px))->document_modules()->build_js();
+?>
+```
+
+### HTMLにCSSとJavaScriptをロードする
+
+```php
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+<?php
+// style要素、および script要素 が出力されます。
+print (new \tomk79\pickles2\px2dthelper\main($px))->document_modules()->load();
+?>
+</head>
+<body>
+    <h1>Page Title</h1>
+    <!-- コンテンツ -->
+</body>
+</html>
+```
+
+### PXコマンド - PX=convert_table_excel2html
+
+CSVやExcel形式で作られた表を元に、HTMLのテーブル要素を生成して出力します。
+
+```bash
+$ php .px_execute.php /?PX=px2dthelper.convert_table_excel2html
+```
+
+
 
 
 ## ライセンス - License
@@ -61,4 +160,3 @@ $ ./vendor/phpunit/phpunit/phpunit
 ```
 $ php ./vendor/phpdocumentor/phpdocumentor/bin/phpdoc --title "px2-px2dthelper API Document" -d "./php/" -t "./doc/"
 ```
-

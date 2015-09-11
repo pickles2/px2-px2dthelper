@@ -1,7 +1,7 @@
 <?php
 /**
  * Test for tomk79\px2-px2dthelper
- * 
+ *
  * $ cd (project dir)
  * $ ./vendor/phpunit/phpunit/phpunit tests/px2-px2dthelperTest.php px2px2dthelper
  */
@@ -80,7 +80,7 @@ class px2px2dthelperTest extends PHPUnit_Framework_TestCase{
 	}//testBuild()
 
 	/**
-	 * TableAPIのテスト
+	 * TableAPI(Px Command)のテスト
 	 */
 	public function testTableApi(){
 
@@ -107,7 +107,6 @@ class px2px2dthelperTest extends PHPUnit_Framework_TestCase{
 		$this->assertNull( $html->find('tr',17)->childNodes(5) );
 
 
-
 		// Excelをtableに変換させる
 		// 存在しないファイルパスを渡したら、falseが返る。
 		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.convert_table_excel2html&path=' ] );
@@ -115,11 +114,15 @@ class px2px2dthelperTest extends PHPUnit_Framework_TestCase{
 		$output = json_decode($output);
 		$this->assertFalse( $output );
 
-	}//testPing()
 
+		// 後始末
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/standard/.px_execute.php' ,
+			'/?PX=clearcache' ,
+		] );
 
-
-
+	} // testTableApi()
 
 
 
