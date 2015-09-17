@@ -75,9 +75,6 @@ class main{
 			$this->px2dtconfig = json_decode( $this->px->fs()->read_file( $this->px->get_path_homedir().'px2dtconfig.json' ) );
 		}
 
-		require_once( __DIR__.'/module_templates.php' );
-		$this->obj_module_templates = new module_templates($this->px, $this);
-
 	}
 
 	/**
