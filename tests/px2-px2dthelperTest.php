@@ -49,6 +49,13 @@ class px2px2dthelperTest extends PHPUnit_Framework_TestCase{
 		$this->assertTrue( strpos( $outputCss, '.bar{' ) !== false );//←素のCSSがそのまま出ている。
 		$this->assertTrue( strpos( $outputCss, '.hoge_fuga .hoge_fuga-child {' ) !== false );//←SCSSが機能している。
 		$this->assertTrue( strpos( $outputCss, 'data:image/png;base64,' ) !== false );//←SCSSが機能している。
+		$outputCssApi = $this->passthru( [
+			'php',
+			__DIR__.'/testData/standard/.px_execute.php' ,
+			'/?PX=px2dthelper.document_modules.build_css' ,
+		] );
+		// var_dump($outputCssApi);
+		$this->assertEquals( $outputCss, $outputCssApi );
 
 
 		// ビルドJavaScript
@@ -58,6 +65,12 @@ class px2px2dthelperTest extends PHPUnit_Framework_TestCase{
 			'/test1_build_js.html' ,
 		] );
 		$this->assertEquals( 'alert(\'foo/bar\');', trim($outputJs) );
+		$outputJsApi = $this->passthru( [
+			'php',
+			__DIR__.'/testData/standard/.px_execute.php' ,
+			'/?PX=px2dthelper.document_modules.build_js' ,
+		] );
+		$this->assertEquals( $outputJs, $outputJsApi );
 
 
 		// ビルドLoader
@@ -68,6 +81,12 @@ class px2px2dthelperTest extends PHPUnit_Framework_TestCase{
 		] );
 		// var_dump($output);
 		$this->assertEquals( '<style type="text/css">'.$outputCss.'</style><script type="text/javascript">'.$outputJs.'</script>', $outputLoader );
+		$outputLoaderApi = $this->passthru( [
+			'php',
+			__DIR__.'/testData/standard/.px_execute.php' ,
+			'/?PX=px2dthelper.document_modules.load' ,
+		] );
+		$this->assertEquals( $outputLoader, $outputLoaderApi );
 
 
 		// 後始末

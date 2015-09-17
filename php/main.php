@@ -135,6 +135,37 @@ class main{
 				print 'ok'."\n";
 				exit;
 				break;
+
+			case 'document_modules':
+				$data_type = $this->px->req()->get_param('type');
+				$val = null;
+				switch( @$this->command[2] ){
+					case 'build_css':
+						if( !is_string($data_type) || !strlen($data_type) ){
+							header('Content-type: text/css; charset=UTF-8');
+							$this->px->req()->set_param('type', 'css');
+						}
+						$val = $this->document_modules()->build_css();
+						break;
+					case 'build_js':
+						if( !is_string($data_type) || !strlen($data_type) ){
+							header('Content-type: text/javascript; charset=UTF-8');
+							$this->px->req()->set_param('type', 'js');
+						}
+						$val = $this->document_modules()->build_js();
+						break;
+					case 'load':
+						if( !is_string($data_type) || !strlen($data_type) ){
+							header('Content-type: text/html; charset=UTF-8');
+							$this->px->req()->set_param('type', 'html');
+						}
+						$val = $this->document_modules()->load();
+						break;
+				}
+				print $this->data_convert( $val );
+				exit;
+				break;
+
 			case 'convert_table_excel2html':
 				$path_xlsx = $this->px->req()->get_param('path');
 				if( !is_file($path_xlsx) || !is_readable($path_xlsx) ){
@@ -154,6 +185,7 @@ class main{
 				print $this->data_convert( $val );
 				exit;
 				break;
+
 		}
 
 		print $this->px->pxcmd()->get_cli_header();
@@ -175,11 +207,12 @@ class main{
 		if( !is_string($data_type) || !strlen($data_type) ){
 			$data_type = 'json';
 		}
-		header('Content-type: application/xml; charset=UTF-8');
 		if( $data_type == 'json' ){
 			header('Content-type: application/json; charset=UTF-8');
 		}elseif( $data_type == 'jsonp' ){
 			header('Content-type: application/javascript; charset=UTF-8');
+		}elseif( $data_type == 'xml' ){
+			header('Content-type: application/xml; charset=UTF-8');
 		}
 		switch( $data_type ){
 			case 'jsonp':
@@ -193,7 +226,7 @@ class main{
 				break;
 		}
 		// return self::data2jssrc($val);
-		return json_encode($val);
+		return $val;
 	}
 
 	/**

@@ -124,7 +124,33 @@ print (new \tomk79\pickles2\px2dthelper\main($px))->document_modules()->load();
 </html>
 ```
 
-### PXコマンド - PX=convert_table_excel2html
+### PXコマンド
+
+#### PX=px2dthelper.document_modules.build_css
+
+CSSのソースコードが返されます。
+
+```bash
+$ php .px_execute.php /?PX=px2dthelper.document_modules.build_css
+```
+
+#### PX=px2dthelper.document_modules.build_js
+
+JavaScriptのソースコードが返されます。
+
+```bash
+$ php .px_execute.php /?PX=px2dthelper.document_modules.build_js
+```
+
+#### PX=px2dthelper.document_modules.load
+
+CSSとJavaScriptをロードするHTMLソースコードが返されます。
+
+```bash
+$ php .px_execute.php /?PX=px2dthelper.document_modules.load
+```
+
+#### PX=px2dthelper.convert_table_excel2html
 
 CSVやExcel形式で作られた表を元に、HTMLのテーブル要素を生成して出力します。
 
