@@ -41,7 +41,7 @@ class main{
 
 	/**
 	 * px2-px2dthelper のバージョン情報を取得する。
-	 * 
+	 *
 	 * px2-px2dthelper のバージョン番号はこのメソッドにハードコーディングされます。
 	 *
 	 * バージョン番号発行の規則は、 Semantic Versioning 2.0.0 仕様に従います。
@@ -63,7 +63,7 @@ class main{
 
 	/**
 	 * constructor
-	 * 
+	 *
 	 * @param object $px $pxオブジェクト
 	 */
 	public function __construct( $px ){
@@ -119,7 +119,7 @@ class main{
 
 	/**
 	 * kick as PX Command
-	 * 
+	 *
 	 * @return void
 	 */
 	private function kick(){
@@ -171,7 +171,7 @@ class main{
 					break;
 				}
 				$excel2html = new \tomk79\excel2html\main($path_xlsx);
-				$val = $excel2html->get_html(array(
+				$val = @$excel2html->get_html(array(
 					'header_row' => $this->px->req()->get_param('header_row') ,
 					'header_col' => $this->px->req()->get_param('header_col') ,
 					'renderer' => $this->px->req()->get_param('renderer') ,
@@ -195,7 +195,7 @@ class main{
 
 	/**
 	 * データを自動的に加工して返す。
-	 * 
+	 *
 	 * @param mixed $val 加工するデータ
 	 * @return string 加工されたテキストデータ
 	 */
@@ -228,7 +228,7 @@ class main{
 
 	/**
 	 * データをXMLに加工して返す。
-	 * 
+	 *
 	 * @param mixed $val 加工するデータ
 	 * @return string 加工されたテキストデータ
 	 */
@@ -238,7 +238,7 @@ class main{
 
 	/**
 	 * データをJSONに加工して返す。
-	 * 
+	 *
 	 * @param mixed $val 加工するデータ
 	 * @return string 加工されたテキストデータ
 	 */
@@ -249,7 +249,7 @@ class main{
 
 	/**
 	 * データをJSONPに加工して返す。
-	 * 
+	 *
 	 * @param mixed $val 加工するデータ
 	 * @return string 加工されたテキストデータ
 	 */
@@ -266,7 +266,7 @@ class main{
 
 	/**
 	 * 変数をXML構造に変換する
-	 * 
+	 *
 	 * @param mixed $value 値
 	 * @param array $options オプション
 	 * <dl>
