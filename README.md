@@ -1,4 +1,4 @@
-tomk79/px2-px2dthelper
+pickles2/px2-px2dthelper
 ======================
 
 <table>
@@ -13,19 +13,19 @@ tomk79/px2-px2dthelper
     <tr>
       <th>master</th>
       <td align="center">
-        <a href="https://travis-ci.org/tomk79/px2-px2dthelper"><img src="https://secure.travis-ci.org/tomk79/px2-px2dthelper.svg?branch=master"></a>
+        <a href="https://travis-ci.org/pickles2/px2-px2dthelper"><img src="https://secure.travis-ci.org/pickles2/px2-px2dthelper.svg?branch=master"></a>
       </td>
       <td align="center">
-        <a href="https://ci.appveyor.com/project/tomk79/px2-px2dthelper"><img src="https://ci.appveyor.com/api/projects/status/3k5v9pp5xh5kdcbe/branch/master?svg=true"></a>
+        <a href="https://ci.appveyor.com/project/pickles2/px2-px2dthelper"><img src="https://ci.appveyor.com/api/projects/status/3k5v9pp5xh5kdcbe/branch/master?svg=true"></a>
       </td>
     </tr>
     <tr>
       <th>develop</th>
       <td align="center">
-        <a href="https://travis-ci.org/tomk79/px2-px2dthelper"><img src="https://secure.travis-ci.org/tomk79/px2-px2dthelper.svg?branch=develop"></a>
+        <a href="https://travis-ci.org/pickles2/px2-px2dthelper"><img src="https://secure.travis-ci.org/pickles2/px2-px2dthelper.svg?branch=develop"></a>
       </td>
       <td align="center">
-        <a href="https://ci.appveyor.com/project/tomk79/px2-px2dthelper"><img src="https://ci.appveyor.com/api/projects/status/3k5v9pp5xh5kdcbe/branch/develop?svg=true"></a>
+        <a href="https://ci.appveyor.com/project/pickles2/px2-px2dthelper"><img src="https://ci.appveyor.com/api/projects/status/3k5v9pp5xh5kdcbe/branch/develop?svg=true"></a>
       </td>
     </tr>
   </tbody>
@@ -42,14 +42,8 @@ Pickles 2 用のプラグインです。Pickles 2 Desktop Tool と連携させ�
 
 ```json
 {
-    "repositories": [
-        {
-            "type": "git",
-            "url": "https://github.com/tomk79/px2-px2dthelper.git"
-        }
-    ] ,
     "require": {
-        "tomk79/px2-px2dthelper": "dev-master"
+        "pickles2/px2-px2dthelper": "dev-master"
     }
 }
 ```
