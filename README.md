@@ -1,7 +1,7 @@
 pickles2/px2-px2dthelper
 ======================
 
-<table>
+<table class="def">
   <thead>
     <tr>
       <th></th>
@@ -16,7 +16,7 @@ pickles2/px2-px2dthelper
         <a href="https://travis-ci.org/pickles2/px2-px2dthelper"><img src="https://secure.travis-ci.org/pickles2/px2-px2dthelper.svg?branch=master"></a>
       </td>
       <td align="center">
-        <a href="https://ci.appveyor.com/project/pickles2/px2-px2dthelper"><img src="https://ci.appveyor.com/api/projects/status/3k5v9pp5xh5kdcbe/branch/master?svg=true"></a>
+        <a href="https://ci.appveyor.com/project/tomk79/px2-px2dthelper"><img src="https://ci.appveyor.com/api/projects/status/70winlbbg8sway58/branch/master?svg=true"></a>
       </td>
     </tr>
     <tr>
@@ -25,7 +25,7 @@ pickles2/px2-px2dthelper
         <a href="https://travis-ci.org/pickles2/px2-px2dthelper"><img src="https://secure.travis-ci.org/pickles2/px2-px2dthelper.svg?branch=develop"></a>
       </td>
       <td align="center">
-        <a href="https://ci.appveyor.com/project/pickles2/px2-px2dthelper"><img src="https://ci.appveyor.com/api/projects/status/3k5v9pp5xh5kdcbe/branch/develop?svg=true"></a>
+        <a href="https://ci.appveyor.com/project/tomk79/px2-px2dthelper"><img src="https://ci.appveyor.com/api/projects/status/70winlbbg8sway58/branch/develop?svg=true"></a>
       </td>
     </tr>
   </tbody>
