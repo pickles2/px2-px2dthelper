@@ -1,6 +1,6 @@
 <?php
 /**
- * Test for tomk79\px2-px2dthelper
+ * Test for pickles2\px2-px2dthelper
  *
  * $ cd (project dir)
  * $ ./vendor/phpunit/phpunit/phpunit tests/px2-px2dthelperTest.php px2px2dthelper
@@ -32,6 +32,33 @@ class px2px2dthelperTest extends PHPUnit_Framework_TestCase{
 		$this->assertEquals( 'ok', trim($output) );
 
 	}//testPing()
+
+	/**
+	 * バージョン番号の取得テスト
+	 */
+	public function testVersion(){
+
+
+		// Pickles 2 実行
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/standard/.px_execute.php' ,
+			'/?PX=px2dthelper.version' ,
+		] );
+		// var_dump($output);
+		$version = json_decode($output);
+		// var_dump( $version );
+		$this->assertEquals( preg_match('/^\d+\.\d+\.\d(?:\-.+)?(?:\+.+)?$/', $version), 1 );
+
+
+		// 後始末
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/standard/.px_execute.php' ,
+			'/?PX=clearcache' ,
+		] );
+
+	}//testVersion()
 
 	/**
 	 * ビルドのテスト

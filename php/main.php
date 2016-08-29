@@ -9,24 +9,16 @@ namespace tomk79\pickles2\px2dthelper;
  */
 class main{
 
-	/**
-	 * Picklesオブジェクト
-	 */
+	/** Picklesオブジェクト */
 	private $px;
 
-	/**
-	 * PXコマンド名
-	 */
+	/** PXコマンド名 */
 	private $command = array();
 
-	/**
-	 * px2dtconfig
-	 */
+	/** px2dtconfig */
 	private $px2dtconfig;
 
-	/**
-	 * $module_templates
-	 */
+	/** $module_templates */
 	private $obj_module_templates;
 
 	/**
@@ -130,6 +122,12 @@ class main{
 				// 疎通確認応答
 				@header('Content-type: text/plain;');
 				print 'ok'."\n";
+				exit;
+				break;
+
+			case 'version':
+				// バージョン番号
+				print $this->data_convert( $this->get_version() );
 				exit;
 				break;
 
