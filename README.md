@@ -120,6 +120,14 @@ print (new \tomk79\pickles2\px2dthelper\main($px))->document_modules()->load();
 
 ### PXコマンド
 
+#### PX=px2dthelper.copy_content
+
+コンテンツを複製します。
+
+```bash
+$ php .px_execute.php "/?PX=px2dthelper.copy_content&from=/path/copy/from.html&to=/path/copy/to.html"
+```
+
 #### PX=px2dthelper.document_modules.build_css
 
 CSSのソースコードが返されます。
@@ -146,10 +154,11 @@ $ php .px_execute.php /?PX=px2dthelper.document_modules.load
 
 #### PX=px2dthelper.convert_table_excel2html
 
-CSVやExcel形式で作られた表を元に、HTMLのテーブル要素を生成して出力します。
+CSV や Excel形式 で作られた表を元に、HTMLのテーブル要素を生成して出力します。
+パラメータ `path` には、 `*.csv`, `*.xls`, `*.xlsx` を指定できます。
 
 ```bash
-$ php .px_execute.php /?PX=px2dthelper.convert_table_excel2html
+$ php .px_execute.php "/?PX=px2dthelper.convert_table_excel2html&path=/path/to/sourcedata.xlsx"
 ```
 
 #### PX=px2dthelper.version

@@ -1,23 +1,14 @@
 <?php
 /**
  * Test for pickles2\px2-px2dthelper
- *
- * $ cd (project dir)
- * $ ./vendor/phpunit/phpunit/phpunit tests/px2-px2dthelperTest.php px2px2dthelper
  */
 
-class px2px2dthelperTest extends PHPUnit_Framework_TestCase{
-
-	/**
-	 * ファイルシステムユーティリティ
-	 */
-	// private $fs;
+class mainTest extends PHPUnit_Framework_TestCase{
 
 	/**
 	 * setup
 	 */
 	public function setup(){
-		// $this->fs = new \tomk79\filesystem();
 		require_once(__DIR__.'/../php/simple_html_dom.php');
 	}
 

@@ -77,10 +77,20 @@ class main{
 	}
 
 	/**
+	 * コンテンツを複製する
+	 */
+	public function copy_content($path_from, $path_to){
+		require_once(__DIR__.'/fncs/copy_content.php');
+		$copyCont = new fncs_copy_content($this->px);
+		$result = $copyCont->copy( $path_from, $path_to );
+		return $result;
+	}
+
+	/**
 	 * ドキュメントモジュール定義をロードする
 	 */
 	public function document_modules(){
-		require_once( __DIR__.'/document_modules.php' );
+		require_once( __DIR__.'/fncs/document_modules.php' );
 		$rtn = '';
 		$rtn = new document_modules($this->px, $this);
 		return $rtn;
@@ -122,7 +132,6 @@ class main{
 		switch( @$this->command[1] ){
 			case 'ping':
 				// 疎通確認応答
-				@header('Content-type: text/plain;');
 				print $std_output->data_convert( 'ok' );
 				exit;
 				break;
@@ -130,6 +139,16 @@ class main{
 			case 'version':
 				// バージョン番号
 				print $std_output->data_convert( $this->get_version() );
+				exit;
+				break;
+
+			case 'copy_content':
+				// コンテンツを複製する
+				$result = $this->copy_content(
+					$this->px->req()->get_param('from'),
+					$this->px->req()->get_param('to')
+				);
+				print $std_output->data_convert( $result );
 				exit;
 				break;
 

@@ -1,7 +1,8 @@
 <phpunit>
 	<testsuites>
 		<testsuite name="default">
-			<directory>tests/</directory>
+			<file>./tests/mainTest.php</file>
+			<file>./tests/copyContentTest.php</file>
 		</testsuite>
 	</testsuites>
 </phpunit>
