@@ -123,7 +123,7 @@ class main{
 			case 'ping':
 				// 疎通確認応答
 				@header('Content-type: text/plain;');
-				print 'ok'."\n";
+				print $std_output->data_convert( 'ok' );
 				exit;
 				break;
 

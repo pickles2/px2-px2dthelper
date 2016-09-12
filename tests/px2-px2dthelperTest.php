@@ -29,7 +29,22 @@ class px2px2dthelperTest extends PHPUnit_Framework_TestCase{
 		// ping打ってみる
 		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.ping' ] );
 		// var_dump($output);
-		$this->assertEquals( 'ok', trim($output) );
+		$this->assertEquals( '"ok"', $output );
+
+		// ping打ってみる
+		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.ping&type=jsonp' ] );
+		// var_dump($output);
+		$this->assertEquals( 'callback("ok");', $output );
+
+		// ping打ってみる
+		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.ping&type=jsonp&callback=hoge' ] );
+		// var_dump($output);
+		$this->assertEquals( 'hoge("ok");', $output );
+
+		// ping打ってみる
+		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.ping&type=xml' ] );
+		// var_dump($output);
+		$this->assertEquals( '<api><value type="string">ok</value></api>', $output );
 
 	}//testPing()
 
