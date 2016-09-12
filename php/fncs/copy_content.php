@@ -111,15 +111,12 @@ class fncs_copy_content{
 		$path_content = $path;
 		$ext = $this->px->get_path_proc_type( $path );
 		if($ext !== 'direct' && $ext !== 'pass'){
-			if( $is_enable_sitemap ){
-				$current_page_info = $this->px->site()->get_page_info( $path );
-				$path_content = $current_page_info['content'];
-				if( is_null( $path_content ) ){
-					$path_content = $path;
-				}
-				unset($current_page_info);
+			$current_page_info = $this->px->site()->get_page_info( $path );
+			$path_content = $current_page_info['content'];
+			if( is_null( $path_content ) ){
+				$path_content = $path;
 			}
-
+			unset($current_page_info);
 		}
 
 		foreach( array_keys( get_object_vars( $this->px->conf()->funcs->processor ) ) as $tmp_ext ){
