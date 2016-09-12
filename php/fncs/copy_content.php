@@ -23,13 +23,151 @@ class fncs_copy_content{
 
 	/**
 	 * コンテンツを複製する
-	 * 
+	 *
 	 * @param  string $path_from コピー元のページパス (サイトマップの path 値)
 	 * @param  string $path_to   コピー先のページパス (サイトマップの path 値)
 	 * @return array `array(boolean $result, string $error_msg)`
 	 */
 	public function copy( $path_from, $path_to ){
+		if( gettype($this->px->site()) !== gettype(json_decode('{}')) ){
+			return array(false, '$px->site() is not defined.');
+		}
+
+		$contRoot = $this->px->fs()->get_realpath( $this->px->get_path_docroot().'/'.$this->px->get_path_controot() );
+
+		$from = array();
+		$from['pathContent'] = $this->find_page_content( $path_from );
+		$from['pathFiles'] = $this->path_files( $path_from );
+		$from['procType'] = $this->px->get_path_proc_type( $path_from );
+
+		$to = array();
+		$to['pathContent'] = $this->find_page_content( $path_to );
+		$to['pathFiles'] = $this->path_files( $path_to );
+		$to['procType'] = $this->px->get_path_proc_type( $path_to );
+		// var_dump($from, $to);
+
+		// 一旦削除する
+		if( $this->px->fs()->is_file( $contRoot.'/'.$to['pathContent'] ) ){
+			$this->px->fs()->rm( $contRoot.'/'.$to['pathContent'] );
+		}
+		if( $this->px->fs()->is_dir( $contRoot.'/'.$to['pathFiles'] ) ){
+			$this->px->fs()->rmdir_r( $contRoot.'/'.$to['pathFiles'] );
+		}
+
+		// 格納ディレクトリを作る
+		if( !$this->px->fs()->is_dir( $contRoot.'/'.$to['pathFiles'] ) ){
+			// 再帰的に作る mkdir_r()
+			if( !$this->px->fs()->mkdir_r( $contRoot.'/'.$to['pathFiles'] ) ){
+				return array(false, 'ng');
+			}
+		}
+
+		// 複製する
+		if( $this->px->fs()->is_file( $contRoot.'/'.$from['pathContent'] ) ){
+			$this->px->fs()->copy( $contRoot.'/'.$from['pathContent'], $contRoot.'/'.$to['pathContent'] );
+		}
+		if( $this->px->fs()->is_dir( $contRoot.'/'.$from['pathFiles'] ) ){
+			$this->px->fs()->copy_r( $contRoot.'/'.$from['pathFiles'], $contRoot.'/'.$to['pathFiles'] );
+		}
+
+		// コンテンツのprocTypeが異なる場合
+		if( $from['procType'] !== $to['procType'] ){
+			// 拡張子を合わせる作業
+			$toPageInfo = $this->px->site()->get_page_info( $path_to );
+
+			switch( $from['procType'] ){
+				case 'html':
+				case 'html.gui':
+					$toPathContent = $toPageInfo['content'];
+					if( !preg_match( '/\\.html$/i', $toPageInfo['content'] ) ){
+						$toPathContent = $toPageInfo['content'].'.html';
+					}
+					$this->px->fs()->rename(
+						$contRoot.'/'.$to['pathContent'],
+						$contRoot.'/'.$toPathContent
+					);
+					break;
+				default:
+					$this->px->fs()->rename(
+						$contRoot.'/'.$to['pathContent'],
+						$contRoot.'/'.$toPageInfo['content'].'.'.$from['procType']
+					);
+					break;
+			}
+
+		}
+
 		return array(true, 'ok');
 	}
+
+
+	/**
+	 * ページのコンテンツを探す
+	 * @param  string $path ページのパス
+	 * @return string       コンテンツのパス
+	 */
+	private function find_page_content( $path ){
+		// execute Content
+		$path_content = $path;
+		$ext = $this->px->get_path_proc_type( $path );
+		if($ext !== 'direct' && $ext !== 'pass'){
+			if( $is_enable_sitemap ){
+				$current_page_info = $this->px->site()->get_page_info( $path );
+				$path_content = $current_page_info['content'];
+				if( is_null( $path_content ) ){
+					$path_content = $path;
+				}
+				unset($current_page_info);
+			}
+
+		}
+
+		foreach( array_keys( get_object_vars( $this->px->conf()->funcs->processor ) ) as $tmp_ext ){
+			if( $this->px->fs()->is_file( './'.$path_content.'.'.$tmp_ext ) ){
+				$ext = $tmp_ext;
+				$path_content = $path_content.'.'.$tmp_ext;
+				break;
+			}
+		}
+
+		return $path_content;
+	}
+
+	/**
+	 * ローカルリソースディレクトリのパスを得る。
+	 *
+	 * @param string $page_path 対象のページのパス
+	 * @return string ローカルリソースの実際の絶対パス
+	 */
+	private function path_files( $page_path ){
+		if( gettype($this->px->site()) === gettype(json_decode('{}')) ){
+			$tmp_page_info = $this->px->site()->get_page_info($page_path);
+			$path_content = $tmp_page_info['content'];
+			unset($tmp_page_info);
+		}
+		if( @is_null($path_content) ){
+			$path_content = $page_path;
+		}
+
+		$rtn = $this->px->conf()->path_files;
+		$data = array(
+			'dirname'=>$this->px->fs()->normalize_path(dirname($path_content)),
+			'filename'=>basename($this->px->fs()->trim_extension($path_content)),
+			'ext'=>strtolower($this->px->fs()->get_extension($path_content)),
+		);
+		$rtn = str_replace( '{$dirname}', $data['dirname'], $rtn );
+		$rtn = str_replace( '{$filename}', $data['filename'], $rtn );
+		$rtn = str_replace( '{$ext}', $data['ext'], $rtn );
+		$rtn = preg_replace( '/^\/*/', '/', $rtn );
+		$rtn = preg_replace( '/\/*$/', '', $rtn ).'/';
+
+		if( $this->px->fs()->is_dir('./'.$rtn) ){
+			$rtn .= '/';
+		}
+		$rtn = $this->px->href( $rtn );
+		$rtn = $this->px->fs()->normalize_path($rtn);
+		$rtn = preg_replace( '/^\/+/', '/', $rtn );
+		return $rtn;
+	}//path_files()
 
 }

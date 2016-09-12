@@ -61,8 +61,8 @@ return call_user_func( function(){
 
 	/* 中略 */
 
-	// funcs: Before sitemap
-	$conf->funcs->before_sitemap = [
+	// funcs: Before content
+	$conf->funcs->before_content = [
 		// PX=px2dthelper
 		'tomk79\pickles2\px2dthelper\main::register'
 	];
