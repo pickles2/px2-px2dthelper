@@ -174,7 +174,7 @@ $ php .px_execute.php /?PX=px2dthelper.version
 
 ## 更新履歴 - Change log
 
-### pickles2/px2-px2dthelper 2.0.0 (2016年??月??日)
+### pickles2/px2-px2dthelper 2.0.0 (2016年9月15日)
 
 - initial release.
 
