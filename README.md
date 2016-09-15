@@ -3,31 +3,31 @@ pickles2/px2-px2dthelper
 
 <table class="def">
   <thead>
-    <tr>
-      <th></th>
-      <th>Linux</th>
-      <th>Windows</th>
-    </tr>
+	<tr>
+	  <th></th>
+	  <th>Linux</th>
+	  <th>Windows</th>
+	</tr>
   </thead>
   <tbody>
-    <tr>
-      <th>master</th>
-      <td align="center">
-        <a href="https://travis-ci.org/pickles2/px2-px2dthelper"><img src="https://secure.travis-ci.org/pickles2/px2-px2dthelper.svg?branch=master"></a>
-      </td>
-      <td align="center">
-        <a href="https://ci.appveyor.com/project/tomk79/px2-px2dthelper"><img src="https://ci.appveyor.com/api/projects/status/70winlbbg8sway58/branch/master?svg=true"></a>
-      </td>
-    </tr>
-    <tr>
-      <th>develop</th>
-      <td align="center">
-        <a href="https://travis-ci.org/pickles2/px2-px2dthelper"><img src="https://secure.travis-ci.org/pickles2/px2-px2dthelper.svg?branch=develop"></a>
-      </td>
-      <td align="center">
-        <a href="https://ci.appveyor.com/project/tomk79/px2-px2dthelper"><img src="https://ci.appveyor.com/api/projects/status/70winlbbg8sway58/branch/develop?svg=true"></a>
-      </td>
-    </tr>
+	<tr>
+	  <th>master</th>
+	  <td align="center">
+		<a href="https://travis-ci.org/pickles2/px2-px2dthelper"><img src="https://secure.travis-ci.org/pickles2/px2-px2dthelper.svg?branch=master"></a>
+	  </td>
+	  <td align="center">
+		<a href="https://ci.appveyor.com/project/tomk79/px2-px2dthelper"><img src="https://ci.appveyor.com/api/projects/status/70winlbbg8sway58/branch/master?svg=true"></a>
+	  </td>
+	</tr>
+	<tr>
+	  <th>develop</th>
+	  <td align="center">
+		<a href="https://travis-ci.org/pickles2/px2-px2dthelper"><img src="https://secure.travis-ci.org/pickles2/px2-px2dthelper.svg?branch=develop"></a>
+	  </td>
+	  <td align="center">
+		<a href="https://ci.appveyor.com/project/tomk79/px2-px2dthelper"><img src="https://ci.appveyor.com/api/projects/status/70winlbbg8sway58/branch/develop?svg=true"></a>
+	  </td>
+	</tr>
   </tbody>
 </table>
 
@@ -42,9 +42,9 @@ Pickles 2 用のプラグインです。Pickles 2 Desktop Tool と連携させ�
 
 ```json
 {
-    "require": {
-        "pickles2/px2-px2dthelper": "dev-master"
-    }
+	"require": {
+		"pickles2/px2-px2dthelper": "dev-master"
+	}
 }
 ```
 
@@ -59,15 +59,15 @@ $ composer update
 <?php
 return call_user_func( function(){
 
-    /* 中略 */
+	/* 中略 */
 
-	// funcs: Before sitemap
-	$conf->funcs->before_sitemap = [
+	// funcs: Before content
+	$conf->funcs->before_content = [
 		// PX=px2dthelper
 		'tomk79\pickles2\px2dthelper\main::register'
 	];
 
-    /* 中略 */
+	/* 中略 */
 
 	return $conf;
 } );
@@ -112,13 +112,21 @@ print (new \tomk79\pickles2\px2dthelper\main($px))->document_modules()->load();
 ?>
 </head>
 <body>
-    <h1>Page Title</h1>
-    <!-- コンテンツ -->
+	<h1>Page Title</h1>
+	<!-- コンテンツ -->
 </body>
 </html>
 ```
 
 ### PXコマンド
+
+#### PX=px2dthelper.copy_content
+
+コンテンツを複製します。
+
+```bash
+$ php .px_execute.php "/?PX=px2dthelper.copy_content&from=/path/copy/from.html&to=/path/copy/to.html"
+```
 
 #### PX=px2dthelper.document_modules.build_css
 
@@ -146,13 +154,29 @@ $ php .px_execute.php /?PX=px2dthelper.document_modules.load
 
 #### PX=px2dthelper.convert_table_excel2html
 
-CSVやExcel形式で作られた表を元に、HTMLのテーブル要素を生成して出力します。
+CSV や Excel形式 で作られた表を元に、HTMLのテーブル要素を生成して出力します。
+パラメータ `path` には、 `*.csv`, `*.xls`, `*.xlsx` を指定できます。
 
 ```bash
-$ php .px_execute.php /?PX=px2dthelper.convert_table_excel2html
+$ php .px_execute.php "/?PX=px2dthelper.convert_table_excel2html&path=/path/to/sourcedata.xlsx"
+```
+
+#### PX=px2dthelper.version
+
+px2-px2dthelper のバージョン番号を取得します。
+
+```bash
+$ php .px_execute.php /?PX=px2dthelper.version
 ```
 
 
+
+
+## 更新履歴 - Change log
+
+### pickles2/px2-px2dthelper 2.0.0 (2016年??月??日)
+
+- initial release.
 
 
 ## ライセンス - License
@@ -162,7 +186,7 @@ MIT License
 
 ## 作者 - Author
 
-- (C)Tomoya Koyanagi <tomk79@gmail.com>
+- Tomoya Koyanagi <tomk79@gmail.com>
 - website: <http://www.pxt.jp/>
 - Twitter: @tomk79 <http://twitter.com/tomk79/>
 
