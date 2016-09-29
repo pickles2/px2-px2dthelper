@@ -89,6 +89,8 @@ class main{
 		}
 		$rtn = $this->bind_path_files($rtn);
 		$rtn = $this->px->fs()->get_realpath( './'.$rtn );
+		$rtn = $this->px->fs()->normalize_path($rtn);
+		$rtn = preg_replace( '/^\/+/', '/', $rtn );
 		return $rtn;
 	}//get_realpath_data_dir()
 
@@ -101,6 +103,9 @@ class main{
 			$rtn = $this->px->conf()->path_files.'/resources/';
 		}
 		$rtn = $this->bind_path_files($rtn);
+		$rtn = $this->px->href( $rtn );
+		$rtn = $this->px->fs()->normalize_path($rtn);
+		$rtn = preg_replace( '/^\/+/', '/', $rtn );
 		return $rtn;
 	}//get_path_resource_dir()
 
@@ -135,9 +140,6 @@ class main{
 		if( $this->px->fs()->is_dir('./'.$rtn) ){
 			$rtn .= '/';
 		}
-		$rtn = $this->px->href( $rtn );
-		$rtn = $this->px->fs()->normalize_path($rtn);
-		$rtn = preg_replace( '/^\/+/', '/', $rtn );
 		return $rtn;
 	}//bind_path_files()
 

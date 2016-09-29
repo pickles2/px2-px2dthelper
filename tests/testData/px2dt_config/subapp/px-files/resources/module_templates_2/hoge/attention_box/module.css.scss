@@ -1,0 +1,10 @@
+.attention_box_hoge{
+	border: 1px solid #999;
+	background-color: #f8f8f8;
+	padding: 1em;
+
+	&-heading{
+		font-weight: bold;
+		color: #f00;
+	}
+}

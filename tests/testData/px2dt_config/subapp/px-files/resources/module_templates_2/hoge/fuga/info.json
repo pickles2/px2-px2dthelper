@@ -1,0 +1,9 @@
+{
+	"name":"hoge/fuga module",
+	"sample_data":[
+		{
+			"title": "実装例1",
+			"data": {"modId":"Modules2:hoge/fuga","fields":{"sample_html":"<p>HTMLを入力してみました。</p>"}}
+		}
+	]
+}
