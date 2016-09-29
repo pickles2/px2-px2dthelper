@@ -120,6 +120,18 @@ print (new \tomk79\pickles2\px2dthelper\main($px))->document_modules()->load();
 
 ### PXコマンド
 
+#### PX=px2dthelper.get.realpath_data_dir
+
+`$conf->plugins->px2dt->guieditor->path_data_dir` の解決された内部絶対パスを取得する。
+
+#### PX=px2dthelper.get.path_resource_dir
+
+`$conf->plugins->px2dt->guieditor->path_resource_dir` の解決されたパスを取得する。
+
+#### PX=px2dthelper.get.custom_fields
+
+`$conf->plugins->px2dt->guieditor->custom_fields` の値を取得する。
+
 #### PX=px2dthelper.copy_content
 
 コンテンツを複製します。
@@ -176,7 +188,9 @@ $ php .px_execute.php /?PX=px2dthelper.version
 
 ### pickles2/px2-px2dthelper 2.0.1 (2016年??月??日)
 
-- ??????????????????????
+- PXコマンド `PX=px2dthelper.get.realpath_data_dir` を追加。
+- PXコマンド `PX=px2dthelper.get.path_resource_dir` を追加。
+- PXコマンド `PX=px2dthelper.get.custom_fields` を追加。
 
 ### pickles2/px2-px2dthelper 2.0.0 (2016年9月15日)
 

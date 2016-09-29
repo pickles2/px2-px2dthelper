@@ -9,6 +9,7 @@ class mainTest extends PHPUnit_Framework_TestCase{
 	 * setup
 	 */
 	public function setup(){
+		$this->fs = new \tomk79\filesystem();
 		require_once(__DIR__.'/../php/simple_html_dom.php');
 	}
 
@@ -67,12 +68,62 @@ class mainTest extends PHPUnit_Framework_TestCase{
 	}//testVersion()
 
 	/**
-	 * ビルドのテスト
+	 * Advanced Config API (PX Command)のテスト
+	 */
+	public function testAdvancedConfigApi(){
+
+		// guieditor.realpath_data_dir
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/px2dt_config/.px_execute.php',
+			'/subdirectory/test.html?PX=px2dthelper.get.realpath_data_dir'
+		] );
+		$output = json_decode($output);
+		// var_dump($output);
+		$this->assertEquals( gettype(''), gettype($output) );
+		$this->assertEquals( $this->fs->get_realpath(__DIR__.'/testData/px2dt_config/data_dir/subdirectory/test.files/guieditor.ignore/'), $output );
+
+		// guieditor.path_resource_dir
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/px2dt_config/.px_execute.php',
+			'/subdirectory/test.html?PX=px2dthelper.get.path_resource_dir'
+		] );
+		$output = json_decode($output);
+		// var_dump($output);
+		$this->assertEquals( gettype(''), gettype($output) );
+		$this->assertEquals( '/resources/subdirectory/test.files/resources/', $output );
+
+		// guieditor.custom_fields
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/px2dt_config/.px_execute.php',
+			'/?PX=px2dthelper.get.custom_fields'
+		] );
+		$output = json_decode($output);
+		// var_dump($output);
+		$this->assertEquals( gettype(new stdClass), gettype($output) );
+		$this->assertEquals( gettype(new stdClass), gettype($output->projectCustom1) );
+		$this->assertEquals( gettype(new stdClass), gettype($output->projectCustom2) );
+		$this->assertEquals( $this->fs->get_realpath(__DIR__.'/testData/px2dt_config/px-files/broccoli-fields/projectCustom2/backend.js'), $output->projectCustom2->backend->require );
+		$this->assertEquals( $this->fs->get_realpath(__DIR__.'/testData/px2dt_config/px-files/broccoli-fields/projectCustom2/frontend.js'), $output->projectCustom2->frontend->file );
+		$this->assertEquals( 'window.broccoliFieldProjectCustom2', $output->projectCustom2->frontend->function );
+
+		// 後始末
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/px2dt_config/.px_execute.php' ,
+			'/?PX=clearcache' ,
+		] );
+
+	} // testAdvancedConfigApi()
+
+	/**
+	 * broccoli-html-editor ビルドのテスト
 	 */
 	public function testBuild(){
 
-
-		// ビルドCSS
+		// build "CSS"
 		$outputCss = $this->passthru( [
 			'php',
 			__DIR__.'/testData/standard/.px_execute.php' ,
@@ -91,7 +142,7 @@ class mainTest extends PHPUnit_Framework_TestCase{
 		$this->assertEquals( $outputCss, $outputCssApi );
 
 
-		// ビルドJavaScript
+		// build "JavaScript"
 		$outputJs = $this->passthru( [
 			'php',
 			__DIR__.'/testData/standard/.px_execute.php' ,
@@ -106,7 +157,7 @@ class mainTest extends PHPUnit_Framework_TestCase{
 		$this->assertEquals( $outputJs, $outputJsApi );
 
 
-		// ビルドLoader
+		// build "Loader"
 		$outputLoader = $this->passthru( [
 			'php',
 			__DIR__.'/testData/standard/.px_execute.php' ,
@@ -175,6 +226,7 @@ class mainTest extends PHPUnit_Framework_TestCase{
 		] );
 
 	} // testTableApi()
+
 
 
 

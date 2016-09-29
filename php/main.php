@@ -77,6 +77,88 @@ class main{
 	}
 
 	/**
+	 * realpath_data_dir のパスを得る。
+	 *
+	 * @param string $localpath_resource ローカルリソースのパス
+	 * @return string ローカルリソースの実際の絶対パス
+	 */
+	public function get_realpath_data_dir(){
+		$rtn = @$this->get_px2dtconfig()->guieditor->path_data_dir;
+		if( !strlen( $rtn ) ){
+			$rtn = $this->px->conf()->path_files.'/guieditor.ignore/';
+		}
+		$rtn = $this->bind_path_files($rtn);
+		$rtn = $this->px->fs()->get_realpath( './'.$rtn );
+		return $rtn;
+	}//get_realpath_data_dir()
+
+	/**
+	 * Get path_resource_dir
+	 */
+	public function get_path_resource_dir(){
+		$rtn = @$this->get_px2dtconfig()->guieditor->path_resource_dir;
+		if( !strlen( $rtn ) ){
+			$rtn = $this->px->conf()->path_files.'/resources/';
+		}
+		$rtn = $this->bind_path_files($rtn);
+		return $rtn;
+	}//get_path_resource_dir()
+
+	/**
+	 * realpath_data_dir のパスを得る。
+	 *
+	 * @param string $template テンプレート
+	 * @return string バインド後のパス文字列
+	 */
+	private function bind_path_files( $template ){
+		if( $this->px->site() !== false ){
+			$tmp_page_info = $this->px->site()->get_current_page_info();
+			$path_content = $tmp_page_info['content'];
+			unset($tmp_page_info);
+		}
+		if( @is_null($path_content) ){
+			$path_content = $this->px->req()->get_request_file_path();
+		}
+
+		$rtn = @$template;
+		$data = array(
+			'dirname'=>$this->px->fs()->normalize_path(dirname($path_content)),
+			'filename'=>basename($this->px->fs()->trim_extension($path_content)),
+			'ext'=>strtolower($this->px->fs()->get_extension($path_content)),
+		);
+		$rtn = str_replace( '{$dirname}', $data['dirname'], $rtn );
+		$rtn = str_replace( '{$filename}', $data['filename'], $rtn );
+		$rtn = str_replace( '{$ext}', $data['ext'], $rtn );
+		$rtn = preg_replace( '/^\/*/', '/', $rtn );
+		$rtn = preg_replace( '/\/*$/', '', $rtn ).'/';
+
+		if( $this->px->fs()->is_dir('./'.$rtn) ){
+			$rtn .= '/';
+		}
+		$rtn = $this->px->href( $rtn );
+		$rtn = $this->px->fs()->normalize_path($rtn);
+		$rtn = preg_replace( '/^\/+/', '/', $rtn );
+		return $rtn;
+	}//bind_path_files()
+
+	/**
+	 * Get custom_fields
+	 */
+	public function get_custom_fields(){
+		$rtn = @$this->get_px2dtconfig()->guieditor->custom_fields;
+		if( gettype($rtn) != gettype(new \stdClass) ){
+			$rtn = new \stdClass;
+		}
+
+		foreach( $rtn as $field ){
+			$field->backend->require = $this->px->fs()->get_realpath( './'.$field->backend->require );
+			$field->frontend->file = $this->px->fs()->get_realpath( './'.$field->frontend->file );
+		}
+
+		return $rtn;
+	}
+
+	/**
 	 * コンテンツを複製する
 	 */
 	public function copy_content($path_from, $path_to){
@@ -140,6 +222,23 @@ class main{
 				// バージョン番号
 				print $std_output->data_convert( $this->get_version() );
 				exit;
+				break;
+
+			case 'get':
+				switch( @$this->command[2] ){
+					case 'realpath_data_dir':
+						print $std_output->data_convert( $this->get_realpath_data_dir() );
+						exit;
+						break;
+					case 'path_resource_dir':
+						print $std_output->data_convert( $this->get_path_resource_dir() );
+						exit;
+						break;
+					case 'custom_fields':
+						print $std_output->data_convert( $this->get_custom_fields() );
+						exit;
+						break;
+				}
 				break;
 
 			case 'copy_content':
