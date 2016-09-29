@@ -153,8 +153,8 @@ class main{
 		}
 
 		foreach( $rtn as $field ){
-			$field->backend->require = $this->px->fs()->get_realpath( './'.$field->backend->require );
-			$field->frontend->file = $this->px->fs()->get_realpath( './'.$field->frontend->file );
+			$field->backend->require = $this->px->fs()->normalize_path( $this->px->fs()->get_realpath( './'.$field->backend->require ) );
+			$field->frontend->file = $this->px->fs()->normalize_path( $this->px->fs()->get_realpath( './'.$field->frontend->file ) );
 		}
 
 		return $rtn;
