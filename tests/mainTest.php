@@ -159,6 +159,72 @@ class mainTest extends PHPUnit_Framework_TestCase{
 	} // testAdvancedConfigApi()
 
 	/**
+	 * CheckEditorMode
+	 */
+	public function testCheckEditorMode(){
+
+		// check_editor_mode
+		$output = $this->passthru( [ 'php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.check_editor_mode' ] );
+		$output = json_decode($output);
+		// var_dump($output);
+		$this->assertEquals( 'html', $output );
+
+		$output = $this->passthru( [ 'php', __DIR__.'/testData/standard/.px_execute.php', '/editor_modes/?PX=px2dthelper.check_editor_mode' ] );
+		$output = json_decode($output);
+		// var_dump($output);
+		$this->assertEquals( 'html', $output );
+
+		$output = $this->passthru( [ 'php', __DIR__.'/testData/standard/.px_execute.php', '/editor_modes/html.html?PX=px2dthelper.check_editor_mode' ] );
+		$output = json_decode($output);
+		// var_dump($output);
+		$this->assertEquals( 'html', $output );
+
+		$output = $this->passthru( [ 'php', __DIR__.'/testData/standard/.px_execute.php', '/editor_modes/htm.htm?PX=px2dthelper.check_editor_mode' ] );
+		$output = json_decode($output);
+		// var_dump($output);
+		$this->assertEquals( 'html', $output );
+
+		$output = $this->passthru( [ 'php', __DIR__.'/testData/standard/.px_execute.php', '/editor_modes/gui.html?PX=px2dthelper.check_editor_mode' ] );
+		$output = json_decode($output);
+		// var_dump($output);
+		$this->assertEquals( 'html.gui', $output );
+
+		$output = $this->passthru( [ 'php', __DIR__.'/testData/standard/.px_execute.php', '/editor_modes/md.html?PX=px2dthelper.check_editor_mode' ] );
+		$output = json_decode($output);
+		// var_dump($output);
+		$this->assertEquals( 'md', $output );
+
+		$output = $this->passthru( [ 'php', __DIR__.'/testData/standard/.px_execute.php', '/editor_modes/not_exists.html?PX=px2dthelper.check_editor_mode' ] );
+		$output = json_decode($output);
+		// var_dump($output);
+		$this->assertEquals( '.not_exists', $output );
+
+		$output = $this->passthru( [ 'php', __DIR__.'/testData/standard/.px_execute.php', '/editor_modes/page_not_exists.html?PX=px2dthelper.check_editor_mode' ] );
+		$output = json_decode($output);
+		// var_dump($output);
+		$this->assertEquals( '.page_not_exists', $output );
+
+		$output = $this->passthru( [ 'php', __DIR__.'/testData/standard/.px_execute.php', '/px-files/?PX=px2dthelper.check_editor_mode' ] );
+		$output = json_decode($output);
+		// var_dump($output);
+		$this->assertEquals( '.page_not_exists', $output );
+
+
+		// 後始末
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/px2dt_config/.px_execute.php' ,
+			'/?PX=clearcache' ,
+		] );
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/px2dt_config/subapp/.px_execute.php' ,
+			'/?PX=clearcache' ,
+		] );
+
+	} // testCheckEditorMode()
+
+	/**
 	 * broccoli-html-editor ビルドのテスト
 	 */
 	public function testBuild(){

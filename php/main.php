@@ -161,6 +161,55 @@ class main{
 	}
 
 	/**
+	 * 編集モードを取得する
+	 */
+	public function check_editor_mode(){
+		$page_info = null;
+		if( $this->px->site() ){
+			$page_info = $this->px->site()->get_current_page_info();
+		}
+		// var_dump($page_info);
+		// var_dump($realpath_data_dir);
+
+		$preg_exts = implode( '|', array_keys( get_object_vars( $this->px->conf()->funcs->processor ) ) );
+
+		$path_proc_type = $this->px->get_path_proc_type();
+		// var_dump( $path_proc_type );
+		$path_content = $this->px->get_path_content();
+		// var_dump( $path_content );
+
+		$rtn = '.not_exists';
+		if( !is_file( './'.$path_content ) ){
+			if( is_null($page_info) ){
+				return '.page_not_exists';
+			}
+			return '.not_exists';
+		}
+
+		preg_match( '/\\.('.$preg_exts.')\\.('.$preg_exts.')$/', $path_content, $matched );
+		// var_dump($matched);
+
+		if( $path_proc_type == 'html' ){
+			$rtn = 'html';
+			if( @is_string( $matched[2] ) ){
+				switch( $matched[2] ){
+					case 'md':
+						$rtn = $matched[2];
+						break;
+				}
+			}else{
+				$realpath_data_dir = $this->get_realpath_data_dir();
+				if( $this->px->fs()->is_file( $realpath_data_dir.'/data.json' ) ){
+					$rtn = 'html.gui';
+				}
+			}
+		}
+
+		// var_dump( $rtn );
+		return $rtn;
+	}
+
+	/**
 	 * コンテンツを複製する
 	 */
 	public function copy_content($path_from, $path_to){
@@ -241,6 +290,12 @@ class main{
 						exit;
 						break;
 				}
+				break;
+
+			case 'check_editor_mode':
+				print $std_output->data_convert( $this->check_editor_mode() );
+				exit;
+				break;
 				break;
 
 			case 'copy_content':

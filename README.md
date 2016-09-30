@@ -132,6 +132,14 @@ print (new \tomk79\pickles2\px2dthelper\main($px))->document_modules()->load();
 
 `$conf->plugins->px2dt->guieditor->custom_fields` の値を取得する。
 
+#### PX=px2dthelper.check_editor_mode
+
+コンテンツの編集モードを取得します。
+
+```bash
+$ php .px_execute.php "/target/path.html?PX=px2dthelper.check_editor_mode"
+```
+
 #### PX=px2dthelper.copy_content
 
 コンテンツを複製します。
@@ -191,6 +199,7 @@ $ php .px_execute.php /?PX=px2dthelper.version
 - PXコマンド `PX=px2dthelper.get.realpath_data_dir` を追加。
 - PXコマンド `PX=px2dthelper.get.path_resource_dir` を追加。
 - PXコマンド `PX=px2dthelper.get.custom_fields` を追加。
+- PXコマンド `PX=px2dthelper.check_editor_mode` を追加。
 
 ### pickles2/px2-px2dthelper 2.0.0 (2016年9月15日)
 
