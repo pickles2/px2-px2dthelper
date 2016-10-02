@@ -3,6 +3,8 @@
 		<testsuite name="default">
 			<file>./tests/mainTest.php</file>
 			<file>./tests/copyContentTest.php</file>
+			<file>./tests/broccoliTest.php</file>
+			<file>./tests/tableApiTest.php</file>
 		</testsuite>
 	</testsuites>
 </phpunit>
