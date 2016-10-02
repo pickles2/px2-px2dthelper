@@ -210,9 +210,19 @@ class main{
 	}
 
 	/**
+	 * コンテンツを初期化する
+	 */
+	public function init_content( $editor_mode ){
+		require_once(__DIR__.'/fncs/init_content.php');
+		$obj = new fncs_init_content( $this, $this->px );
+		$result = $obj->init_content( $editor_mode );
+		return $result;
+	}
+
+	/**
 	 * コンテンツを複製する
 	 */
-	public function copy_content($path_from, $path_to){
+	public function copy_content( $path_from, $path_to ){
 		require_once(__DIR__.'/fncs/copy_content.php');
 		$copyCont = new fncs_copy_content($this->px);
 		$result = $copyCont->copy( $path_from, $path_to );
@@ -293,9 +303,16 @@ class main{
 				break;
 
 			case 'check_editor_mode':
+				// コンテンツの編集モードを調べる
 				print $std_output->data_convert( $this->check_editor_mode() );
 				exit;
 				break;
+
+			case 'init_content':
+				// コンテンツを初期化する
+				$result = $this->init_content( $this->px->req()->get_param('editor_mode') );
+				print $std_output->data_convert( $result );
+				exit;
 				break;
 
 			case 'copy_content':

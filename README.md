@@ -140,6 +140,14 @@ print (new \tomk79\pickles2\px2dthelper\main($px))->document_modules()->load();
 $ php .px_execute.php "/target/path.html?PX=px2dthelper.check_editor_mode"
 ```
 
+#### PX=px2dthelper.init_content
+
+コンテンツを初期化します。
+
+```bash
+$ php .px_execute.php "/path/init/content.html?PX=px2dthelper.init_content&editor_mode=html.gui"
+```
+
 #### PX=px2dthelper.copy_content
 
 コンテンツを複製します。
@@ -200,6 +208,7 @@ $ php .px_execute.php /?PX=px2dthelper.version
 - PXコマンド `PX=px2dthelper.get.path_resource_dir` を追加。
 - PXコマンド `PX=px2dthelper.get.custom_fields` を追加。
 - PXコマンド `PX=px2dthelper.check_editor_mode` を追加。
+- PXコマンド `PX=px2dthelper.init_content` を追加。
 
 ### pickles2/px2-px2dthelper 2.0.0 (2016年9月15日)
 
