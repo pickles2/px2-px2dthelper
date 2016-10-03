@@ -186,7 +186,7 @@ class main{
 	 * @return string バインド後のパス文字列
 	 */
 	private function bind_path_files( $template, $page_path = null ){
-		if( $this->px->site() !== false ){
+		if( $this->px->site() ){
 			$tmp_page_info = $this->px->site()->get_page_info($page_path);
 			$path_content = $tmp_page_info['content'];
 			unset($tmp_page_info);

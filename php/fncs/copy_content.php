@@ -33,7 +33,7 @@ class fncs_copy_content{
 	 * @return array `array(boolean $result, string $error_msg)`
 	 */
 	public function copy( $path_from, $path_to ){
-		if( gettype($this->px->site()) !== gettype(json_decode('{}')) ){
+		if( !$this->px->site() ){
 			return array(false, '$px->site() is not defined.');
 		}
 
