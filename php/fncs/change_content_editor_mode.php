@@ -69,7 +69,7 @@ class fncs_change_content_editor_mode{
 
 
 		if( $editor_mode_from == 'html.gui' ){
-			if( ($editor_mode_to == 'html' || $editor_mode_to == 'htm') && preg_match( '/\\.'+preg_quote($editor_mode_to,'/')+'$/i', $page_info['content'] ) ){
+			if( ($editor_mode_to == 'html' || $editor_mode_to == 'htm') && preg_match( '/\\.'.preg_quote($editor_mode_to,'/').'$/i', $realpath_content_to ) ){
 				$this->px->fs()->rename_f( $realpath_content_from, $realpath_content_to );
 			}else{
 				$this->px->fs()->rename_f( $realpath_content_from, $realpath_content_to.'.'.$editor_mode_to );
@@ -86,10 +86,10 @@ class fncs_change_content_editor_mode{
 
 		}else{
 			if( $editor_mode_to == 'html.gui' || $editor_mode_to == 'html' || $editor_mode_to == 'htm' ){
-				if( preg_match( '/\\.html?$/i', $page_info['content'] ) ){
+				if( preg_match( '/\\.html?$/i', $realpath_content_to ) ){
 					$this->px->fs()->rename_f( $realpath_content_from, $realpath_content_to );
 				}else{
-					$this->px->fs()->rename_f( $realpath_content_from, $realpath_controot + $path_content_to.'.'.($editor_mode_to=='html.gui' ? 'html.gui' : $editor_mode_to) );
+					$this->px->fs()->rename_f( $realpath_content_from, $realpath_controot.$path_content_to.'.'.($editor_mode_to=='html.gui' ? 'html.gui' : $editor_mode_to) );
 				}
 				if( $editor_mode_to == 'html.gui' ){
 					$this->create_gui_data( $realpath_controot, $realpath_data_dir, $code_before );
@@ -134,7 +134,7 @@ class fncs_change_content_editor_mode{
 						)
 					)
 				)
-			) )
+			), JSON_PRETTY_PRINT )
 		);
 
 		return;

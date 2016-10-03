@@ -25,6 +25,10 @@ class changeContentEditorModeTest extends PHPUnit_Framework_TestCase{
 			'/init_content/html/test.html?PX=px2dthelper.init_content&editor_mode=html'
 		] );
 		$this->assertTrue( $this->fs->is_file( __DIR__.'/testData/standard/init_content/html/test.html' ) );
+		$this->fs->save_file(
+			__DIR__.'/testData/standard/init_content/html/test.html',
+			'<p>HTML Content.</p>'
+		);
 
 		// PX=px2dthelper.change_content_editor_mode
 		$output = $this->passthru( [
@@ -39,6 +43,41 @@ class changeContentEditorModeTest extends PHPUnit_Framework_TestCase{
 		$this->assertEquals( gettype(array()), gettype($output) );
 		$this->assertFalse( $this->fs->is_file( __DIR__.'/testData/standard/init_content/html/test.html' ) );
 		$this->assertTrue( $this->fs->is_file( __DIR__.'/testData/standard/init_content/html/test.html.md' ) );
+
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/standard/.px_execute.php',
+			'/init_content/html/test.html?PX=px2dthelper.change_content_editor_mode&editor_mode=html.gui'
+		] );
+		// var_dump($output);
+		$output = json_decode($output);
+		// var_dump($output);
+		clearstatcache();
+		$this->assertEquals( gettype(array()), gettype($output) );
+		$this->assertTrue( $this->fs->is_file( __DIR__.'/testData/standard/init_content/html/test.html' ) );
+		$this->assertFalse( $this->fs->is_file( __DIR__.'/testData/standard/init_content/html/test.html.md' ) );
+		$this->assertTrue( $this->fs->is_file( __DIR__.'/testData/standard/init_content/html/test_files/guieditor.ignore/data.json' ) );
+		$dataJson = $this->fs->read_file( __DIR__.'/testData/standard/init_content/html/test_files/guieditor.ignore/data.json' );
+		// var_dump( $dataJson );
+		$json = json_decode( $dataJson );
+		// var_dump( $json );
+		$this->assertEquals( '_sys/root', $json->bowl->main->modId );
+		$this->assertEquals( '_sys/html', $json->bowl->main->fields->main[0]->modId );
+		$this->assertEquals( '<p>HTML Content.</p>', $json->bowl->main->fields->main[0]->fields->main );
+
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/standard/.px_execute.php',
+			'/init_content/html/test.html?PX=px2dthelper.change_content_editor_mode&editor_mode=html'
+		] );
+		// var_dump($output);
+		$output = json_decode($output);
+		// var_dump($output);
+		clearstatcache();
+		$this->assertEquals( gettype(array()), gettype($output) );
+		$this->assertTrue( $this->fs->is_file( __DIR__.'/testData/standard/init_content/html/test.html' ) );
+		$this->assertFalse( $this->fs->is_file( __DIR__.'/testData/standard/init_content/html/test.html.md' ) );
+		$this->assertFalse( $this->fs->is_file( __DIR__.'/testData/standard/init_content/html/test_files/guieditor.ignore/data.json' ) );
 
 
 
