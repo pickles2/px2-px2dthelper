@@ -120,6 +120,14 @@ print (new \tomk79\pickles2\px2dthelper\main($px))->document_modules()->load();
 
 ### PXコマンド
 
+#### PX=px2dthelper.find_page_content
+
+ページのコンテンツファイルを探します。
+
+```bash
+$ php .px_execute.php /path/find/content.html?PX=px2dthelper.find_page_content
+```
+
 #### PX=px2dthelper.get.realpath_data_dir
 
 `$conf->plugins->px2dt->guieditor->path_data_dir` の解決された内部絶対パスを取得する。
@@ -154,6 +162,14 @@ $ php .px_execute.php "/path/init/content.html?PX=px2dthelper.init_content&edito
 
 ```bash
 $ php .px_execute.php "/?PX=px2dthelper.copy_content&from=/path/copy/from.html&to=/path/copy/to.html"
+```
+
+#### PX=px2dthelper.change_content_editor_mode
+
+コンテンツの編集モードを変更します。
+
+```bash
+$ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.change_content_editor_mode&editor_mode=html.gui"
 ```
 
 #### PX=px2dthelper.document_modules.build_css
@@ -204,11 +220,13 @@ $ php .px_execute.php /?PX=px2dthelper.version
 
 ### pickles2/px2-px2dthelper 2.0.1 (2016年??月??日)
 
+- PXコマンド `PX=px2dthelper.find_page_content` を追加。
 - PXコマンド `PX=px2dthelper.get.realpath_data_dir` を追加。
 - PXコマンド `PX=px2dthelper.get.path_resource_dir` を追加。
 - PXコマンド `PX=px2dthelper.get.custom_fields` を追加。
 - PXコマンド `PX=px2dthelper.check_editor_mode` を追加。
 - PXコマンド `PX=px2dthelper.init_content` を追加。
+- PXコマンド `PX=px2dthelper.change_content_editor_mode` を追加。
 
 ### pickles2/px2-px2dthelper 2.0.0 (2016年9月15日)
 

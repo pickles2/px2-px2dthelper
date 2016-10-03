@@ -77,17 +77,86 @@ class main{
 	}
 
 	/**
+	 * ページのコンテンツファイルを探す
+	 */
+	public function find_page_content( $page_path = null ){
+		// execute Content
+		$path_content = $this->px->req()->get_request_file_path();
+		if( strlen($page_path) ){
+			$path_content = $page_path;
+		}
+		$ext = $this->px->get_path_proc_type( $this->px->req()->get_request_file_path() );
+		if($ext !== 'direct' && $ext !== 'pass'){
+			if( $this->px->site() ){
+				$current_page_info = $this->px->site()->get_page_info($page_path);
+				$tmp_path_content = @$current_page_info['content'];
+				if( strlen( $tmp_path_content ) ){
+					$path_content = $tmp_path_content;
+				}
+				unset($current_page_info, $tmp_path_content);
+			}
+		}
+
+		foreach( array_keys( get_object_vars( $this->px->conf()->funcs->processor ) ) as $tmp_ext ){
+			if( $this->px->fs()->is_file( './'.$path_content.'.'.$tmp_ext ) ){
+				$ext = $tmp_ext;
+				$path_content .= '.'.$tmp_ext;
+				break;
+			}
+		}
+
+		return $path_content;
+	}
+
+	/**
+	 * ローカルリソースディレクトリのパスを得る。
+	 *
+	 * @param string $page_path 対象のページのパス
+	 * @return string ローカルリソースの実際の絶対パス
+	 */
+	public function path_files( $page_path ){
+		if( $this->px->site() ){
+			$tmp_page_info = $this->px->site()->get_page_info($page_path);
+			$path_content = $tmp_page_info['content'];
+			unset($tmp_page_info);
+		}
+		if( @is_null($path_content) ){
+			$path_content = $page_path;
+		}
+
+		$rtn = $this->px->conf()->path_files;
+		$data = array(
+			'dirname'=>$this->px->fs()->normalize_path(dirname($path_content)),
+			'filename'=>basename($this->px->fs()->trim_extension($path_content)),
+			'ext'=>strtolower($this->px->fs()->get_extension($path_content)),
+		);
+		$rtn = str_replace( '{$dirname}', $data['dirname'], $rtn );
+		$rtn = str_replace( '{$filename}', $data['filename'], $rtn );
+		$rtn = str_replace( '{$ext}', $data['ext'], $rtn );
+		$rtn = preg_replace( '/^\/*/', '/', $rtn );
+		$rtn = preg_replace( '/\/*$/', '', $rtn ).'/';
+
+		if( $this->px->fs()->is_dir('./'.$rtn) ){
+			$rtn .= '/';
+		}
+		$rtn = $this->px->href( $rtn );
+		$rtn = $this->px->fs()->normalize_path($rtn);
+		$rtn = preg_replace( '/^\/+/', '/', $rtn );
+		return $rtn;
+	}//path_files()
+
+	/**
 	 * realpath_data_dir のパスを得る。
 	 *
 	 * @param string $localpath_resource ローカルリソースのパス
 	 * @return string ローカルリソースの実際の絶対パス
 	 */
-	public function get_realpath_data_dir(){
+	public function get_realpath_data_dir($page_path = null){
 		$rtn = @$this->get_px2dtconfig()->guieditor->path_data_dir;
 		if( !strlen( $rtn ) ){
 			$rtn = $this->px->conf()->path_files.'/guieditor.ignore/';
 		}
-		$rtn = $this->bind_path_files($rtn);
+		$rtn = $this->bind_path_files($rtn, $page_path);
 		$rtn = $this->px->fs()->get_realpath( './'.$rtn );
 		$rtn = $this->px->fs()->normalize_path($rtn);
 		$rtn = preg_replace( '/^\/+/', '/', $rtn );
@@ -97,12 +166,12 @@ class main{
 	/**
 	 * Get path_resource_dir
 	 */
-	public function get_path_resource_dir(){
+	public function get_path_resource_dir($page_path = null){
 		$rtn = @$this->get_px2dtconfig()->guieditor->path_resource_dir;
 		if( !strlen( $rtn ) ){
 			$rtn = $this->px->conf()->path_files.'/resources/';
 		}
-		$rtn = $this->bind_path_files($rtn);
+		$rtn = $this->bind_path_files($rtn, $page_path);
 		$rtn = $this->px->href( $rtn );
 		$rtn = $this->px->fs()->normalize_path($rtn);
 		$rtn = preg_replace( '/^\/+/', '/', $rtn );
@@ -113,13 +182,17 @@ class main{
 	 * realpath_data_dir のパスを得る。
 	 *
 	 * @param string $template テンプレート
+	 * @param string $page_path ページのパス
 	 * @return string バインド後のパス文字列
 	 */
-	private function bind_path_files( $template ){
+	private function bind_path_files( $template, $page_path = null ){
 		if( $this->px->site() !== false ){
-			$tmp_page_info = $this->px->site()->get_current_page_info();
+			$tmp_page_info = $this->px->site()->get_page_info($page_path);
 			$path_content = $tmp_page_info['content'];
 			unset($tmp_page_info);
+		}
+		if( @is_null($path_content) ){
+			$path_content = $page_path;
 		}
 		if( @is_null($path_content) ){
 			$path_content = $this->px->req()->get_request_file_path();
@@ -163,31 +236,30 @@ class main{
 	/**
 	 * 編集モードを取得する
 	 */
-	public function check_editor_mode(){
+	public function check_editor_mode( $page_path = null ){
+		if(!strlen($page_path)){
+			$page_path = $this->px->req()->get_request_file_path();
+		}
 		$page_info = null;
 		if( $this->px->site() ){
-			$page_info = $this->px->site()->get_current_page_info();
+			$page_info = $this->px->site()->get_page_info($page_path);
 		}
-		// var_dump($page_info);
-		// var_dump($realpath_data_dir);
 
+		$realpath_controot = $this->px->get_path_docroot().$this->px->get_path_controot();
 		$preg_exts = implode( '|', array_keys( get_object_vars( $this->px->conf()->funcs->processor ) ) );
 
-		$path_proc_type = $this->px->get_path_proc_type();
-		// var_dump( $path_proc_type );
-		$path_content = $this->px->get_path_content();
-		// var_dump( $path_content );
+		$path_proc_type = $this->px->get_path_proc_type($page_path);
+		$path_content = $this->find_page_content($page_path);
 
 		$rtn = '.not_exists';
-		if( !is_file( './'.$path_content ) ){
+		if( !is_file( $realpath_controot.$path_content ) ){
 			if( is_null($page_info) ){
 				return '.page_not_exists';
 			}
 			return '.not_exists';
 		}
 
-		preg_match( '/\\.('.$preg_exts.')\\.('.$preg_exts.')$/', $path_content, $matched );
-		// var_dump($matched);
+		@preg_match( '/\\.('.$preg_exts.')\\.('.$preg_exts.')$/', $path_content, $matched );
 
 		if( $path_proc_type == 'html' ){
 			$rtn = 'html';
@@ -205,7 +277,6 @@ class main{
 			}
 		}
 
-		// var_dump( $rtn );
 		return $rtn;
 	}
 
@@ -224,8 +295,19 @@ class main{
 	 */
 	public function copy_content( $path_from, $path_to ){
 		require_once(__DIR__.'/fncs/copy_content.php');
-		$copyCont = new fncs_copy_content($this->px);
+		$copyCont = new fncs_copy_content($this, $this->px);
 		$result = $copyCont->copy( $path_from, $path_to );
+		return $result;
+	}
+
+	/**
+	 * コンテンツ編集モードを変更する
+	 */
+	public function change_content_editor_mode( $editor_mode ){
+		require_once(__DIR__.'/fncs/change_content_editor_mode.php');
+		$obj = new fncs_change_content_editor_mode( $this, $this->px );
+		$page_path = $this->px->req()->get_request_file_path();
+		$result = $obj->change_content_editor_mode( $editor_mode, $page_path );
 		return $result;
 	}
 
@@ -302,6 +384,12 @@ class main{
 				}
 				break;
 
+			case 'find_page_content':
+				// コンテンツのパスを調べる
+				print $std_output->data_convert( $this->find_page_content() );
+				exit;
+				break;
+
 			case 'check_editor_mode':
 				// コンテンツの編集モードを調べる
 				print $std_output->data_convert( $this->check_editor_mode() );
@@ -321,6 +409,13 @@ class main{
 					$this->px->req()->get_param('from'),
 					$this->px->req()->get_param('to')
 				);
+				print $std_output->data_convert( $result );
+				exit;
+				break;
+
+			case 'change_content_editor_mode':
+				// コンテンツを初期化する
+				$result = $this->change_content_editor_mode( $this->px->req()->get_param('editor_mode') );
 				print $std_output->data_convert( $result );
 				exit;
 				break;

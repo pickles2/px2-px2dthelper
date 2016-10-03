@@ -159,7 +159,32 @@ class mainTest extends PHPUnit_Framework_TestCase{
 	} // testAdvancedConfigApi()
 
 	/**
-	 * CheckEditorMode
+	 * コンテンツファイルを検索するテスト
+	 */
+	public function testFindPageContent(){
+		// find_page_content()
+		$output = $this->passthru( [ 'php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.find_page_content' ] );
+		$output = json_decode($output);
+		// var_dump($output);
+		$this->assertEquals( '/index.html', $output );
+
+		// find_page_content()
+		$output = $this->passthru( [ 'php', __DIR__.'/testData/standard/.px_execute.php', '/editor_modes/md.html?PX=px2dthelper.find_page_content' ] );
+		$output = json_decode($output);
+		// var_dump($output);
+		$this->assertEquals( '/editor_modes/md.html.md', $output );
+
+
+		// 後始末
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/standard/.px_execute.php' ,
+			'/?PX=clearcache' ,
+		] );
+	}
+
+	/**
+	 * 編集モードを調べるテスト
 	 */
 	public function testCheckEditorMode(){
 
