@@ -2,6 +2,7 @@
 	<testsuites>
 		<testsuite name="default">
 			<file>./tests/mainTest.php</file>
+			<file>./tests/beforeSitemapTest.php</file>
 			<file>./tests/initContentTest.php</file>
 			<file>./tests/copyContentTest.php</file>
 			<file>./tests/changeContentEditorModeTest.php</file>

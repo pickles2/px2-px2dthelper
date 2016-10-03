@@ -53,6 +53,7 @@ class main{
 		return '2.0.1-alpha.1+nb';
 	}
 
+
 	/**
 	 * constructor
 	 *
@@ -67,6 +68,17 @@ class main{
 			$this->px2dtconfig = json_decode( $this->px->fs()->read_file( $this->px->get_path_homedir().'px2dtconfig.json' ) );
 		}
 
+	}
+
+	/**
+	 * セットアップ状態をチェックする
+	 * @return object 状態情報
+	 */
+	public function check_status(){
+		$rtn = json_decode('{}');
+		$rtn->version = $this->get_version();
+		$rtn->is_sitemap_loaded = ($this->px->site() ? true : false);
+		return $rtn;
 	}
 
 	/**
@@ -364,6 +376,12 @@ class main{
 			case 'version':
 				// バージョン番号
 				print $std_output->data_convert( $this->get_version() );
+				exit;
+				break;
+
+			case 'check_status':
+				// 状態をチェックする
+				print $std_output->data_convert( $this->check_status() );
 				exit;
 				break;
 

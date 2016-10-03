@@ -219,6 +219,14 @@ px2-px2dthelper のバージョン番号を取得します。
 $ php .px_execute.php /?PX=px2dthelper.version
 ```
 
+#### PX=px2dthelper.check_status
+
+px2-px2dthelper の状態情報を取得します。
+
+```bash
+$ php .px_execute.php /?PX=px2dthelper.check_status
+```
+
 
 
 
@@ -233,6 +241,7 @@ $ php .px_execute.php /?PX=px2dthelper.version
 - PXコマンド `PX=px2dthelper.check_editor_mode` を追加。
 - PXコマンド `PX=px2dthelper.init_content` を追加。
 - PXコマンド `PX=px2dthelper.change_content_editor_mode` を追加。
+- PXコマンド `PX=px2dthelper.check_status` を追加。
 - `PX=px2dthelper.copy_content` の コピー先の指定方法を追加。 `/path/copy/to.html?PX=〜〜` のようにも指定できるようになった。
 
 ### pickles2/px2-px2dthelper 2.0.0 (2016年9月15日)
