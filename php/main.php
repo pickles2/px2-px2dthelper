@@ -405,9 +405,14 @@ class main{
 
 			case 'copy_content':
 				// コンテンツを複製する
+				$path_to = $this->px->req()->get_request_file_path();
+				$param_to = $this->px->req()->get_param('to');
+				if( strlen( $param_to ) ){
+					$path_to = $param_to;
+				}
 				$result = $this->copy_content(
 					$this->px->req()->get_param('from'),
-					$this->px->req()->get_param('to')
+					$path_to
 				);
 				print $std_output->data_convert( $result );
 				exit;

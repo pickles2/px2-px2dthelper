@@ -6,11 +6,19 @@
 class copyContentTest extends PHPUnit_Framework_TestCase{
 
 	/**
+	 * setup
+	 */
+	public function setup(){
+		$this->fs = new \tomk79\filesystem();
+	}
+
+	/**
 	 * コンテンツを複製するテスト
 	 */
 	public function testCopyContent(){
+		$this->assertFalse( $this->fs->is_file(__DIR__.'/testData/standard/copy/to.html') );
 
-		// Pickles 2 実行
+		// PX=px2dthelper.copy_content
 		$output = $this->passthru( [
 			'php',
 			__DIR__.'/testData/standard/.px_execute.php' ,
@@ -21,6 +29,34 @@ class copyContentTest extends PHPUnit_Framework_TestCase{
 		// var_dump( $result );
 		$this->assertEquals( $result[0], true );
 		$this->assertEquals( $result[1], 'ok' );
+		clearstatcache();
+		$this->assertEquals(
+			$this->fs->read_file(__DIR__.'/testData/standard/copy/from.html'),
+			$this->fs->read_file(__DIR__.'/testData/standard/copy/to.html')
+		);
+		$this->fs->rm(__DIR__.'/testData/standard/copy/to.html');
+		clearstatcache();
+		$this->assertFalse( $this->fs->is_file(__DIR__.'/testData/standard/copy/to.html') );
+
+		// PX=px2dthelper.copy_content
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/standard/.px_execute.php' ,
+			'/copy/to.html?PX=px2dthelper.copy_content&from=/copy/from.html' ,
+		] );
+		// var_dump($output);
+		$result = json_decode($output);
+		// var_dump( $result );
+		$this->assertEquals( $result[0], true );
+		$this->assertEquals( $result[1], 'ok' );
+		clearstatcache();
+		$this->assertEquals(
+			$this->fs->read_file(__DIR__.'/testData/standard/copy/from.html'),
+			$this->fs->read_file(__DIR__.'/testData/standard/copy/to.html')
+		);
+		$this->fs->rm(__DIR__.'/testData/standard/copy/to.html');
+		clearstatcache();
+		$this->assertFalse( $this->fs->is_file(__DIR__.'/testData/standard/copy/to.html') );
 
 
 		// 後始末

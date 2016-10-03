@@ -161,6 +161,12 @@ $ php .px_execute.php "/path/init/content.html?PX=px2dthelper.init_content&edito
 コンテンツを複製します。
 
 ```bash
+$ php .px_execute.php "/path/copy/to.html?PX=px2dthelper.copy_content&from=/path/copy/from.html"
+```
+
+または、
+
+```bash
 $ php .px_execute.php "/?PX=px2dthelper.copy_content&from=/path/copy/from.html&to=/path/copy/to.html"
 ```
 
@@ -227,6 +233,7 @@ $ php .px_execute.php /?PX=px2dthelper.version
 - PXコマンド `PX=px2dthelper.check_editor_mode` を追加。
 - PXコマンド `PX=px2dthelper.init_content` を追加。
 - PXコマンド `PX=px2dthelper.change_content_editor_mode` を追加。
+- `PX=px2dthelper.copy_content` の コピー先の指定方法を追加。 `/path/copy/to.html?PX=〜〜` のようにも指定できるようになった。
 
 ### pickles2/px2-px2dthelper 2.0.0 (2016年9月15日)
 
