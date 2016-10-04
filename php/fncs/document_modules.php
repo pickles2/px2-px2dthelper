@@ -86,7 +86,7 @@ class document_modules{
 				if( $this->px->fs()->get_extension( $path ) == 'scss' ){
 					$tmp_current_dir = realpath('./');
 					chdir( dirname( $path ) );
-					$scss = new \scssc();
+					$scss = new \Leafo\ScssPhp\Compiler();
 					$tmp_bin = $scss->compile( $tmp_bin );
 					chdir( $tmp_current_dir );
 				}

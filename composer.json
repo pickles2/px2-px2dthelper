@@ -18,9 +18,9 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "tomk79/php-excel2html": "0.0.*",
-        "michelf/php-markdown": "1.4.*",
-        "leafo/scssphp": "0.1.*"
+        "tomk79/php-excel2html": "^0.0.5",
+        "michelf/php-markdown": "1.6.*",
+        "leafo/scssphp": "0.6.*"
     },
     "require-dev": {
         "pickles2/broccoli-module-fess": "dev-master",
