@@ -165,6 +165,9 @@ class main{
 	 */
 	public function get_realpath_data_dir($page_path = null){
 		$rtn = @$this->get_px2dtconfig()->guieditor->path_data_dir;
+		if( !strlen($rtn) ){
+			$rtn = @$this->get_px2dtconfig()->guieditor->realpathDataDir;//古い仕様
+		}
 		if( !strlen( $rtn ) ){
 			$rtn = $this->px->conf()->path_files.'/guieditor.ignore/';
 		}
@@ -180,6 +183,9 @@ class main{
 	 */
 	public function get_path_resource_dir($page_path = null){
 		$rtn = @$this->get_px2dtconfig()->guieditor->path_resource_dir;
+		if( !strlen($rtn) ){
+			$rtn = @$this->get_px2dtconfig()->guieditor->pathResourceDir;//古い仕様
+		}
 		if( !strlen( $rtn ) ){
 			$rtn = $this->px->conf()->path_files.'/resources/';
 		}
