@@ -1,0 +1,13 @@
+.bar{
+	background-image:url('res/everyone.png');
+	height:191px;
+	max-width:675px;
+	margin: 1em auto;
+}
+.bar p{
+	text-align: center;
+}
+.bar p span{
+	color: #ddd;
+	background-color: #fff;
+}

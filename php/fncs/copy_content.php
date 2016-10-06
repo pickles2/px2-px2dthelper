@@ -12,12 +12,16 @@ class fncs_copy_content{
 	/** Picklesオブジェクト */
 	private $px;
 
+	/** px2dthelperオブジェクト */
+	private $px2dthelper;
+
 	/**
 	 * constructor
 	 *
 	 * @param object $px $pxオブジェクト
 	 */
-	public function __construct( $px ){
+	public function __construct( $px2dthelper, $px ){
+		$this->px2dthelper = $px2dthelper;
 		$this->px = $px;
 	}
 
@@ -29,20 +33,20 @@ class fncs_copy_content{
 	 * @return array `array(boolean $result, string $error_msg)`
 	 */
 	public function copy( $path_from, $path_to ){
-		if( gettype($this->px->site()) !== gettype(json_decode('{}')) ){
+		if( !$this->px->site() ){
 			return array(false, '$px->site() is not defined.');
 		}
 
 		$contRoot = $this->px->fs()->get_realpath( $this->px->get_path_docroot().'/'.$this->px->get_path_controot() );
 
 		$from = array();
-		$from['pathContent'] = $this->find_page_content( $path_from );
-		$from['pathFiles'] = $this->path_files( $path_from );
+		$from['pathContent'] = $this->px2dthelper->find_page_content( $path_from );
+		$from['pathFiles'] = $this->px2dthelper->path_files( $path_from );
 		$from['procType'] = $this->px->get_path_proc_type( $path_from );
 
 		$to = array();
-		$to['pathContent'] = $this->find_page_content( $path_to );
-		$to['pathFiles'] = $this->path_files( $path_to );
+		$to['pathContent'] = $this->px2dthelper->find_page_content( $path_to );
+		$to['pathFiles'] = $this->px2dthelper->path_files( $path_to );
 		$to['procType'] = $this->px->get_path_proc_type( $path_to );
 		// var_dump($from, $to);
 
@@ -99,72 +103,5 @@ class fncs_copy_content{
 
 		return array(true, 'ok');
 	}
-
-
-	/**
-	 * ページのコンテンツを探す
-	 * @param  string $path ページのパス
-	 * @return string       コンテンツのパス
-	 */
-	private function find_page_content( $path ){
-		// execute Content
-		$path_content = $path;
-		$ext = $this->px->get_path_proc_type( $path );
-		if($ext !== 'direct' && $ext !== 'pass'){
-			$current_page_info = $this->px->site()->get_page_info( $path );
-			$path_content = $current_page_info['content'];
-			if( is_null( $path_content ) ){
-				$path_content = $path;
-			}
-			unset($current_page_info);
-		}
-
-		foreach( array_keys( get_object_vars( $this->px->conf()->funcs->processor ) ) as $tmp_ext ){
-			if( $this->px->fs()->is_file( './'.$path_content.'.'.$tmp_ext ) ){
-				$ext = $tmp_ext;
-				$path_content = $path_content.'.'.$tmp_ext;
-				break;
-			}
-		}
-
-		return $path_content;
-	}
-
-	/**
-	 * ローカルリソースディレクトリのパスを得る。
-	 *
-	 * @param string $page_path 対象のページのパス
-	 * @return string ローカルリソースの実際の絶対パス
-	 */
-	private function path_files( $page_path ){
-		if( gettype($this->px->site()) === gettype(json_decode('{}')) ){
-			$tmp_page_info = $this->px->site()->get_page_info($page_path);
-			$path_content = $tmp_page_info['content'];
-			unset($tmp_page_info);
-		}
-		if( @is_null($path_content) ){
-			$path_content = $page_path;
-		}
-
-		$rtn = $this->px->conf()->path_files;
-		$data = array(
-			'dirname'=>$this->px->fs()->normalize_path(dirname($path_content)),
-			'filename'=>basename($this->px->fs()->trim_extension($path_content)),
-			'ext'=>strtolower($this->px->fs()->get_extension($path_content)),
-		);
-		$rtn = str_replace( '{$dirname}', $data['dirname'], $rtn );
-		$rtn = str_replace( '{$filename}', $data['filename'], $rtn );
-		$rtn = str_replace( '{$ext}', $data['ext'], $rtn );
-		$rtn = preg_replace( '/^\/*/', '/', $rtn );
-		$rtn = preg_replace( '/\/*$/', '', $rtn ).'/';
-
-		if( $this->px->fs()->is_dir('./'.$rtn) ){
-			$rtn .= '/';
-		}
-		$rtn = $this->px->href( $rtn );
-		$rtn = $this->px->fs()->normalize_path($rtn);
-		$rtn = preg_replace( '/^\/+/', '/', $rtn );
-		return $rtn;
-	}//path_files()
 
 }

@@ -1,0 +1,9 @@
+{
+	"name": "moduleフィールドを使ったモジュール",
+	"sample_data":[
+		{
+			"title": "他のモジュールを読み込んでみた。",
+			"data": {"modId":"Modules2:hoge/include","fields":{"mod":[{"modId":"Modules2:hoge/include","fields":{"mod":[{"modId":"Modules2:hoge/fuga2","fields":{"input_html":"<p>テストです。</p>","input_md":"テスト的にマークダウン。\n\n- aaa\n- bbb","input_text":"テキスト","input_image":{"resKey":"fe248f0807f8400e81ab257f5c1b4da1","path":"./index_files/resources/fe248f0807f8400e81ab257f5c1b4da1.undefined"},"input_href":"","input_html_attr_text":""}},{"modId":"Modules2:hoge/fuga2","fields":{"input_html":"<p>テスト的に入力しているHTMLの2つめです。</p>","input_md":"テスト的マークダウンです。\n\n2つめです。","input_text":"テキスト2つめ。","input_image":{"resKey":"ca0f87f85ed3e9e18e02cc493514212a","path":"./index_files/resources/ca0f87f85ed3e9e18e02cc493514212a.undefined"},"input_href":"","input_html_attr_text":""}}]}}]}}
+		}
+	]
+}

@@ -1,0 +1,15 @@
+// test
+.hoge_fuga2{
+	border: 1px solid #666;
+	background-color: #f9f9f9;
+	padding: 1em;
+	margin: 1em 0;
+
+	&-box{
+		border: 1px solid #666;
+		background-color: #fff;
+		padding: 1em;
+		margin: 1em auto;
+	}
+
+}
