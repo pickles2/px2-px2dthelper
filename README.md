@@ -232,7 +232,7 @@ $ php .px_execute.php /?PX=px2dthelper.check_status
 
 ## 更新履歴 - Change log
 
-### pickles2/px2-px2dthelper 2.0.1 (2016年??月??日)
+### pickles2/px2-px2dthelper 2.0.1 (2016年10月17日)
 
 - PXコマンド `PX=px2dthelper.find_page_content` を追加。
 - PXコマンド `PX=px2dthelper.get.realpath_data_dir` を追加。
