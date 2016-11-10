@@ -23,6 +23,8 @@ class main{
 
 	/**
 	 * entry
+	 *
+	 * @param object $px Picklesオブジェクト
 	 */
 	static public function register($px){
 		$px->pxcmd()->register('px2dthelper', function($px){
@@ -90,6 +92,8 @@ class main{
 
 	/**
 	 * ページのコンテンツファイルを探す
+	 *
+	 * @param string $page_path ページのパス。
 	 */
 	public function find_page_content( $page_path = null ){
 		// execute Content
@@ -160,7 +164,7 @@ class main{
 	/**
 	 * realpath_data_dir のパスを得る。
 	 *
-	 * @param string $localpath_resource ローカルリソースのパス
+	 * @param string $page_path 対象のページのパス
 	 * @return string ローカルリソースの実際の絶対パス
 	 */
 	public function get_realpath_data_dir($page_path = null){
@@ -180,6 +184,7 @@ class main{
 
 	/**
 	 * Get path_resource_dir
+	 * @param string $page_path 対象のページのパス
 	 */
 	public function get_path_resource_dir($page_path = null){
 		$rtn = @$this->get_px2dtconfig()->guieditor->path_resource_dir;
@@ -253,6 +258,7 @@ class main{
 
 	/**
 	 * 編集モードを取得する
+	 * @param string $page_path 対象のページのパス
 	 */
 	public function check_editor_mode( $page_path = null ){
 		if(!strlen($page_path)){
@@ -300,6 +306,7 @@ class main{
 
 	/**
 	 * コンテンツを初期化する
+	 * @param string $editor_mode 編集モード名
 	 */
 	public function init_content( $editor_mode ){
 		require_once(__DIR__.'/fncs/init_content.php');
@@ -310,6 +317,8 @@ class main{
 
 	/**
 	 * コンテンツを複製する
+	 * @param string $path_from 複製元ページのパス
+	 * @param string $path_to 複製先ページのパス
 	 */
 	public function copy_content( $path_from, $path_to ){
 		require_once(__DIR__.'/fncs/copy_content.php');
@@ -320,6 +329,7 @@ class main{
 
 	/**
 	 * コンテンツ編集モードを変更する
+	 * @param string $editor_mode 変更後の編集モード名
 	 */
 	public function change_content_editor_mode( $editor_mode ){
 		require_once(__DIR__.'/fncs/change_content_editor_mode.php');
@@ -336,22 +346,6 @@ class main{
 		require_once( __DIR__.'/fncs/document_modules.php' );
 		$rtn = '';
 		$rtn = new document_modules($this->px, $this);
-		return $rtn;
-	}
-
-	/**
-	 * フィールド定義オブジェクトを取得
-	 */
-	public function get_field_definition( $field_type ){
-		require_once( __DIR__.'/field_base.php' );
-		$rtn = null;
-		if( is_file( __DIR__.'/fields/field.'.$field_type.'.php' ) ){
-			require_once( __DIR__.'/fields/field.'.$field_type.'.php' );
-			$class_name = '\\tomk79\\pickles2\\px2dthelper\\field_'.$field_type;
-			$rtn = new $class_name();
-		}else{
-			$rtn = new field_base();
-		}
 		return $rtn;
 	}
 
