@@ -68,3 +68,4 @@ class fncs_init_content{
 	}
 
 }
+
