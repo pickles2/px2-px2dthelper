@@ -52,7 +52,7 @@ class main{
 	 * @return string バージョン番号を示す文字列
 	 */
 	public function get_version(){
-		return '2.0.2';
+		return '2.0.3-alpha.1+nb';
 	}
 
 
