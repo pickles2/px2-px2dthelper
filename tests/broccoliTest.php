@@ -43,7 +43,12 @@ class broccoliTest extends PHPUnit_Framework_TestCase{
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/test1_build_js.html' ,
 		] );
-		$this->assertEquals( 'alert(\'foo/bar\');', trim($outputJs) );
+
+		$expected = '/**'."\n"
+		.' * module: Modules1:foo/bar'."\n"
+		.' */'."\n"
+		.'alert(\'foo/bar\');'."\n";
+		$this->assertEquals( $expected, $outputJs );
 		$outputJsApi = $this->passthru( [
 			'php',
 			__DIR__.'/testData/standard/.px_execute.php' ,
