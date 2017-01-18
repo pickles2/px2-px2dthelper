@@ -232,7 +232,7 @@ $ php .px_execute.php /?PX=px2dthelper.check_status
 
 ## 更新履歴 - Change log
 
-### pickles2/px2-px2dthelper 2.0.2 (2016年??月??日)
+### pickles2/px2-px2dthelper 2.0.2 (2017年1月18日)
 
 - CSS, JS のビルド結果を整形した。
 
