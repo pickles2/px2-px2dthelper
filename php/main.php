@@ -419,16 +419,25 @@ class main{
 						@$rtn->px2dtconfig = $this->get_px2dtconfig();
 						@$rtn->check_status->px2dthelper = $this->check_status();
 						@$rtn->check_status->pxfw_api->version = $rtn->version->pxfw;
-						@$rtn->check_status->pxfw_api->is_sitemap_loaded = ($this->px->site()!==false ? true : false);
-						@$rtn->realpath_data_dir = $this->get_realpath_data_dir();
-						@$rtn->path_resource_dir = $this->get_path_resource_dir();
+						@$rtn->check_status->pxfw_api->is_sitemap_loaded = (is_object($this->px->site()) ? true : false);
 						@$rtn->custom_fields = $this->get_custom_fields();
 						@$rtn->realpath_homedir = $this->px->get_path_homedir();
 						@$rtn->path_controot = $this->px->get_path_controot();
 						@$rtn->realpath_docroot = $this->px->get_path_docroot();
-						@$rtn->page_info = $this->px->site()->get_page_info( $request_path );
-						@$rtn->path_files = $this->px->path_files( $request_path );
-						@$rtn->realpath_files = $this->px->realpath_files( $request_path );
+
+						if( is_object($this->px->site()) ){
+							@$rtn->realpath_data_dir = $this->get_realpath_data_dir();
+							@$rtn->path_resource_dir = $this->get_path_resource_dir();
+							@$rtn->page_info = $this->px->site()->get_page_info( $request_path );
+							@$rtn->path_files = $this->px->path_files( $request_path );
+							@$rtn->realpath_files = $this->px->realpath_files( $request_path );
+						}else{
+							@$rtn->realpath_data_dir = false;
+							@$rtn->path_resource_dir = false;
+							@$rtn->page_info = false;
+							@$rtn->path_files = false;
+							@$rtn->realpath_files = false;
+						}
 
 						print $std_output->data_convert( $rtn );
 						exit;
