@@ -57,7 +57,7 @@ class main{
 
 
 	/**
-	 * constructor
+	 * Constructor
 	 *
 	 * @param object $px $pxオブジェクト
 	 */
@@ -70,10 +70,20 @@ class main{
 			$this->px2dtconfig = json_decode( $this->px->fs()->read_file( $this->px->get_path_homedir().'px2dtconfig.json' ) );
 		}
 
+		// broccoliモジュールパッケージのパスを整形
+		@$this->px2dtconfig->paths_module_template = @$this->px2dtconfig->paths_module_template;
+		if( is_object($this->px2dtconfig->paths_module_template) ){
+			foreach( $this->px2dtconfig->paths_module_template as $key=>$val ){
+				// ↓ スラッシュで始まり スラッシュで終わる 絶対パスに置き換える。
+				// ↓ WindowsでもUNIXスタイルに正規化する。(ボリュームラベルは削除され、バックスラッシュはスラッシュに置き換えられる)
+				$this->px2dtconfig->paths_module_template->{$key} = $this->px->fs()->normalize_path( $this->px->fs()->get_realpath( $this->px2dtconfig->paths_module_template->{$key}.'/' ) );
+			}
+		}
+
 	}
 
 	/**
-	 * セットアップ状態をチェックする
+	 * セットアップ状態をチェックする。
 	 * @return object 状態情報
 	 */
 	public function check_status(){
@@ -84,7 +94,7 @@ class main{
 	}
 
 	/**
-	 * px2dtconfigを取得する
+	 * px2dtconfigを取得する。
 	 */
 	public function get_px2dtconfig(){
 		return $this->px2dtconfig;

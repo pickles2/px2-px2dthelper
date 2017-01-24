@@ -22,7 +22,7 @@ class getAllTest extends PHPUnit_Framework_TestCase{
 		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.get.all' ] );
 		// var_dump($output);
 		$json = json_decode( $output );
-		var_dump($json);
+		// var_dump($json);
 		$this->assertTrue( is_object($json) );
 
 		// Pickles 2 のバージョン番号
@@ -39,6 +39,11 @@ class getAllTest extends PHPUnit_Framework_TestCase{
 
 		// px2dtconfig
 		$this->assertTrue( is_object($json->px2dtconfig) );
+		$this->assertTrue( is_object($json->px2dtconfig->paths_module_template) );
+			// ↓ スラッシュで始まり スラッシュで終わる 絶対パスで得られる。
+			// ↓ WindowsでもUNIXスタイルに正規化される。
+		$this->assertEquals( preg_match('/^\\//', $json->px2dtconfig->paths_module_template->Modules1), 1 );
+		$this->assertEquals( preg_match('/\\/$/', $json->px2dtconfig->paths_module_template->Modules1), 1 );
 
 		// check_status
 		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.check_status' ] ));
