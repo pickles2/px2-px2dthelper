@@ -20,21 +20,66 @@ class getAllTest extends PHPUnit_Framework_TestCase{
 
 		// Pickles 2 実行
 		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.get.all' ] );
-		var_dump($output);
+		// var_dump($output);
 		$json = json_decode( $output );
+		var_dump($json);
 		$this->assertTrue( is_object($json) );
 
-		// Pickles 2 のバージョン番号を取得
+		// Pickles 2 のバージョン番号
 		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=api.get.version' ] ));
 		$this->assertEquals( $json->version->pxfw, $output );
 
-		// px2dthelper のバージョン番号を取得
+		// px2dthelper のバージョン番号
 		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.version' ] ));
 		$this->assertEquals( $json->version->px2dthelper, $output );
 
-		// config を取得
+		// config
 		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=api.get.config' ] ));
 		$this->assertEquals( $json->config, $output );
+
+		// px2dtconfig
+		$this->assertTrue( is_object($json->px2dtconfig) );
+
+		// check_status
+		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.check_status' ] ));
+		$this->assertEquals( $json->check_status->px2dthelper, $output );
+		$this->assertEquals( $json->check_status->pxfw_api->version, $json->version->pxfw );
+
+		// realpath_data_dir
+		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.get.realpath_data_dir' ] ));
+		$this->assertEquals( $json->realpath_data_dir, $output );
+
+		// path_resource_dir
+		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.get.path_resource_dir' ] ));
+		$this->assertEquals( $json->path_resource_dir, $output );
+
+		// custom_fields
+		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.get.custom_fields' ] ));
+		$this->assertEquals( $json->custom_fields, $output );
+
+		// realpath_homedir
+		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=api.get.path_homedir' ] ));
+		$this->assertEquals( $json->realpath_homedir, $output );
+
+		// path_controot
+		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=api.get.path_controot' ] ));
+		$this->assertEquals( $json->path_controot, $output );
+
+		// realpath_docroot
+		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=api.get.path_docroot' ] ));
+		$this->assertEquals( $json->realpath_docroot, $output );
+
+		// page_info
+		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=api.get.page_info&path=/' ] ));
+		$this->assertEquals( $json->page_info, $output );
+
+		// path_files
+		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=api.get.path_files&path=/' ] ));
+		$this->assertEquals( $json->path_files, $output );
+
+		// realpath_files
+		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=api.get.realpath_files&path=/' ] ));
+		$this->assertEquals( $json->realpath_files, $output );
 
 
 		// 後始末
