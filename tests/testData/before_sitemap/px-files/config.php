@@ -85,15 +85,15 @@ return call_user_func( function(){
 		 // PX=phpinfo
 		'picklesFramework2\commands\phpinfo::register' ,
 
+		// PX=api
+		'picklesFramework2\commands\api::register' ,
+
 		// PX=px2dthelper
 		'tomk79\pickles2\px2dthelper\main::register'
 	];
 
 	// funcs: Before content
 	$conf->funcs->before_content = [
-		// PX=api
-		'picklesFramework2\commands\api::register' ,
-
 		// PX=publish
 		'picklesFramework2\commands\publish::register' ,
 	];

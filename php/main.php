@@ -52,12 +52,12 @@ class main{
 	 * @return string バージョン番号を示す文字列
 	 */
 	public function get_version(){
-		return '2.0.2';
+		return '2.0.3-alpha.1+nb';
 	}
 
 
 	/**
-	 * constructor
+	 * Constructor
 	 *
 	 * @param object $px $pxオブジェクト
 	 */
@@ -70,10 +70,20 @@ class main{
 			$this->px2dtconfig = json_decode( $this->px->fs()->read_file( $this->px->get_path_homedir().'px2dtconfig.json' ) );
 		}
 
+		// broccoliモジュールパッケージのパスを整形
+		@$this->px2dtconfig->paths_module_template = @$this->px2dtconfig->paths_module_template;
+		if( is_object($this->px2dtconfig->paths_module_template) ){
+			foreach( $this->px2dtconfig->paths_module_template as $key=>$val ){
+				// ↓ スラッシュで始まり スラッシュで終わる 絶対パスに置き換える。
+				// ↓ WindowsでもUNIXスタイルに正規化する。(ボリュームラベルは削除され、バックスラッシュはスラッシュに置き換えられる)
+				$this->px2dtconfig->paths_module_template->{$key} = $this->px->fs()->normalize_path( $this->px->fs()->get_realpath( $this->px2dtconfig->paths_module_template->{$key}.'/' ) );
+			}
+		}
+
 	}
 
 	/**
-	 * セットアップ状態をチェックする
+	 * セットアップ状態をチェックする。
 	 * @return object 状態情報
 	 */
 	public function check_status(){
@@ -84,7 +94,7 @@ class main{
 	}
 
 	/**
-	 * px2dtconfigを取得する
+	 * px2dtconfigを取得する。
 	 */
 	public function get_px2dtconfig(){
 		return $this->px2dtconfig;
@@ -187,6 +197,9 @@ class main{
 	 * @param string $page_path 対象のページのパス
 	 */
 	public function get_path_resource_dir($page_path = null){
+		if( !is_object($this->px->site()) ){
+			return false;
+		}
 		$rtn = @$this->get_px2dtconfig()->guieditor->path_resource_dir;
 		if( !strlen($rtn) ){
 			$rtn = @$this->get_px2dtconfig()->guieditor->pathResourceDir;//古い仕様
@@ -397,6 +410,38 @@ class main{
 						break;
 					case 'custom_fields':
 						print $std_output->data_convert( $this->get_custom_fields() );
+						exit;
+						break;
+					case 'all':
+						$rtn = json_decode('{}');
+						$request_path = $this->px->req()->get_request_file_path();
+
+						@$rtn->config = $this->px->conf();
+						@$rtn->version->pxfw = $this->px->get_version();
+						@$rtn->version->px2dthelper = $this->get_version();
+						@$rtn->px2dtconfig = $this->get_px2dtconfig();
+						@$rtn->check_status->px2dthelper = $this->check_status();
+						@$rtn->check_status->pxfw_api->version = $rtn->version->pxfw;
+						@$rtn->check_status->pxfw_api->is_sitemap_loaded = (is_object($this->px->site()) ? true : false);
+						@$rtn->custom_fields = $this->get_custom_fields();
+						@$rtn->realpath_homedir = $this->px->get_path_homedir();
+						@$rtn->path_controot = $this->px->get_path_controot();
+						@$rtn->realpath_docroot = $this->px->get_path_docroot();
+						@$rtn->realpath_data_dir = $this->get_realpath_data_dir();
+
+						@$rtn->path_resource_dir = false;
+						@$rtn->page_info = false;
+						@$rtn->path_files = false;
+						@$rtn->realpath_files = false;
+
+						if( is_object($this->px->site()) ){
+							@$rtn->path_resource_dir = $this->get_path_resource_dir();
+							@$rtn->page_info = $this->px->site()->get_page_info( $request_path );
+							@$rtn->path_files = $this->px->path_files( $request_path );
+							@$rtn->realpath_files = $this->px->realpath_files( $request_path );
+						}
+
+						print $std_output->data_convert( $rtn );
 						exit;
 						break;
 				}
