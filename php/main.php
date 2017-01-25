@@ -197,6 +197,9 @@ class main{
 	 * @param string $page_path 対象のページのパス
 	 */
 	public function get_path_resource_dir($page_path = null){
+		if( !is_object($this->px->site()) ){
+			return false;
+		}
 		$rtn = @$this->get_px2dtconfig()->guieditor->path_resource_dir;
 		if( !strlen($rtn) ){
 			$rtn = @$this->get_px2dtconfig()->guieditor->pathResourceDir;//古い仕様
@@ -424,19 +427,18 @@ class main{
 						@$rtn->realpath_homedir = $this->px->get_path_homedir();
 						@$rtn->path_controot = $this->px->get_path_controot();
 						@$rtn->realpath_docroot = $this->px->get_path_docroot();
+						@$rtn->realpath_data_dir = $this->get_realpath_data_dir();
+
+						@$rtn->path_resource_dir = false;
+						@$rtn->page_info = false;
+						@$rtn->path_files = false;
+						@$rtn->realpath_files = false;
 
 						if( is_object($this->px->site()) ){
-							@$rtn->realpath_data_dir = $this->get_realpath_data_dir();
 							@$rtn->path_resource_dir = $this->get_path_resource_dir();
 							@$rtn->page_info = $this->px->site()->get_page_info( $request_path );
 							@$rtn->path_files = $this->px->path_files( $request_path );
 							@$rtn->realpath_files = $this->px->realpath_files( $request_path );
-						}else{
-							@$rtn->realpath_data_dir = false;
-							@$rtn->path_resource_dir = false;
-							@$rtn->page_info = false;
-							@$rtn->path_files = false;
-							@$rtn->realpath_files = false;
 						}
 
 						print $std_output->data_convert( $rtn );
