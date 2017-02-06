@@ -79,9 +79,6 @@ class document_modules{
 		foreach( $array_files as $packageId=>$array_files_row ){
 			foreach( $array_files_row as $path ){
 				preg_match( '/\/([a-zA-Z0-9\.\-\_]+?)\/([a-zA-Z0-9\.\-\_]+?)\/[a-zA-Z0-9\.\-\_]+?$/i', $path, $matched );
-				$rtn .= '/**'."\n";
-				$rtn .= ' * module: '.$packageId.':'.$matched[1].'/'.$matched[2]."\n";
-				$rtn .= ' */'."\n";
 				$tmp_bin = $this->px->fs()->read_file( $path );
 				if( $this->px->fs()->get_extension( $path ) == 'scss' ){
 					$tmp_current_dir = realpath('./');
@@ -92,13 +89,22 @@ class document_modules{
 				}
 
 				$tmp_bin = $this->build_css_resources( $path, $tmp_bin );
-				$rtn .= $tmp_bin;
-				$rtn .= "\n"."\n";
+
+				$tmp_bin = trim($tmp_bin);
+				if(!strlen($tmp_bin)){
+					unset($tmp_bin);
+					continue;
+				}
+
+				$rtn .= '/**'."\n";
+				$rtn .= ' * module: '.$packageId.':'.$matched[1].'/'.$matched[2]."\n";
+				$rtn .= ' */'."\n";
+				$rtn .= trim($tmp_bin)."\n"."\n";
 
 				unset($tmp_bin);
 			}
 		}
-		return trim($rtn);
+		return trim($rtn)."\n";
 	}
 
 	/**
@@ -168,14 +174,30 @@ class document_modules{
 	public function build_js(){
 		$conf = $this->main->get_px2dtconfig();
 		$array_files = array();
-		foreach( $conf->paths_module_template as $row ){
-			$array_files = array_merge( $array_files, glob($row."**/**/module.js") );
-		}
 		$rtn = '';
-		foreach( $array_files as $path ){
-			$rtn .= $this->px->fs()->read_file( $path );
+		foreach( $conf->paths_module_template as $packageId=>$row ){
+			$array_files = glob($row."**/**/module.js");
+
+			foreach( $array_files as $path ){
+				preg_match( '/\/([a-zA-Z0-9\.\-\_]+?)\/([a-zA-Z0-9\.\-\_]+?)\/[a-zA-Z0-9\.\-\_]+?$/i', $path, $matched );
+
+				$tmp_bin = $this->px->fs()->read_file( $path );
+
+				$tmp_bin = trim($tmp_bin);
+				if(!strlen($tmp_bin)){
+					unset($tmp_bin);
+					continue;
+				}
+
+				$rtn .= '/**'."\n";
+				$rtn .= ' * module: '.$packageId.':'.$matched[1].'/'.$matched[2]."\n";
+				$rtn .= ' */'."\n";
+				$rtn .= trim($tmp_bin)."\n"."\n";
+
+				unset($tmp_bin);
+			}
 		}
-		return trim($rtn);
+		return trim($rtn)."\n";
 	}
 
 }
