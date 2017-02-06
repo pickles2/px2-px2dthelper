@@ -240,9 +240,11 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.change_cont
 
 ## 更新履歴 - Change log
 
-### pickles2/px2-px2dthelper 2.0.3 (2017年??月??日)
+### pickles2/px2-px2dthelper 2.0.3 (2017年2月6日)
 
 - PXコマンド `PX=px2dthelper.get.all` を追加。
+- `paths_module_template` を絶対パスに整形してから返すようにした。
+- `$site` が利用できない場合に異常終了しないようにした。
 
 ### pickles2/px2-px2dthelper 2.0.2 (2017年1月18日)
 
