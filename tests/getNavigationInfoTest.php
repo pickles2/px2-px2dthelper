@@ -46,7 +46,7 @@ class getNavigationInfo extends PHPUnit_Framework_TestCase{
 		$output_test1_load = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/test1_load.html?PX=px2dthelper.get.navigation_info' ] );
 		// var_dump($output_test1_load);
 		$json_test1_load = json_decode( $output_test1_load );
-		var_dump($json_test1_load);
+		// var_dump($json_test1_load);
 		$this->assertTrue( is_array($json_test1_load->breadcrumb) );
 		$this->assertEquals( count($json_test1_load->breadcrumb), 1 );
 		$this->assertEquals( $json_test1_load->breadcrumb_info[0], $json_toppage->page_info );
