@@ -281,6 +281,12 @@ class main{
 		$rtn = json_decode('{}');
 		$rtn->page_info = $this->px->site()->get_page_info($page_path);
 
+		$rtn->breadcrumb = $this->px->site()->get_breadcrumb_array($page_path);
+		$rtn->breadcrumb_info = array();
+		foreach($rtn->breadcrumb as $page_id){
+			array_push($rtn->breadcrumb_info, $this->px->site()->get_page_info($page_id));
+		}
+
 		$rtn->parent = $this->px->site()->get_parent($page_path);
 		$rtn->parent_info = false;
 		if( $rtn->parent !== false ){
