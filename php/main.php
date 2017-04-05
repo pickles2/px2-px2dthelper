@@ -52,7 +52,7 @@ class main{
 	 * @return string バージョン番号を示す文字列
 	 */
 	public function get_version(){
-		return '2.0.3';
+		return '2.0.4-alpha.1+nb';
 	}
 
 
@@ -270,6 +270,46 @@ class main{
 	}
 
 	/**
+	 * Get Navigation Info
+	 * @param string $page_path ページのパス (省略時: カレントページ)
+	 * @return array ナビゲーション情報。 サイトマップがロードできない場合は `false` を返します。
+	 */
+	public function get_navigation_info( $page_path = null ){
+		if( !is_object($this->px->site()) ){
+			return false;
+		}
+		$rtn = json_decode('{}');
+		$rtn->page_info = $this->px->site()->get_page_info($page_path);
+
+		$rtn->breadcrumb = $this->px->site()->get_breadcrumb_array($page_path);
+		$rtn->breadcrumb_info = array();
+		foreach($rtn->breadcrumb as $page_id){
+			array_push($rtn->breadcrumb_info, $this->px->site()->get_page_info($page_id));
+		}
+
+		$rtn->parent = $this->px->site()->get_parent($page_path);
+		$rtn->parent_info = false;
+		if( $rtn->parent !== false ){
+			$rtn->parent_info = $this->px->site()->get_page_info($rtn->parent);
+		}
+
+		$rtn->bros = $this->px->site()->get_bros($page_path);
+		$rtn->bros_info = array();
+		foreach($rtn->bros as $page_id){
+			array_push($rtn->bros_info, $this->px->site()->get_page_info($page_id));
+		}
+
+		$rtn->children = $this->px->site()->get_children($page_path);
+		$rtn->children_info = array();
+		foreach($rtn->children as $page_id){
+			array_push($rtn->children_info, $this->px->site()->get_page_info($page_id));
+		}
+
+		// var_dump($rtn);
+		return $rtn;
+	}
+
+	/**
 	 * 編集モードを取得する
 	 * @param string $page_path 対象のページのパス
 	 */
@@ -412,6 +452,11 @@ class main{
 						print $std_output->data_convert( $this->get_custom_fields() );
 						exit;
 						break;
+					case 'navigation_info':
+						$request_path = $this->px->req()->get_request_file_path();
+						print $std_output->data_convert( $this->get_navigation_info( $request_path ) );
+						exit;
+						break;
 					case 'all':
 						$rtn = json_decode('{}');
 						$request_path = $this->px->req()->get_request_file_path();
@@ -433,12 +478,14 @@ class main{
 						@$rtn->page_info = false;
 						@$rtn->path_files = false;
 						@$rtn->realpath_files = false;
+						@$rtn->navigation_info = false;
 
 						if( is_object($this->px->site()) ){
 							@$rtn->path_resource_dir = $this->get_path_resource_dir();
 							@$rtn->page_info = $this->px->site()->get_page_info( $request_path );
 							@$rtn->path_files = $this->px->path_files( $request_path );
 							@$rtn->realpath_files = $this->px->realpath_files( $request_path );
+							@$rtn->navigation_info = $this->get_navigation_info( $request_path );
 						}
 
 						print $std_output->data_convert( $rtn );

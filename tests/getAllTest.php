@@ -86,6 +86,10 @@ class getAllTest extends PHPUnit_Framework_TestCase{
 		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=api.get.realpath_files&path=/' ] ));
 		$this->assertEquals( $json->realpath_files, $output );
 
+		// navigaton_info
+		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.get.navigation_info' ] ));
+		$this->assertEquals( $json->navigation_info, $output );
+
 
 		// 後始末
 		$output = $this->passthru( [
@@ -169,6 +173,9 @@ class getAllTest extends PHPUnit_Framework_TestCase{
 		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/before_sitemap/.px_execute.php', '/?PX=api.get.realpath_files&path=/' ] ));
 		$this->assertEquals( $json->realpath_files, $output );
 
+		// navigaton_info
+		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/before_sitemap/.px_execute.php', '/?PX=px2dthelper.get.navigation_info' ] ));
+		$this->assertEquals( $json->navigation_info, $output );
 
 		// 後始末
 		$output = $this->passthru( [

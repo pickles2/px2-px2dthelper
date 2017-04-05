@@ -156,6 +156,18 @@ $ php .px_execute.php /path/find/content.html?PX=px2dthelper.find_page_content
 
 `$conf->plugins->px2dt->guieditor->custom_fields` の値を取得します。
 
+#### PX=px2dthelper.get.navigation_info
+
+ナビゲーションシステムを生成するために必要な情報をまとめて取得します。
+
+#### PX=px2dthelper.get.all
+
+Pickles 2 から複数の情報を一度に取得します。
+
+```bash
+$ php .px_execute.php /?PX=px2dthelper.get.all
+```
+
 #### PX=px2dthelper.check_editor_mode
 
 コンテンツの編集モードを取得します。
@@ -197,14 +209,6 @@ CSV や Excel形式 で作られた表を元に、HTMLのテーブル要素を�
 $ php .px_execute.php "/?PX=px2dthelper.convert_table_excel2html&path=/path/to/sourcedata.xlsx"
 ```
 
-#### PX=px2dthelper.get.all
-
-Pickles 2 から複数の情報を一度に取得します。
-
-```bash
-$ php .px_execute.php /?PX=px2dthelper.get.all
-```
-
 #### PX=px2dthelper.init_content
 
 コンテンツを初期化します。
@@ -239,6 +243,10 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.change_cont
 
 
 ## 更新履歴 - Change log
+
+### pickles2/px2-px2dthelper 2.0.4 (2017年??月??日)
+
+- PXコマンド `PX=px2dthelper.get.navigation_info` を追加。
 
 ### pickles2/px2-px2dthelper 2.0.3 (2017年2月6日)
 
