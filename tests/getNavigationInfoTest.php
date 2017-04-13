@@ -53,8 +53,23 @@ class getNavigationInfo extends PHPUnit_Framework_TestCase{
 		$this->assertEquals( $json_test1_load->parent_info, $json_toppage->page_info );
 		$this->assertEquals( $json_test1_load->bros, $json_toppage->children );
 		$this->assertEquals( $json_test1_load->bros_info, $json_toppage->children_info );
-		$this->assertEquals( count($json_test1_load->children), 0 );
-		$this->assertEquals( count($json_test1_load->children_info), 0 );
+		$this->assertEquals( count($json_test1_load->children), 2 );
+		$this->assertEquals( count($json_test1_load->children_info), 2 );
+
+
+		// 下層ページ取得(filter: false)
+		$output_test1_load = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/test1_load.html?PX=px2dthelper.get.navigation_info&filter=false' ] );
+		// var_dump($output_test1_load);
+		$json_test1_load = json_decode( $output_test1_load );
+		// var_dump($json_test1_load);
+		$this->assertTrue( is_array($json_test1_load->breadcrumb) );
+		$this->assertEquals( count($json_test1_load->breadcrumb), 1 );
+		$this->assertEquals( $json_test1_load->breadcrumb_info[0], $json_toppage->page_info );
+		$this->assertEquals( $json_test1_load->parent_info, $json_toppage->page_info );
+		$this->assertEquals( count($json_test1_load->bros), count($json_toppage->children)+1 );
+		$this->assertEquals( count($json_test1_load->bros_info), count($json_toppage->children_info)+1 );
+		$this->assertEquals( count($json_test1_load->children), 3 );
+		$this->assertEquals( count($json_test1_load->children_info), 3 );
 
 
 		// 後始末
