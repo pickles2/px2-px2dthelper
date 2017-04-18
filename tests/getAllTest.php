@@ -101,6 +101,72 @@ class getAllTest extends PHPUnit_Framework_TestCase{
 	}//testGetAll()
 
 	/**
+	 * PX=px2dthelper.get.all のテスト
+	 */
+	public function testGetAllDeepPage(){
+
+		// Pickles 2 実行
+		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/editsample/?PX=px2dthelper.get.all' ] );
+		// var_dump($output);
+		$json = json_decode( $output );
+		// var_dump($json);
+		$this->assertTrue( is_object($json) );
+
+		// Pickles 2 のバージョン番号
+		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/editsample/?PX=api.get.version' ] ));
+		$this->assertEquals( $json->version->pxfw, $output );
+
+		// px2dthelper のバージョン番号
+		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/editsample/?PX=px2dthelper.version' ] ));
+		$this->assertEquals( $json->version->px2dthelper, $output );
+
+		// path_resource_dir
+		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/editsample/?PX=px2dthelper.get.path_resource_dir' ] ));
+		$this->assertEquals( $json->path_resource_dir, $output );
+
+		// custom_fields
+		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/editsample/?PX=px2dthelper.get.custom_fields' ] ));
+		$this->assertEquals( $json->custom_fields, $output );
+
+		// realpath_homedir
+		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/editsample/?PX=api.get.path_homedir' ] ));
+		$this->assertEquals( $json->realpath_homedir, $output );
+
+		// path_controot
+		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/editsample/?PX=api.get.path_controot' ] ));
+		$this->assertEquals( $json->path_controot, $output );
+
+		// realpath_docroot
+		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/editsample/?PX=api.get.path_docroot' ] ));
+		$this->assertEquals( $json->realpath_docroot, $output );
+
+		// page_info
+		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/editsample/?PX=api.get.page_info&path=/editsample/' ] ));
+		$this->assertEquals( $json->page_info, $output );
+
+		// path_files
+		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/editsample/?PX=api.get.path_files&path=/editsample/' ] ));
+		$this->assertEquals( $json->path_files, $output );
+
+		// realpath_files
+		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/editsample/?PX=api.get.realpath_files&path=/editsample/' ] ));
+		$this->assertEquals( $json->realpath_files, $output );
+
+		// navigaton_info
+		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/editsample/?PX=px2dthelper.get.navigation_info' ] ));
+		$this->assertEquals( $json->navigation_info, $output );
+
+
+		// 後始末
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/standard/.px_execute.php' ,
+			'/?PX=clearcache' ,
+		] );
+
+	}//testGetAllDeepPage()
+
+	/**
 	 * PX=px2dthelper.get.all を、before_sitemap の環境で実行するテスト
 	 */
 	public function testGetAllBeforeSitemap(){

@@ -256,6 +256,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.change_cont
 
 - PXコマンド `PX=px2dthelper.get.navigation_info` を追加。
 - PXコマンド `PX=px2dthelper.get.all` に `filter` オプションを追加。
+- `PX=px2dthelper.get.all` に含まれる `path_files`, `realpath_files` が、不正な値を返すことがある不具合を修正。
 
 ### pickles2/px2-px2dthelper 2.0.3 (2017年2月6日)
 

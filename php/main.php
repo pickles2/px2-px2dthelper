@@ -506,8 +506,8 @@ class main{
 						if( is_object($this->px->site()) ){
 							@$rtn->path_resource_dir = $this->get_path_resource_dir();
 							@$rtn->page_info = $this->px->site()->get_page_info( $request_path );
-							@$rtn->path_files = $this->px->path_files( $request_path );
-							@$rtn->realpath_files = $this->px->realpath_files( $request_path );
+							@$rtn->path_files = $this->px->path_files();
+							@$rtn->realpath_files = $this->px->realpath_files();
 							@$rtn->navigation_info = $this->get_navigation_info( $request_path, $sitemap_filter_options($this->px, $this->command[2]) );
 						}
 
