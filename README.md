@@ -252,7 +252,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.change_cont
 
 ## 更新履歴 - Change log
 
-### pickles2/px2-px2dthelper 2.0.4 (2017年??月??日)
+### pickles2/px2-px2dthelper 2.0.4 (2017年4月20日)
 
 - PXコマンド `PX=px2dthelper.get.navigation_info` を追加。
 - PXコマンド `PX=px2dthelper.get.all` に `filter` オプションを追加。
