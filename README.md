@@ -160,13 +160,21 @@ $ php .px_execute.php /path/find/content.html?PX=px2dthelper.find_page_content
 
 ナビゲーションシステムを生成するために必要な情報をまとめて取得します。
 
+```bash
+$ php .px_execute.php "/?PX=px2dthelper.get.navigation_info&filter=false"
+```
+
+`filter` オプションは、 `$site->get_bros()` と `$site->get_children()` に渡されます。
+
 #### PX=px2dthelper.get.all
 
 Pickles 2 から複数の情報を一度に取得します。
 
 ```bash
-$ php .px_execute.php /?PX=px2dthelper.get.all
+$ php .px_execute.php "/?PX=px2dthelper.get.all&filter=false"
 ```
+
+`filter` オプションは、 `$site->get_bros()` と `$site->get_children()` に渡されます。
 
 #### PX=px2dthelper.check_editor_mode
 
@@ -247,6 +255,8 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.change_cont
 ### pickles2/px2-px2dthelper 2.0.4 (2017年??月??日)
 
 - PXコマンド `PX=px2dthelper.get.navigation_info` を追加。
+- PXコマンド `PX=px2dthelper.get.all` に `filter` オプションを追加。
+- `PX=px2dthelper.get.all` に含まれる `path_files`, `realpath_files` が、不正な値を返すことがある不具合を修正。
 
 ### pickles2/px2-px2dthelper 2.0.3 (2017年2月6日)
 
