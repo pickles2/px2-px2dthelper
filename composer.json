@@ -36,7 +36,8 @@
     },
     "autoload": {
         "files": [
-            "php/main.php"
+            "php/main.php",
+            "php/broccoli_receive_message.php"
         ]
     }
 }
