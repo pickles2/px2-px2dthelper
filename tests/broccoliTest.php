@@ -83,6 +83,41 @@ class broccoliTest extends PHPUnit_Framework_TestCase{
 	}//testBuild()
 
 
+	/**
+	 * broccoli_receive_message のテスト
+	 */
+	public function testBroccoliReceiveMessage(){
+
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/broccoli_receive_message/.px_execute.php' ,
+			'-u', 'Mozilla/5.0',
+			'/index.html' ,
+		] );
+		// var_dump($output);
+		$this->assertTrue( !!preg_match('/broccoli\-receive\-message\=/s', $output) );
+
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/broccoli_receive_message/.px_execute.php' ,
+			'-u', 'PicklesCrawler',
+			'/index.html' ,
+		] );
+		// var_dump($output);
+		$this->assertFalse( !!preg_match('/broccoli\-receive\-message\=/s', $output) );
+
+
+
+		// 後始末
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/broccoli_receive_message/.px_execute.php' ,
+			'/?PX=clearcache' ,
+		] );
+
+	}//testBroccoliReceiveMessage()
+
+
 
 
 	/**
@@ -91,15 +126,17 @@ class broccoliTest extends PHPUnit_Framework_TestCase{
 	 * @return string コマンドの標準出力値
 	 */
 	private function passthru( $ary_command ){
+		set_time_limit(60*10);
 		$cmd = array();
 		foreach( $ary_command as $row ){
-			$param = '"'.addslashes($row).'"';
+			$param = escapeshellcmd($row);
 			array_push( $cmd, $param );
 		}
 		$cmd = implode( ' ', $cmd );
 		ob_start();
 		passthru( $cmd );
 		$bin = ob_get_clean();
+		set_time_limit(30);
 		return $bin;
 	}// passthru()
 

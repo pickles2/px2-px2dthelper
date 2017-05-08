@@ -62,10 +62,26 @@ return call_user_func( function(){
 	/* 中略 */
 
 	// funcs: Before content
-	$conf->funcs->before_content = [
+	$conf->funcs->before_content = array(
 		// PX=px2dthelper
 		'tomk79\pickles2\px2dthelper\main::register'
-	];
+	);
+
+	/* 中略 */
+
+	// processor
+	$conf->funcs->processor->html = array(
+		// broccoli-receive-message スクリプトを挿入
+        // (Optional)
+		'tomk79\pickles2\px2dthelper\broccoli_receive_message::apply('.json_encode( array(
+            // 許可する接続元を指定
+			'enabled_origin'=>array(
+				'http://127.0.0.1:8080',
+				'http://127.0.0.1:8081',
+				'http://127.0.0.1:8082',
+			)
+		) ).')'
+	);
 
 	/* 中略 */
 
@@ -251,6 +267,10 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.change_cont
 
 
 ## 更新履歴 - Change log
+
+### pickles2/px2-px2dthelper 2.0.5 (20??年??月??日)
+
+- `broccoli-receive-message` スクリプトを挿入する新しい `processor` を追加。
 
 ### pickles2/px2-px2dthelper 2.0.4 (2017年4月20日)
 
