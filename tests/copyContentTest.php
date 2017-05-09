@@ -174,6 +174,36 @@ class copyContentTest extends PHPUnit_Framework_TestCase{
 
 	}//testCopyExtContent()
 
+	/**
+	 * $from と $to が同じ場合のテスト
+	 */
+	public function testCopySameContent(){
+
+		// PX=px2dthelper.copy_content
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/standard/.px_execute.php' ,
+			'/?PX=px2dthelper.copy_content&from='.urlencode('/copy/from.html').'&to='.urlencode('/copy/from.html') ,
+		] );
+		// var_dump($output);
+		$result = json_decode($output);
+		// var_dump( $result );
+		$this->assertEquals( $result[0], false );
+		$this->assertEquals( $result[1], 'Same paths was given to `$from` and `$to`.' );
+		clearstatcache();
+		$this->assertTrue( $this->fs->is_file(__DIR__.'/testData/standard/copy/from.html') );
+		$this->assertTrue( $this->fs->is_dir(__DIR__.'/testData/standard/copy/from_files/') );
+
+
+		// 後始末
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/standard/.px_execute.php' ,
+			'/?PX=clearcache' ,
+		] );
+
+	}//testCopySameContent()
+
 
 
 	/**

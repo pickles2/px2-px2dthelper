@@ -280,6 +280,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.change_cont
 
 - `broccoli-receive-message` スクリプトを挿入する新しい `processor` を追加。
 - PXコマンド `PX=px2dthelper.search_sitemap` を追加。
+- `PX=px2dthelper.copy_content` で、 `$from` と `$to` が同じコンテンツを指す場合にコンテンツファイルが消えてしまう不具合を修正。
 
 ### pickles2/px2-px2dthelper 2.0.4 (2017年4月20日)
 
