@@ -13,18 +13,43 @@ class broccoli_receive_message{
 	 * entry
 	 *
 	 * @param object $px Picklesオブジェクト
+	 * @param object $plugin_conf プラグイン設定オブジェクト
+	 * @return boolean 常に `true` を返します。
 	 */
-	static public function apply($px, $json){
+	static public function apply($px, $plugin_conf){
 		if( $px->is_publish_tool() ){
 			// パブリッシュ時には何もしない。
 			return true;
 		}
 
-		$enabled_origin = @$json->enabled_origin;
+		$me = new self($px, $plugin_conf);
+		return true;
+	}
+
+	/**
+	 * constructor
+	 * @param object $px Picklesオブジェクト
+	 * @param object $plugin_conf プラグイン設定オブジェクト
+	 */
+	public function __construct($px, $plugin_conf){
+		$main_src = $px->bowl()->pull('main');
+
+		$main_src .= self::generate_receive_message_script($plugin_conf);
+		$main_src .= self::generate_error_message($px);
+
+		$px->bowl()->replace( $main_src, 'main' );
+	}
+
+	/**
+	 * RecieveMessageScript を生成する
+	 * @param object $plugin_conf プラグイン設定オブジェクト
+	 * @return string       生成されたHTMLソース
+	 */
+	private function generate_receive_message_script($plugin_conf){
+		$enabled_origin = @$plugin_conf->enabled_origin;
 		if( !is_array( $enabled_origin ) ){
 			$enabled_origin = array();
 		}
-
 		ob_start();
 ?>
 <script data-broccoli-receive-message="yes">
@@ -51,10 +76,39 @@ window.removeEventListener('message', f, false);
 <?php
 		$receive_message_script = ob_get_clean();
 
-		$main_src = $px->bowl()->pull('main');
-		$main_src .= $receive_message_script;
-		$px->bowl()->replace( $main_src, 'main' );
-		return true;
-	}
+		return $receive_message_script;
+	} // generate_receive_message_script()
+
+	/**
+	 * エラーメッセージを生成する
+	 * @param  object $px Pickles Framework インスタンス
+	 * @return string       生成されたHTMLソース
+	 */
+	private function generate_error_message($px){
+
+		$errorHtml = '';
+		$status = $px->get_status();
+		if( $status != 200 ){
+			$errorHtml .= '<ul style="background-color: #fee; border: 1px solid #f33; padding: 10px; margin: 0.5em; border-radius: 5px;">';
+			$errorHtml .= '<li style="color: #f00; list-style-type: none;">STATUS: '.htmlspecialchars($status).' '.htmlspecialchars($px->get_status_message()).'</li>';
+			$errorHtml .= '</ul>';
+		}
+		$errors = $px->get_errors();
+		if( count($errors) ){
+			$errorHtml .= '<ul style="background-color: #fee; border: 1px solid #f33; padding: 10px; margin: 0.5em; border-radius: 5px;">';
+			foreach( $errors as $idx=>$error ){
+				$errorHtml .= '<li style="color: #f00; list-style-type: none;">'.htmlspecialchars($error).'</li>';
+			}
+			$errorHtml .= '</ul>';
+		}
+
+		$rtn = '';
+		if( @strlen($errorHtml) ){
+			$rtn .= '<div style="position: fixed; top: 10px; left: 5%; width: 90%; font-size: 11px; opacity: 0.8;" onclick="this.style.display=\'none\';">';
+			$rtn .= $errorHtml;
+			$rtn .= '</div>';
+		}
+		return $rtn;
+	} // generate_receive_message_script()
 
 }
