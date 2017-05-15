@@ -200,6 +200,14 @@ $ php .px_execute.php "/?PX=px2dthelper.get.all&filter=false"
 $ php .px_execute.php "/target/path.html?PX=px2dthelper.check_editor_mode"
 ```
 
+#### PX=px2dthelper.search_sitemap
+
+サイトマップ中のページを検索します。
+
+```bash
+$ php .px_execute.php "/?PX=px2dthelper.search_sitemap&keyword=HOME"
+```
+
 #### PX=px2dthelper.document_modules.build_css
 
 CSSのソースコードが返されます。
@@ -271,6 +279,8 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.change_cont
 ### pickles2/px2-px2dthelper 2.0.5 (20??年??月??日)
 
 - `broccoli-receive-message` スクリプトを挿入する新しい `processor` を追加。
+- PXコマンド `PX=px2dthelper.search_sitemap` を追加。
+- `PX=px2dthelper.copy_content` で、 `$from` と `$to` が同じコンテンツを指す場合にコンテンツファイルが消えてしまう不具合を修正。
 
 ### pickles2/px2-px2dthelper 2.0.4 (2017年4月20日)
 

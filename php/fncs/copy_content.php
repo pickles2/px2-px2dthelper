@@ -51,6 +51,10 @@ class fncs_copy_content{
 		$to['procType'] = $this->px->get_path_proc_type( $path_to );
 		// var_dump($from, $to);
 
+		if( $from['pathContent'] == $to['pathContent'] ){
+			return array(false, 'Same paths was given to `$from` and `$to`.');
+		}
+
 		// 一旦削除する
 		if( $this->px->fs()->is_file( $contRoot.'/'.$to['pathContent'] ) ){
 			$this->px->fs()->rm( $contRoot.'/'.$to['pathContent'] );

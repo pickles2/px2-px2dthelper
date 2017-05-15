@@ -363,6 +363,20 @@ class main{
 	}
 
 	/**
+	 * サイトマップ中のページを検索する
+	 *
+	 * @param  string $keyword キーワード
+	 * @param  array $options オプション
+	 * @return array 検出されたページの一覧
+	 */
+	public function search_sitemap( $keyword, $options = array() ){
+		require_once(__DIR__.'/fncs/search_sitemap.php');
+		$obj = new fncs_search_sitemap( $this, $this->px );
+		$result = $obj->find( $keyword, $options = array() );
+		return $result;
+	}
+
+	/**
 	 * コンテンツを初期化する
 	 * @param string $editor_mode 編集モード名
 	 */
@@ -377,6 +391,7 @@ class main{
 	 * コンテンツを複製する
 	 * @param string $path_from 複製元ページのパス
 	 * @param string $path_to 複製先ページのパス
+	 * @return array 実行結果
 	 */
 	public function copy_content( $path_from, $path_to ){
 		require_once(__DIR__.'/fncs/copy_content.php');
@@ -526,6 +541,13 @@ class main{
 			case 'check_editor_mode':
 				// コンテンツの編集モードを調べる
 				print $std_output->data_convert( $this->check_editor_mode() );
+				exit;
+				break;
+
+			case 'search_sitemap':
+				// サイトマップ中のページを検索する
+				$result = $this->search_sitemap( $this->px->req()->get_param('keyword'), array() );
+				print $std_output->data_convert( $result );
 				exit;
 				break;
 

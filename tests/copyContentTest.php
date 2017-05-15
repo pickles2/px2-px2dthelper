@@ -16,13 +16,17 @@ class copyContentTest extends PHPUnit_Framework_TestCase{
 	 * コンテンツを複製するテスト
 	 */
 	public function testCopyContent(){
+
+		// to が存在しないことを確認
 		$this->assertFalse( $this->fs->is_file(__DIR__.'/testData/standard/copy/to.html') );
+		$this->assertFalse( $this->fs->is_dir(__DIR__.'/testData/standard/copy/to_files/') );
+		$this->assertFalse( $this->fs->is_file(__DIR__.'/testData/standard/copy/to_files/test.txt') );
 
 		// PX=px2dthelper.copy_content
 		$output = $this->passthru( [
 			'php',
 			__DIR__.'/testData/standard/.px_execute.php' ,
-			'/?PX=px2dthelper.copy_content&from=/copy/from.html&to=/copy/to.html' ,
+			'/?PX=px2dthelper.copy_content&from='.urlencode('/copy/from.html').'&to='.urlencode('/copy/to.html') ,
 		] );
 		// var_dump($output);
 		$result = json_decode($output);
@@ -34,15 +38,25 @@ class copyContentTest extends PHPUnit_Framework_TestCase{
 			$this->fs->read_file(__DIR__.'/testData/standard/copy/from.html'),
 			$this->fs->read_file(__DIR__.'/testData/standard/copy/to.html')
 		);
-		$this->fs->rm(__DIR__.'/testData/standard/copy/to.html');
+		$this->assertEquals(
+			$this->fs->read_file(__DIR__.'/testData/standard/copy/from_files/test.txt'),
+			$this->fs->read_file(__DIR__.'/testData/standard/copy/to_files/test.txt')
+		);
+
+
+		// from を削除
+		$this->fs->rm(__DIR__.'/testData/standard/copy/from.html');
+		$this->fs->rm(__DIR__.'/testData/standard/copy/from_files/');
 		clearstatcache();
-		$this->assertFalse( $this->fs->is_file(__DIR__.'/testData/standard/copy/to.html') );
+		$this->assertFalse( $this->fs->is_file(__DIR__.'/testData/standard/copy/from.html') );
+		$this->assertFalse( $this->fs->is_dir(__DIR__.'/testData/standard/copy/from_files/') );
+
 
 		// PX=px2dthelper.copy_content
 		$output = $this->passthru( [
 			'php',
 			__DIR__.'/testData/standard/.px_execute.php' ,
-			'/copy/to.html?PX=px2dthelper.copy_content&from=/copy/from.html' ,
+			'/copy/from.html?PX=px2dthelper.copy_content&from='.urlencode('/copy/to.html') ,
 		] );
 		// var_dump($output);
 		$result = json_decode($output);
@@ -54,9 +68,17 @@ class copyContentTest extends PHPUnit_Framework_TestCase{
 			$this->fs->read_file(__DIR__.'/testData/standard/copy/from.html'),
 			$this->fs->read_file(__DIR__.'/testData/standard/copy/to.html')
 		);
+		$this->assertEquals(
+			$this->fs->read_file(__DIR__.'/testData/standard/copy/from_files/test.txt'),
+			$this->fs->read_file(__DIR__.'/testData/standard/copy/to_files/test.txt')
+		);
+
+		// to を削除
 		$this->fs->rm(__DIR__.'/testData/standard/copy/to.html');
+		$this->fs->rm(__DIR__.'/testData/standard/copy/to_files/');
 		clearstatcache();
 		$this->assertFalse( $this->fs->is_file(__DIR__.'/testData/standard/copy/to.html') );
+		$this->assertFalse( $this->fs->is_dir(__DIR__.'/testData/standard/copy/to_files/') );
 
 
 		// 後始末
@@ -67,6 +89,120 @@ class copyContentTest extends PHPUnit_Framework_TestCase{
 		] );
 
 	}//testCopyContent()
+
+
+	/**
+	 * 拡張子が違うコンテンツを複製するテスト
+	 */
+	public function testCopyExtContent(){
+
+		// 予め to に拡張子違いで存在させておく
+		$this->fs->save_file(__DIR__.'/testData/standard/copy/to.html.md', '<p>generated to.html</p>');
+		$this->fs->copy_r(__DIR__.'/testData/standard/copy/from_files/', __DIR__.'/testData/standard/copy/to_files/');
+		$this->assertTrue( $this->fs->is_file(__DIR__.'/testData/standard/copy/to.html.md') );
+		$this->assertTrue( $this->fs->is_dir(__DIR__.'/testData/standard/copy/to_files/') );
+		$this->assertTrue( $this->fs->is_file(__DIR__.'/testData/standard/copy/to_files/test.txt') );
+
+		// PX=px2dthelper.copy_content
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/standard/.px_execute.php' ,
+			'/?PX=px2dthelper.copy_content&from='.urlencode('/copy/from.html').'&to='.urlencode('/copy/to.html') ,
+		] );
+		// var_dump($output);
+		$result = json_decode($output);
+		// var_dump( $result );
+		$this->assertEquals( $result[0], true );
+		$this->assertEquals( $result[1], 'ok' );
+		clearstatcache();
+		$this->assertEquals(
+			$this->fs->read_file(__DIR__.'/testData/standard/copy/from.html'),
+			$this->fs->read_file(__DIR__.'/testData/standard/copy/to.html.md')
+		);
+		$this->assertEquals(
+			$this->fs->read_file(__DIR__.'/testData/standard/copy/from_files/test.txt'),
+			$this->fs->read_file(__DIR__.'/testData/standard/copy/to_files/test.txt')
+		);
+		$this->assertFalse( $this->fs->is_file(__DIR__.'/testData/standard/copy/to.html') );
+		$this->assertTrue( $this->fs->is_file(__DIR__.'/testData/standard/copy/to.html.md') );
+
+
+		// from を削除
+		$this->fs->rm(__DIR__.'/testData/standard/copy/from.html');
+		$this->fs->rm(__DIR__.'/testData/standard/copy/from_files/');
+		clearstatcache();
+		$this->assertFalse( $this->fs->is_file(__DIR__.'/testData/standard/copy/from.html') );
+		$this->assertFalse( $this->fs->is_dir(__DIR__.'/testData/standard/copy/from_files/') );
+
+
+		// PX=px2dthelper.copy_content
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/standard/.px_execute.php' ,
+			'/copy/from.html?PX=px2dthelper.copy_content&from='.urlencode('/copy/to.html') ,
+		] );
+		// var_dump($output);
+		$result = json_decode($output);
+		// var_dump( $result );
+		$this->assertEquals( $result[0], true );
+		$this->assertEquals( $result[1], 'ok' );
+		clearstatcache();
+		$this->assertEquals(
+			$this->fs->read_file(__DIR__.'/testData/standard/copy/from.html'),
+			$this->fs->read_file(__DIR__.'/testData/standard/copy/to.html.md')
+		);
+		$this->assertEquals(
+			$this->fs->read_file(__DIR__.'/testData/standard/copy/from_files/test.txt'),
+			$this->fs->read_file(__DIR__.'/testData/standard/copy/to_files/test.txt')
+		);
+
+		// to を削除
+		$this->fs->rm(__DIR__.'/testData/standard/copy/to.html.md');
+		$this->fs->rm(__DIR__.'/testData/standard/copy/to_files/');
+		clearstatcache();
+		$this->assertFalse( $this->fs->is_file(__DIR__.'/testData/standard/copy/to.html.md') );
+		$this->assertFalse( $this->fs->is_file(__DIR__.'/testData/standard/copy/to.html') );
+		$this->assertFalse( $this->fs->is_dir(__DIR__.'/testData/standard/copy/to_files/') );
+
+
+		// 後始末
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/standard/.px_execute.php' ,
+			'/?PX=clearcache' ,
+		] );
+
+	}//testCopyExtContent()
+
+	/**
+	 * $from と $to が同じ場合のテスト
+	 */
+	public function testCopySameContent(){
+
+		// PX=px2dthelper.copy_content
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/standard/.px_execute.php' ,
+			'/?PX=px2dthelper.copy_content&from='.urlencode('/copy/from.html').'&to='.urlencode('/copy/from.html') ,
+		] );
+		// var_dump($output);
+		$result = json_decode($output);
+		// var_dump( $result );
+		$this->assertEquals( $result[0], false );
+		$this->assertEquals( $result[1], 'Same paths was given to `$from` and `$to`.' );
+		clearstatcache();
+		$this->assertTrue( $this->fs->is_file(__DIR__.'/testData/standard/copy/from.html') );
+		$this->assertTrue( $this->fs->is_dir(__DIR__.'/testData/standard/copy/from_files/') );
+
+
+		// 後始末
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/standard/.px_execute.php' ,
+			'/?PX=clearcache' ,
+		] );
+
+	}//testCopySameContent()
 
 
 
