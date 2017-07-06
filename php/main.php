@@ -18,9 +18,6 @@ class main{
 	/** px2dtconfig */
 	private $px2dtconfig;
 
-	/** $module_templates */
-	private $obj_module_templates;
-
 	/**
 	 * entry
 	 *
@@ -420,13 +417,6 @@ class main{
 		$rtn = '';
 		$rtn = new document_modules($this->px, $this);
 		return $rtn;
-	}
-
-	/**
-	 * ドキュメントモジュール定義をロードする
-	 */
-	public function module_templates(){
-		return $this->obj_module_templates;
 	}
 
 	/**
