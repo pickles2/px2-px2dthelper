@@ -271,6 +271,14 @@ $ php .px_execute.php "/?PX=px2dthelper.copy_content&from=/path/copy/from.html&t
 $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.change_content_editor_mode&editor_mode=html.gui"
 ```
 
+#### PX=px2dthelper.plugins.get_plugin_options
+
+プラグインオプションを取得します。
+
+```bash
+$ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.plugins.get_plugin_options&func_div=processor.html&plugin_name=namespace\\classname::funcname"
+```
+
 
 
 
@@ -278,7 +286,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.change_cont
 
 ### pickles2/px2-px2dthelper 2.0.6 (20??年??月??日)
 
-- ?????????????????????????????????
+- PXコマンド `PX=px2dthelper.plugins.get_plugin_options` を追加。
 
 ### pickles2/px2-px2dthelper 2.0.5 (2017年5月30日)
 

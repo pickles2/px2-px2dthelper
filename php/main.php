@@ -414,8 +414,16 @@ class main{
 	 */
 	public function document_modules(){
 		require_once( __DIR__.'/fncs/document_modules.php' );
-		$rtn = '';
 		$rtn = new document_modules($this->px, $this);
+		return $rtn;
+	}
+
+	/**
+	 * プラグイン操作オブジェクトをロードする
+	 */
+	public function plugins(){
+		require_once( __DIR__.'/fncs/plugins.php' );
+		$rtn = new plugins($this->px, $this);
 		return $rtn;
 	}
 
@@ -594,6 +602,19 @@ class main{
 							$this->px->req()->set_param('type', 'html');
 						}
 						$val = $this->document_modules()->load();
+						break;
+				}
+				print $std_output->data_convert( $val );
+				exit;
+				break;
+
+			case 'plugins':
+				$val = null;
+				switch( @$this->command[2] ){
+					case 'get_plugin_options':
+						$plugin_name = $this->px->req()->get_param('plugin_name');
+						$func_div = $this->px->req()->get_param('func_div');
+						$val = $this->plugins()->get_plugin_options($plugin_name, $func_div);
 						break;
 				}
 				print $std_output->data_convert( $val );
