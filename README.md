@@ -279,6 +279,14 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.change_cont
 $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.plugins.get_plugin_options&func_div=processor.html&plugin_name=namespace\\classname::funcname"
 ```
 
+#### PX=px2dthelper.packages.get_theme_package_list
+
+テーマパッケージの一覧を取得する。
+
+```bash
+$ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.get_theme_package_list"
+```
+
 
 
 
@@ -287,6 +295,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.plugins.get
 ### pickles2/px2-px2dthelper 2.0.6 (20??年??月??日)
 
 - PXコマンド `PX=px2dthelper.plugins.get_plugin_options` を追加。
+- PXコマンド `PX=px2dthelper.packages.get_theme_package_list` を追加。
 
 ### pickles2/px2-px2dthelper 2.0.5 (2017年5月30日)
 

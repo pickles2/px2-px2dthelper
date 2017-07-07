@@ -428,6 +428,15 @@ class main{
 	}
 
 	/**
+	 * パッケージ操作オブジェクトをロードする
+	 */
+	public function packages(){
+		require_once( __DIR__.'/fncs/packages.php' );
+		$rtn = new packages($this->px, $this);
+		return $rtn;
+	}
+
+	/**
 	 * kick as PX Command
 	 *
 	 * @return void
@@ -615,6 +624,17 @@ class main{
 						$plugin_name = $this->px->req()->get_param('plugin_name');
 						$func_div = $this->px->req()->get_param('func_div');
 						$val = $this->plugins()->get_plugin_options($plugin_name, $func_div);
+						break;
+				}
+				print $std_output->data_convert( $val );
+				exit;
+				break;
+
+			case 'packages':
+				$val = null;
+				switch( @$this->command[2] ){
+					case 'get_theme_package_list':
+						$val = $this->packages()->get_theme_package_list();
 						break;
 				}
 				print $std_output->data_convert( $val );
