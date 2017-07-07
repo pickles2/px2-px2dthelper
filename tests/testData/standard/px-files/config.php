@@ -73,6 +73,7 @@ return call_user_func( function(){
 	// -------- functions --------
 
 	$conf->funcs = new stdClass;
+	require_once(__DIR__.'/plugins/test.php');
 
 	// funcs: Before sitemap
 	$conf->funcs->before_sitemap = [
@@ -84,6 +85,9 @@ return call_user_func( function(){
 
 		 // PX=phpinfo
 		'picklesFramework2\commands\phpinfo::register' ,
+
+		 // プラグイン関連機能のテスト
+		'tomk79\plugin_sample\test::exec1' ,
 	];
 
 	// funcs: Before content
@@ -95,8 +99,10 @@ return call_user_func( function(){
 		'picklesFramework2\commands\publish::register' ,
 
 		// PX=px2dthelper
-		'tomk79\pickles2\px2dthelper\main::register'
+		'tomk79\pickles2\px2dthelper\main::register' ,
 
+		 // プラグイン関連機能のテスト
+		'tomk79\plugin_sample\test::exec2' ,
 	];
 
 
@@ -111,6 +117,11 @@ return call_user_func( function(){
 		// テーマ
 		'theme'=>'tomk79\pickles2\px2dthelper\themes\pickles\theme::exec' ,
 
+		 // プラグイン関連機能のテスト
+		'tomk79\plugin_sample\test::exec3('.json_encode(array(
+			'ext'=>'html',
+		)).')' ,
+
 		// Apache互換のSSIの記述を解決する
 		'picklesFramework2\processors\ssi\ssi::exec' ,
 
@@ -121,6 +132,14 @@ return call_user_func( function(){
 	$conf->funcs->processor->css = [
 		// // output_encoding, output_eol_coding の設定に従ってエンコード変換する。
 		// 'picklesFramework2\processors\encodingconverter\encodingconverter::exec' ,
+
+		 // プラグイン関連機能のテスト
+		 // 先頭にバックスラッシュをおいた場合
+		 // 連続するバックスラッシュを含んだ場合
+		'\\\\\\\\tomk79\\\\\\\\plugin_sample\test::exec3('.json_encode(array(
+			'ext'=>'css',
+		)).')' ,
+
 	];
 
 	$conf->funcs->processor->js = [
@@ -134,6 +153,13 @@ return call_user_func( function(){
 
 		// html の処理を追加
 		$conf->funcs->processor->html ,
+
+		 // プラグイン関連機能のテスト
+		'tomk79\plugin_sample\test::exec3('.json_encode(array(
+			'ext'=>'md',
+			'test_value'=>'test()',
+		)).')' ,
+
 	];
 
 	$conf->funcs->processor->scss = [
@@ -147,6 +173,9 @@ return call_user_func( function(){
 
 	// funcs: Before output
 	$conf->funcs->before_output = [
+		 // プラグイン関連機能のテスト
+		'tomk79\plugin_sample\test::exec3('.json_encode(array(
+		)).')' ,
 	];
 
 

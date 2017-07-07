@@ -42,6 +42,7 @@ class plugins{
 			return false;
 		}
 		$plugin_name = preg_replace('/^\\\\+/', '', $plugin_name); // 先頭のバックスラッシュを削除
+		$plugin_name = preg_replace('/\\\\+/', '\\', $plugin_name); // 重複するバックスラッシュを1つにまとめる
 
 		if( !is_string($func) || !strlen($func) ){
 			$func = null;
@@ -53,16 +54,20 @@ class plugins{
 		$function_list = $this->get_plugin_list();
 
 		foreach( $function_list as $fnc_info ){
-			$fnc_info['function'] = preg_replace('/^\\\\+/', '', $fnc_info['function']); // 先頭のバックスラッシュを削除
 			if( is_array($func) && !preg_match('/^'.preg_quote( implode('.',$func), '/' ).'(?:\..*)?$/', $fnc_info['funcs_div']) ){
 				continue;
 			}
-			$preg_result = preg_match('/^('.preg_quote($plugin_name,'/').')\s*(?:\((.*)\))?$/', $fnc_info['function'], $preg_match);
-			if( $preg_result ){
-				$row = array();
-				$row['funcs_div'] = $fnc_info['funcs_div'];
-				$row['function'] = $preg_match[1];
-				$row['options'] = @json_decode( $preg_match[2] );
+			$preg_result = preg_match('/^(.*?)\s*(?:\((.*)\))?$/', $fnc_info['function'], $preg_match);
+			if( !$preg_result ){
+				continue;
+			}
+			$row = array();
+			$row['funcs_div'] = $fnc_info['funcs_div'];
+			$row['function'] = $preg_match[1];
+			$row['options'] = @json_decode( $preg_match[2] );
+			$row['function'] = preg_replace('/^\\\\+/', '', $row['function']); // 先頭のバックスラッシュを削除
+			$row['function'] = preg_replace('/\\\\+/', '\\', $row['function']); // 重複するバックスラッシュを1つにまとめる
+			if( $row['function'] == $plugin_name ){
 				array_push($rtn, $row);
 			}
 		}
@@ -71,11 +76,16 @@ class plugins{
 
 	/**
 	 * プラグインの一覧を取得する
+	 * @param object|array $target 検索対象 (省略時、 `$px->conf()->funcs` を対象とする)
+	 * @param string $parent 親階層名
+	 * @return array プラグインの一覧
 	 */
 	private function get_plugin_list( $target = null, $parent = null ){
 		if( is_null($target) ){
-			$target = $this->px->conf()->funcs;
+			$target = @$this->px->conf()->funcs;
 		}
+		if( !$target ){return array();}
+
 		// var_dump($parent);
 		$rtn = array();
 		foreach( $target as $key=>$val ){
