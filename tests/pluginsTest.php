@@ -28,8 +28,9 @@ class pluginsTest extends PHPUnit_Framework_TestCase{
 		] );
 		// var_dump($result);
 		$result = json_decode($result);
-		var_dump($result);
-		$this->assertTrue( is_object( $result ) );
+		// var_dump($result);
+		$this->assertTrue( is_array( $result ) );
+		$this->assertEquals( count( $result ), 1 );
 
 		// 後始末
 		$output = $this->px2query->query( [
