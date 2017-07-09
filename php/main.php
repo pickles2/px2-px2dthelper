@@ -633,6 +633,12 @@ class main{
 			case 'packages':
 				$val = null;
 				switch( @$this->command[2] ){
+					case 'get_path_composer_root_dir':
+						$val = $this->packages()->get_path_composer_root_dir();
+						break;
+					case 'get_path_npm_root_dir':
+						$val = $this->packages()->get_path_npm_root_dir();
+						break;
 					case 'get_theme_package_list':
 						$val = $this->packages()->get_theme_package_list();
 						break;
