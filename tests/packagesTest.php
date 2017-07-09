@@ -69,7 +69,7 @@ class packagesTest extends PHPUnit_Framework_TestCase{
 		] );
 		// var_dump($result);
 		$result = json_decode($result);
-		var_dump($result);
+		// var_dump($result);
 		$this->assertTrue( is_object( $result ) );
 		$this->assertEquals( count( $result->themes ), 0 );
 		$this->assertEquals( count( $result->broccoliModules ), 1 );
