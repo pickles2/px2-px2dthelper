@@ -75,7 +75,7 @@ class packagesTest extends PHPUnit_Framework_TestCase{
 		$this->assertEquals( count( $result->broccoliModules ), 1 );
 		$this->assertEquals( count( $result->broccoliFields ), 0 );
 		$this->assertEquals( count( $result->processors ), 1 );
-		$this->assertEquals( count( $result->presets ), 0 );
+		$this->assertEquals( count( $result->projects ), 0 );
 
 		// 後始末
 		$output = $this->px2query->query( [

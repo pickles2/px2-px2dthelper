@@ -40,7 +40,7 @@ class packages{
 		$rtn->broccoliModules = array();
 		$rtn->broccoliFields = array();
 		$rtn->processors = array();
-		$rtn->presets = array();
+		$rtn->projects = array();
 
 		// composer パッケージをスキャン
 		$path_composer_root = $this->get_path_composer_root_dir();
@@ -130,13 +130,16 @@ class packages{
 	private function parse_px2package_in_composer_json_row($row, $idx_num, $path_dir, $package_list){
 		switch( $row->type ){
 			case 'theme':
+				$row->path = $this->px->fs()->get_realpath( $path_dir.'/'.$row->path );
 				array_push($package_list->themes, $row);
 				break;
 			case 'processor':
 				array_push($package_list->processors, $row);
 				break;
-			case 'preset':
-				array_push($package_list->presets, $row);
+			case 'project':
+				$row->path = $this->px->fs()->get_realpath( $path_dir.'/'.$row->path );
+				$row->path_homedir = $this->px->fs()->get_realpath( $path_dir.'/'.$row->path_homedir );
+				array_push($package_list->projects, $row);
 				break;
 		}
 		return $package_list;
@@ -152,9 +155,12 @@ class packages{
 	private function parse_broccoli_in_broccoli_json_row($row, $idx_num, $path_dir, $package_list){
 		switch( $row->type ){
 			case 'module':
+				$row->path = $this->px->fs()->get_realpath( $path_dir.'/'.$row->path );
 				array_push($package_list->broccoliModules, $row);
 				break;
 			case 'field':
+				$row->backend->require = $this->px->fs()->get_realpath( $path_dir.'/'.$row->backend->require );
+				$row->frontend->file = $this->px->fs()->get_realpath( $path_dir.'/'.$row->frontend->file );
 				array_push($package_list->broccoliFields, $row);
 				break;
 		}
