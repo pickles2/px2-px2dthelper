@@ -271,6 +271,30 @@ $ php .px_execute.php "/?PX=px2dthelper.copy_content&from=/path/copy/from.html&t
 $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.change_content_editor_mode&editor_mode=html.gui"
 ```
 
+#### PX=px2dthelper.plugins.get_plugin_options
+
+プラグインオプションを取得します。
+
+```bash
+$ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.plugins.get_plugin_options&func_div=processor.html&plugin_name=namespace\\classname::funcname"
+```
+
+#### PX=px2dthelper.packages.get_path_composer_root_dir
+
+`composer.json` が置かれているディレクトリのパスを取得する。
+
+#### PX=px2dthelper.packages.get_path_npm_root_dir
+
+`package.json` が置かれているディレクトリのパスを取得する。
+
+#### PX=px2dthelper.packages.get_theme_package_list
+
+テーマパッケージの一覧を取得する。
+
+```bash
+$ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.get_theme_package_list"
+```
+
 
 
 
@@ -278,7 +302,10 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.change_cont
 
 ### pickles2/px2-px2dthelper 2.0.6 (20??年??月??日)
 
-- ?????????????????????????????????
+- PXコマンド `PX=px2dthelper.plugins.get_plugin_options` を追加。
+- PXコマンド `PX=px2dthelper.packages.get_theme_package_list` を追加。
+- PXコマンド `PX=px2dthelper.packages.get_path_composer_root_dir` を追加。
+- PXコマンド `PX=px2dthelper.packages.get_path_npm_root_dir` を追加。
 
 ### pickles2/px2-px2dthelper 2.0.5 (2017年5月30日)
 

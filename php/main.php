@@ -18,9 +18,6 @@ class main{
 	/** px2dtconfig */
 	private $px2dtconfig;
 
-	/** $module_templates */
-	private $obj_module_templates;
-
 	/**
 	 * entry
 	 *
@@ -417,16 +414,26 @@ class main{
 	 */
 	public function document_modules(){
 		require_once( __DIR__.'/fncs/document_modules.php' );
-		$rtn = '';
 		$rtn = new document_modules($this->px, $this);
 		return $rtn;
 	}
 
 	/**
-	 * ドキュメントモジュール定義をロードする
+	 * プラグイン操作オブジェクトをロードする
 	 */
-	public function module_templates(){
-		return $this->obj_module_templates;
+	public function plugins(){
+		require_once( __DIR__.'/fncs/plugins.php' );
+		$rtn = new plugins($this->px, $this);
+		return $rtn;
+	}
+
+	/**
+	 * パッケージ操作オブジェクトをロードする
+	 */
+	public function packages(){
+		require_once( __DIR__.'/fncs/packages.php' );
+		$rtn = new packages($this->px, $this);
+		return $rtn;
 	}
 
 	/**
@@ -604,6 +611,36 @@ class main{
 							$this->px->req()->set_param('type', 'html');
 						}
 						$val = $this->document_modules()->load();
+						break;
+				}
+				print $std_output->data_convert( $val );
+				exit;
+				break;
+
+			case 'plugins':
+				$val = null;
+				switch( @$this->command[2] ){
+					case 'get_plugin_options':
+						$plugin_name = $this->px->req()->get_param('plugin_name');
+						$func_div = $this->px->req()->get_param('func_div');
+						$val = $this->plugins()->get_plugin_options($plugin_name, $func_div);
+						break;
+				}
+				print $std_output->data_convert( $val );
+				exit;
+				break;
+
+			case 'packages':
+				$val = null;
+				switch( @$this->command[2] ){
+					case 'get_path_composer_root_dir':
+						$val = $this->packages()->get_path_composer_root_dir();
+						break;
+					case 'get_path_npm_root_dir':
+						$val = $this->packages()->get_path_npm_root_dir();
+						break;
+					case 'get_theme_package_list':
+						$val = $this->packages()->get_theme_package_list();
 						break;
 				}
 				print $std_output->data_convert( $val );
