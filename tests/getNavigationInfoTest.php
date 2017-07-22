@@ -37,9 +37,9 @@ class getNavigationInfo extends PHPUnit_Framework_TestCase{
 		$this->assertTrue( is_array($json_toppage->bros_info) );
 		$this->assertEquals( count($json_toppage->bros_info), 1 );
 		$this->assertTrue( is_array($json_toppage->children) );
-		$this->assertEquals( count($json_toppage->children), 6 );
+		$this->assertEquals( count($json_toppage->children), 7 );
 		$this->assertTrue( is_array($json_toppage->children_info) );
-		$this->assertEquals( count($json_toppage->children_info), 6 );
+		$this->assertEquals( count($json_toppage->children_info), 7 );
 
 
 		// 下層ページ取得

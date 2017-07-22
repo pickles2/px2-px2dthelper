@@ -137,36 +137,31 @@ class main{
 	 * @param string $page_path 対象のページのパス
 	 * @return string ローカルリソースの実際の絶対パス
 	 */
-	public function path_files( $page_path ){
-		if( $this->px->site() ){
-			$tmp_page_info = $this->px->site()->get_page_info($page_path);
-			$path_content = $tmp_page_info['content'];
-			unset($tmp_page_info);
+	public function path_files( $page_path = null ){
+		if( !is_string( $page_path ) ){
+			$page_path = $this->px->req()->get_request_file_path();
 		}
-		if( @is_null($path_content) ){
-			$path_content = $page_path;
-		}
-
 		$rtn = $this->px->conf()->path_files;
-		$data = array(
-			'dirname'=>$this->px->fs()->normalize_path(dirname($path_content)),
-			'filename'=>basename($this->px->fs()->trim_extension($path_content)),
-			'ext'=>strtolower($this->px->fs()->get_extension($path_content)),
-		);
-		$rtn = str_replace( '{$dirname}', $data['dirname'], $rtn );
-		$rtn = str_replace( '{$filename}', $data['filename'], $rtn );
-		$rtn = str_replace( '{$ext}', $data['ext'], $rtn );
-		$rtn = preg_replace( '/^\/*/', '/', $rtn );
-		$rtn = preg_replace( '/\/*$/', '', $rtn ).'/';
-
-		if( $this->px->fs()->is_dir('./'.$rtn) ){
-			$rtn .= '/';
-		}
+		$rtn = $this->bind_path_files($rtn, $page_path);
 		$rtn = $this->px->href( $rtn );
 		$rtn = $this->px->fs()->normalize_path($rtn);
 		$rtn = preg_replace( '/^\/+/', '/', $rtn );
 		return $rtn;
 	}//path_files()
+
+
+	/**
+	 * ローカルリソースディレクトリのサーバー内部パスを得る。
+	 *
+	 * @param string $page_path 対象のページのパス
+	 * @return string ローカルリソースのサーバー内部パス
+	 */
+	public function realpath_files( $page_path = null ){
+		$rtn = $this->path_files( $page_path );
+		$rtn = $this->px->fs()->get_realpath( $rtn );
+		$rtn = $this->px->fs()->get_realpath( $this->px->get_realpath_docroot().$rtn );
+		return $rtn;
+	}//realpath_files()
 
 	/**
 	 * realpath_data_dir のパスを得る。
@@ -504,7 +499,10 @@ class main{
 						break;
 					case 'all':
 						$rtn = json_decode('{}');
-						$request_path = $this->px->req()->get_request_file_path();
+						$request_path = $this->px->req()->get_param('path');
+						if( !strlen( $request_path ) ){
+							$request_path = $this->px->req()->get_request_file_path();
+						}
 
 						@$rtn->config = $this->px->conf();
 						@$rtn->version->pxfw = $this->px->get_version();
@@ -517,7 +515,7 @@ class main{
 						@$rtn->realpath_homedir = $this->px->get_path_homedir();
 						@$rtn->path_controot = $this->px->get_path_controot();
 						@$rtn->realpath_docroot = $this->px->get_path_docroot();
-						@$rtn->realpath_data_dir = $this->get_realpath_data_dir();
+						@$rtn->realpath_data_dir = $this->get_realpath_data_dir( $request_path );
 
 						@$rtn->path_resource_dir = false;
 						@$rtn->page_info = false;
@@ -526,10 +524,10 @@ class main{
 						@$rtn->navigation_info = false;
 
 						if( is_object($this->px->site()) ){
-							@$rtn->path_resource_dir = $this->get_path_resource_dir();
+							@$rtn->path_resource_dir = $this->get_path_resource_dir( $request_path );
 							@$rtn->page_info = $this->px->site()->get_page_info( $request_path );
-							@$rtn->path_files = $this->px->path_files();
-							@$rtn->realpath_files = $this->px->realpath_files();
+							@$rtn->path_files = $this->path_files( $request_path );
+							@$rtn->realpath_files = $this->realpath_files( $request_path );
 							@$rtn->navigation_info = $this->get_navigation_info( $request_path, $sitemap_filter_options($this->px, $this->command[2]) );
 						}
 

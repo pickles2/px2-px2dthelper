@@ -1,6 +1,6 @@
 "*path","*content","*id","*title","*title_breadcrumb","*title_h1","*title_label","*title_full","*logical_path","*list_flg","*layout","*orderby","*keywords","*description","*category_top_flg"
 "/",,,"ホーム",,,,,,1,"top",,,,
-"/test1_load.html",,,"Test for load",,,,,,1,,,,,1
+"/test1_load.html",,"test1_load","Test for load",,,,,,1,,,,,1
 "/test1_load_children/index.html",,,"Test for load – children 1",,,,,"/test1_load.html",1,,,,,1
 "/test1_load_children/index2.html",,,"Test for load – children 2 (list_flg:0)",,,,,"/test1_load.html",0,,,,,1
 "/test1_load_children/index3.html",,,"Test for load – children 3",,,,,"/test1_load.html",1,,,,,1
@@ -11,3 +11,4 @@
 "/editsample/php_build.html",,,"Build by PHP",,,,,"/editsample/index.html",1,,,,,1
 "/editor_modes/not_exists.html",,,"content not exists",,,,,,1,,,,,1
 "/list_flg_0/index.html",,,"list_flg: 0",,,,,,0,,,,,1
+"alias:/test1_build_js.html",,"alias_test","Alias Test",,,,,,1,,,,,1

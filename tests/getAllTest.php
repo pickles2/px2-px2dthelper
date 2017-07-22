@@ -101,7 +101,42 @@ class getAllTest extends PHPUnit_Framework_TestCase{
 	}//testGetAll()
 
 	/**
-	 * PX=px2dthelper.get.all のテスト
+	 * PX=px2dthelper.get.all でページIDをキーに情報を得るテスト
+	 */
+	public function testGetAllByPageId(){
+
+		// Pickles 2 実行
+		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/test1_load.html?PX=px2dthelper.get.all' ] );
+		// var_dump($output);
+		$json1 = json_decode( $output );
+		// var_dump($json1);
+
+		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.get.all&path=/test1_load.html' ] );
+		// var_dump($output);
+		$json2 = json_decode( $output );
+		// var_dump($json2);
+
+		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.get.all&path=test1_load' ] );
+		// var_dump($output);
+		$json3 = json_decode( $output );
+		// var_dump($json3);
+		// var_dump($json3->page_info);
+
+		$this->assertEquals( $json1, $json2 );
+		$this->assertEquals( $json2, $json3 );
+
+
+		// 後始末
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/standard/.px_execute.php' ,
+			'/?PX=clearcache' ,
+		] );
+
+	}//testGetAllByPageId()
+
+	/**
+	 * PX=px2dthelper.get.all で深いページの情報を得るテスト
 	 */
 	public function testGetAllDeepPage(){
 
