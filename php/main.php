@@ -517,17 +517,23 @@ class main{
 						@$rtn->realpath_docroot = $this->px->get_path_docroot();
 						@$rtn->realpath_data_dir = $this->get_realpath_data_dir( $request_path );
 
-						@$rtn->path_resource_dir = false;
 						@$rtn->page_info = false;
+						@$rtn->path_type = false;
 						@$rtn->path_files = false;
+						@$rtn->path_resource_dir = false;
 						@$rtn->realpath_files = false;
 						@$rtn->navigation_info = false;
 
 						if( is_object($this->px->site()) ){
-							@$rtn->path_resource_dir = $this->get_path_resource_dir( $request_path );
 							@$rtn->page_info = $this->px->site()->get_page_info( $request_path );
-							@$rtn->path_files = $this->path_files( $request_path );
-							@$rtn->realpath_files = $this->realpath_files( $request_path );
+							@$rtn->path_type = $this->px->get_path_type( $rtn->page_info['path'] );
+							if( $rtn->path_type != 'alias' ){
+								@$rtn->path_files = $this->path_files( $request_path );
+								@$rtn->path_resource_dir = $this->get_path_resource_dir( $request_path );
+								@$rtn->realpath_files = $this->realpath_files( $request_path );
+							}else{
+								@$rtn->realpath_data_dir = false;
+							}
 							@$rtn->navigation_info = $this->get_navigation_info( $request_path, $sitemap_filter_options($this->px, $this->command[2]) );
 						}
 
