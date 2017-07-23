@@ -344,7 +344,7 @@ class main{
 						break;
 				}
 			}else{
-				$realpath_data_dir = $this->get_realpath_data_dir();
+				$realpath_data_dir = $this->get_realpath_data_dir($page_path);
 				if( $this->px->fs()->is_file( $realpath_data_dir.'/data.json' ) ){
 					$rtn = 'html.gui';
 				}
