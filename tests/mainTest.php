@@ -199,6 +199,11 @@ class mainTest extends PHPUnit_Framework_TestCase{
 		// var_dump($output);
 		$this->assertEquals( 'html', $output );
 
+		$outputByPath = $this->passthru( [ 'php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.check_editor_mode&path=/editor_modes/index.html' ] );
+		$outputByPath = json_decode($outputByPath);
+		// var_dump($outputByPath);
+		$this->assertEquals( $outputByPath, $output );
+
 		$output = $this->passthru( [ 'php', __DIR__.'/testData/standard/.px_execute.php', '/editor_modes/html.html?PX=px2dthelper.check_editor_mode' ] );
 		$output = json_decode($output);
 		// var_dump($output);

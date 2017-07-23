@@ -551,7 +551,11 @@ class main{
 
 			case 'check_editor_mode':
 				// コンテンツの編集モードを調べる
-				print $std_output->data_convert( $this->check_editor_mode() );
+				$request_path = $this->px->req()->get_param('path');
+				if( !strlen( $request_path ) ){
+					$request_path = $this->px->req()->get_request_file_path();
+				}
+				print $std_output->data_convert( $this->check_editor_mode( $request_path ) );
 				exit;
 				break;
 
