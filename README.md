@@ -187,7 +187,7 @@ $ php .px_execute.php "/?PX=px2dthelper.get.navigation_info&filter=false"
 Pickles 2 から複数の情報を一度に取得します。
 
 ```bash
-$ php .px_execute.php "/?PX=px2dthelper.get.all&filter=false"
+$ php .px_execute.php "/?PX=px2dthelper.get.all&filter=false&path=/index.html"
 ```
 
 `filter` オプションは、 `$site->get_bros()` と `$site->get_children()` に渡されます。
@@ -197,7 +197,7 @@ $ php .px_execute.php "/?PX=px2dthelper.get.all&filter=false"
 コンテンツの編集モードを取得します。
 
 ```bash
-$ php .px_execute.php "/target/path.html?PX=px2dthelper.check_editor_mode"
+$ php .px_execute.php "/?PX=px2dthelper.check_editor_mode&path=/target/path.html"
 ```
 
 #### PX=px2dthelper.search_sitemap
@@ -306,6 +306,9 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 - PXコマンド `PX=px2dthelper.packages.get_theme_package_list` を追加。
 - PXコマンド `PX=px2dthelper.packages.get_path_composer_root_dir` を追加。
 - PXコマンド `PX=px2dthelper.packages.get_path_npm_root_dir` を追加。
+- PXコマンド `PX=px2dthelper.get.all`, `PX=px2dthelper.check_editor_mode` に `path` オプションを追加。
+- PXコマンド `PX=px2dthelper.get.all` の結果に `path_type` を追加。
+- PXコマンド `PX=px2dthelper.get.all` で、`path` オプションに id を指定してエイリアスページの情報を取得できるようになった。
 
 ### pickles2/px2-px2dthelper 2.0.5 (2017年5月30日)
 

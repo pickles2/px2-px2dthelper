@@ -24,6 +24,7 @@ class getAllTest extends PHPUnit_Framework_TestCase{
 		$json = json_decode( $output );
 		// var_dump($json);
 		$this->assertTrue( is_object($json) );
+		$this->assertEquals( $json->path_type, 'normal' );
 
 		// Pickles 2 のバージョン番号
 		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=api.get.version' ] ));
@@ -101,7 +102,75 @@ class getAllTest extends PHPUnit_Framework_TestCase{
 	}//testGetAll()
 
 	/**
-	 * PX=px2dthelper.get.all のテスト
+	 * PX=px2dthelper.get.all でページIDをキーに情報を得るテスト
+	 */
+	public function testGetAllByPageId(){
+
+		// Pickles 2 実行
+		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/test1_load.html?PX=px2dthelper.get.all' ] );
+		// var_dump($output);
+		$json1 = json_decode( $output );
+		// var_dump($json1);
+
+		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.get.all&path=/test1_load.html' ] );
+		// var_dump($output);
+		$json2 = json_decode( $output );
+		// var_dump($json2);
+
+		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.get.all&path=test1_load' ] );
+		// var_dump($output);
+		$json3 = json_decode( $output );
+		// var_dump($json3);
+		// var_dump($json3->page_info);
+
+		$this->assertEquals( $json1, $json2 );
+		$this->assertEquals( $json2, $json3 );
+
+
+		// 後始末
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/standard/.px_execute.php' ,
+			'/?PX=clearcache' ,
+		] );
+
+	}//testGetAllByPageId()
+
+	/**
+	 * PX=px2dthelper.get.all でページIDをキーにaliasページの情報を得るテスト
+	 */
+	public function testGetAllOfAliasPageByPageId(){
+
+		// Pickles 2 実行
+		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.get.all&path=alias_test' ] );
+		// var_dump($output);
+		$json = json_decode( $output );
+		// var_dump($json);
+
+		$this->assertEquals( $json->page_info->id, 'alias_test' );
+		$this->assertEquals( $json->page_info->title, 'Alias Test' );
+		$this->assertEquals( $json->path_type, 'alias' );
+		$this->assertFalse( $json->path_files );
+		$this->assertFalse( $json->path_resource_dir );
+		$this->assertFalse( $json->realpath_files );
+		$this->assertFalse( $json->realpath_data_dir );
+		$this->assertEquals( $json->navigation_info->page_info->id, 'alias_test' );
+		$this->assertEquals( $json->navigation_info->parent, '' );
+		$this->assertEquals( count($json->navigation_info->bros), 7 );
+		$this->assertEquals( count($json->navigation_info->children), 0 );
+
+
+		// 後始末
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/standard/.px_execute.php' ,
+			'/?PX=clearcache' ,
+		] );
+
+	}//testGetAllOfAliasPageByPageId()
+
+	/**
+	 * PX=px2dthelper.get.all で深いページの情報を得るテスト
 	 */
 	public function testGetAllDeepPage(){
 
