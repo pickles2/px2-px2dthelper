@@ -287,12 +287,12 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.plugins.get
 
 `package.json` が置かれているディレクトリのパスを取得する。
 
-#### PX=px2dthelper.packages.get_theme_package_list
+#### PX=px2dthelper.packages.get_package_list
 
-テーマパッケージの一覧を取得する。
+パッケージの一覧を取得する。
 
 ```bash
-$ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.get_theme_package_list"
+$ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.get_package_list"
 ```
 
 
@@ -303,12 +303,12 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 ### pickles2/px2-px2dthelper 2.0.6 (20??年??月??日)
 
 - PXコマンド `PX=px2dthelper.plugins.get_plugin_options` を追加。
-- PXコマンド `PX=px2dthelper.packages.get_theme_package_list` を追加。
+- PXコマンド `PX=px2dthelper.packages.get_package_list` を追加。
 - PXコマンド `PX=px2dthelper.packages.get_path_composer_root_dir` を追加。
 - PXコマンド `PX=px2dthelper.packages.get_path_npm_root_dir` を追加。
 - PXコマンド `PX=px2dthelper.get.all`, `PX=px2dthelper.check_editor_mode` に `path` オプションを追加。
 - PXコマンド `PX=px2dthelper.get.all` の結果に `path_type` を追加。
-- PXコマンド `PX=px2dthelper.get.all` の結果に `packages->path_composer_root_dir`, `packages->path_npm_root_dir`, `packages->theme_package_list` を追加。
+- PXコマンド `PX=px2dthelper.get.all` の結果に `packages->path_composer_root_dir`, `packages->path_npm_root_dir`, `packages->package_list` を追加。
 - PXコマンド `PX=px2dthelper.get.all` で、`path` オプションに id を指定してエイリアスページの情報を取得できるようになった。
 
 ### pickles2/px2-px2dthelper 2.0.5 (2017年5月30日)

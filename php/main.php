@@ -539,7 +539,7 @@ class main{
 
 						@$rtn->packages->path_composer_root_dir = $this->packages()->get_path_composer_root_dir();
 						@$rtn->packages->path_npm_root_dir = $this->packages()->get_path_npm_root_dir();
-						@$rtn->packages->theme_package_list = $this->packages()->get_theme_package_list();
+						@$rtn->packages->package_list = $this->packages()->get_package_list();
 
 						print $std_output->data_convert( $rtn );
 						exit;
@@ -651,8 +651,8 @@ class main{
 					case 'get_path_npm_root_dir':
 						$val = $this->packages()->get_path_npm_root_dir();
 						break;
-					case 'get_theme_package_list':
-						$val = $this->packages()->get_theme_package_list();
+					case 'get_package_list':
+						$val = $this->packages()->get_package_list();
 						break;
 				}
 				print $std_output->data_convert( $val );
