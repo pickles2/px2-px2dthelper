@@ -537,6 +537,10 @@ class main{
 							@$rtn->navigation_info = $this->get_navigation_info( $request_path, $sitemap_filter_options($this->px, $this->command[2]) );
 						}
 
+						@$rtn->packages->path_composer_root_dir = $this->packages()->get_path_composer_root_dir();
+						@$rtn->packages->path_npm_root_dir = $this->packages()->get_path_npm_root_dir();
+						@$rtn->packages->theme_package_list = $this->packages()->get_theme_package_list();
+
 						print $std_output->data_convert( $rtn );
 						exit;
 						break;

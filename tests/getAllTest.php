@@ -91,6 +91,15 @@ class getAllTest extends PHPUnit_Framework_TestCase{
 		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.get.navigation_info' ] ));
 		$this->assertEquals( $json->navigation_info, $output );
 
+		// packages
+		$this->assertTrue( is_object($json->packages) );
+		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.packages.get_path_composer_root_dir' ] ));
+		$this->assertEquals( $json->packages->path_composer_root_dir, $output );
+		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.packages.get_path_npm_root_dir' ] ));
+		$this->assertEquals( $json->packages->path_npm_root_dir, $output );
+		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.packages.get_theme_package_list' ] ));
+		$this->assertEquals( $json->packages->theme_package_list, $output );
+
 
 		// 後始末
 		$output = $this->passthru( [

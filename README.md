@@ -308,6 +308,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 - PXコマンド `PX=px2dthelper.packages.get_path_npm_root_dir` を追加。
 - PXコマンド `PX=px2dthelper.get.all`, `PX=px2dthelper.check_editor_mode` に `path` オプションを追加。
 - PXコマンド `PX=px2dthelper.get.all` の結果に `path_type` を追加。
+- PXコマンド `PX=px2dthelper.get.all` の結果に `packages->path_composer_root_dir`, `packages->path_npm_root_dir`, `packages->theme_package_list` を追加。
 - PXコマンド `PX=px2dthelper.get.all` で、`path` オプションに id を指定してエイリアスページの情報を取得できるようになった。
 
 ### pickles2/px2-px2dthelper 2.0.5 (2017年5月30日)
