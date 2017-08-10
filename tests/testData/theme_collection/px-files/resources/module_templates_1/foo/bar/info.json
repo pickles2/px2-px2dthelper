@@ -1,0 +1,8 @@
+{
+	"sample_data":[
+		{
+			"title": "実装例1",
+			"data": {"modId":"Modules1:foo/bar","fields":{"input":"インプット","mainLoop":[{"modId":"Modules1:foo/bar","fields":{"inputInLoop":"記憶領域の文字列"},"subModName":"mainLoop"},{"modId":"Modules1:foo/bar","fields":{"inputInLoop":"記憶領域を上書きしました。"},"subModName":"mainLoop"}]}}
+		}
+	]
+}

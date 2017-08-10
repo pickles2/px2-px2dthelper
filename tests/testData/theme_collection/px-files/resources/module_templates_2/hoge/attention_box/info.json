@@ -1,0 +1,13 @@
+{
+	"name": "注意喚起ボックス" ,
+	"sample_data": [
+		{
+			"title": "heading を空白にしたサンプル",
+			"data": {"modId":"Modules2:hoge/attention_box","fields":{"heading":"","main":[{"modId":"Modules1:foo/bar","fields":{"input":"別のモジュールを入れ子にしたサンプル","mainLoop":[]}}]}}
+		} ,
+		{
+			"title": "入れ子にしてみるサンプル",
+			"data": {"modId":"Modules2:hoge/attention_box","fields":{"heading":"ご注意ください。","main":[{"modId":"Modules1:foo/bar","fields":{"input":"別のモジュールを入れ子にしたサンプル","mainLoop":[{"modId":"Modules1:foo/bar","fields":{"inputInLoop":"内包されたテキストモジュール"},"subModName":"mainLoop"}]}}]}}
+		}
+	]
+}

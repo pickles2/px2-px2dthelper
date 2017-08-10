@@ -1,0 +1,23 @@
+{&{"input":{"type":"text","name":"sample_text","hidden":true,"rows":1}}&}
+<div class="if_field_test">
+	<p>if Field TEST</p>
+{&{"if":{"is_set":"sample_text"}}&}
+	<div class="if_field_test-is_set">sample_text is set => <q>{&{"echo":{"ref":"sample_text"}}&}</q></div>
+{&"endif"&}
+{&{"if":{"cond":[
+	[
+		"is_set:sample_text"
+	]
+]}}&}
+	<div class="if_field_test-cond">sample_text is set => <q>{&{"echo":{"ref":"sample_text"}}&}</q></div>
+{&"endif"&}
+
+{&{"if":{"cond":[
+	[
+		"is_set:sample_text",
+		"sample_text==true"
+	]
+]}}&}
+	<div class="if_field_test-cond_is">sample_text is set => <q>{&{"echo":{"ref":"sample_text"}}&}</q></div>
+{&"endif"&}
+</div>
