@@ -28,6 +28,7 @@ class broccoliTest extends PHPUnit_Framework_TestCase{
 		$this->assertTrue( strpos( $outputCss, '.bar{' ) !== false );//←素のCSSがそのまま出ている。
 		$this->assertTrue( strpos( $outputCss, '.hoge_fuga .hoge_fuga-child {' ) !== false );//←SCSSが機能している。
 		$this->assertTrue( strpos( $outputCss, 'data:image/png;base64,' ) !== false );//←SCSSが機能している。
+		$this->assertTrue( strpos( $outputCss, 'pkg:cat/mod1' ) !== false );//←path_module_templates_dir が機能している。
 		$outputCssApi = $this->passthru( [
 			'php',
 			__DIR__.'/testData/standard/.px_execute.php' ,
@@ -47,7 +48,14 @@ class broccoliTest extends PHPUnit_Framework_TestCase{
 		$expected = '/**'."\n"
 		.' * module: Modules1:foo/bar'."\n"
 		.' */'."\n"
-		.'alert(\'foo/bar\');'."\n";
+		.'alert(\'foo/bar\');'."\n"
+		."\n"
+		.'/**'."\n"
+		.' * module: pkg:cat/mod1'."\n" //←path_module_templates_dir が機能している。
+		.' */'."\n"
+		.'function pkg_cat_mod1(){'."\n"
+		.'    alert(\'pkg:cat/mod1\');'."\n"
+		.'}'."\n";
 		$this->assertEquals( $expected, $outputJs );
 		$outputJsApi = $this->passthru( [
 			'php',
