@@ -102,6 +102,46 @@ class document_modules{
 	}
 
 	/**
+	 * テーマが定義するドキュメントモジュール定義のスタイルシートを統合する
+	 *
+	 * @param string $theme_id テーマID
+	 * @return string CSSコード
+	 */
+	public function build_theme_css( $theme_id ){
+		$conf = $this->main->get_px2dtconfig();
+		$array_files = array();
+		if( !strlen( $theme_id ) ){
+			return '';
+		}
+
+		$realpath_theme_collection_dir = $this->main->get_realpath_theme_collection_dir();
+		if( !is_dir( $realpath_theme_collection_dir ) ){
+			return '';
+		}
+
+		// ディレクトリからモジュールを検索
+		$realpath_module_dir = @$realpath_theme_collection_dir.'/'.$theme_id.'/';
+		if( strlen($realpath_module_dir) && is_dir($realpath_module_dir) ){
+			$ls = $this->px->fs()->ls($realpath_module_dir);
+			sort($ls);
+			foreach( $ls as $key ){
+				if( !is_dir( $realpath_module_dir.'/'.$key.'/' ) ){
+					continue;
+				}
+				if( @is_array( $array_files[$key] ) ){
+					// 既に定義済みのモジュールパッケージIDは上書きしない。
+					continue;
+				}
+				$array_files[$key] = array();
+				$array_files[$key] = array_merge( $array_files[$key], glob($realpath_module_dir.'/'.$key.'/'."**/**/module.css") );
+				$array_files[$key] = array_merge( $array_files[$key], glob($realpath_module_dir.'/'.$key.'/'."**/**/module.css.scss") );
+			}
+		}
+
+		return $this->build_css_src( $array_files );
+	}
+
+	/**
 	 * CSSソースをビルドする
 	 * @param array $array_files パッケージIDをキーにCSSファイルを格納した連想配列
 	 * @return string ビルドされたCSSソース
@@ -214,6 +254,44 @@ class document_modules{
 		}
 		// ディレクトリからモジュールを検索
 		$realpath_module_dir = @$conf->path_module_templates_dir;
+		if( strlen($realpath_module_dir) && is_dir($realpath_module_dir) ){
+			$ls = $this->px->fs()->ls($realpath_module_dir);
+			sort($ls);
+			foreach( $ls as $packageId ){
+				if( !is_dir( $realpath_module_dir.'/'.$packageId.'/' ) ){
+					continue;
+				}
+				if( @is_array( $array_files[$packageId] ) ){
+					// 既に定義済みのモジュールパッケージIDは上書きしない。
+					continue;
+				}
+				$array_files[$packageId] = glob($realpath_module_dir.'/'.$packageId.'/**/**/module.js');
+			}
+		}
+
+		return $this->build_js_src( $array_files );
+	}
+
+	/**
+	 * テーマが定義するドキュメントモジュール定義のJavaScriptコードを統合する
+	 *
+	 * @param string $theme_id テーマID
+	 * @return string JavaScriptコード
+	 */
+	public function build_theme_js( $theme_id ){
+		$conf = $this->main->get_px2dtconfig();
+		$array_files = array();
+		if( !strlen( $theme_id ) ){
+			return '';
+		}
+
+		$realpath_theme_collection_dir = $this->main->get_realpath_theme_collection_dir();
+		if( !is_dir( $realpath_theme_collection_dir ) ){
+			return '';
+		}
+
+		// ディレクトリからモジュールを検索
+		$realpath_module_dir = @$realpath_theme_collection_dir.'/'.$theme_id.'/';
 		if( strlen($realpath_module_dir) && is_dir($realpath_module_dir) ){
 			$ls = $this->px->fs()->ls($realpath_module_dir);
 			sort($ls);

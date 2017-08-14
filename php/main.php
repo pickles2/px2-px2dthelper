@@ -621,6 +621,7 @@ class main{
 
 			case 'document_modules':
 				$data_type = $this->px->req()->get_param('type');
+				$theme_id = $this->px->req()->get_param('theme_id');
 				$val = null;
 				switch( @$this->command[2] ){
 					case 'build_css':
@@ -628,14 +629,22 @@ class main{
 							header('Content-type: text/css; charset=UTF-8');
 							$this->px->req()->set_param('type', 'css');
 						}
-						$val = $this->document_modules()->build_css();
+						if( strlen($theme_id) ){
+							$val = $this->document_modules()->build_theme_css( $theme_id );
+						}else{
+							$val = $this->document_modules()->build_css();
+						}
 						break;
 					case 'build_js':
 						if( !is_string($data_type) || !strlen($data_type) ){
 							header('Content-type: text/javascript; charset=UTF-8');
 							$this->px->req()->set_param('type', 'js');
 						}
-						$val = $this->document_modules()->build_js();
+						if( strlen($theme_id) ){
+							$val = $this->document_modules()->build_theme_js( $theme_id );
+						}else{
+							$val = $this->document_modules()->build_js();
+						}
 						break;
 					case 'load':
 						if( !is_string($data_type) || !strlen($data_type) ){
