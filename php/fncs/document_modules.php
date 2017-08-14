@@ -115,12 +115,12 @@ class document_modules{
 		}
 
 		$realpath_theme_collection_dir = $this->main->get_realpath_theme_collection_dir();
-		if( !is_dir( $realpath_theme_collection_dir ) ){
+		if( !is_dir( $realpath_theme_collection_dir.'/'.$theme_id.'/broccoli_module_packages/' ) ){
 			return '';
 		}
 
 		// ディレクトリからモジュールを検索
-		$realpath_module_dir = @$realpath_theme_collection_dir.'/'.$theme_id.'/';
+		$realpath_module_dir = @$realpath_theme_collection_dir.'/'.$theme_id.'/broccoli_module_packages/';
 		if( strlen($realpath_module_dir) && is_dir($realpath_module_dir) ){
 			$ls = $this->px->fs()->ls($realpath_module_dir);
 			sort($ls);
@@ -286,12 +286,12 @@ class document_modules{
 		}
 
 		$realpath_theme_collection_dir = $this->main->get_realpath_theme_collection_dir();
-		if( !is_dir( $realpath_theme_collection_dir ) ){
+		if( !is_dir( $realpath_theme_collection_dir.'/'.$theme_id.'/broccoli_module_packages/' ) ){
 			return '';
 		}
 
 		// ディレクトリからモジュールを検索
-		$realpath_module_dir = @$realpath_theme_collection_dir.'/'.$theme_id.'/';
+		$realpath_module_dir = @$realpath_theme_collection_dir.'/'.$theme_id.'/broccoli_module_packages/';
 		if( strlen($realpath_module_dir) && is_dir($realpath_module_dir) ){
 			$ls = $this->px->fs()->ls($realpath_module_dir);
 			sort($ls);
