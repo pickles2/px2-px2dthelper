@@ -14,9 +14,9 @@ class broccoliTest extends PHPUnit_Framework_TestCase{
 	}
 
 	/**
-	 * broccoli-html-editor ビルドのテスト
+	 * broccoli-html-editor CSS,JSビルドのテスト
 	 */
-	public function testBuild(){
+	public function testBuildCssJs(){
 
 		// build "CSS"
 		$outputCss = $this->passthru( [
@@ -46,16 +46,17 @@ class broccoliTest extends PHPUnit_Framework_TestCase{
 		] );
 
 		$expected = '/**'."\n"
-		.' * module: Modules1:foo/bar'."\n"
-		.' */'."\n"
-		.'alert(\'foo/bar\');'."\n"
-		."\n"
-		.'/**'."\n"
-		.' * module: pkg:cat/mod1'."\n" //←path_module_templates_dir が機能している。
-		.' */'."\n"
-		.'function pkg_cat_mod1(){'."\n"
-		.'    alert(\'pkg:cat/mod1\');'."\n"
-		.'}'."\n";
+					.' * module: Modules1:foo/bar'."\n"
+					.' */'."\n"
+					.'alert(\'foo/bar\');'."\n"
+					."\n"
+					.'/**'."\n"
+					.' * module: pkg:cat/mod1'."\n" //←path_module_templates_dir が機能している。
+					.' */'."\n"
+					.'function pkg_cat_mod1(){'."\n"
+					.'    alert(\'pkg:cat/mod1\');'."\n"
+					.'}'."\n"
+		;
 		$this->assertEquals( $expected, $outputJs );
 		$outputJsApi = $this->passthru( [
 			'php',
@@ -88,7 +89,39 @@ class broccoliTest extends PHPUnit_Framework_TestCase{
 			'/?PX=clearcache' ,
 		] );
 
-	}//testBuild()
+	} // testBuildCssJs()
+
+	/**
+	 * broccoli-html-editor テーマCSS,JSビルドのテスト
+	 */
+	public function testBuildThemeCssJs(){
+		// build "CSS"
+		$outputCss = $this->passthru( [
+			'php',
+			__DIR__.'/testData/standard/.px_execute.php' ,
+			'/?PX=px2dthelper.document_modules.build_css&theme_id=pickles' ,
+		] );
+		// var_dump($outputCss);
+		$this->assertTrue( strpos( $outputCss, 'module: theme_pkg:cat/mod1' ) !== false );
+
+		// build "JS"
+		$outputJs = $this->passthru( [
+			'php',
+			__DIR__.'/testData/standard/.px_execute.php' ,
+			'/?PX=px2dthelper.document_modules.build_js&theme_id=pickles' ,
+		] );
+		// var_dump($outputJs);
+		$this->assertTrue( strpos( $outputJs, 'alert(\'theme_pkg:cat/mod1\');' ) !== false );
+
+
+		// 後始末
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/standard/.px_execute.php' ,
+			'/?PX=clearcache' ,
+		] );
+
+	} // testBuildThemeCssJs()
 
 
 	/**

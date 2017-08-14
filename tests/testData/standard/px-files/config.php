@@ -109,13 +109,18 @@ return call_user_func( function(){
 	// processor
 	$conf->funcs->processor = new stdClass;
 
-	@require_once( __DIR__.'/themes/pickles/php/theme.php' );
 	$conf->funcs->processor->html = [
 		// ページ内目次を自動生成する
 		'picklesFramework2\processors\autoindex\autoindex::exec' ,
 
 		// テーマ
-		'theme'=>'tomk79\pickles2\px2dthelper\themes\pickles\theme::exec' ,
+		'theme'=>'tomk79\pickles2\multitheme\theme::exec('.json_encode([
+			'param_theme_switch'=>'THEME',
+			'cookie_theme_switch'=>'THEME',
+			'path_theme_collection'=>'./px-files/themes/',
+			'attr_bowl_name_by'=>'data-contents-area',
+			'default_theme_id'=>'pickles'
+		]).')' ,
 
 		 // プラグイン関連機能のテスト
 		'tomk79\plugin_sample\test::exec3('.json_encode(array(
