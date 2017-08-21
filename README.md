@@ -43,7 +43,7 @@ Pickles 2 用のプラグインです。Pickles 2 Desktop Tool と連携させ�
 ```json
 {
 	"require": {
-		"pickles2/px2-px2dthelper": "dev-master"
+		"pickles2/px2-px2dthelper": "^2.0"
 	}
 }
 ```
