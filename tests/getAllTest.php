@@ -75,6 +75,10 @@ class getAllTest extends PHPUnit_Framework_TestCase{
 		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=api.get.path_docroot' ] ));
 		$this->assertEquals( $json->realpath_docroot, $output );
 
+		// realpath_theme_collection_dir
+		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.get.realpath_theme_collection_dir' ] ));
+		$this->assertEquals( $json->realpath_theme_collection_dir, $output );
+
 		// page_info
 		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=api.get.page_info&path=/' ] ));
 		$this->assertEquals( $json->page_info, $output );
@@ -90,6 +94,15 @@ class getAllTest extends PHPUnit_Framework_TestCase{
 		// navigaton_info
 		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.get.navigation_info' ] ));
 		$this->assertEquals( $json->navigation_info, $output );
+
+		// packages
+		$this->assertTrue( is_object($json->packages) );
+		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.packages.get_path_composer_root_dir' ] ));
+		$this->assertEquals( $json->packages->path_composer_root_dir, $output );
+		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.packages.get_path_npm_root_dir' ] ));
+		$this->assertEquals( $json->packages->path_npm_root_dir, $output );
+		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.packages.get_package_list' ] ));
+		$this->assertEquals( $json->packages->package_list, $output );
 
 
 		// 後始末

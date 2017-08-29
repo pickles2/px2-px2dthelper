@@ -53,9 +53,10 @@ class document_modules{
 	}
 
 	/**
-	 * ドキュメントモジュール定義のスタイルを統合
+	 * ドキュメントモジュール定義のスタイルシートを統合する
 	 *
 	 * モジュール定義の情報から、スタイルシートを生成します。
+	 * `$conf->plugins->px2dt->paths_module_template` および `$conf->plugins->px2dt->path_module_templates_dir` を参照します。
 	 *
 	 * スタイルシートファイル(例: `/common/styles/contents.css` など)に、下記のようにコードを記述します。
 	 *
@@ -70,11 +71,82 @@ class document_modules{
 	public function build_css(){
 		$conf = $this->main->get_px2dtconfig();
 		$array_files = array();
+
+		// 指定モジュールを検索
 		foreach( $conf->paths_module_template as $key=>$row ){
 			$array_files[$key] = array();
 			$array_files[$key] = array_merge( $array_files[$key], glob($row."**/**/module.css") );
 			$array_files[$key] = array_merge( $array_files[$key], glob($row."**/**/module.css.scss") );
 		}
+
+		// ディレクトリからモジュールを検索
+		$realpath_module_dir = @$conf->path_module_templates_dir;
+		if( strlen($realpath_module_dir) && is_dir($realpath_module_dir) ){
+			$ls = $this->px->fs()->ls($realpath_module_dir);
+			sort($ls);
+			foreach( $ls as $key ){
+				if( !is_dir( $realpath_module_dir.'/'.$key.'/' ) ){
+					continue;
+				}
+				if( @is_array( $array_files[$key] ) ){
+					// 既に定義済みのモジュールパッケージIDは上書きしない。
+					continue;
+				}
+				$array_files[$key] = array();
+				$array_files[$key] = array_merge( $array_files[$key], glob($realpath_module_dir.'/'.$key.'/'."**/**/module.css") );
+				$array_files[$key] = array_merge( $array_files[$key], glob($realpath_module_dir.'/'.$key.'/'."**/**/module.css.scss") );
+			}
+		}
+
+		return $this->build_css_src( $array_files );
+	}
+
+	/**
+	 * テーマが定義するドキュメントモジュール定義のスタイルシートを統合する
+	 *
+	 * @param string $theme_id テーマID
+	 * @return string CSSコード
+	 */
+	public function build_theme_css( $theme_id ){
+		$conf = $this->main->get_px2dtconfig();
+		$array_files = array();
+		if( !strlen( $theme_id ) ){
+			return '';
+		}
+
+		$realpath_theme_collection_dir = $this->main->get_realpath_theme_collection_dir();
+		if( !is_dir( $realpath_theme_collection_dir.'/'.$theme_id.'/broccoli_module_packages/' ) ){
+			return '';
+		}
+
+		// ディレクトリからモジュールを検索
+		$realpath_module_dir = @$realpath_theme_collection_dir.'/'.$theme_id.'/broccoli_module_packages/';
+		if( strlen($realpath_module_dir) && is_dir($realpath_module_dir) ){
+			$ls = $this->px->fs()->ls($realpath_module_dir);
+			sort($ls);
+			foreach( $ls as $key ){
+				if( !is_dir( $realpath_module_dir.'/'.$key.'/' ) ){
+					continue;
+				}
+				if( @is_array( $array_files[$key] ) ){
+					// 既に定義済みのモジュールパッケージIDは上書きしない。
+					continue;
+				}
+				$array_files[$key] = array();
+				$array_files[$key] = array_merge( $array_files[$key], glob($realpath_module_dir.'/'.$key.'/'."**/**/module.css") );
+				$array_files[$key] = array_merge( $array_files[$key], glob($realpath_module_dir.'/'.$key.'/'."**/**/module.css.scss") );
+			}
+		}
+
+		return $this->build_css_src( $array_files );
+	}
+
+	/**
+	 * CSSソースをビルドする
+	 * @param array $array_files パッケージIDをキーにCSSファイルを格納した連想配列
+	 * @return string ビルドされたCSSソース
+	 */
+	private function build_css_src( $array_files ){
 		$rtn = '';
 		foreach( $array_files as $packageId=>$array_files_row ){
 			foreach( $array_files_row as $path ){
@@ -157,9 +229,10 @@ class document_modules{
 	}
 
 	/**
-	 * ドキュメントモジュール定義のスクリプトを統合
+	 * ドキュメントモジュール定義のJavaScriptコードを統合する
 	 *
 	 * モジュール定義の情報から、JavaScriptコードを生成します。
+	 * `$conf->plugins->px2dt->paths_module_template` および `$conf->plugins->px2dt->path_module_templates_dir` を参照します。
 	 *
 	 * スクリプトファイル(例: `/common/scripts/contents.js` など)に、下記のようにコードを記述します。
 	 *
@@ -174,11 +247,78 @@ class document_modules{
 	public function build_js(){
 		$conf = $this->main->get_px2dtconfig();
 		$array_files = array();
-		$rtn = '';
-		foreach( $conf->paths_module_template as $packageId=>$row ){
-			$array_files = glob($row."**/**/module.js");
 
-			foreach( $array_files as $path ){
+		// 指定モジュールを検索
+		foreach( $conf->paths_module_template as $packageId=>$row ){
+			$array_files[$packageId] = glob($row.'**/**/module.js');
+		}
+		// ディレクトリからモジュールを検索
+		$realpath_module_dir = @$conf->path_module_templates_dir;
+		if( strlen($realpath_module_dir) && is_dir($realpath_module_dir) ){
+			$ls = $this->px->fs()->ls($realpath_module_dir);
+			sort($ls);
+			foreach( $ls as $packageId ){
+				if( !is_dir( $realpath_module_dir.'/'.$packageId.'/' ) ){
+					continue;
+				}
+				if( @is_array( $array_files[$packageId] ) ){
+					// 既に定義済みのモジュールパッケージIDは上書きしない。
+					continue;
+				}
+				$array_files[$packageId] = glob($realpath_module_dir.'/'.$packageId.'/**/**/module.js');
+			}
+		}
+
+		return $this->build_js_src( $array_files );
+	}
+
+	/**
+	 * テーマが定義するドキュメントモジュール定義のJavaScriptコードを統合する
+	 *
+	 * @param string $theme_id テーマID
+	 * @return string JavaScriptコード
+	 */
+	public function build_theme_js( $theme_id ){
+		$conf = $this->main->get_px2dtconfig();
+		$array_files = array();
+		if( !strlen( $theme_id ) ){
+			return '';
+		}
+
+		$realpath_theme_collection_dir = $this->main->get_realpath_theme_collection_dir();
+		if( !is_dir( $realpath_theme_collection_dir.'/'.$theme_id.'/broccoli_module_packages/' ) ){
+			return '';
+		}
+
+		// ディレクトリからモジュールを検索
+		$realpath_module_dir = @$realpath_theme_collection_dir.'/'.$theme_id.'/broccoli_module_packages/';
+		if( strlen($realpath_module_dir) && is_dir($realpath_module_dir) ){
+			$ls = $this->px->fs()->ls($realpath_module_dir);
+			sort($ls);
+			foreach( $ls as $packageId ){
+				if( !is_dir( $realpath_module_dir.'/'.$packageId.'/' ) ){
+					continue;
+				}
+				if( @is_array( $array_files[$packageId] ) ){
+					// 既に定義済みのモジュールパッケージIDは上書きしない。
+					continue;
+				}
+				$array_files[$packageId] = glob($realpath_module_dir.'/'.$packageId.'/**/**/module.js');
+			}
+		}
+
+		return $this->build_js_src( $array_files );
+	}
+
+	/**
+	 * JSソースをビルドする
+	 * @param array $array_files パッケージIDをキーにJSファイルを格納した連想配列
+	 * @return string ビルドされたJSソース
+	 */
+	private function build_js_src( $array_files ){
+		$rtn = '';
+		foreach( $array_files as $packageId=>$array_files_row ){
+			foreach( $array_files_row as $path ){
 				preg_match( '/\/([a-zA-Z0-9\.\-\_]+?)\/([a-zA-Z0-9\.\-\_]+?)\/[a-zA-Z0-9\.\-\_]+?$/i', $path, $matched );
 
 				$tmp_bin = $this->px->fs()->read_file( $path );
@@ -197,7 +337,7 @@ class document_modules{
 				unset($tmp_bin);
 			}
 		}
+
 		return trim($rtn)."\n";
 	}
-
 }

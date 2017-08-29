@@ -43,7 +43,7 @@ Pickles 2 用のプラグインです。Pickles 2 Desktop Tool と連携させ�
 ```json
 {
 	"require": {
-		"pickles2/px2-px2dthelper": "dev-master"
+		"pickles2/px2-px2dthelper": "^2.0"
 	}
 }
 ```
@@ -182,6 +182,14 @@ $ php .px_execute.php "/?PX=px2dthelper.get.navigation_info&filter=false"
 
 `filter` オプションは、 `$site->get_bros()` と `$site->get_children()` に渡されます。
 
+#### PX=px2dthelper.get.realpath_theme_collection_dir
+
+テーマコレクションディレクトリのパスを取得します。。
+
+```bash
+$ php .px_execute.php "/?PX=px2dthelper.get.realpath_theme_collection_dir"
+```
+
 #### PX=px2dthelper.get.all
 
 Pickles 2 から複数の情報を一度に取得します。
@@ -216,6 +224,8 @@ CSSのソースコードが返されます。
 $ php .px_execute.php /?PX=px2dthelper.document_modules.build_css
 ```
 
+加えて、パラメータ `theme_id` を付与すると、テーマが定義するCSSのコードを返します。
+
 #### PX=px2dthelper.document_modules.build_js
 
 JavaScriptのソースコードが返されます。
@@ -223,6 +233,8 @@ JavaScriptのソースコードが返されます。
 ```bash
 $ php .px_execute.php /?PX=px2dthelper.document_modules.build_js
 ```
+
+加えて、パラメータ `theme_id` を付与すると、テーマが定義するJavaScriptのコードを返します。
 
 #### PX=px2dthelper.document_modules.load
 
@@ -287,12 +299,12 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.plugins.get
 
 `package.json` が置かれているディレクトリのパスを取得する。
 
-#### PX=px2dthelper.packages.get_theme_package_list
+#### PX=px2dthelper.packages.get_package_list
 
-テーマパッケージの一覧を取得する。
+パッケージの一覧を取得する。
 
 ```bash
-$ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.get_theme_package_list"
+$ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.get_package_list"
 ```
 
 
@@ -303,12 +315,15 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 ### pickles2/px2-px2dthelper 2.0.6 (20??年??月??日)
 
 - PXコマンド `PX=px2dthelper.plugins.get_plugin_options` を追加。
-- PXコマンド `PX=px2dthelper.packages.get_theme_package_list` を追加。
+- PXコマンド `PX=px2dthelper.packages.get_package_list` を追加。
 - PXコマンド `PX=px2dthelper.packages.get_path_composer_root_dir` を追加。
 - PXコマンド `PX=px2dthelper.packages.get_path_npm_root_dir` を追加。
+- PXコマンド `PX=px2dthelper.get.realpath_theme_collection_dir` を追加。
 - PXコマンド `PX=px2dthelper.get.all`, `PX=px2dthelper.check_editor_mode` に `path` オプションを追加。
-- PXコマンド `PX=px2dthelper.get.all` の結果に `path_type` を追加。
+- PXコマンド `PX=px2dthelper.get.all` の結果に `path_type`, `realpath_theme_collection_dir`, `packages->path_composer_root_dir`, `packages->path_npm_root_dir`, `packages->package_list` を追加。
 - PXコマンド `PX=px2dthelper.get.all` で、`path` オプションに id を指定してエイリアスページの情報を取得できるようになった。
+- `$conf->plugins->px2dt->path_module_templates_dir` 設定に対応。
+- PXコマンド `PX=px2dthelper.document_modules.build_css` と `PX=px2dthelper.document_modules.build_js` が、テーマのモジュールに対応。
 
 ### pickles2/px2-px2dthelper 2.0.5 (2017年5月30日)
 

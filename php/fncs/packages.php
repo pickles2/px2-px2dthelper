@@ -31,14 +31,15 @@ class packages{
 	}
 
 	/**
-	 * テーマパッケージの一覧を取得する
-	 * @return array テーマパッケージの一覧
+	 * パッケージの一覧を取得する
+	 * @return array パッケージの一覧
 	 */
-	public function get_theme_package_list(){
+	public function get_package_list(){
 		$rtn = json_decode('{}');
 		$rtn->themes = array();
 		$rtn->broccoliModules = array();
 		$rtn->broccoliFields = array();
+		$rtn->plugin = array();
 		$rtn->processors = array();
 		$rtn->projects = array();
 
@@ -76,7 +77,7 @@ class packages{
 		}
 
 		return $rtn;
-	} // get_theme_package_list()
+	} // get_package_list()
 
 	/**
 	 * ディレクトリを解析してパッケージ情報を抽出する
@@ -132,6 +133,9 @@ class packages{
 			case 'theme':
 				$row->path = $this->px->fs()->get_realpath( $path_dir.'/'.$row->path );
 				array_push($package_list->themes, $row);
+				break;
+			case 'plugin':
+				array_push($package_list->plugin, $row);
 				break;
 			case 'processor':
 				array_push($package_list->processors, $row);

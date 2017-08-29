@@ -65,7 +65,7 @@ class packagesTest extends PHPUnit_Framework_TestCase{
 		// 単一の結果を得られるテスト
 		$result = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
-			'/?PX=px2dthelper.packages.get_theme_package_list' ,
+			'/?PX=px2dthelper.packages.get_package_list' ,
 		] );
 		// var_dump($result);
 		$result = json_decode($result);
@@ -74,7 +74,8 @@ class packagesTest extends PHPUnit_Framework_TestCase{
 		$this->assertEquals( count( $result->themes ), 0 );
 		$this->assertEquals( count( $result->broccoliModules ), 1 );
 		$this->assertEquals( count( $result->broccoliFields ), 0 );
-		$this->assertEquals( count( $result->processors ), 1 );
+		$this->assertEquals( count( $result->processors ), 2 );
+		$this->assertEquals( count( $result->plugin ), 0 );
 		$this->assertEquals( count( $result->projects ), 0 );
 
 		// 後始末

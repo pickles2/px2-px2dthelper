@@ -29,8 +29,9 @@
         "broccoli-html-editor/broccoli-module-fess": "dev-develop",
         "broccoli-html-editor/broccoli-module-plain-html-elements": "dev-develop",
         "pickles2/px-fw-2.x": "dev-develop" ,
-        "tomk79/filesystem": "^1.0.0",
         "pickles2/px2-sitemapexcel": "dev-develop",
+        "pickles2/px2-multitheme": "dev-develop",
+        "tomk79/filesystem": "^1.0.0",
         "phpunit/phpunit": "^4.1.0",
         "phpdocumentor/phpdocumentor": "^2.7.0"
     },

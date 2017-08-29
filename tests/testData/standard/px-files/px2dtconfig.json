@@ -4,5 +4,6 @@
         "Modules1": "./px-files/resources/module_templates_1/",
         "Modules2": "./px-files/resources/module_templates_2/",
         "FESS": "../../../vendor/tomk79/px2-fess/modules/"
-    }
+    },
+    "path_module_templates_dir": "./px-files/modules/"
 }

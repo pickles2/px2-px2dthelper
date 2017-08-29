@@ -164,6 +164,20 @@ class main{
 	}//realpath_files()
 
 	/**
+	 * テーマコレクションディレクトリのパスを得る。
+	 *
+	 * @return string テーマコレクションディレクトリの絶対パス, 失敗した場合 `false`
+	 */
+	public function get_realpath_theme_collection_dir(){
+		$theme_plugin_name = 'tomk79\\pickles2\\multitheme\\theme::exec';
+		$val = $this->plugins()->get_plugin_options($theme_plugin_name, 'processor.html');
+		if( @$val[0]->options->path_theme_collection ){
+			return $this->px->fs()->get_realpath($val[0]->options->path_theme_collection.'/');
+		}
+		return false;
+	}
+
+	/**
 	 * realpath_data_dir のパスを得る。
 	 *
 	 * @param string $page_path 対象のページのパス
@@ -480,6 +494,11 @@ class main{
 
 			case 'get':
 				switch( @$this->command[2] ){
+					case 'realpath_theme_collection_dir':
+						$request_path = $this->px->req()->get_request_file_path();
+						print $std_output->data_convert( $this->get_realpath_theme_collection_dir() );
+						exit;
+						break;
 					case 'realpath_data_dir':
 						print $std_output->data_convert( $this->get_realpath_data_dir() );
 						exit;
@@ -515,6 +534,7 @@ class main{
 						@$rtn->realpath_homedir = $this->px->get_path_homedir();
 						@$rtn->path_controot = $this->px->get_path_controot();
 						@$rtn->realpath_docroot = $this->px->get_path_docroot();
+						@$rtn->realpath_theme_collection_dir = $this->get_realpath_theme_collection_dir();
 						@$rtn->realpath_data_dir = $this->get_realpath_data_dir( $request_path );
 
 						@$rtn->page_info = false;
@@ -536,6 +556,10 @@ class main{
 							}
 							@$rtn->navigation_info = $this->get_navigation_info( $request_path, $sitemap_filter_options($this->px, $this->command[2]) );
 						}
+
+						@$rtn->packages->path_composer_root_dir = $this->packages()->get_path_composer_root_dir();
+						@$rtn->packages->path_npm_root_dir = $this->packages()->get_path_npm_root_dir();
+						@$rtn->packages->package_list = $this->packages()->get_package_list();
 
 						print $std_output->data_convert( $rtn );
 						exit;
@@ -597,6 +621,7 @@ class main{
 
 			case 'document_modules':
 				$data_type = $this->px->req()->get_param('type');
+				$theme_id = $this->px->req()->get_param('theme_id');
 				$val = null;
 				switch( @$this->command[2] ){
 					case 'build_css':
@@ -604,14 +629,22 @@ class main{
 							header('Content-type: text/css; charset=UTF-8');
 							$this->px->req()->set_param('type', 'css');
 						}
-						$val = $this->document_modules()->build_css();
+						if( strlen($theme_id) ){
+							$val = $this->document_modules()->build_theme_css( $theme_id );
+						}else{
+							$val = $this->document_modules()->build_css();
+						}
 						break;
 					case 'build_js':
 						if( !is_string($data_type) || !strlen($data_type) ){
 							header('Content-type: text/javascript; charset=UTF-8');
 							$this->px->req()->set_param('type', 'js');
 						}
-						$val = $this->document_modules()->build_js();
+						if( strlen($theme_id) ){
+							$val = $this->document_modules()->build_theme_js( $theme_id );
+						}else{
+							$val = $this->document_modules()->build_js();
+						}
 						break;
 					case 'load':
 						if( !is_string($data_type) || !strlen($data_type) ){
@@ -647,8 +680,8 @@ class main{
 					case 'get_path_npm_root_dir':
 						$val = $this->packages()->get_path_npm_root_dir();
 						break;
-					case 'get_theme_package_list':
-						$val = $this->packages()->get_theme_package_list();
+					case 'get_package_list':
+						$val = $this->packages()->get_package_list();
 						break;
 				}
 				print $std_output->data_convert( $val );

@@ -1,0 +1,62 @@
+
+<div class="if_field_test">
+	<p>if Field TEST</p>
+
+	<div class="if_field_test-is_set">sample_text is set => <q>true</q></div>
+
+
+	<div class="if_field_test-cond">sample_text is set => <q>true</q></div>
+
+
+
+	<div class="if_field_test-cond_is">sample_text is set => <q>true</q></div>
+
+</div>
+<div class="attention_box_hoge">
+
+	<p class="attention_box_hoge-heading">見出し文字列</p>
+
+	<div class="bar">
+	<p>
+		<span>sample module template.</span>
+	</p>
+</div>
+<table class="def">
+	<tr>
+		<th>input</th>
+		<td>(hidden)</td>
+	</tr>
+	<tr>
+		<th>output - 1</th>
+		<td>別のモジュールを入れ子にしたサンプル</td>
+	</tr>
+</table>
+<ul>
+
+</ul>
+<table class="def">
+	<tr>
+		<th>output - 2</th>
+		<td>別のモジュールを入れ子にしたサンプル</td>
+	</tr>
+</table>
+
+</div><!-- /.attention_box_hoge -->
+<div class="hoge_fuga">
+	<p>template.html</p>
+	<div class="hoge_fuga-child">
+		.hoge_fuga-child<br />
+	</div>
+	<div class="hoge_fuga-body">
+		<p>HTMLを入力してみました。</p>
+	</div>
+</div>
+
+
+<?php ob_start(); ?>
+<p>コンテンツエリア <code>sidebar</code> に配置したコンテンツです。</p>
+
+<p>mainコンテンツとは分離され、sidebar と名付けられた bowl にレイアウトされます。</p>
+
+<p>このエリアは、テーマの実装は、<code>.contents</code> および <code>#sidebar</code> を付与したエリアとして実装するようにしてください。</p><?php $px->bowl()->send( ob_get_clean(), "sidebar" ); ?>
+
