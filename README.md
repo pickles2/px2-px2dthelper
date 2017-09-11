@@ -312,7 +312,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ## 更新履歴 - Change log
 
-### pickles2/px2-px2dthelper 2.0.6 (20??年??月??日)
+### pickles2/px2-px2dthelper 2.0.6 (2017年9月14日)
 
 - PXコマンド `PX=px2dthelper.plugins.get_plugin_options` を追加。
 - PXコマンド `PX=px2dthelper.packages.get_package_list` を追加。

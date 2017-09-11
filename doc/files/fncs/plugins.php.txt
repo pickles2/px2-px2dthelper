@@ -71,7 +71,7 @@ class plugins{
 				array_push($rtn, $row);
 			}
 		}
-		return $rtn;
+		return json_decode(json_encode($rtn));
 	}
 
 	/**
