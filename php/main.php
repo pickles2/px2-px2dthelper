@@ -66,6 +66,7 @@ class main{
 		}elseif( is_file( $this->px->get_path_homedir().'px2dtconfig.json' ) ){
 			$this->px2dtconfig = json_decode( $this->px->fs()->read_file( $this->px->get_path_homedir().'px2dtconfig.json' ) );
 		}
+		$this->px2dtconfig = json_decode( json_encode($this->px2dtconfig) ); // 連想配列で設定されている場合を考慮して、オブジェクト形式に変換する
 
 		// broccoliモジュールパッケージのパスを整形
 		@$this->px2dtconfig->paths_module_template = @$this->px2dtconfig->paths_module_template;
