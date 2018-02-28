@@ -312,7 +312,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ## 更新履歴 - Change log
 
-### pickles2/px2-px2dthelper 2.0.7 (未定)
+### pickles2/px2-px2dthelper 2.0.7 (2018年2月28日)
 
 - 依存ライブラリ `michelf/php-markdown`, `leafo/scssphp` のバージョン制約を緩和。 (`pickles2/px-fw-2.x` の更新に合わせられるように)
 - `$conf->px2dtconfig` が連想配列で設定されている場合に、正規化処理が適切に反映されない不具合を修正。
