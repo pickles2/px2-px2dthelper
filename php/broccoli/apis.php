@@ -49,50 +49,53 @@ class broccoli_apis{
 	 * @return object $broccoli
 	 */
 	private function create_broccoli(){
+		$current_page_info = $this->px->site()->get_current_page_info();
 		$broccoli = new \broccoliHtmlEditor\broccoliHtmlEditor();
-		$broccoli->init(
-			array(
-				'appMode' => 'web', // 'web' or 'desktop'. default to 'web'
-				'paths_module_template' => array(
-					'testMod1' => '/realpath/to/modules1/' ,
-					'testMod2' => '/realpath/to/modules2/'
-				) ,
-				'documentRoot' => '/realpath/to/www/htdocs/', // realpath
-				'pathHtml' => '/path/to/your_preview.html',
-				'pathResourceDir' => '/path/to/your_preview_files/resources/',
-				'realpathDataDir' => '/realpath/to/www/htdocs/path/to/your_preview_files/guieditor.ignore/',
-				'customFields' => array(
-					// カスタムフィールドを実装します。
-					// このクラスは、 `broccoliHtmlEditor\\fieldBase` を基底クラスとして継承します。
-					// customFields のキー(ここでは custom1)が、フィールドの名称になります。
-					'custom1' => 'broccoli_class\\field_custom1'
-				) ,
-				'bindTemplate' => function($htmls){
-					$fin = '';
-					$fin .= '<!DOCTYPE html>'."\n";
-					$fin .= '<html>'."\n";
-					$fin .= '    <head>'."\n";
-					$fin .= '        <title>sample page</title>'."\n";
-					$fin .= '    </head>'."\n";
-					$fin .= '    <body>'."\n";
-					$fin .= '        <div data-contents="main">'."\n";
-					$fin .= $htmls['main']."\n";
-					$fin .= '        </div><!-- /main -->'."\n";
-					$fin .= '        <div data-contents="secondly">'."\n";
-					$fin .= $htmls['secondly']."\n";
-					$fin .= '        </div><!-- /secondly -->'."\n";
-					$fin .= '    </body>'."\n";
-					$fin .= '</html>';
 
-					return $fin;
-				},
-				'log' => function($msg){
-					// エラー発生時にコールされます。
-					// msg を受け取り、適切なファイルへ出力するように実装してください。
-					error_log('[ERROR HANDLED]'.$msg, 3, '/path/to/error.log');
-				}
-			)
+		$init_options = array(
+			'appMode' => 'web', // 'web' or 'desktop'. default to 'web'
+			'paths_module_template' => array() ,
+			'customFields' => array() ,
+			'documentRoot' => $this->px->get_realpath_docroot(),
+			'pathHtml' => $this->px->req()->get_request_file_path(),
+			'pathResourceDir' => $this->px->path_files().'resources/',
+			'realpathDataDir' => $this->px->realpath_files().'guieditor.ignore/',
+			'contents_bowl_name_by' => @$this->px->conf()->plugins->px2dt->contents_bowl_name_by,
+			'bindTemplate' => null,
+			'log' => function($msg){
+				$this->px->error($msg);
+			}
 		);
+
+		// paths_module_template
+		// TODO: 未実装
+		$init_options['bindTemplate'] = array();
+
+		// customFields
+		// TODO: 未実装
+		$init_options['customFields'] = array();
+
+		// bindTemplate
+		// TODO: テーマ編集の場合のコードは異なる
+		$init_options['bindTemplate'] = function($htmls){
+			$fin = '';
+			foreach( $htmls as $bowlId=>$html ){
+				if( $bowlId == 'main' ){
+					$fin .= $html;
+				}else{
+					$fin .= "\n";
+					$fin .= "\n";
+					$fin .= '<?php ob_start(); ?>'."\n";
+					$fin .= (@strlen($html) ? $html."\n" : '');
+					$fin .= '<?php $px->bowl()->send( ob_get_clean(), '.json_encode($bowlId).' ); ?>'."\n";
+					$fin .= "\n";
+				}
+			}
+			return $fin;
+		};
+
+		// var_dump($init_options);
+		$broccoli->init($init_options);
 		return $broccoli;
 	}
 

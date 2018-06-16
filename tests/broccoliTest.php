@@ -21,7 +21,7 @@ class broccoliTest extends PHPUnit_Framework_TestCase{
 		$output = $this->passthru( [
 			'php',
 			__DIR__.'/testData/broccoli/.px_execute.php' ,
-			'/?PX=px2dthelper.broccoli.gpi&api=getConfig&options=' ,
+			'/guiedit/index.html?PX=px2dthelper.broccoli.gpi&api=getConfig&options=' ,
 		] );
 		// var_dump($output);
 		$json = json_decode($output);
