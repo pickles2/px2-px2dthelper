@@ -72,9 +72,9 @@ return call_user_func( function(){
 	// processor
 	$conf->funcs->processor->html = array(
 		// broccoli-receive-message スクリプトを挿入
-        // (Optional)
+		// (Optional)
 		'tomk79\pickles2\px2dthelper\broccoli_receive_message::apply('.json_encode( array(
-            // 許可する接続元を指定
+			// 許可する接続元を指定
 			'enabled_origin'=>array(
 				'http://127.0.0.1:8080',
 				'http://127.0.0.1:8081',
@@ -307,14 +307,17 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.plugins.get
 $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.get_package_list"
 ```
 
+#### PX=px2dthelper.broccoli.gpi
+
+`broccoli-html-editor` のGPIを呼び出します。
 
 
 
 ## 更新履歴 - Change log
 
-### pickles2/px2-px2dthelper 2.0.8 (未定)
+### pickles2/px2-px2dthelper 2.0.8 (リリース日未定)
 
-- ???????????????????????????????????
+- `broccoli-html-editor` のAPIを追加。
 
 ### pickles2/px2-px2dthelper 2.0.7 (2018年2月28日)
 

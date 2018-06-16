@@ -709,6 +709,14 @@ class main{
 				exit;
 				break;
 
+			case 'broccoli':
+				$broccoliApis = new broccoli_apis($this->px, $this);
+				$result = $broccoliApis->execute_px_command($this->command[2]);
+				if($result){
+					print $std_output->data_convert( $result );
+					exit;
+				}
+				break;
 		}
 
 		print $this->px->pxcmd()->get_cli_header();

@@ -5,7 +5,7 @@
 namespace tomk79\pickles2\px2dthelper;
 
 /**
- * broccoli_receive_message.php
+ * broccoli/receive_message.php
  */
 class broccoli_receive_message{
 

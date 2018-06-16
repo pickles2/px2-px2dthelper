@@ -14,6 +14,22 @@ class broccoliTest extends PHPUnit_Framework_TestCase{
 	}
 
 	/**
+	 * broccoli-html-editor GPIのテスト
+	 */
+	public function testGpi(){
+		// GPI
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/broccoli/.px_execute.php' ,
+			'/?PX=px2dthelper.broccoli.gpi&api=getConfig&options=' ,
+		] );
+		// var_dump($output);
+		$json = json_decode($output);
+		// var_dump($json);
+		$this->assertEquals( $json->appMode, 'web' );
+	}
+
+	/**
 	 * broccoli-html-editor CSS,JSビルドのテスト
 	 */
 	public function testBuildCssJs(){
@@ -131,7 +147,7 @@ class broccoliTest extends PHPUnit_Framework_TestCase{
 
 		$output = $this->passthru( [
 			'php',
-			__DIR__.'/testData/broccoli_receive_message/.px_execute.php' ,
+			__DIR__.'/testData/broccoli/.px_execute.php' ,
 			'-u', 'Mozilla/5.0',
 			'/index.html' ,
 		] );
@@ -140,7 +156,7 @@ class broccoliTest extends PHPUnit_Framework_TestCase{
 
 		$output = $this->passthru( [
 			'php',
-			__DIR__.'/testData/broccoli_receive_message/.px_execute.php' ,
+			__DIR__.'/testData/broccoli/.px_execute.php' ,
 			'-u', 'PicklesCrawler',
 			'/index.html' ,
 		] );
@@ -152,7 +168,7 @@ class broccoliTest extends PHPUnit_Framework_TestCase{
 		// 後始末
 		$output = $this->passthru( [
 			'php',
-			__DIR__.'/testData/broccoli_receive_message/.px_execute.php' ,
+			__DIR__.'/testData/broccoli/.px_execute.php' ,
 			'/?PX=clearcache' ,
 		] );
 
