@@ -168,40 +168,39 @@ class broccoli_apis{
 
 		// --------------------------------------
 		// bindTemplate
-		// TODO: テーマ編集の場合のコードは異なる
 		if( $this->target_mode == 'theme_layout' ){
 			$init_options['bindTemplate'] = function($htmls){
-				// var fin = '';
-				// for( var bowlId in htmls ){
-				// 	if( bowlId == 'main' ){
-				// 		fin += htmls['main'];
-				// 	}else{
-				// 		fin += "\n";
-				// 		fin += "\n";
-				// 		fin += '<'.'?php ob_start(); ?'.'>'+"\n";
-				// 		fin += (utils79.toStr(htmls[bowlId]).length ? htmls[bowlId]+"\n" : '');
-				// 		fin += '<'.'?php $px->bowl()->send( ob_get_clean(), '+JSON.stringify(bowlId)+' ); ?'.'>'+"\n";
-				// 		fin += "\n";
-				// 	}
-				// }
-				// var template = '<'.'%- body %'.'>';
-				// var pathThemeLayout = _this.documentRoot+$this->theme_id+'/broccoli_module_packages/_layout.html';
-				// if(is_file(pathThemeLayout)){
-				// 	template = fs.readFileSync( pathThemeLayout ).toString();
-				// }else{
-				// 	template = fs.readFileSync( __dirname+'/tpls/broccoli_theme_layout.html' ).toString();
-				// }
-				// fin = ejs.render(template, {'body': fin}, {delimiter: '%'});
+				$fin = '';
+				foreach( $htmls as $bowlId=>$html ){
+					if( $bowlId == 'main' ){
+						$fin .= $html;
+					}else{
+						$fin .= "\n";
+						$fin .= "\n";
+						$fin .= '<'.'?php ob_start(); ?'.'>'."\n";
+						$fin .= (strlen($html) ? $html."\n" : '');
+						$fin .= '<'.'?php $px->bowl()->send( ob_get_clean(), '.json_encode($bowlId).' ); ?'.'>'."\n";
+						$fin .= "\n";
+					}
+				}
+				$template = '<'.'%- body %'.'>';
+				$pathThemeLayout = $this->px->realpath_homedir().$this->theme_id.'/broccoli_module_packages/_layout.html';
+				if(is_file($pathThemeLayout)){
+					$template = file_get_contents( $pathThemeLayout );
+				}else{
+					$template = file_get_contents( __DIR__.'/tpls/broccoli_theme_layout.html' );
+				}
 
-				// var baseDir = _this.documentRoot+$this->theme_id+'/theme_files/';
-				// fsx.ensureDirSync( baseDir );
-				// _this.getModuleCssJsSrc($this->theme_id, function(CssJs){
-				// 	fs.writeFileSync(baseDir+'modules.css', CssJs.css);
-				// 	fs.writeFileSync(baseDir+'modules.js', CssJs.js);
-				// 	callback(fin);
-				// });
+				// TODO: PHP では ejs は使えない。Twigなどに置き換える
+				// $fin = $ejs->render($template, {'body': $fin}, array('delimiter'=>'%'));
 
-				// return;
+				$baseDir = $this->px->realpath_homedir().$this->theme_id.'/theme_files/';
+				// fsx.ensureDirSync( $baseDir ); // TODO: このメソッドなんだっけ？
+				$CssJs = $this->get_module_css_js_src($this->theme_id);
+				$this->px->fs()->save_file($baseDir.'modules.css', $CssJs['css']);
+				$this->px->fs()->save_file($baseDir.'modules.js', $CssJs['js']);
+
+				return $fin;
 			};
 		}else{
 			$init_options['bindTemplate'] = function($htmls){
@@ -226,5 +225,35 @@ class broccoli_apis{
 		$broccoli->init($init_options);
 		return $broccoli;
 	}
+
+
+	/**
+	 * モジュールのCSS,JSソースを取得する
+	 */
+	private function get_module_css_js_src($theme_id){
+		// TODO: 未実装
+		// theme_id = theme_id || '';
+		// var rtn = {
+		// 	'css': '',
+		// 	'js': ''
+		// };
+		// _this.px2proj.query('/?PX=px2dthelper.document_modules.build_css&theme_id='+encodeURIComponent(theme_id), {
+		// 	"output": "json",
+		// 	"complete": function(data, code){
+		// 		// console.log(data, code);
+		// 		rtn.css += data;
+
+		// 		_this.px2proj.query('/?PX=px2dthelper.document_modules.build_js&theme_id='+encodeURIComponent(theme_id), {
+		// 			"output": "json",
+		// 			"complete": function(data, code){
+		// 				// console.log(data, code);
+		// 				rtn.js += data;
+
+		// 				callback(rtn);
+		// 			}
+		// 		});
+		// 	}
+		// });
+	} // get_module_css_js_src
 
 }
