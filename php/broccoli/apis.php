@@ -111,7 +111,7 @@ class broccoli_apis{
 				if( is_array(@$infoJson->sort) ){
 					// 並び順の指定がある場合
 					foreach( $infoJson->sort as $idx=>$packageId ){
-						if( $init_options['paths_module_template'][$infoJson->sort[$idx]] ){
+						if( @$init_options['paths_module_template'][$infoJson->sort[$idx]] ){
 							// 既に登録済みのパッケージIDは上書きしない
 							// (= paths_module_template の設定を優先)
 							continue;
@@ -126,7 +126,7 @@ class broccoli_apis{
 				$fileList = $this->px->fs()->ls($pathModuleDir);
 				sort($fileList); // sort
 				foreach( $fileList as $idx=>$packageId ){
-					if( $init_options['paths_module_template'][$fileList[$idx]] ){
+					if( @$init_options['paths_module_template'][$fileList[$idx]] ){
 						// 既に登録済みのパッケージIDは上書きしない
 						// (= paths_module_template の設定を優先)
 						continue;
@@ -140,37 +140,31 @@ class broccoli_apis{
 		// var_dump($init_options['paths_module_template']);
 
 		// --------------------------------------
-		// customFields
-		// TODO: 未実装
+		// カスタムフィールドを読み込む
 		$init_options['customFields'] = array();
-		// // px2ce が拡張するフィールド
-		// customFields.table = require('broccoli-field-table').get({'php': nodePhpBinOptions});
 
-		// // 呼び出し元アプリが拡張するフィールド
-		// for( var idx in px2ce.options.customFields ){
+		// px2dthelper が拡張するフィールド
+		// $init_options['customFields']['table'] = 'broccoliHtmlEditor\\broccoliFieldTable'; // TODO: 未実装
+
+		// // 呼び出し元アプリが拡張するフィールド (px2dthelperへの移植に伴い廃止)
+		// foreach( var idx in px2ce.options.customFields ){
 		// 	customFields[idx] = px2ce.options.customFields[idx];
 		// }
 
-		// // プロジェクトが拡張するフィールド
-		// var confCustomFields = {};
-		// try {
-		// 	confCustomFields = @$this->px->conf()->plugins->px2dt->guieditor.custom_fields;
-		// 	for( var fieldName in confCustomFields ){
-		// 		try {
-		// 			if( confCustomFields[fieldName].backend.require ){
-		// 				var path_backend_field = require('path').resolve(px2ce.entryScript, '..', confCustomFields[fieldName].backend.require);
-		// 				customFields[fieldName] = require( path_backend_field );
-		// 			}else{
-		// 				console.error( 'FAILED to load custom field: ' + fieldName + ' (backend);' );
-		// 				console.error( 'unknown type' );
-		// 			}
-		// 		} catch (e) {
-		// 			console.error( 'FAILED to load custom field: ' + fieldName + ' (backend);' );
-		// 			console.error(e);
-		// 		}
-		// 	}
-		// } catch (e) {
-		// }
+		// プロジェクトが拡張するフィールド
+		$confCustomFields = @$this->px->conf()->plugins->px2dt->guieditor->custom_fields;
+		if( is_array($confCustomFields) ){
+			foreach( $confCustomFields as $fieldName=>$field){
+				if( $confCustomFields[$fieldName]->backend->require ){
+					$path_backend_field = $this->px->fs()->normalize_path( $this->px->fs()->get_realpath( $confCustomFields[$fieldName]->backend->require ) );
+					require_once( $path_backend_field );
+				}
+				if( $confCustomFields[$fieldName]->backend->class ){
+					$init_options['customFields'] = $confCustomFields[$fieldName]->backend->class;
+				}
+			}
+		}
+		// var_dump($init_options['customFields']);
 
 		// --------------------------------------
 		// bindTemplate
