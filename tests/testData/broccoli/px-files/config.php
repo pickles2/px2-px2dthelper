@@ -161,7 +161,8 @@ return call_user_func( function(){
 
 	/** broccoliモジュールセットの登録 */
 	$conf->plugins->px2dt->paths_module_template = array(
-		// 'moduleId' => './path/to/module/',
+		'PlainHTMLElements' => '../../../vendor/broccoli-html-editor/broccoli-module-plain-html-elements/modules/',
+		'FESS' => '../../../vendor/broccoli-html-editor/broccoli-module-fess/modules/',
 	);
 
 	/** プロジェクト固有のモジュールセットの格納ディレクトリ */
