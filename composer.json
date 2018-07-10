@@ -24,6 +24,8 @@
         "tomk79/php-excel2html": "^0.0.7",
         "michelf/php-markdown": ">=1.6.0",
         "leafo/scssphp": ">=0.7.0",
+        "pickles2/lib-px2-contents-editor": "^2.0.0",
+        "pickles2/lib-px2-module-editor": "^0.2.0",
         "broccoli-html-editor/broccoli-html-editor": "^0.3.0"
     },
     "require-dev": {
