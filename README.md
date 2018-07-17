@@ -311,13 +311,25 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 `broccoli-html-editor` のGPIを呼び出します。
 
+次のオプションを指定できます。
+
+- `appMode` - `web` (デフォルト) または `desktop`
+
 #### PX=px2dthelper.px2ce.gpi
 
 Pickles 2 Contents Editor のGPIを呼び出します。
 
+次のオプションを指定できます。
+
+- `appMode` - `web` (デフォルト) または `desktop`
+
 #### PX=px2dthelper.px2me.gpi
 
 Pickles 2 Module Editor のGPIを呼び出します。
+
+次のオプションを指定できます。
+
+- `appMode` - `web` (デフォルト) または `desktop`
 
 
 

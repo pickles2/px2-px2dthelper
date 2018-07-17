@@ -63,9 +63,13 @@ class broccoli_apis{
 	private function create_broccoli(){
 		$current_page_info = $this->px->site()->get_current_page_info();
 		$broccoli = new \broccoliHtmlEditor\broccoliHtmlEditor();
+		$appMode = $this->px->req()->get_param('appMode');
+		if( !$appMode ){
+			$appMode = 'web';
+		}
 
 		$init_options = array(
-			'appMode' => 'web', // 'web' or 'desktop'. default to 'web'
+			'appMode' => $appMode, // 'web' or 'desktop'. default to 'web'
 			'paths_module_template' => array() ,
 			'customFields' => array() ,
 			'documentRoot' => $this->px->get_realpath_docroot(),

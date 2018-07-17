@@ -62,10 +62,14 @@ class px2ce_apis{
 	private function create_px2ce(){
 		$current_page_info = $this->px->site()->get_current_page_info();
 		$px2ce = new \pickles2\libs\contentsEditor\main();
+		$appMode = $this->px->req()->get_param('appMode');
+		if( !$appMode ){
+			$appMode = 'web';
+		}
 
 		$init_options = array(
 			'page_path' => $this->px->req()->get_request_file_path(), // <- 編集対象ページのパス
-			'appMode' => 'web', // 'web' or 'desktop'. default to 'web'
+			'appMode' => $appMode, // 'web' or 'desktop'. default to 'web'
 			'entryScript' => $_SERVER['SCRIPT_NAME'],
 			'customFields' => array() ,
 			'log' => function($msg){
