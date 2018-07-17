@@ -323,6 +323,12 @@ Pickles 2 Module Editor のGPIを呼び出します。
 
 - `appMode` - `web` (デフォルト) または `desktop`
 
+#### PX=px2dthelper.px2ce.client_resources
+#### PX=px2dthelper.px2me.client_resources
+
+それぞれ、 Pickles 2 Contents Editor、Pickles 2 Module Editor の、クライアントサイドで読み込むべきリソースの一覧を返します。
+
+デフォルトでは、サーバー内部の絶対パスを返します。 `dist` パラメータにサーバー内部のディレクトリパスを渡すと、指定のディレクトリ内にコピーを作成し、そこからの相対パスを返すようになります。
 
 
 ## 更新履歴 - Change log

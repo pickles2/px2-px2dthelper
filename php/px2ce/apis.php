@@ -40,7 +40,7 @@ class px2ce_apis{
 	/**
 	 * PXコマンドを実行する
 	 * @param string $px_command_2 PXコマンドの第3引数(添字 2 に該当)
-	 * @return string       生成されたHTMLソース
+	 * @return mixed PXコマンドの実行結果
 	 */
 	public function execute_px_command($px_command_2){
 		$px2ce = $this->create_px2ce();
@@ -49,6 +49,10 @@ class px2ce_apis{
 				$rtn = $px2ce->gpi(
 					json_decode(base64_decode($this->px->req()->get_param('data')), true)
 				);
+				return $rtn;
+				break;
+			case 'client_resources':
+				$rtn = $px2ce->get_client_resources( $this->px->req()->get_param('dist') );
 				return $rtn;
 				break;
 		}
