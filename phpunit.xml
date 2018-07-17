@@ -13,6 +13,8 @@
 			<file>./tests/copyContentTest.php</file>
 			<file>./tests/changeContentEditorModeTest.php</file>
 			<file>./tests/broccoliTest.php</file>
+			<file>./tests/px2ceTest.php</file>
+			<file>./tests/px2meTest.php</file>
 			<file>./tests/tableApiTest.php</file>
 		</testsuite>
 	</testsuites>

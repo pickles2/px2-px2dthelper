@@ -311,6 +311,14 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 `broccoli-html-editor` のGPIを呼び出します。
 
+#### PX=px2dthelper.px2ce.gpi
+
+Pickles 2 Contents Editor のGPIを呼び出します。
+
+#### PX=px2dthelper.px2me.gpi
+
+Pickles 2 Module Editor のGPIを呼び出します。
+
 
 
 ## 更新履歴 - Change log
@@ -318,6 +326,8 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 ### pickles2/px2-px2dthelper 2.0.8 (リリース日未定)
 
 - `broccoli-html-editor` のAPIを追加。
+- Pickles 2 Contents Editor のAPIを追加。
+- Pickles 2 Module Editor のAPIを追加。
 
 ### pickles2/px2-px2dthelper 2.0.7 (2018年2月28日)
 
