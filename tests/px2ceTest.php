@@ -40,6 +40,44 @@ class px2ceTest extends PHPUnit_Framework_TestCase{
 		] );
 	}
 
+	/**
+	 * Pickles 2 Contents Editor のクライアントリソース取得
+	 */
+	public function testGetClientResources(){
+		// client_resources
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/broccoli/.px_execute.php' ,
+			'/guiedit/index.html?PX=px2dthelper.px2ce.client_resources' ,
+		] );
+		// var_dump($output);
+		$json = json_decode($output);
+		// var_dump($json);
+		$this->assertTrue( is_array($json->css) );
+		$this->assertTrue( is_array($json->js) );
+
+		// client_resources
+		$realpath_dir = __DIR__.'/testData/broccoli/caches/client_resources/';
+		mkdir($realpath_dir);
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/broccoli/.px_execute.php' ,
+			'/guiedit/index.html?PX=px2dthelper.px2ce.client_resources&dist='.urlencode($realpath_dir) ,
+		] );
+		// var_dump($output);
+		$json = json_decode($output);
+		// var_dump($json);
+		$this->assertTrue( is_array($json->css) );
+		$this->assertTrue( is_array($json->js) );
+
+		// 後始末
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/broccoli/.px_execute.php' ,
+			'/?PX=clearcache' ,
+		] );
+	}
+
 
 	/**
 	 * コマンドを実行し、標準出力値を返す
