@@ -42,7 +42,6 @@
         "files": [
             "php/main.php",
             "php/broccoli/receive_message.php",
-            "php/broccoli/apis.php",
             "php/px2ce/apis.php",
             "php/px2me/apis.php"
         ]

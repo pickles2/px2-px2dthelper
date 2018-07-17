@@ -709,13 +709,6 @@ class main{
 				exit;
 				break;
 
-			case 'broccoli':
-				$apis = new broccoli_apis($this->px, $this);
-				$result = $apis->execute_px_command($this->command[2]);
-				print $std_output->data_convert( $result );
-				exit;
-				break;
-
 			case 'px2ce':
 				$apis = new px2ce_apis($this->px, $this);
 				$result = $apis->execute_px_command($this->command[2]);
