@@ -14,22 +14,6 @@ class broccoliTest extends PHPUnit_Framework_TestCase{
 	}
 
 	/**
-	 * broccoli-html-editor GPIのテスト
-	 */
-	public function testGpi(){
-		// GPI
-		$output = $this->passthru( [
-			'php',
-			__DIR__.'/testData/broccoli/.px_execute.php' ,
-			'/guiedit/index.html?PX=px2dthelper.broccoli.gpi&api=getConfig&options=' ,
-		] );
-		// var_dump($output);
-		$json = json_decode($output);
-		// var_dump($json);
-		$this->assertEquals( $json->appMode, 'web' );
-	}
-
-	/**
 	 * broccoli-html-editor CSS,JSビルドのテスト
 	 */
 	public function testBuildCssJs(){
