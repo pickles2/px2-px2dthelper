@@ -84,8 +84,13 @@ class px2ce_apis{
 		if( !$appMode ){
 			$appMode = 'web';
 		}
+		$target_mode = $this->px->req()->get_param('target_mode');
+		if( !$target_mode ){
+			$target_mode = 'page_content';
+		}
 
 		$init_options = array(
+			'target_mode' => $target_mode,
 			'page_path' => $this->px->req()->get_request_file_path(), // <- 編集対象ページのパス
 			'appMode' => $appMode, // 'web' or 'desktop'. default to 'web'
 			'entryScript' => $_SERVER['SCRIPT_NAME'],
