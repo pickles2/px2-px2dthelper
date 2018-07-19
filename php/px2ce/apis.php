@@ -46,9 +46,23 @@ class px2ce_apis{
 		$px2ce = $this->create_px2ce();
 		switch($px_command_2){
 			case 'gpi':
-				$rtn = $px2ce->gpi(
-					json_decode(base64_decode($this->px->req()->get_param('data')), true)
-				);
+				$data = $this->px->req()->get_param('data');
+				$data_filename = $this->px->req()->get_param('data_filename');
+				if( strlen($data_filename) ){
+					if( strpos( $data_filename, '/' ) !== false || strpos( $data_filename, '\\' ) !== false || $data_filename == '.' || $data_filename == '.' ){
+						// ディレクトリトラバーサル対策
+						return false;
+						break;
+					}
+				}
+				$realpath_data_file = $this->px->get_realpath_homedir().'/_sys/ram/data/'.$data_filename;
+				if( !strlen( $data ) && strlen($data_filename) && is_file( $realpath_data_file ) ){
+					$data = file_get_contents( $realpath_data_file );
+					$data = json_decode($data, true);
+				}else{
+					$data = json_decode(base64_decode($data), true);
+				}
+				$rtn = $px2ce->gpi( $data );
 				return $rtn;
 				break;
 			case 'client_resources':

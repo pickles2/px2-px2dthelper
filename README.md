@@ -308,20 +308,15 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 ```
 
 #### PX=px2dthelper.px2ce.gpi
-
-Pickles 2 Contents Editor のGPIを呼び出します。
-
-次のオプションを指定できます。
-
-- `appMode` - `web` (デフォルト) または `desktop`
-
 #### PX=px2dthelper.px2me.gpi
 
-Pickles 2 Module Editor のGPIを呼び出します。
+それぞれ、Pickles 2 Contents Editor、Pickles 2 Module Editor のGPIを呼び出します。
 
 次のオプションを指定できます。
 
-- `appMode` - `web` (デフォルト) または `desktop`
+- `appMode` : `web` (デフォルト) または `desktop`
+- `data` : GPIに渡される引数。 JSON形式のテキストを base64エンコードして指定します。
+- `data_filename` : `data` の代わりに、JSONをファイルに保存して受け渡しします。ファイルは `px-files/_sys/data/` に置き、そのファイル名を指定してください。
 
 #### PX=px2dthelper.px2ce.client_resources
 #### PX=px2dthelper.px2me.client_resources

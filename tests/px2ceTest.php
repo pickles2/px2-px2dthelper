@@ -41,6 +41,54 @@ class px2ceTest extends PHPUnit_Framework_TestCase{
 	}
 
 	/**
+	 * Pickles 2 Contents Editor GPIのテスト (data_filename でデータを転送する)
+	 */
+	public function testGpiDataFile(){
+		$data = json_encode(
+			array(
+				'api' => 'getConfig'
+			)
+		);
+		$data_realpath = __DIR__.'/testData/broccoli/px-files/_sys/ram/data/testdata_filename';
+		$this->fs->save_file( $data_realpath, $data );
+		$this->assertTrue( is_file($data_realpath) );
+
+		// GPI
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/broccoli/.px_execute.php' ,
+			'/guiedit/index.html?PX=px2dthelper.px2ce.gpi&data_filename=testdata_filename' ,
+		] );
+		// var_dump($output);
+		$json = json_decode($output);
+		// var_dump($json);
+		$this->assertEquals( $json->appMode, 'web' );
+
+		// GPI (ディレクトリトラバーサル対策により失敗する)
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/broccoli/.px_execute.php' ,
+			'/guiedit/index.html?PX=px2dthelper.px2ce.gpi&data_filename=a/../testdata_filename' ,
+		] );
+		// var_dump($output);
+		$json = json_decode($output);
+		// var_dump($json);
+		$this->assertFalse( $json );
+
+
+		// 後始末
+		unlink($data_realpath);
+		clearstatcache();
+		$this->assertFalse( is_file($data_realpath) );
+
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/broccoli/.px_execute.php' ,
+			'/?PX=clearcache' ,
+		] );
+	}
+
+	/**
 	 * Pickles 2 Contents Editor のクライアントリソース取得
 	 */
 	public function testGetClientResources(){

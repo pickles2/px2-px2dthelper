@@ -9,6 +9,7 @@
             "email": "tomk79@gmail.com"
         }
     ],
+    "minimum-stability": "dev",
     "scripts":{
         "test": [
             "php ./vendor/phpunit/phpunit/phpunit"
