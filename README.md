@@ -328,18 +328,18 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ## 更新履歴 - Change log
 
-### pickles2/px2-px2dthelper 2.0.8 (リリース日未定)
+### pickles2/px2-px2dthelper v2.0.8 (2018年8月16日)
 
 - `broccoli-html-editor` のAPIを追加。
 - Pickles 2 Contents Editor のAPIを追加。
 - Pickles 2 Module Editor のAPIを追加。
 
-### pickles2/px2-px2dthelper 2.0.7 (2018年2月28日)
+### pickles2/px2-px2dthelper v2.0.7 (2018年2月28日)
 
 - 依存ライブラリ `michelf/php-markdown`, `leafo/scssphp` のバージョン制約を緩和。 (`pickles2/px-fw-2.x` の更新に合わせられるように)
 - `$conf->px2dtconfig` が連想配列で設定されている場合に、正規化処理が適切に反映されない不具合を修正。
 
-### pickles2/px2-px2dthelper 2.0.6 (2017年9月14日)
+### pickles2/px2-px2dthelper v2.0.6 (2017年9月14日)
 
 - PXコマンド `PX=px2dthelper.plugins.get_plugin_options` を追加。
 - PXコマンド `PX=px2dthelper.packages.get_package_list` を追加。
@@ -352,29 +352,29 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 - `$conf->plugins->px2dt->path_module_templates_dir` 設定に対応。
 - PXコマンド `PX=px2dthelper.document_modules.build_css` と `PX=px2dthelper.document_modules.build_js` が、テーマのモジュールに対応。
 
-### pickles2/px2-px2dthelper 2.0.5 (2017年5月30日)
+### pickles2/px2-px2dthelper v2.0.5 (2017年5月30日)
 
 - `broccoli-receive-message` スクリプトを挿入する新しい `processor` を追加。
 - PXコマンド `PX=px2dthelper.search_sitemap` を追加。
 - `PX=px2dthelper.copy_content` で、 `$from` と `$to` が同じコンテンツを指す場合にコンテンツファイルが消えてしまう不具合を修正。
 
-### pickles2/px2-px2dthelper 2.0.4 (2017年4月20日)
+### pickles2/px2-px2dthelper v2.0.4 (2017年4月20日)
 
 - PXコマンド `PX=px2dthelper.get.navigation_info` を追加。
 - PXコマンド `PX=px2dthelper.get.all` に `filter` オプションを追加。
 - `PX=px2dthelper.get.all` に含まれる `path_files`, `realpath_files` が、不正な値を返すことがある不具合を修正。
 
-### pickles2/px2-px2dthelper 2.0.3 (2017年2月6日)
+### pickles2/px2-px2dthelper v2.0.3 (2017年2月6日)
 
 - PXコマンド `PX=px2dthelper.get.all` を追加。
 - `paths_module_template` を絶対パスに整形してから返すようにした。
 - `$site` が利用できない場合に異常終了しないようにした。
 
-### pickles2/px2-px2dthelper 2.0.2 (2017年1月18日)
+### pickles2/px2-px2dthelper v2.0.2 (2017年1月18日)
 
 - CSS, JS のビルド結果を整形した。
 
-### pickles2/px2-px2dthelper 2.0.1 (2016年10月17日)
+### pickles2/px2-px2dthelper v2.0.1 (2016年10月17日)
 
 - PXコマンド `PX=px2dthelper.find_page_content` を追加。
 - PXコマンド `PX=px2dthelper.get.realpath_data_dir` を追加。
@@ -386,7 +386,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 - PXコマンド `PX=px2dthelper.check_status` を追加。
 - `PX=px2dthelper.copy_content` の コピー先の指定方法を追加。 `/path/copy/to.html?PX=〜〜` のようにも指定できるようになった。
 
-### pickles2/px2-px2dthelper 2.0.0 (2016年9月15日)
+### pickles2/px2-px2dthelper v2.0.0 (2016年9月15日)
 
 - initial release.
 
