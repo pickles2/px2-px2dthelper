@@ -73,7 +73,7 @@ class packagesTest extends PHPUnit_Framework_TestCase{
 		$this->assertTrue( is_object( $result ) );
 		$this->assertEquals( count( $result->themes ), 0 );
 		$this->assertEquals( count( $result->broccoliModules ), 2 );
-		$this->assertEquals( count( $result->broccoliFields ), 0 );
+		$this->assertEquals( count( $result->broccoliFields ), 1 );
 		$this->assertEquals( count( $result->processors ), 2 );
 		$this->assertEquals( count( $result->plugin ), 0 );
 		$this->assertEquals( count( $result->projects ), 0 );
