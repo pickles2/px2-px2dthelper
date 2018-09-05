@@ -76,7 +76,7 @@ class px2me_apis{
 		$init_options = array(
 			'page_path' => $this->px->req()->get_request_file_path(), // <- 編集対象ページのパス
 			'appMode' => $appMode, // 'web' or 'desktop'. default to 'web'
-			'entryScript' => $_SERVER['SCRIPT_NAME'],
+			'entryScript' => $_SERVER['SCRIPT_FILENAME'],
 			'customFields' => array() ,
 			'log' => function($msg){
 				$this->px->error($msg);

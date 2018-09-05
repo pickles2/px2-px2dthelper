@@ -337,7 +337,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ## 更新履歴 - Change log
 
-### pickles2/px2-px2dthelper v2.0.9 (リリース日未定)
+### pickles2/px2-px2dthelper v2.0.9 (2018年9月20日)
 
 - PXコマンド `PX=px2dthelper.publish_single_page` を追加。
 - Pickles 2 Contents Editor, および Pickles 2 Module Editor のAPIで、APIを正常に呼び出せない場合がある問題を修正。
