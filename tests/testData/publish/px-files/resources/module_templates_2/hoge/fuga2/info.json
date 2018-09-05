@@ -1,0 +1,8 @@
+{
+	"sample_data":[
+		{
+			"title": "実装例1",
+			"data": {"modId":"Modules2:hoge/fuga2","fields":{"input_html":"<p>これはHTMLフィールド。</p>","input_md":"これは、__markdown__フィールド。\n\n- markdown list 1\n- markdown list 2","input_text":"これは、<strong>テキスト</strong>フィールド。\nこれは、<strong>テキスト</strong>フィールド。\n","input_image":{"resKey":"cc6b68274db5a48a581ac6ca8c727f12","path":"./index_files/resources/cc6b68274db5a48a581ac6ca8c727f12.png"},"input_href":"/styleguides/index.html","input_html_attr_text":"<html attribute テキスト>"}}
+		}
+	]
+}

@@ -1,0 +1,5 @@
+"*path","*content","*id","*title","*title_breadcrumb","*title_h1","*title_label","*title_full","*logical_path","*list_flg","*layout","*orderby","*keywords","*description","*category_top_flg"
+"/",,,"ホーム",,,,,,1,"top",,,,
+"/sub_dir_1/",,,"Sub Dir 1",,,,,,1,,,,,1
+"/sub_dir_1/1-1.html",,,"Sub Dir 1-1",,,,,,1,,,,,1
+"/sub_dir_2/",,,"Sub Dir 2",,,,,,1,,,,,1

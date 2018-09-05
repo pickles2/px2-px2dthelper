@@ -291,6 +291,15 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.change_cont
 $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.plugins.get_plugin_options&func_div=processor.html&plugin_name=namespace\\classname::funcname"
 ```
 
+#### PX=px2dthelper.publish_single_page
+
+指定されたページを単体でパブリッシュします。
+ページ固有のリソースディレクトリが同時にパブリッシュされます。
+
+```bash
+$ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.publish_single_page"
+```
+
 #### PX=px2dthelper.packages.get_path_composer_root_dir
 
 `composer.json` が置かれているディレクトリのパスを取得する。
@@ -330,6 +339,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ### pickles2/px2-px2dthelper v2.0.9 (リリース日未定)
 
+- PXコマンド `PX=px2dthelper.publish_single_page` を追加。
 - Pickles 2 Contents Editor, および Pickles 2 Module Editor のAPIで、APIを正常に呼び出せない場合がある問題を修正。
 
 ### pickles2/px2-px2dthelper v2.0.8 (2018年8月16日)
