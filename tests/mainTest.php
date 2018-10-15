@@ -55,7 +55,7 @@ class mainTest extends PHPUnit_Framework_TestCase{
 		// var_dump($output);
 		$version = json_decode($output);
 		// var_dump( $version );
-		$this->assertEquals( preg_match('/^\d+\.\d+\.\d(?:\-.+)?(?:\+.+)?$/', $version), 1 );
+		$this->assertEquals( preg_match('/^\d+\.\d+\.\d+(?:\-.+)?(?:\+.+)?$/', $version), 1 );
 
 
 		// 後始末
