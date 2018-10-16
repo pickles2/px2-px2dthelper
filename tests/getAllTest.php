@@ -9,6 +9,7 @@ class getAllTest extends PHPUnit_Framework_TestCase{
 	 * setup
 	 */
 	public function setup(){
+		set_time_limit(60);
 		$this->fs = new \tomk79\filesystem();
 		require_once(__DIR__.'/../php/simple_html_dom.php');
 	}
