@@ -625,7 +625,7 @@ class main{
 				$path_target_page = $this->px->req()->get_request_file_path();
 				$path_files = $this->px->path_files();
 				$result = $this->px->internal_sub_request(
-					$path_target_page.'?PX=publish.run&path_region='.$path_target_page.'&paths_region[]='.urlencode($path_files).'&keep_cache=1'
+					$path_target_page.'?PX=publish.run&path_region='.$path_target_page.'&paths_region[]='.$path_files.'&keep_cache=1'
 				);
 				print $std_output->data_convert( $result );
 				exit;
