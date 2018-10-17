@@ -36,7 +36,10 @@ class broccoliTest extends PHPUnit_Framework_TestCase{
 			'/?PX=px2dthelper.document_modules.build_css' ,
 		] );
 		// var_dump($outputCssApi);
-		$this->assertEquals( $outputCss, $outputCssApi );
+		$this->assertEquals(
+			preg_replace('/\r\n|\r|\n/', "\n", $outputCss),
+			preg_replace('/\r\n|\r|\n/', "\n", $outputCssApi)
+		);
 
 
 		// build "JavaScript"
@@ -58,13 +61,19 @@ class broccoliTest extends PHPUnit_Framework_TestCase{
 					.'    alert(\'pkg:cat/mod1\');'."\n"
 					.'}'."\n"
 		;
-		$this->assertEquals( $expected, $outputJs );
+		$this->assertEquals(
+			preg_replace('/\r\n|\r|\n/', "\n", $expected),
+			preg_replace('/\r\n|\r|\n/', "\n", $outputJs)
+		);
 		$outputJsApi = $this->passthru( [
 			'php',
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=px2dthelper.document_modules.build_js' ,
 		] );
-		$this->assertEquals( $outputJs, $outputJsApi );
+		$this->assertEquals(
+			preg_replace('/\r\n|\r|\n/', "\n", $outputJs),
+			preg_replace('/\r\n|\r|\n/', "\n", $outputJsApi)
+		);
 
 
 		// build "Loader"
@@ -80,7 +89,10 @@ class broccoliTest extends PHPUnit_Framework_TestCase{
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=px2dthelper.document_modules.load' ,
 		] );
-		$this->assertEquals( $outputLoader, $outputLoaderApi );
+		$this->assertEquals(
+			preg_replace('/\r\n|\r|\n/', "\n", $outputLoader),
+			preg_replace('/\r\n|\r|\n/', "\n", $outputLoaderApi)
+		);
 
 
 		// 後始末

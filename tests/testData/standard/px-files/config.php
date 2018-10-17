@@ -131,12 +131,12 @@ return call_user_func( function(){
 		'picklesFramework2\processors\ssi\ssi::exec' ,
 
 		// // output_encoding, output_eol_coding の設定に従ってエンコード変換する。
-		// 'picklesFramework2\processors\encodingconverter\encodingconverter::exec' ,
+		'picklesFramework2\processors\encodingconverter\encodingconverter::exec' ,
 	];
 
 	$conf->funcs->processor->css = [
 		// // output_encoding, output_eol_coding の設定に従ってエンコード変換する。
-		// 'picklesFramework2\processors\encodingconverter\encodingconverter::exec' ,
+		'picklesFramework2\processors\encodingconverter\encodingconverter::exec' ,
 
 		 // プラグイン関連機能のテスト
 		 // 先頭にバックスラッシュをおいた場合
@@ -149,7 +149,7 @@ return call_user_func( function(){
 
 	$conf->funcs->processor->js = [
 		// // output_encoding, output_eol_coding の設定に従ってエンコード変換する。
-		// 'picklesFramework2\processors\encodingconverter\encodingconverter::exec' ,
+		'picklesFramework2\processors\encodingconverter\encodingconverter::exec' ,
 	];
 
 	$conf->funcs->processor->md = [
