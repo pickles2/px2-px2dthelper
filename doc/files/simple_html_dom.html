@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <meta charset="utf-8"/>
-    <title>pickles2/px2-px2dthelper@2.0.9 API Document</title>
+    <title>pickles2/px2-px2dthelper@2.0.10 API Document</title>
     <meta name="author" content=""/>
     <meta name="description" content=""/>
 
@@ -83,7 +83,7 @@
             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                 <i class="icon-ellipsis-vertical"></i>
             </a>
-            <a class="brand" href="../index.html">pickles2/px2-px2dthelper@2.0.9 API Document</a>
+            <a class="brand" href="../index.html">pickles2/px2-px2dthelper@2.0.10 API Document</a>
 
             <div class="nav-collapse">
                 <ul class="nav pull-right">
@@ -144,37 +144,37 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-2084196572"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-313372941"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-2084196572" class="accordion-body collapse in">
+            <div id="namespace-313372941" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1738875320"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-992629973"></a>
                                 <a href="../namespaces/tomk79.html" style="margin-left: 30px; padding-left: 0">tomk79</a>
             </div>
-            <div id="namespace-1738875320" class="accordion-body collapse ">
+            <div id="namespace-992629973" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1198803097"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1290253855"></a>
                                 <a href="../namespaces/tomk79.pickles2.html" style="margin-left: 30px; padding-left: 0">pickles2</a>
             </div>
-            <div id="namespace-1198803097" class="accordion-body collapse ">
+            <div id="namespace-1290253855" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1166178753"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-531497079"></a>
                                 <a href="../namespaces/tomk79.pickles2.px2dthelper.html" style="margin-left: 30px; padding-left: 0">px2dthelper</a>
             </div>
-            <div id="namespace-1166178753" class="accordion-body collapse ">
+            <div id="namespace-531497079" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -240,12 +240,12 @@ Contributions by:
     Yousuke Kumakura (Attribute filters)
     Vadim Voituk (Negative indexes supports of &quot;find&quot; method)
     Antcs (Constructor with automatically load contents either text or file/url)</em></p>
-                    <p>all affected sections have comments starting with "PaperG"</p>
+                    <p>all affected sections have comments starting with &quot;PaperG&quot;</p>
 <p>Paperg - Added case insensitive testing of the value of the selector.
 Paperg - Added tag_start for the starting index of tags - NOTE: This works but not accurately.
 This tag_start gets counted AFTER \r\n have been crushed out, and after the remove_noice calls so it will not reflect the REAL position of the tag in the source,
 it will almost always be smaller by some amount.
-We use this to determine how far into the file the tag in question is.  This "percentage will never be accurate as the $dom-&gt;size is the "real" number of bytes the dom was created from.
+We use this to determine how far into the file the tag in question is.  This &quot;percentage will never be accurate as the $dom-&gt;size is the &quot;real&quot; number of bytes the dom was created from.
 but for most purposes, it's a really good estimation.
 Paperg - Added the forceTagsClosed to the dom constructor.  Forcing tags closed is great for malformed html, but it CAN lead to parsing errors.
 Allow the user to tell us how much they trust the html.
@@ -256,7 +256,7 @@ Paperg: added parse_charset so that we know about the character set of the sourc
 NOTE:  If the user's system has a routine called get_last_retrieve_url_contents_content_type availalbe, we will assume it's returning the content-type header from the
 last transfer or curl_exec, and we will parse that and use it in preference to any other method of charset detection.</p>
 <p>Found infinite loop in the case of broken html in restore_noise.  Rewrote to protect from that.
-PaperG (John Schlick) Added get_display_size for "IMG" tags.</p>
+PaperG (John Schlick) Added get_display_size for &quot;IMG&quot; tags.</p>
 <p>Licensed under The MIT License
 Redistributions of files must retain the above copyright notice.</p>
 
@@ -1224,7 +1224,7 @@ Paperg - in the find routine: allow us to specify that we want case insensitive 
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on September 5th, 2018 at 19:55.
+                    on October 18th, 2018 at 16:22.
                 </section>
             </section>
         </section>
