@@ -22,12 +22,20 @@ return call_user_func( function(){
 	 * - `{$filename}` = 変換前のパスの、拡張子を除いたファイル名部分
 	 * - `{$ext}` = 変換前のパスの、拡張子部分
 	 *
-	 * または次のように、コールバックメソッド名を指定します。
-	 * > 'path_rewrite_rule'=>'functionNameOf::rewrite_smt',
+	 * または次のように、コールバックメソッドを指定します。
+	 * ```
+	 * $conf->path_files = function($path){
+	 * 	$path = preg_replace('/.html?$/s', '_files/', $path);
+	 * 	return $path;
+	 * };
+	 * ```
 	 * コールバックメソッドには、 引数 `$path` が渡されます。
 	 * これを加工して、書き換え後のパスを返してください。
 	 */
-	$conf->path_files = '{$dirname}/{$filename}_files/';
+	$conf->path_files = 'function($path){
+		$path = preg_replace(\'/.html?$/s\', \'_files/\', $path);
+		return $path;
+	}';
 
 	$conf->contents_manifesto = '/common/contents_manifesto.ignore.php'; // Contents Manifesto のパス
 
