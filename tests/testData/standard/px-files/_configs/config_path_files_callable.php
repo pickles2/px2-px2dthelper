@@ -36,6 +36,16 @@ return call_user_func( function(){
 		$path = preg_replace('/.html?$/s', '_files/', $path);
 		return $path;
 	};
+	function get_path_data_dir($path){
+		$path = preg_replace('/\\.html?$/s', '_files/guieditor.ignore/', $path);
+		return $path;
+	};
+	function get_path_resource_dir($path){
+		$path = preg_replace('/\\.html?$/s', '_files/resources/', $path);
+		return $path;
+	};
+
+
 
 	$conf->contents_manifesto = '/common/contents_manifesto.ignore.php'; // Contents Manifesto のパス
 
@@ -206,6 +216,7 @@ return call_user_func( function(){
 		'tomk79\plugin_sample\test::exec3('.json_encode(array(
 		)).')' ,
 	];
+
 
 
 	// -------- PHP Setting --------

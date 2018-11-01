@@ -7,7 +7,7 @@
     },
     "path_module_templates_dir": "./px-files/modules/",
     "guieditor": {
-        "path_data_dir": "/{$dirname}/{$filename}_files/guieditor.ignore/",
-        "path_resource_dir": "/{$dirname}/{$filename}_files/resources/"
+        "path_data_dir": "get_path_data_dir",
+        "path_resource_dir": "get_path_resource_dir"
     }
 }

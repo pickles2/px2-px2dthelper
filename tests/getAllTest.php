@@ -345,6 +345,10 @@ class getAllTest extends PHPUnit_Framework_TestCase{
 			__DIR__.'/testData/standard/px-files/_configs/config_path_files_callable.php',
 			__DIR__.'/testData/standard/px-files/config.php'
 		);
+		$this->fs->copy(
+			__DIR__.'/testData/standard/px-files/_configs/px2dtconfig_path_files_callable.json',
+			__DIR__.'/testData/standard/px-files/px2dtconfig.json'
+		);
 
 		// Pickles 2 実行
 		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.get.all' ] );
@@ -380,11 +384,14 @@ class getAllTest extends PHPUnit_Framework_TestCase{
 
 		// realpath_data_dir
 		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.get.realpath_data_dir' ] ));
+		// var_dump($output);
 		$this->assertEquals( $json->realpath_data_dir, $output );
 
 		// path_resource_dir
 		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.get.path_resource_dir' ] ));
+		// var_dump($output);
 		$this->assertEquals( $json->path_resource_dir, $output );
+		$this->assertEquals( '/index_files/resources/', $output );
 
 		// custom_fields
 		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.get.custom_fields' ] ));
@@ -408,7 +415,9 @@ class getAllTest extends PHPUnit_Framework_TestCase{
 
 		// path_files
 		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=api.get.path_files&path=/' ] ));
+		// var_dump($output);
 		$this->assertEquals( $json->path_files, $output );
+		$this->assertEquals( '/index_files/', $output );
 
 		// realpath_files
 		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=api.get.realpath_files&path=/' ] ));
@@ -422,6 +431,10 @@ class getAllTest extends PHPUnit_Framework_TestCase{
 		$this->fs->copy(
 			__DIR__.'/testData/standard/px-files/_configs/config.php',
 			__DIR__.'/testData/standard/px-files/config.php'
+		);
+		$this->fs->copy(
+			__DIR__.'/testData/standard/px-files/_configs/px2dtconfig.json',
+			__DIR__.'/testData/standard/px-files/px2dtconfig.json'
 		);
 		$output = $this->passthru( [
 			'php',
@@ -439,6 +452,10 @@ class getAllTest extends PHPUnit_Framework_TestCase{
 		$this->fs->copy(
 			__DIR__.'/testData/standard/px-files/_configs/config_path_files_function.php',
 			__DIR__.'/testData/standard/px-files/config.php'
+		);
+		$this->fs->copy(
+			__DIR__.'/testData/standard/px-files/_configs/px2dtconfig_path_files_function.json',
+			__DIR__.'/testData/standard/px-files/px2dtconfig.json'
 		);
 
 		// Pickles 2 実行
@@ -476,11 +493,14 @@ class getAllTest extends PHPUnit_Framework_TestCase{
 
 		// realpath_data_dir
 		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.get.realpath_data_dir' ] ));
+		// var_dump($output);
 		$this->assertEquals( $json->realpath_data_dir, $output );
 
 		// path_resource_dir
 		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.get.path_resource_dir' ] ));
+		// var_dump($output);
 		$this->assertEquals( $json->path_resource_dir, $output );
+		$this->assertEquals( '/index_files/resources/', $output );
 
 		// custom_fields
 		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.get.custom_fields' ] ));
@@ -504,7 +524,9 @@ class getAllTest extends PHPUnit_Framework_TestCase{
 
 		// path_files
 		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=api.get.path_files&path=/' ] ));
+		// var_dump($output);
 		$this->assertEquals( $json->path_files, $output );
+		$this->assertEquals( '/index_files/', $output );
 
 		// realpath_files
 		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=api.get.realpath_files&path=/' ] ));
@@ -518,6 +540,10 @@ class getAllTest extends PHPUnit_Framework_TestCase{
 		$this->fs->copy(
 			__DIR__.'/testData/standard/px-files/_configs/config.php',
 			__DIR__.'/testData/standard/px-files/config.php'
+		);
+		$this->fs->copy(
+			__DIR__.'/testData/standard/px-files/_configs/px2dtconfig.json',
+			__DIR__.'/testData/standard/px-files/px2dtconfig.json'
 		);
 		$output = $this->passthru( [
 			'php',

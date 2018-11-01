@@ -33,7 +33,7 @@ return call_user_func( function(){
 	 * これを加工して、書き換え後のパスを返してください。
 	 */
 	$conf->path_files = 'function($path){
-		$path = preg_replace(\'/.html?$/s\', \'_files/\', $path);
+		$path = preg_replace(\'/\\.html?$/s\', \'_files/\', $path);
 		return $path;
 	}';
 
