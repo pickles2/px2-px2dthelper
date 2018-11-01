@@ -1,7 +1,7 @@
 {
     "name": "pickles2/px2-px2dthelper",
     "description": "Pickles 2 用のプラグインです。Pickles 2 アプリケーション と連携させるためのAPIを提供します。",
-    "keywords": ["pickles"],
+    "keywords": ["pickles2"],
     "license": "MIT",
     "authors": [
         {
@@ -15,7 +15,7 @@
             "php ./vendor/phpunit/phpunit/phpunit"
         ],
         "documentation": [
-            "php ./vendor/phpdocumentor/phpdocumentor/bin/phpdoc --title \"pickles2/px2-px2dthelper@2.0.10 API Document\" -d \"./php/\" -t \"./doc/\""
+            "php ./vendor/phpdocumentor/phpdocumentor/bin/phpdoc --title \"pickles2/px2-px2dthelper@2.0.11-alpha.1+nb API Document\" -d \"./php/\" -t \"./doc/\""
         ]
     } ,
     "repositories": [
