@@ -337,6 +337,10 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ## 更新履歴 - Change log
 
+### pickles2/px2-px2dthelper v2.0.11 (リリース日未定)
+
+- リソースパスに関する設定(`$conf->path_files`, `$conf->plugins->px2dt->guieditor->path_resource_dir`, `$conf->plugins->px2dt->guieditor->path_data_dir`)にコールバック関数を使用できない問題を修正。
+
 ### pickles2/px2-px2dthelper v2.0.10 (2018年10月26日)
 
 - Windows環境で、 `PX=px2dthelper.publish_single_page` を実行時に、リソースディレクトリがパブリッシュ対象に含まれない不具合を修正。
