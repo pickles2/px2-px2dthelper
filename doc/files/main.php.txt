@@ -49,7 +49,7 @@ class main{
 	 * @return string バージョン番号を示す文字列
 	 */
 	public function get_version(){
-		return '2.0.10';
+		return '2.0.11';
 	}
 
 
@@ -185,14 +185,22 @@ class main{
 	 * @return string ローカルリソースの実際の絶対パス
 	 */
 	public function get_realpath_data_dir($page_path = null){
-		$rtn = @$this->get_px2dtconfig()->guieditor->path_data_dir;
-		if( !strlen($rtn) ){
-			$rtn = @$this->get_px2dtconfig()->guieditor->realpathDataDir;//古い仕様
+		$path_template = false;
+		if( property_exists( $this->get_px2dtconfig(), 'guieditor' ) ){
+			if( property_exists( $this->get_px2dtconfig()->guieditor, 'path_data_dir' ) ){
+				$path_template = $this->get_px2dtconfig()->guieditor->path_data_dir;
+			}elseif( property_exists( $this->get_px2dtconfig()->guieditor, 'realpathDataDir' ) ){
+				$path_template = $this->get_px2dtconfig()->guieditor->realpathDataDir; // ← こちらは古い名前。後にスネークケース↑に変更されたため、現在は推奨されない。
+			}
 		}
-		if( !strlen( $rtn ) ){
-			$rtn = $this->px->conf()->path_files.'/guieditor.ignore/';
+		if( $path_template ){
+			$rtn = $this->bind_path_files($path_template, $page_path);
+		}else{
+			$rtn = $this->bind_path_files($this->px->conf()->path_files, $page_path);
+			$rtn = preg_replace( '/[\/\\\\]*$/s', '/', $rtn );
+			$rtn .= 'guieditor.ignore/';
 		}
-		$rtn = $this->bind_path_files($rtn, $page_path);
+
 		$rtn = $this->px->fs()->get_realpath( './'.$rtn );
 		$rtn = $this->px->fs()->normalize_path($rtn);
 		$rtn = preg_replace( '/^\/+/', '/', $rtn );
@@ -207,14 +215,21 @@ class main{
 		if( !is_object($this->px->site()) ){
 			return false;
 		}
-		$rtn = @$this->get_px2dtconfig()->guieditor->path_resource_dir;
-		if( !strlen($rtn) ){
-			$rtn = @$this->get_px2dtconfig()->guieditor->pathResourceDir;//古い仕様
+		$path_template = false;
+		if( property_exists( $this->get_px2dtconfig(), 'guieditor' ) ){
+			if( property_exists( $this->get_px2dtconfig()->guieditor, 'path_resource_dir' ) ){
+				$path_template = $this->get_px2dtconfig()->guieditor->path_resource_dir;
+			}elseif( property_exists( $this->get_px2dtconfig()->guieditor, 'pathResourceDir' ) ){
+				$path_template = $this->get_px2dtconfig()->guieditor->pathResourceDir; // ← こちらは古い名前。後にスネークケース↑に変更されたため、現在は推奨されない。
+			}
 		}
-		if( !strlen( $rtn ) ){
-			$rtn = $this->px->conf()->path_files.'/resources/';
+		if( $path_template ){
+			$rtn = $this->bind_path_files($path_template, $page_path);
+		}else{
+			$rtn = $this->bind_path_files($this->px->conf()->path_files, $page_path);
+			$rtn = preg_replace( '/[\/\\\\]*$/s', '/', $rtn );
+			$rtn .= 'resources/';
 		}
-		$rtn = $this->bind_path_files($rtn, $page_path);
 		$rtn = $this->px->href( $rtn );
 		$rtn = $this->px->fs()->normalize_path($rtn);
 		$rtn = preg_replace( '/^\/+/', '/', $rtn );
@@ -241,15 +256,26 @@ class main{
 			$path_content = $this->px->req()->get_request_file_path();
 		}
 
-		$rtn = @$template;
-		$data = array(
-			'dirname'=>$this->px->fs()->normalize_path(dirname($path_content)),
-			'filename'=>basename($this->px->fs()->trim_extension($path_content)),
-			'ext'=>strtolower($this->px->fs()->get_extension($path_content)),
-		);
-		$rtn = str_replace( '{$dirname}', $data['dirname'], $rtn );
-		$rtn = str_replace( '{$filename}', $data['filename'], $rtn );
-		$rtn = str_replace( '{$ext}', $data['ext'], $rtn );
+		$rtn = false;
+
+		if( is_callable($template) ){
+			// コールバック関数が設定された場合
+			$rtn = call_user_func($template, $this->px->fs()->normalize_path($path_content) );
+		}elseif( is_string($template) && strpos(trim($template), 'function') === 0 ){
+			// function で始まる文字列が設定された場合
+			$rtn = call_user_func(eval('return '.$template.';'), $this->px->fs()->normalize_path($path_content) );
+		}else{
+			$rtn = $template;
+			$data = array(
+				'dirname'=>$this->px->fs()->normalize_path(dirname($path_content)),
+				'filename'=>basename($this->px->fs()->trim_extension($path_content)),
+				'ext'=>strtolower($this->px->fs()->get_extension($path_content)),
+			);
+			$rtn = str_replace( '{$dirname}', $data['dirname'], $rtn );
+			$rtn = str_replace( '{$filename}', $data['filename'], $rtn );
+			$rtn = str_replace( '{$ext}', $data['ext'], $rtn );
+		}
+
 		$rtn = preg_replace( '/^\/*/', '/', $rtn );
 		$rtn = preg_replace( '/\/*$/', '', $rtn ).'/';
 
