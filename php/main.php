@@ -412,11 +412,12 @@ class main{
 	/**
 	 * コンテンツを初期化する
 	 * @param string $editor_mode 編集モード名
+	 * @param  array  $options   オプション (詳しくは `fncs_init_content::init_content()` の説明を参照)
 	 */
-	public function init_content( $editor_mode ){
+	public function init_content( $editor_mode, $options = array() ){
 		require_once(__DIR__.'/fncs/init_content.php');
 		$obj = new fncs_init_content( $this, $this->px );
-		$result = $obj->init_content( $editor_mode );
+		$result = $obj->init_content( $editor_mode, $options );
 		return $result;
 	}
 
@@ -424,12 +425,13 @@ class main{
 	 * コンテンツを複製する
 	 * @param string $path_from 複製元ページのパス
 	 * @param string $path_to 複製先ページのパス
+	 * @param  array  $options   オプション (詳しくは `fncs_copy_content::copy()` の説明を参照)
 	 * @return array 実行結果
 	 */
-	public function copy_content( $path_from, $path_to ){
+	public function copy_content( $path_from, $path_to, $options = array() ){
 		require_once(__DIR__.'/fncs/copy_content.php');
 		$copyCont = new fncs_copy_content($this, $this->px);
-		$result = $copyCont->copy( $path_from, $path_to );
+		$result = $copyCont->copy( $path_from, $path_to, $options );
 		return $result;
 	}
 
@@ -619,15 +621,20 @@ class main{
 
 			case 'init_content':
 				// コンテンツを初期化する
-				$flg_force = !!$this->px->req()->get_param('force');
-				$result = $this->init_content( $this->px->req()->get_param('editor_mode'), array('force'=>$flg_force) );
+				$flg_force = $this->px->req()->get_param('force');
+				$result = $this->init_content(
+					$this->px->req()->get_param('editor_mode'),
+					array(
+						'force'=>$flg_force,
+					)
+				);
 				print $std_output->data_convert( $result );
 				exit;
 				break;
 
 			case 'copy_content':
 				// コンテンツを複製する
-				$flg_force = !!$this->px->req()->get_param('force');
+				$flg_force = $this->px->req()->get_param('force');
 				$path_to = $this->px->req()->get_request_file_path();
 				$param_to = $this->px->req()->get_param('to');
 				if( strlen( $param_to ) ){
@@ -636,7 +643,9 @@ class main{
 				$result = $this->copy_content(
 					$this->px->req()->get_param('from'),
 					$path_to,
-					array('force'=>$flg_force)
+					array(
+						'force'=>$flg_force,
+					)
 				);
 				print $std_output->data_convert( $result );
 				exit;

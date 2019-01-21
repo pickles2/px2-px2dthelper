@@ -267,7 +267,7 @@ v2.0.12 以降、このAPIは、すでにコンテンツが存在する場合に
 v2.0.11 とそれ以前のバージョンでは、既存のコンテンツを上書きして初期化するのがデフォルトの挙動でした。
 
 ```bash
-# forceオプションを付加した例
+$ # forceオプションを付加した例
 $ php .px_execute.php "/path/init/content.html?PX=px2dthelper.init_content&editor_mode=html.gui&force=1"
 ```
 
@@ -291,7 +291,7 @@ v2.0.12 以降、このAPIは、すでにコンテンツが存在する場合に
 v2.0.11 とそれ以前のバージョンでは、既存のコンテンツを上書きして初期化するのがデフォルトの挙動でした。
 
 ```bash
-# forceオプションを付加した例
+$ # forceオプションを付加した例
 $ php .px_execute.php "/?PX=px2dthelper.copy_content&from=/path/copy/from.html&to=/path/copy/to.html&force=1"
 ```
 

@@ -45,11 +45,21 @@ class fncs_init_content{
 		if( !is_null($page_info) ){
 			$path_content = $page_info['content'];
 		}
+		$contRoot = $this->px->fs()->get_realpath( $this->px->get_path_docroot().'/'.$this->px->get_path_controot() );
+		$path_find_exist_content = $this->px2dthelper->find_page_content( $path_content );
 		$realpath_content = $this->px->fs()->get_realpath( $this->px->get_path_docroot().$this->px->get_path_controot().$path_content );
 		$realpath_files = $this->px->fs()->get_realpath( $this->px->realpath_files() );
 
-		if( $this->px->fs()->is_file( $realpath_content ) && !$flg_force ){
+		if( $this->px->fs()->is_file( $contRoot.'/'.$path_find_exist_content ) && !$flg_force ){
 			return array(false, 'Contents already exists.');
+		}
+
+		// 一旦削除する
+		if( $this->px->fs()->is_file( $contRoot.'/'.$path_find_exist_content ) ){
+			$this->px->fs()->rm( $contRoot.'/'.$path_find_exist_content );
+		}
+		if( $this->px->fs()->is_dir( $realpath_files ) ){
+			$this->px->fs()->rmdir_r( $realpath_files );
 		}
 
 		// ディレクトリを作成

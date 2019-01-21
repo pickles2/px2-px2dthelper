@@ -113,6 +113,18 @@ class copyContentTest extends PHPUnit_Framework_TestCase{
 		// var_dump($output);
 		$result = json_decode($output);
 		// var_dump( $result );
+		$this->assertEquals( $result[0], false );
+		$this->assertEquals( $result[1], 'Contents already exists.' );
+
+		// PX=px2dthelper.copy_content
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/standard/.px_execute.php' ,
+			'/?PX=px2dthelper.copy_content&from='.urlencode('/copy/from.html').'&to='.urlencode('/copy/to.html').'&force=1' ,
+		] );
+		// var_dump($output);
+		$result = json_decode($output);
+		// var_dump( $result );
 		$this->assertEquals( $result[0], true );
 		$this->assertEquals( $result[1], 'ok' );
 		clearstatcache();
