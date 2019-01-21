@@ -261,6 +261,16 @@ $ php .px_execute.php "/?PX=px2dthelper.convert_table_excel2html&path=/path/to/s
 $ php .px_execute.php "/path/init/content.html?PX=px2dthelper.init_content&editor_mode=html.gui"
 ```
 
+v2.0.12 以降、このAPIは、すでにコンテンツが存在する場合には、上書きせずにエラーを返すようになりました。
+`force` オプションが付加された場合は、 強制的に上書きします。
+
+v2.0.11 とそれ以前のバージョンでは、既存のコンテンツを上書きして初期化するのがデフォルトの挙動でした。
+
+```bash
+# forceオプションを付加した例
+$ php .px_execute.php "/path/init/content.html?PX=px2dthelper.init_content&editor_mode=html.gui&force=1"
+```
+
 #### PX=px2dthelper.copy_content
 
 コンテンツを複製します。
@@ -274,6 +284,17 @@ $ php .px_execute.php "/path/copy/to.html?PX=px2dthelper.copy_content&from=/path
 ```bash
 $ php .px_execute.php "/?PX=px2dthelper.copy_content&from=/path/copy/from.html&to=/path/copy/to.html"
 ```
+
+v2.0.12 以降、このAPIは、すでにコンテンツが存在する場合には、上書きせずにエラーを返すようになりました。
+`force` オプションが付加された場合は、 強制的に上書きします。
+
+v2.0.11 とそれ以前のバージョンでは、既存のコンテンツを上書きして初期化するのがデフォルトの挙動でした。
+
+```bash
+# forceオプションを付加した例
+$ php .px_execute.php "/?PX=px2dthelper.copy_content&from=/path/copy/from.html&to=/path/copy/to.html&force=1"
+```
+
 
 #### PX=px2dthelper.change_content_editor_mode
 
@@ -339,7 +360,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ### pickles2/px2-px2dthelper v2.0.12 (リリース日未定)
 
-- ????????????????????
+- `PX=px2dthelper.init_content`、`PX=px2dthelper.copy_content` は、コンテンツがすでに存在する場合には、上書きせずエラーを出すように変更された。そのかわり、 `force` オプションを追加し、強制的に上書きできるようにした。
 
 ### pickles2/px2-px2dthelper v2.0.11 (2018年11月8日)
 

@@ -619,13 +619,15 @@ class main{
 
 			case 'init_content':
 				// コンテンツを初期化する
-				$result = $this->init_content( $this->px->req()->get_param('editor_mode') );
+				$flg_force = !!$this->px->req()->get_param('force');
+				$result = $this->init_content( $this->px->req()->get_param('editor_mode'), array('force'=>$flg_force) );
 				print $std_output->data_convert( $result );
 				exit;
 				break;
 
 			case 'copy_content':
 				// コンテンツを複製する
+				$flg_force = !!$this->px->req()->get_param('force');
 				$path_to = $this->px->req()->get_request_file_path();
 				$param_to = $this->px->req()->get_param('to');
 				if( strlen( $param_to ) ){
@@ -633,7 +635,8 @@ class main{
 				}
 				$result = $this->copy_content(
 					$this->px->req()->get_param('from'),
-					$path_to
+					$path_to,
+					array('force'=>$flg_force)
 				);
 				print $std_output->data_convert( $result );
 				exit;

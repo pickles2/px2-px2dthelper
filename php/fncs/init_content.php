@@ -30,10 +30,16 @@ class fncs_init_content{
 	 * コンテンツを初期化する
 	 *
 	 * @param  string $editor_mode  コピー先のページパス (サイトマップの path 値)
+	 * @param  array  $options   オプション
+	 * - `force` : `true` を指定すると、すでにコンテンツが存在した場合にも強制的に上書きします。
 	 * @return array `array(boolean $result, string $error_msg)`
 	 */
-	public function init_content( $editor_mode = 'html' ){
+	public function init_content( $editor_mode = 'html', $options = array() ){
 		if(!@strlen($editor_mode)){ $editor_mode = 'html'; }
+		$flg_force = false;
+		if( is_array($options) && array_key_exists('force', $options) ){
+			$flg_force = !!$options['force'];
+		}
 		$page_info = $this->px->site()->get_current_page_info();
 		$path_content = $this->px->req()->get_request_file_path();
 		if( !is_null($page_info) ){
@@ -42,6 +48,9 @@ class fncs_init_content{
 		$realpath_content = $this->px->fs()->get_realpath( $this->px->get_path_docroot().$this->px->get_path_controot().$path_content );
 		$realpath_files = $this->px->fs()->get_realpath( $this->px->realpath_files() );
 
+		if( $this->px->fs()->is_file( $realpath_content ) && !$flg_force ){
+			return array(false, 'Contents already exists.');
+		}
 
 		// ディレクトリを作成
 		$this->px->fs()->mkdir_r( dirname($realpath_content) );
