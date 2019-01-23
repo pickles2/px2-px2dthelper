@@ -84,6 +84,12 @@ class getAllTest extends PHPUnit_Framework_TestCase{
 		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=api.get.page_info&path=/' ] ));
 		$this->assertEquals( $json->page_info, $output );
 
+		// page_origin
+		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=api.get.page_origin&path=/' ] ));
+		$this->assertEquals( $json->page_origin, $output );
+		$this->assertSame( $json->page_origin->basename, 'sitemap.csv' );
+		$this->assertSame( $json->page_origin->row, 1 );
+
 		// path_files
 		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=api.get.path_files&path=/' ] ));
 		$this->assertEquals( $json->path_files, $output );

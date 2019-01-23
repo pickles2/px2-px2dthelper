@@ -584,6 +584,9 @@ class main{
 								@$rtn->realpath_data_dir = false;
 							}
 							@$rtn->navigation_info = $this->get_navigation_info( $request_path, $sitemap_filter_options($this->px, $this->command[2]) );
+							if( is_callable(array($this->px->site(), 'get_page_origin')) ){
+								@$rtn->page_origin = $this->px->site()->get_page_origin( $request_path );
+							}
 						}
 
 						@$rtn->packages->path_composer_root_dir = $this->packages()->get_path_composer_root_dir();
