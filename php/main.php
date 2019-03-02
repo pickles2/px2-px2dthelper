@@ -584,8 +584,8 @@ class main{
 								@$rtn->realpath_data_dir = false;
 							}
 							@$rtn->navigation_info = $this->get_navigation_info( $request_path, $sitemap_filter_options($this->px, $this->command[2]) );
-							if( is_callable(array($this->px->site(), 'get_page_origin')) ){
-								@$rtn->page_origin = $this->px->site()->get_page_origin( $request_path );
+							if( is_callable(array($this->px->site(), 'get_page_originated_csv')) ){
+								@$rtn->page_originated_csv = $this->px->site()->get_page_originated_csv( $request_path );
 							}
 						}
 
