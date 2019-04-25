@@ -71,6 +71,7 @@ class document_modules{
 	public function build_css(){
 		$conf = $this->main->get_px2dtconfig();
 		$array_files = array();
+		$max_mtime = 0;
 
 		// 指定モジュールを検索
 		foreach( $conf->paths_module_template as $key=>$row ){
@@ -95,10 +96,26 @@ class document_modules{
 				$array_files[$key] = array();
 				$array_files[$key] = array_merge( $array_files[$key], glob($realpath_module_dir.'/'.$key.'/'."**/**/module.css") );
 				$array_files[$key] = array_merge( $array_files[$key], glob($realpath_module_dir.'/'.$key.'/'."**/**/module.css.scss") );
+
+				// 最新の更新時刻を調べる
+				foreach( $array_files[$key] as $realpath_file ){
+					$tmp_mtime = filemtime( $realpath_file );
+					if( $max_mtime < $tmp_mtime ){
+						$max_mtime = $tmp_mtime;
+					}
+				}
 			}
 		}
 
-		return $this->build_css_src( $array_files );
+		$cache = $this->is_cache( 'css', $max_mtime );
+		if( is_string( $cache ) ){
+			// 有効なキャッシュが存在する場合
+			return $cache;
+		}
+
+		$rtn = $this->build_css_src( $array_files );
+		$this->save_cache($rtn, 'css');
+		return $rtn;
 	}
 
 	/**
@@ -113,6 +130,7 @@ class document_modules{
 		if( !strlen( $theme_id ) ){
 			return '';
 		}
+		$max_mtime = 0;
 
 		$realpath_theme_collection_dir = $this->main->get_realpath_theme_collection_dir();
 		if( !is_dir( $realpath_theme_collection_dir.'/'.$theme_id.'/broccoli_module_packages/' ) ){
@@ -135,10 +153,26 @@ class document_modules{
 				$array_files[$key] = array();
 				$array_files[$key] = array_merge( $array_files[$key], glob($realpath_module_dir.'/'.$key.'/'."**/**/module.css") );
 				$array_files[$key] = array_merge( $array_files[$key], glob($realpath_module_dir.'/'.$key.'/'."**/**/module.css.scss") );
+
+				// 最新の更新時刻を調べる
+				foreach( $array_files[$key] as $realpath_file ){
+					$tmp_mtime = filemtime( $realpath_file );
+					if( $max_mtime < $tmp_mtime ){
+						$max_mtime = $tmp_mtime;
+					}
+				}
 			}
 		}
 
-		return $this->build_css_src( $array_files );
+		$cache = $this->is_cache( 'css', $max_mtime, $theme_id );
+		if( is_string( $cache ) ){
+			// 有効なキャッシュが存在する場合
+			return $cache;
+		}
+
+		$rtn = $this->build_css_src( $array_files );
+		$this->save_cache($rtn, 'css', $theme_id);
+		return $rtn;
 	}
 
 	/**
@@ -247,6 +281,7 @@ class document_modules{
 	public function build_js(){
 		$conf = $this->main->get_px2dtconfig();
 		$array_files = array();
+		$max_mtime = 0;
 
 		// 指定モジュールを検索
 		foreach( $conf->paths_module_template as $packageId=>$row ){
@@ -266,10 +301,26 @@ class document_modules{
 					continue;
 				}
 				$array_files[$packageId] = glob($realpath_module_dir.'/'.$packageId.'/**/**/module.js');
+
+				// 最新の更新時刻を調べる
+				foreach( $array_files[$packageId] as $realpath_file ){
+					$tmp_mtime = filemtime( $realpath_file );
+					if( $max_mtime < $tmp_mtime ){
+						$max_mtime = $tmp_mtime;
+					}
+				}
 			}
 		}
 
-		return $this->build_js_src( $array_files );
+		$cache = $this->is_cache( 'js', $max_mtime );
+		if( is_string( $cache ) ){
+			// 有効なキャッシュが存在する場合
+			return $cache;
+		}
+
+		$rtn = $this->build_js_src( $array_files );
+		$this->save_cache($rtn, 'js');
+		return $rtn;
 	}
 
 	/**
@@ -284,6 +335,7 @@ class document_modules{
 		if( !strlen( $theme_id ) ){
 			return '';
 		}
+		$max_mtime = 0;
 
 		$realpath_theme_collection_dir = $this->main->get_realpath_theme_collection_dir();
 		if( !is_dir( $realpath_theme_collection_dir.'/'.$theme_id.'/broccoli_module_packages/' ) ){
@@ -304,10 +356,26 @@ class document_modules{
 					continue;
 				}
 				$array_files[$packageId] = glob($realpath_module_dir.'/'.$packageId.'/**/**/module.js');
+
+				// 最新の更新時刻を調べる
+				foreach( $array_files[$packageId] as $realpath_file ){
+					$tmp_mtime = filemtime( $realpath_file );
+					if( $max_mtime < $tmp_mtime ){
+						$max_mtime = $tmp_mtime;
+					}
+				}
 			}
 		}
 
-		return $this->build_js_src( $array_files );
+		$cache = $this->is_cache( 'js', $max_mtime, $theme_id );
+		if( is_string( $cache ) ){
+			// 有効なキャッシュが存在する場合
+			return $cache;
+		}
+
+		$rtn = $this->build_js_src( $array_files );
+		$this->save_cache($rtn, 'js', $theme_id);
+		return $rtn;
 	}
 
 	/**
@@ -340,4 +408,40 @@ class document_modules{
 
 		return trim($rtn)."\n";
 	}
+
+	/**
+	 * 結果をキャッシュに保存する。
+	 *
+	 * @param string $content キャッシュの内容
+	 * @param string $ext 対象の拡張子 (`css`, `js`)
+	 * @param array $array_files 比較対象となるファイルの一覧
+	 * @return bool 読み込み可能な場合に `true`、読み込みできない場合に `false` を返します。
+	 */
+	private function save_cache( $content, $ext, $theme_id = null ){
+		$path_cache = $this->px->get_realpath_homedir().'_sys/ram/caches/px2dthelper/document_modules/modules_'.urlencode($theme_id).'.'.urlencode($ext);
+		if( !is_dir(dirname($path_cache)) ){
+			$this->px->fs()->mkdir_r(dirname($path_cache));
+		}
+		return $this->px->fs()->save_file($path_cache, $content);
+	}
+
+	/**
+	 * キャッシュが読み込み可能か調べる。
+	 *
+	 * @param string $ext 対象の拡張子 (`css`, `js`)
+	 * @param array $array_files 比較対象となるファイルの一覧
+	 * @param int $newest_timestamp 対象ファイル中最新の更新日時
+	 * @return bool 読み込み可能な場合に `true`、読み込みできない場合に `false` を返します。
+	 */
+	private function is_cache( $ext, $newest_timestamp, $theme_id = null ){
+		$path_cache = $this->px->get_realpath_homedir().'_sys/ram/caches/px2dthelper/document_modules/modules_'.urlencode($theme_id).'.'.urlencode($ext);
+		if( !is_file($path_cache) ){
+			return false;
+		}
+		if( $newest_timestamp > filemtime($path_cache) ){
+			return false;
+		}
+		return file_get_contents( $path_cache );
+	}
+
 }

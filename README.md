@@ -362,6 +362,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 - `PX=px2dthelper.init_content`、`PX=px2dthelper.copy_content` は、コンテンツがすでに存在する場合には、上書きせずエラーを出すように変更された。そのかわり、 `force` オプションを追加し、強制的に上書きできるようにした。
 - `PX=px2dthelper.get.all` の結果に `page_originated_csv` が追加された。(`pickles2/px-fw-2.x v2.0.40` 以上が必要)
+- `document_modules` のビルド結果をキャッシュするようになった。
 
 ### pickles2/px2-px2dthelper v2.0.11 (2018年11月8日)
 
