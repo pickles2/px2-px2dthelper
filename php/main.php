@@ -721,6 +721,22 @@ class main{
 						print $std_output->data_convert( $result );
 						exit;
 						break;
+
+					case 'update':
+						$config_parser = new fncs_config_parser( $this, $this->px );
+						$set_vars = array();
+						$base64_json = $this->px->req()->get_param('base64_json');
+						$json = $this->px->req()->get_param('json');
+						if( strlen($base64_json) ){
+							$json = base64_decode($base64_json);
+						}
+						if( strlen($json) ){
+							$set_vars = json_decode($json, true);
+						}
+						$result = $config_parser->update($set_vars);
+						print $std_output->data_convert( $result );
+						exit;
+						break;
 				}
 				break;
 

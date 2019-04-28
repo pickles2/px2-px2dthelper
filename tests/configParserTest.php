@@ -19,14 +19,52 @@ class configParserTest extends PHPUnit_Framework_TestCase{
 	 */
 	public function testConfigParser(){
 
-		// Pickles 2 実行
+		// ---------------------------
+		// 設定値を取得
 		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.config.parse' ] );
 		// var_dump($output);
 		$json = json_decode( $output );
 		// var_dump($json);
-		$this->assertFalse( $json );
-		// $this->assertTrue( is_object($json) );
-		// $this->assertEquals( $json->path_type, 'normal' );
+		$this->assertTrue( is_object($json) );
+		$this->assertTrue( $json->result );
+		$this->assertEquals( $json->vars->theme_id, 'pickles' );
+
+		// ---------------------------
+		// 上書きする
+		$json = json_encode(array(
+			'theme_id' => 'update_test',
+		));
+		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.config.update&base64_json='.urlencode(base64_encode($json)) ] );
+		// var_dump($output);
+		$json = json_decode( $output );
+		// var_dump($json);
+		$this->assertTrue( is_object($json) );
+		$this->assertTrue( $json->result );
+		$this->assertEquals( $json->vars->theme_id, 'update_test' );
+
+		// ---------------------------
+		// 戻す
+		$json = json_encode(array(
+			'theme_id' => 'pickles',
+		));
+		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.config.update&base64_json='.urlencode(base64_encode($json)) ] );
+		// var_dump($output);
+		$json = json_decode( $output );
+		// var_dump($json);
+		$this->assertTrue( is_object($json) );
+		$this->assertTrue( $json->result );
+		$this->assertEquals( $json->vars->theme_id, 'pickles' );
+
+
+		// ---------------------------
+		// 設定値を再び取得
+		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.config.parse' ] );
+		// var_dump($output);
+		$json = json_decode( $output );
+		// var_dump($json);
+		$this->assertTrue( is_object($json) );
+		$this->assertTrue( $json->result );
+		$this->assertEquals( $json->vars->theme_id, 'pickles' );
 
 
 		// 後始末
