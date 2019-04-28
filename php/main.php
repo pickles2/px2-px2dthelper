@@ -712,6 +712,18 @@ class main{
 				exit;
 				break;
 
+			case 'config':
+				require_once(__DIR__.'/fncs/config/parser.php');
+				switch( @$this->command[2] ){
+					case 'parse':
+						$config_parser = new fncs_config_parser( $this, $this->px );
+						$result = $config_parser->parse();
+						print $std_output->data_convert( $result );
+						exit;
+						break;
+				}
+				break;
+
 			case 'plugins':
 				// プラグインの操作
 				$val = null;
