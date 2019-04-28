@@ -37,7 +37,8 @@ class fncs_config_parser{
 			return array(
 				'result'=>false,
 				'message'=>'Home Directory is NOT defined.',
-				'vars'=>array(),
+				'values'=>array(),
+				'symbols'=>array(),
 			);
 		}
 		if( is_file($realpath_homedir.'config.json') ){
@@ -49,7 +50,8 @@ class fncs_config_parser{
 		return array(
 			'result'=>false,
 			'message'=>'Unknown problem.',
-			'vars'=>array(),
+			'values'=>array(),
+			'symbols'=>array(),
 		);
 	}
 
@@ -61,12 +63,21 @@ class fncs_config_parser{
 	 */
 	public function update($set_data = null){
 		$set_data = json_decode( json_encode($set_data), true );
+		if( is_array($set_data) ){
+			if( !array_key_exists('values', $set_data) ){
+				$set_data['values'] = array();
+			}
+			if( !array_key_exists('symbols', $set_data) ){
+				$set_data['symbols'] = array();
+			}
+		}
 		$realpath_homedir = $this->px->get_realpath_homedir();
 		if( !is_dir($realpath_homedir) ){
 			return array(
 				'result'=>false,
 				'message'=>'Home Directory is NOT defined.',
-				'vars'=>array(),
+				'values'=>array(),
+				'symbols'=>array(),
 			);
 		}
 		if( is_file($realpath_homedir.'config.json') ){
@@ -78,7 +89,8 @@ class fncs_config_parser{
 		return array(
 			'result'=>false,
 			'message'=>'Unknown problem.',
-			'vars'=>array(),
+			'values'=>array(),
+			'symbols'=>array(),
 		);
 	}
 
@@ -93,9 +105,10 @@ class fncs_config_parser{
 		$rtn = array(
 			'result'=>false,
 			'message'=>'config.json is NOT supported.',
-			'vars'=>array(),
+			'values'=>array(),
+			'symbols'=>array(),
 		);
-		// $rtn['vars'] = json_decode( file_get_contents( $path_json ) );
+		// $rtn['values'] = json_decode( file_get_contents( $path_json ) );
 		return $rtn;
 	}
 
@@ -110,11 +123,13 @@ class fncs_config_parser{
 		$rtn = array(
 			'result'=>true,
 			'message'=>'OK',
-			'vars'=>array(),
+			'values'=>array(),
+			'symbols'=>array(),
 		);
 		$src_config_php = file_get_contents( $path_php );
 		$patterns = array(
 			'theme_id' => array(
+				'value_div' => 'symbols',
 				'preg_pattern' => '/(\'|\")default_theme_id\1\s*\=\>\s*(\'|\")([a-zA-Z0-9\-\_]+)\2/s',
 				'index' => 3,
 				'replace' => function( $pattern, $src_config_php, $val ){
@@ -136,13 +151,13 @@ class fncs_config_parser{
 
 		foreach($patterns as $name=>$pattern){
 			if( preg_match($pattern['preg_pattern'], $src_config_php, $matched) ){
-				$rtn['vars']['theme_id'] = $matched[$pattern['index']];
+				$rtn[$pattern['value_div']][$name] = $matched[$pattern['index']];
 
-				if( is_array($set_data) && array_key_exists($name, $set_data) ){
-					if( $pattern['validator']( $set_data[$name] ) ){
-						$src_config_php = $pattern['replace']($pattern, $src_config_php, $set_data[$name]);
+				if( is_array($set_data) && array_key_exists($name, $set_data[$pattern['value_div']]) ){
+					if( $pattern['validator']( $set_data[$pattern['value_div']][$name] ) ){
+						$src_config_php = $pattern['replace']($pattern, $src_config_php, $set_data[$pattern['value_div']][$name]);
 						if( preg_match($pattern['preg_pattern'], $src_config_php, $matched) ){
-							$rtn['vars']['theme_id'] = $matched[$pattern['index']];
+							$rtn[$pattern['value_div']][$name] = $matched[$pattern['index']];
 						}
 					}
 				}

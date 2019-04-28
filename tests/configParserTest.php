@@ -27,12 +27,14 @@ class configParserTest extends PHPUnit_Framework_TestCase{
 		// var_dump($json);
 		$this->assertTrue( is_object($json) );
 		$this->assertTrue( $json->result );
-		$this->assertEquals( $json->vars->theme_id, 'pickles' );
+		$this->assertEquals( $json->symbols->theme_id, 'pickles' );
 
 		// ---------------------------
 		// 上書きする
 		$json = json_encode(array(
-			'theme_id' => 'update_test',
+			'symbols'=>array(
+				'theme_id' => 'update_test',
+			),
 		));
 		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.config.update&base64_json='.urlencode(base64_encode($json)) ] );
 		// var_dump($output);
@@ -40,12 +42,14 @@ class configParserTest extends PHPUnit_Framework_TestCase{
 		// var_dump($json);
 		$this->assertTrue( is_object($json) );
 		$this->assertTrue( $json->result );
-		$this->assertEquals( $json->vars->theme_id, 'update_test' );
+		$this->assertEquals( $json->symbols->theme_id, 'update_test' );
 
 		// ---------------------------
 		// 戻す
 		$json = json_encode(array(
-			'theme_id' => 'pickles',
+			'symbols'=>array(
+				'theme_id' => 'pickles',
+			),
 		));
 		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.config.update&base64_json='.urlencode(base64_encode($json)) ] );
 		// var_dump($output);
@@ -53,7 +57,7 @@ class configParserTest extends PHPUnit_Framework_TestCase{
 		// var_dump($json);
 		$this->assertTrue( is_object($json) );
 		$this->assertTrue( $json->result );
-		$this->assertEquals( $json->vars->theme_id, 'pickles' );
+		$this->assertEquals( $json->symbols->theme_id, 'pickles' );
 
 
 		// ---------------------------
@@ -64,7 +68,7 @@ class configParserTest extends PHPUnit_Framework_TestCase{
 		// var_dump($json);
 		$this->assertTrue( is_object($json) );
 		$this->assertTrue( $json->result );
-		$this->assertEquals( $json->vars->theme_id, 'pickles' );
+		$this->assertEquals( $json->symbols->theme_id, 'pickles' );
 
 
 		// 後始末
