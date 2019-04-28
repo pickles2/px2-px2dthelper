@@ -27,11 +27,17 @@ class configParserTest extends PHPUnit_Framework_TestCase{
 		// var_dump($json);
 		$this->assertTrue( is_object($json) );
 		$this->assertTrue( $json->result );
-		$this->assertEquals( $json->symbols->theme_id, 'pickles' );
+		$this->assertSame( $json->values->name, 'px2-px2dthelper-test' );
+		$this->assertSame( $json->values->domain, null );
+		$this->assertSame( $json->symbols->theme_id, 'pickles' );
 
 		// ---------------------------
 		// 上書きする
 		$json = json_encode(array(
+			'values'=>array(
+				'name' => 'new site name',
+				'domain' => 'example.com',
+			),
 			'symbols'=>array(
 				'theme_id' => 'update_test',
 			),
@@ -42,11 +48,17 @@ class configParserTest extends PHPUnit_Framework_TestCase{
 		// var_dump($json);
 		$this->assertTrue( is_object($json) );
 		$this->assertTrue( $json->result );
-		$this->assertEquals( $json->symbols->theme_id, 'update_test' );
+		$this->assertSame( $json->values->name, 'new site name' );
+		$this->assertSame( $json->values->domain, 'example.com' );
+		$this->assertSame( $json->symbols->theme_id, 'update_test' );
 
 		// ---------------------------
 		// 戻す
 		$json = json_encode(array(
+			'values'=>array(
+				'name' => 'px2-px2dthelper-test',
+				'domain' => null,
+			),
 			'symbols'=>array(
 				'theme_id' => 'pickles',
 			),
@@ -57,7 +69,9 @@ class configParserTest extends PHPUnit_Framework_TestCase{
 		// var_dump($json);
 		$this->assertTrue( is_object($json) );
 		$this->assertTrue( $json->result );
-		$this->assertEquals( $json->symbols->theme_id, 'pickles' );
+		$this->assertSame( $json->values->name, 'px2-px2dthelper-test' );
+		$this->assertSame( $json->values->domain, null );
+		$this->assertSame( $json->symbols->theme_id, 'pickles' );
 
 
 		// ---------------------------
@@ -68,7 +82,7 @@ class configParserTest extends PHPUnit_Framework_TestCase{
 		// var_dump($json);
 		$this->assertTrue( is_object($json) );
 		$this->assertTrue( $json->result );
-		$this->assertEquals( $json->symbols->theme_id, 'pickles' );
+		$this->assertSame( $json->symbols->theme_id, 'pickles' );
 
 
 		// 後始末

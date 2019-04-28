@@ -127,11 +127,95 @@ class fncs_config_parser{
 			'symbols'=>array(),
 		);
 		$src_config_php = file_get_contents( $path_php );
+
 		$patterns = array(
+			'name' => array(
+				'value_div' => 'values',
+				'preg_pattern' => '/\$conf\-\>name\s*\=\s*(?:(\'|\")([a-zA-Z0-9\-\_\.\:\;\@\#\$\%\^\&\*\+\=\s]+)\1|null|NULL)\s*\;/s',
+				'parse' => function( $pattern, $src_config_php ){
+					$rtn = array(
+						'matched' => true,
+						'value' => null,
+					);
+					if( preg_match($pattern['preg_pattern'], $src_config_php, $matched) ){
+						if( strlen($matched[1]) ){
+							$rtn['value'] = $matched[2];
+							return $rtn;
+						}
+						return $rtn;
+					}
+					return array(
+						'matched' => false,
+					);
+				},
+				'replace' => function( $pattern, $src_config_php, $val ){
+					$src_config_php = preg_replace(
+						$pattern['preg_pattern'],
+						'$conf->name = '.var_export($val,true).';',
+						$src_config_php
+					);
+					return $src_config_php;
+				},
+				'validator' => function( $val ){
+					if(!preg_match('/^[a-zA-Z0-9\-\_\.\:\;\@\#\$\%\^\&\*\+\=\s]+$/s', $val)){
+						return false;
+					}
+					return true;
+				},
+			),
+			'domain' => array(
+				'value_div' => 'values',
+				'preg_pattern' => '/\$conf\-\>domain\s*\=\s*(?:(\'|\")([a-zA-Z0-9\-\_\.\:]+)\1|(null|NULL))\s*\;/s',
+				'parse' => function( $pattern, $src_config_php ){
+					$rtn = array(
+						'matched' => true,
+						'value' => null,
+					);
+					if( preg_match($pattern['preg_pattern'], $src_config_php, $matched) ){
+						if( strlen($matched[1]) ){
+							$rtn['value'] = $matched[2];
+							return $rtn;
+						}
+						return $rtn;
+					}
+					return array(
+						'matched' => false,
+					);
+				},
+				'replace' => function( $pattern, $src_config_php, $val ){
+					$src_config_php = preg_replace(
+						$pattern['preg_pattern'],
+						'$conf->domain = '.var_export($val,true).';',
+						$src_config_php
+					);
+					return $src_config_php;
+				},
+				'validator' => function( $val ){
+					if( is_null($val) ){
+						return true; // nullable
+					}
+					if(!preg_match('/^[a-zA-Z0-9\-\_\.\:]+$/s', $val)){
+						return false;
+					}
+					return true;
+				},
+			),
 			'theme_id' => array(
 				'value_div' => 'symbols',
 				'preg_pattern' => '/(\'|\")default_theme_id\1\s*\=\>\s*(\'|\")([a-zA-Z0-9\-\_]+)\2/s',
-				'index' => 3,
+				'parse' => function( $pattern, $src_config_php ){
+					$rtn = array(
+						'matched' => true,
+						'value' => null,
+					);
+					if( preg_match($pattern['preg_pattern'], $src_config_php, $matched) ){
+						$rtn['value'] = $matched[3];
+						return $rtn;
+					}
+					return array(
+						'matched' => false,
+					);
+				},
 				'replace' => function( $pattern, $src_config_php, $val ){
 					$src_config_php = preg_replace(
 						$pattern['preg_pattern'],
@@ -150,21 +234,28 @@ class fncs_config_parser{
 		);
 
 		foreach($patterns as $name=>$pattern){
-			if( preg_match($pattern['preg_pattern'], $src_config_php, $matched) ){
-				$rtn[$pattern['value_div']][$name] = $matched[$pattern['index']];
+			$matched = $pattern['parse']($pattern, $src_config_php);
+			if( $matched['matched'] ){
+				$rtn[$pattern['value_div']][$name] = $matched['value'];
 
 				if( is_array($set_data) && array_key_exists($name, $set_data[$pattern['value_div']]) ){
 					if( $pattern['validator']( $set_data[$pattern['value_div']][$name] ) ){
 						$src_config_php = $pattern['replace']($pattern, $src_config_php, $set_data[$pattern['value_div']][$name]);
-						if( preg_match($pattern['preg_pattern'], $src_config_php, $matched) ){
-							$rtn[$pattern['value_div']][$name] = $matched[$pattern['index']];
+
+						$matched = $pattern['parse']($pattern, $src_config_php);
+						if( $matched['matched'] ){
+							$rtn[$pattern['value_div']][$name] = $matched['value'];
 						}
+
+					}else{
+						$rtn['result'] = false;
+						$rtn['message'] = 'Some options contain invalid values.';
 					}
 				}
 			}
 		}
 
-		if( !is_null( $set_data ) ){
+		if( !is_null( $set_data ) && $rtn['result'] ){
 			$this->px->fs()->save_file( $path_php, $src_config_php );
 		}
 

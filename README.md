@@ -271,6 +271,34 @@ $ # forceオプションを付加した例
 $ php .px_execute.php "/path/init/content.html?PX=px2dthelper.init_content&editor_mode=html.gui&force=1"
 ```
 
+#### PX=px2dthelper.config.parse
+
+設定ファイル(`config.php`)を解析し、解析できた値の一覧を返します。
+
+#### PX=px2dthelper.config.update
+
+設定ファイル(`config.php`)を解析し、解析できた値のうち任意の値を変更して上書きします。
+
+```bash
+$ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.config.update&base64_json=xxxxxxxxxxxx"
+```
+
+変更したい値は、 `json` (JSON形式の文字列) または `base64_json` (JSON形式の文字列を Base64に変換した文字列) のいずれかにセットして渡します。
+
+```php
+$base64_json = base64_encode( json_encode( array(
+	// config の項目で、上書きしたい情報をセットします。
+	'values' => array(
+		'name' => 'New Site Name',
+	),
+
+	// config の物理構造に合致しない設定項目は、`symbols` の中に分類されます。
+	'symbols' => array(
+		'theme_id' => 'new_theme_id', 
+	),
+) ) );
+```
+
 #### PX=px2dthelper.copy_content
 
 コンテンツを複製します。
@@ -360,6 +388,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ### pickles2/px2-px2dthelper v2.0.12 (リリース日未定)
 
+- PXコマンド `PX=px2dthelper.config.parse` と `PX=px2dthelper.config.update` を追加。
 - `PX=px2dthelper.init_content`、`PX=px2dthelper.copy_content` は、コンテンツがすでに存在する場合には、上書きせずエラーを出すように変更された。そのかわり、 `force` オプションを追加し、強制的に上書きできるようにした。
 - `PX=px2dthelper.get.all` の結果に `page_originated_csv` が追加された。(`pickles2/px-fw-2.x v2.0.40` 以上が必要)
 - `document_modules` のビルド結果をキャッシュするようになった。
