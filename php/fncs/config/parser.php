@@ -128,6 +128,41 @@ class fncs_config_parser{
 		);
 		$src_config_php = file_get_contents( $path_php );
 
+		$patterns = $this->generate_config_php_parser_patterns();
+
+		foreach($patterns as $name=>$pattern){
+			$matched = $pattern['parse']($pattern, $src_config_php);
+			if( $matched['matched'] ){
+				$rtn[$pattern['value_div']][$name] = $matched['value'];
+
+				if( is_array($set_data) && array_key_exists($name, $set_data[$pattern['value_div']]) ){
+					if( $pattern['validator']( $set_data[$pattern['value_div']][$name] ) ){
+						$src_config_php = $pattern['replace']($pattern, $src_config_php, $set_data[$pattern['value_div']][$name]);
+
+						$matched = $pattern['parse']($pattern, $src_config_php);
+						if( $matched['matched'] ){
+							$rtn[$pattern['value_div']][$name] = $matched['value'];
+						}
+
+					}else{
+						$rtn['result'] = false;
+						$rtn['message'] = 'Some options contain invalid values.';
+					}
+				}
+			}
+		}
+
+		if( !is_null( $set_data ) && $rtn['result'] ){
+			$this->px->fs()->save_file( $path_php, $src_config_php );
+		}
+
+		return $rtn;
+	}
+
+	/**
+	 * config.php の解析ロジックを生成する
+	 */
+	private function generate_config_php_parser_patterns(){
 		$patterns = array(
 			'name' => array(
 				'value_div' => 'values',
@@ -270,32 +305,7 @@ class fncs_config_parser{
 			),
 		);
 
-		foreach($patterns as $name=>$pattern){
-			$matched = $pattern['parse']($pattern, $src_config_php);
-			if( $matched['matched'] ){
-				$rtn[$pattern['value_div']][$name] = $matched['value'];
-
-				if( is_array($set_data) && array_key_exists($name, $set_data[$pattern['value_div']]) ){
-					if( $pattern['validator']( $set_data[$pattern['value_div']][$name] ) ){
-						$src_config_php = $pattern['replace']($pattern, $src_config_php, $set_data[$pattern['value_div']][$name]);
-
-						$matched = $pattern['parse']($pattern, $src_config_php);
-						if( $matched['matched'] ){
-							$rtn[$pattern['value_div']][$name] = $matched['value'];
-						}
-
-					}else{
-						$rtn['result'] = false;
-						$rtn['message'] = 'Some options contain invalid values.';
-					}
-				}
-			}
-		}
-
-		if( !is_null( $set_data ) && $rtn['result'] ){
-			$this->px->fs()->save_file( $path_php, $src_config_php );
-		}
-
-		return $rtn;
+		return $patterns;
 	}
- }
+
+}
