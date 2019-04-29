@@ -36,6 +36,7 @@ class configParserTest extends PHPUnit_Framework_TestCase{
 		$json = json_encode(array(
 			'values'=>array(
 				'name' => 'new site name',
+				'scheme' => 'http',
 				'domain' => 'example.com',
 			),
 			'symbols'=>array(
@@ -49,6 +50,7 @@ class configParserTest extends PHPUnit_Framework_TestCase{
 		$this->assertTrue( is_object($json) );
 		$this->assertTrue( $json->result );
 		$this->assertSame( $json->values->name, 'new site name' );
+		$this->assertSame( $json->values->scheme, 'http' );
 		$this->assertSame( $json->values->domain, 'example.com' );
 		$this->assertSame( $json->symbols->theme_id, 'update_test' );
 
@@ -57,6 +59,7 @@ class configParserTest extends PHPUnit_Framework_TestCase{
 		$json = json_encode(array(
 			'values'=>array(
 				'name' => 'px2-px2dthelper-test',
+				'scheme' => 'https',
 				'domain' => null,
 			),
 			'symbols'=>array(
@@ -70,6 +73,7 @@ class configParserTest extends PHPUnit_Framework_TestCase{
 		$this->assertTrue( is_object($json) );
 		$this->assertTrue( $json->result );
 		$this->assertSame( $json->values->name, 'px2-px2dthelper-test' );
+		$this->assertSame( $json->values->scheme, 'https' );
 		$this->assertSame( $json->values->domain, null );
 		$this->assertSame( $json->symbols->theme_id, 'pickles' );
 
@@ -82,6 +86,9 @@ class configParserTest extends PHPUnit_Framework_TestCase{
 		// var_dump($json);
 		$this->assertTrue( is_object($json) );
 		$this->assertTrue( $json->result );
+		$this->assertSame( $json->values->name, 'px2-px2dthelper-test' );
+		$this->assertSame( $json->values->scheme, 'https' );
+		$this->assertSame( $json->values->domain, null );
 		$this->assertSame( $json->symbols->theme_id, 'pickles' );
 
 

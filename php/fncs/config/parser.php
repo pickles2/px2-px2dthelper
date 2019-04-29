@@ -163,6 +163,43 @@ class fncs_config_parser{
 					return true;
 				},
 			),
+			'scheme' => array(
+				'value_div' => 'values',
+				'preg_pattern' => '/\$conf\-\>scheme\s*\=\s*(?:(\'|\")([a-zA-Z0-9\-\_\.\:]+)\1|(null|NULL))\s*\;/s',
+				'parse' => function( $pattern, $src_config_php ){
+					$rtn = array(
+						'matched' => true,
+						'value' => null,
+					);
+					if( preg_match($pattern['preg_pattern'], $src_config_php, $matched) ){
+						if( strlen($matched[1]) ){
+							$rtn['value'] = $matched[2];
+							return $rtn;
+						}
+						return $rtn;
+					}
+					return array(
+						'matched' => false,
+					);
+				},
+				'replace' => function( $pattern, $src_config_php, $val ){
+					$src_config_php = preg_replace(
+						$pattern['preg_pattern'],
+						'$conf->scheme = '.var_export($val,true).';',
+						$src_config_php
+					);
+					return $src_config_php;
+				},
+				'validator' => function( $val ){
+					if( is_null($val) ){
+						return false; // not nullable
+					}
+					if(!preg_match('/^(?:http|https)$/s', $val)){
+						return false;
+					}
+					return true;
+				},
+			),
 			'domain' => array(
 				'value_div' => 'values',
 				'preg_pattern' => '/\$conf\-\>domain\s*\=\s*(?:(\'|\")([a-zA-Z0-9\-\_\.\:]+)\1|(null|NULL))\s*\;/s',
@@ -194,7 +231,7 @@ class fncs_config_parser{
 					if( is_null($val) ){
 						return true; // nullable
 					}
-					if(!preg_match('/^[a-zA-Z0-9\-\_\.\:]+$/s', $val)){
+					if(!preg_match('/^[a-zA-Z0-9\-\_\.]+(?:\:[1-9][0-9]*)?$/s', $val)){
 						return false;
 					}
 					return true;

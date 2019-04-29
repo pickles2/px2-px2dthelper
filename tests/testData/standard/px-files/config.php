@@ -6,6 +6,7 @@ return call_user_func( function(){
 
 	// project
 	$conf->name = 'px2-px2dthelper-test'; // サイト名
+	$conf->scheme = 'https'; // スキーマ
 	$conf->domain = NULL; // ドメイン
 	$conf->path_controot = '/'; // コンテンツルートディレクトリ
 
