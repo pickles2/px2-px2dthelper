@@ -15,9 +15,9 @@ class sitemapTest extends PHPUnit_Framework_TestCase{
 	}
 
 	/**
-	 * PX=px2dthelper.sitemap.create のテスト
+	 * PX=px2dthelper.sitemap.create と PX=px2dthelper.sitemap.delete のテスト
 	 */
-	public function testSitemapCreate(){
+	public function testSitemapCreateDelete(){
 
 		// ---------------------------
 		// 新しいサイトマップファイルを作成
@@ -29,6 +29,7 @@ class sitemapTest extends PHPUnit_Framework_TestCase{
 		$this->assertTrue( is_object($json) );
 		$this->assertTrue( $json->result );
 		$this->assertTrue( $this->fs->is_file( __DIR__.'/testData/standard/px-files/sitemaps/create_new_sitemap.csv' ) );
+		$this->assertTrue( $this->fs->is_file( __DIR__.'/testData/standard/px-files/sitemaps/create_new_sitemap.xlsx' ) );
 
 
 		// ---------------------------
@@ -42,6 +43,7 @@ class sitemapTest extends PHPUnit_Framework_TestCase{
 		$this->assertTrue( is_object($json) );
 		$this->assertFalse( $json->result );
 		$this->assertTrue( $this->fs->is_file( __DIR__.'/testData/standard/px-files/sitemaps/create_new_sitemap.csv' ) );
+		$this->assertTrue( $this->fs->is_file( __DIR__.'/testData/standard/px-files/sitemaps/create_new_sitemap.xlsx' ) );
 
 
 		// ---------------------------
@@ -54,6 +56,7 @@ class sitemapTest extends PHPUnit_Framework_TestCase{
 		$this->assertTrue( is_object($json) );
 		$this->assertTrue( $json->result );
 		$this->assertFalse( $this->fs->is_file( __DIR__.'/testData/standard/px-files/sitemaps/create_new_sitemap.csv' ) );
+		$this->assertFalse( $this->fs->is_file( __DIR__.'/testData/standard/px-files/sitemaps/create_new_sitemap.xlsx' ) );
 
 
 		// 後始末
@@ -63,7 +66,7 @@ class sitemapTest extends PHPUnit_Framework_TestCase{
 			'/?PX=clearcache' ,
 		] );
 
-	}//testSitemapCreate()
+	}//testSitemapCreateDelete()
 
 
 

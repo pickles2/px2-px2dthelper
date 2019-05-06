@@ -64,6 +64,29 @@ class fncs_sitemap_editor{
 		$csvSrc = '"* path","* content","* id","* title","* title_breadcrumb","* title_h1","* title_label","* title_full","* logical_path","* list_flg","* layout","* orderby","* keywords","* description","* category_top_flg","* role","* proc_type","* **delete_flg"'."\r\n";
 		$this->px->fs()->save_file($this->realpath_sitemap_dir.$filename.'.csv', $csvSrc);
 
+		$plugin_name = 'tomk79\pickles2\sitemap_excel\pickles_sitemap_excel::exec';
+		$func_div = null;
+		$val = $this->px2dthelper->plugins()->get_plugin_options($plugin_name, $func_div);
+		if( count($val) ){
+			foreach( $val as $option ){
+				if(!is_object( $option->options )){
+					continue;
+				}
+				if($option->options->master_format == 'pass'){
+					continue;
+				}
+				if( is_object($option->options->files_master_format) ){
+					if( $option->options->files_master_format->{$filename} == 'pass' ){
+						continue;
+					}
+				}
+				if( class_exists('\tomk79\pickles2\sitemap_excel\pickles_sitemap_excel') ){
+					$sitemapexcel = new \tomk79\pickles2\sitemap_excel\pickles_sitemap_excel( $this->px );
+					$sitemapexcel->csv2xlsx($this->realpath_sitemap_dir.$filename.'.csv', $this->realpath_sitemap_dir.$filename.'.xlsx');
+				}
+			}
+		}
+
 		return array(
 			'result'=>true,
 			'message'=>'OK',

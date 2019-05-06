@@ -108,6 +108,17 @@ return call_user_func( function(){
 		 // PX=phpinfo
 		'picklesFramework2\commands\phpinfo::register' ,
 
+		// sitemapExcel
+		'tomk79\pickles2\sitemap_excel\pickles_sitemap_excel::exec('.json_encode(array(
+			'master_format'=>'xlsx',
+			'files_master_format'=>array(
+				// 'timestamp_sitemap'=>'timestamp',
+				// 'csv_master_sitemap'=>'csv',
+				// 'xlsx_master_sitemap'=>'xlsx',
+				// 'no_convert'=>'pass',
+			),
+		)).')' ,
+
 		 // プラグイン関連機能のテスト
 		'tomk79\plugin_sample\test::exec1' ,
 	];
