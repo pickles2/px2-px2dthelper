@@ -216,6 +216,22 @@ $ php .px_execute.php "/?PX=px2dthelper.check_editor_mode&path=/target/path.html
 $ php .px_execute.php "/?PX=px2dthelper.search_sitemap&keyword=HOME"
 ```
 
+#### PX=px2dthelper.sitemap.create
+
+新規サイトマップファイルを作成します。 パラメータ `filename` に、作成するサイトマップのファイル名(拡張子は含まない)を指定します。
+
+```bash
+$ php .px_execute.php "/?PX=px2dthelper.sitemap.create&filename=foobar"
+```
+
+#### PX=px2dthelper.sitemap.delete
+
+サイトマップファイルを削除します。 パラメータ `filename` に、削除するサイトマップのファイル名(拡張子は含まない)を指定します。
+
+```bash
+$ php .px_execute.php "/?PX=px2dthelper.sitemap.delete&filename=foobar"
+```
+
 #### PX=px2dthelper.document_modules.build_css
 
 CSSのソースコードが返されます。
@@ -389,6 +405,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 ### pickles2/px2-px2dthelper v2.0.12 (リリース日未定)
 
 - PXコマンド `PX=px2dthelper.config.parse` と `PX=px2dthelper.config.update` を追加。
+- PXコマンド `PX=px2dthelper.sitemap.create` と `PX=px2dthelper.sitemap.delete` を追加。
 - `PX=px2dthelper.init_content`、`PX=px2dthelper.copy_content` は、コンテンツがすでに存在する場合には、上書きせずエラーを出すように変更された。そのかわり、 `force` オプションを追加し、強制的に上書きできるようにした。
 - `PX=px2dthelper.get.all` の結果に `page_originated_csv` が追加された。(`pickles2/px-fw-2.x v2.0.40` 以上が必要)
 - `document_modules` のビルド結果をキャッシュするようになった。

@@ -622,6 +622,28 @@ class main{
 				exit;
 				break;
 
+			case 'sitemap':
+				// サイトマップ操作
+				require_once(__DIR__.'/fncs/sitemap/editor.php');
+				$sitemap_editor = new fncs_sitemap_editor( $this, $this->px );
+				switch( @$this->command[2] ){
+					case 'create':
+						$filename = $this->px->req()->get_param('filename');
+						$result = $sitemap_editor->create($filename);
+						print $std_output->data_convert( $result );
+						exit;
+						break;
+
+					case 'delete':
+						$filename = $this->px->req()->get_param('filename');
+						$result = $sitemap_editor->delete($filename);
+						print $std_output->data_convert( $result );
+						exit;
+						break;
+
+				}
+				break;
+
 			case 'init_content':
 				// コンテンツを初期化する
 				$flg_force = $this->px->req()->get_param('force');

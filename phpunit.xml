@@ -6,6 +6,7 @@
 			<file>./tests/packagesTest.php</file>
 			<file>./tests/pluginsTest.php</file>
 			<file>./tests/searchSitemapTest.php</file>
+			<file>./tests/sitemapTest.php</file>
 			<file>./tests/getNavigationInfoTest.php</file>
 			<file>./tests/getAllTest.php</file>
 			<file>./tests/beforeSitemapTest.php</file>
