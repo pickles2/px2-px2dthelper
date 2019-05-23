@@ -212,8 +212,10 @@ $ php .px_execute.php "/?PX=px2dthelper.check_editor_mode&path=/target/path.html
 
 サイトマップ中のページを検索します。
 
+`limit` オプションは、検索結果の最大件数を指定します。デフォルトは 200件です。
+
 ```bash
-$ php .px_execute.php "/?PX=px2dthelper.search_sitemap&keyword=HOME"
+$ php .px_execute.php "/?PX=px2dthelper.search_sitemap&keyword=HOME&limit=10"
 ```
 
 #### PX=px2dthelper.sitemap.create
@@ -408,6 +410,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 - PXコマンド `PX=px2dthelper.sitemap.create` と `PX=px2dthelper.sitemap.delete` を追加。
 - `PX=px2dthelper.init_content`、`PX=px2dthelper.copy_content` は、コンテンツがすでに存在する場合には、上書きせずエラーを出すように変更された。そのかわり、 `force` オプションを追加し、強制的に上書きできるようにした。
 - `PX=px2dthelper.get.all` の結果に `page_originated_csv` が追加された。(`pickles2/px-fw-2.x v2.0.40` 以上が必要)
+- `PX=px2dthelper.search_sitemap` に `limit` オプションを追加。 デフォルトは 200件が上限となるようになった。
 - `document_modules` のビルド結果をキャッシュするようになった。
 
 ### pickles2/px2-px2dthelper v2.0.11 (2018年11月8日)

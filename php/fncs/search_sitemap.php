@@ -38,12 +38,30 @@ class fncs_search_sitemap{
 		if( !$this->px->site() ){
 			return array();
 		}
+
+		$keyword = ''.$keyword;
+		if( !strlen($keyword) ){
+			return array();
+		}
+
+
+		$options = json_decode(json_encode($options), true);
 		if(!is_array($options)){
 			$options = array();
 		}
+		if( !array_key_exists('limit', $options) ){
+			$options['limit'] = 200;
+		}
+		if( !is_null($options['limit']) ){
+			$options['limit'] = intval($options['limit']);
+		}
+
 
 		$sitemap = $this->px->site()->get_sitemap();
 		foreach($sitemap as $page){
+			if( !is_null($options['limit']) && count($rtn) >= $options['limit'] ){
+				break;
+			}
 			foreach($page as $key=>$val){
 				if( @preg_match('/'.preg_quote($keyword, '/').'/s', $val) ){
 					array_push($rtn, $page);

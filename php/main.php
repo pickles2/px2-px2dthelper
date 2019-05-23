@@ -405,7 +405,7 @@ class main{
 	public function search_sitemap( $keyword, $options = array() ){
 		require_once(__DIR__.'/fncs/search_sitemap.php');
 		$obj = new fncs_search_sitemap( $this, $this->px );
-		$result = $obj->find( $keyword, $options = array() );
+		$result = $obj->find( $keyword, $options );
 		return $result;
 	}
 
@@ -617,7 +617,12 @@ class main{
 
 			case 'search_sitemap':
 				// サイトマップ中のページを検索する
-				$result = $this->search_sitemap( $this->px->req()->get_param('keyword'), array() );
+				$result = $this->search_sitemap(
+					$this->px->req()->get_param('keyword'),
+					array(
+						'limit' => $this->px->req()->get_param('limit'),
+					)
+				);
 				print $std_output->data_convert( $result );
 				exit;
 				break;

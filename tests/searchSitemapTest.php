@@ -42,6 +42,34 @@ class searchSitemapTest extends PHPUnit_Framework_TestCase{
 		] );
 	} // testSearchSitemap()
 
+	/**
+	 * 件数制限付きでページを検索するテスト
+	 */
+	public function testSearchSitemapLimited(){
+
+		// PX=px2dthelper.init_content
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/standard/.px_execute.php',
+			'/index.html?PX=px2dthelper.search_sitemap&keyword='.urlencode('/').'&limit=2'
+		] );
+		// var_dump($output);
+		$output = json_decode($output, true);
+		// var_dump($output);
+		$this->assertEquals( gettype(array()), gettype($output) );
+
+		$this->assertEquals( count($output), 2 );
+		$this->assertTrue( is_array($output[0]) );
+
+		// 後始末
+		$this->fs->rm(__DIR__.'/testData/standard/init_content/');
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/standard/.px_execute.php' ,
+			'/?PX=clearcache' ,
+		] );
+	} // testSearchSitemapLimited()
+
 
 
 
