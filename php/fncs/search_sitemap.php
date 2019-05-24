@@ -63,6 +63,25 @@ class fncs_search_sitemap{
 				break;
 			}
 			foreach($page as $key=>$val){
+				if(
+					$key == 'logical_path'
+					|| $key == 'layout'
+					|| $key == 'orderby'
+					|| $key == 'keywords'
+					|| $key == 'description'
+					|| $key == 'role'
+					|| $key == 'proc_type'
+					|| preg_match( '/^.*(?:\_|\-|\.)(?:flg|flag)$/si', $key)
+					|| preg_match( '/^(?:flg|flag)(?:\_|\-|\.).*$/si', $key)
+				){
+					// 検索対象のカラムを制限する。
+					// 例えば、 ページパスやページIDで検索したとき、
+					// logical_path に含まれるので、下層ページ全部がヒットしてしまう。
+					// そうした意図しない検索対象を除外するための処理。
+					// ただし、ユーザーが拡張した任意の名称のカラムは検索対象としたいので、
+					// ブラックリスト処理とした。
+					continue;
+				}
 				if( @preg_match('/'.preg_quote($keyword, '/').'/s', $val) ){
 					array_push($rtn, $page);
 					continue 2;
