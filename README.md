@@ -404,7 +404,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ## 更新履歴 - Change log
 
-### pickles2/px2-px2dthelper v2.0.12 (リリース日未定)
+### pickles2/px2-px2dthelper v2.0.12 (2019年6月8日)
 
 - PXコマンド `PX=px2dthelper.config.parse` と `PX=px2dthelper.config.update` を追加。
 - PXコマンド `PX=px2dthelper.sitemap.create` と `PX=px2dthelper.sitemap.delete` を追加。
@@ -497,8 +497,8 @@ MIT License
 ## 作者 - Author
 
 - Tomoya Koyanagi <tomk79@gmail.com>
-- website: <http://www.pxt.jp/>
-- Twitter: @tomk79 <http://twitter.com/tomk79/>
+- website: <https://www.pxt.jp/>
+- Twitter: @tomk79 <https://twitter.com/tomk79/>
 
 
 ## for Developer
@@ -512,5 +512,5 @@ $ ./vendor/phpunit/phpunit/phpunit
 ### ドキュメント出力 - phpDocumentor
 
 ```
-$ php ./vendor/phpdocumentor/phpdocumentor/bin/phpdoc --title "px2-px2dthelper API Document" -d "./php/" -t "./doc/"
+$ composer run-script documentation
 ```

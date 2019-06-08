@@ -39,17 +39,17 @@ class main{
 	 * - [Semantic Versioning(英語原文)](http://semver.org/)
 	 * - [セマンティック バージョニング(日本語)](http://semver.org/lang/ja/)
 	 *
-	 * *[ナイトリービルド]*<br />
-	 * バージョン番号が振られていない、開発途中のリビジョンを、ナイトリービルドと呼びます。<br />
-	 * ナイトリービルドの場合、バージョン番号は、次のリリースが予定されているバージョン番号に、
-	 * ビルドメタデータ `+nb` を付加します。
+	 * *[開発版]*<br />
+	 * バージョン番号が振られていない、開発途中のリビジョンを、開発版と呼びます。<br />
+	 * 開発版の場合、バージョン番号は、次のリリースが予定されているバージョン番号に、
+	 * ビルドメタデータ `+dev` を付加します。
 	 * 通常は、プレリリース記号 `alpha` または `beta` を伴うようにします。
-	 * - 例：1.0.0-beta.12+nb (=1.0.0-beta.12リリース前のナイトリービルド)
+	 * - 例：1.0.0-beta.12+dev (=1.0.0-beta.12リリース前の開発版)
 	 *
 	 * @return string バージョン番号を示す文字列
 	 */
 	public function get_version(){
-		return '2.0.11';
+		return '2.0.12';
 	}
 
 
@@ -405,18 +405,19 @@ class main{
 	public function search_sitemap( $keyword, $options = array() ){
 		require_once(__DIR__.'/fncs/search_sitemap.php');
 		$obj = new fncs_search_sitemap( $this, $this->px );
-		$result = $obj->find( $keyword, $options = array() );
+		$result = $obj->find( $keyword, $options );
 		return $result;
 	}
 
 	/**
 	 * コンテンツを初期化する
 	 * @param string $editor_mode 編集モード名
+	 * @param  array  $options   オプション (詳しくは `fncs_init_content::init_content()` の説明を参照)
 	 */
-	public function init_content( $editor_mode ){
+	public function init_content( $editor_mode, $options = array() ){
 		require_once(__DIR__.'/fncs/init_content.php');
 		$obj = new fncs_init_content( $this, $this->px );
-		$result = $obj->init_content( $editor_mode );
+		$result = $obj->init_content( $editor_mode, $options );
 		return $result;
 	}
 
@@ -424,12 +425,13 @@ class main{
 	 * コンテンツを複製する
 	 * @param string $path_from 複製元ページのパス
 	 * @param string $path_to 複製先ページのパス
+	 * @param  array  $options   オプション (詳しくは `fncs_copy_content::copy()` の説明を参照)
 	 * @return array 実行結果
 	 */
-	public function copy_content( $path_from, $path_to ){
+	public function copy_content( $path_from, $path_to, $options = array() ){
 		require_once(__DIR__.'/fncs/copy_content.php');
 		$copyCont = new fncs_copy_content($this, $this->px);
-		$result = $copyCont->copy( $path_from, $path_to );
+		$result = $copyCont->copy( $path_from, $path_to, $options );
 		return $result;
 	}
 
@@ -582,6 +584,9 @@ class main{
 								@$rtn->realpath_data_dir = false;
 							}
 							@$rtn->navigation_info = $this->get_navigation_info( $request_path, $sitemap_filter_options($this->px, $this->command[2]) );
+							if( is_callable(array($this->px->site(), 'get_page_originated_csv')) ){
+								@$rtn->page_originated_csv = $this->px->site()->get_page_originated_csv( $request_path );
+							}
 						}
 
 						@$rtn->packages->path_composer_root_dir = $this->packages()->get_path_composer_root_dir();
@@ -612,20 +617,54 @@ class main{
 
 			case 'search_sitemap':
 				// サイトマップ中のページを検索する
-				$result = $this->search_sitemap( $this->px->req()->get_param('keyword'), array() );
+				$result = $this->search_sitemap(
+					$this->px->req()->get_param('keyword'),
+					array(
+						'limit' => $this->px->req()->get_param('limit'),
+					)
+				);
 				print $std_output->data_convert( $result );
 				exit;
 				break;
 
+			case 'sitemap':
+				// サイトマップ操作
+				require_once(__DIR__.'/fncs/sitemap/editor.php');
+				$sitemap_editor = new fncs_sitemap_editor( $this, $this->px );
+				switch( @$this->command[2] ){
+					case 'create':
+						$filename = $this->px->req()->get_param('filename');
+						$result = $sitemap_editor->create($filename);
+						print $std_output->data_convert( $result );
+						exit;
+						break;
+
+					case 'delete':
+						$filename = $this->px->req()->get_param('filename');
+						$result = $sitemap_editor->delete($filename);
+						print $std_output->data_convert( $result );
+						exit;
+						break;
+
+				}
+				break;
+
 			case 'init_content':
 				// コンテンツを初期化する
-				$result = $this->init_content( $this->px->req()->get_param('editor_mode') );
+				$flg_force = $this->px->req()->get_param('force');
+				$result = $this->init_content(
+					$this->px->req()->get_param('editor_mode'),
+					array(
+						'force'=>$flg_force,
+					)
+				);
 				print $std_output->data_convert( $result );
 				exit;
 				break;
 
 			case 'copy_content':
 				// コンテンツを複製する
+				$flg_force = $this->px->req()->get_param('force');
 				$path_to = $this->px->req()->get_request_file_path();
 				$param_to = $this->px->req()->get_param('to');
 				if( strlen( $param_to ) ){
@@ -633,7 +672,10 @@ class main{
 				}
 				$result = $this->copy_content(
 					$this->px->req()->get_param('from'),
-					$path_to
+					$path_to,
+					array(
+						'force'=>$flg_force,
+					)
 				);
 				print $std_output->data_convert( $result );
 				exit;
@@ -695,6 +737,34 @@ class main{
 				}
 				print $std_output->data_convert( $val );
 				exit;
+				break;
+
+			case 'config':
+				require_once(__DIR__.'/fncs/config/parser.php');
+				switch( @$this->command[2] ){
+					case 'parse':
+						$config_parser = new fncs_config_parser( $this, $this->px );
+						$result = $config_parser->parse();
+						print $std_output->data_convert( $result );
+						exit;
+						break;
+
+					case 'update':
+						$config_parser = new fncs_config_parser( $this, $this->px );
+						$set_vars = array();
+						$base64_json = $this->px->req()->get_param('base64_json');
+						$json = $this->px->req()->get_param('json');
+						if( strlen($base64_json) ){
+							$json = base64_decode($base64_json);
+						}
+						if( strlen($json) ){
+							$set_vars = json_decode($json, true);
+						}
+						$result = $config_parser->update($set_vars);
+						print $std_output->data_convert( $result );
+						exit;
+						break;
+				}
 				break;
 
 			case 'plugins':

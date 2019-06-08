@@ -31,9 +31,11 @@ class fncs_copy_content{
 	 *
 	 * @param  string $path_from コピー元のページパス (サイトマップの path 値)
 	 * @param  string $path_to   コピー先のページパス (サイトマップの path 値)
+	 * @param  array  $options   オプション
+	 * - `force` : `true` を指定すると、すでにコンテンツが存在した場合にも強制的に上書きします。
 	 * @return array `array(boolean $result, string $error_msg)`
 	 */
-	public function copy( $path_from, $path_to ){
+	public function copy( $path_from, $path_to, $options = array() ){
 		if( !$this->px->site() ){
 			return array(false, '$px->site() is not defined.');
 		}
@@ -51,8 +53,17 @@ class fncs_copy_content{
 		$to['procType'] = $this->px->get_path_proc_type( $path_to );
 		// var_dump($from, $to);
 
+		$flg_force = false;
+		if( is_array($options) && array_key_exists('force', $options) ){
+			$flg_force = !!$options['force'];
+		}
+
 		if( $from['pathContent'] == $to['pathContent'] ){
 			return array(false, 'Same paths was given to `$from` and `$to`.');
+		}
+
+		if( $this->px->fs()->is_file( $contRoot.'/'.$to['pathContent'] ) && !$flg_force ){
+			return array(false, 'Contents already exists.');
 		}
 
 		// 一旦削除する
