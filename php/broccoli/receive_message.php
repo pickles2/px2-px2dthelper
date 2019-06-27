@@ -34,7 +34,7 @@ class broccoli_receive_message{
 	public function __construct($px, $plugin_conf){
 		$main_src = $px->bowl()->pull('main');
 
-		$main_src = self::detoxify_sabotage_script($main_src);
+		$main_src = self::detoxify_sabotage_script($px, $main_src);
 		$main_src .= self::generate_receive_message_script($plugin_conf);
 		$main_src .= self::generate_error_message($px);
 
@@ -48,7 +48,7 @@ class broccoli_receive_message{
 	 * @return string 変換されたHTMLソース
 	 */
 	private function detoxify_sabotage_script($px, $src){
-		if( strlen( $this->px->req()->get_param('PICKLES2_CONTENTS_EDITOR') ) ){
+		if( strlen( $px->req()->get_param('PICKLES2_CONTENTS_EDITOR') ) ){
 			// なぜかBroccoliをフリーズさせる外部のJS。
 			// 無効化したら動くようになった。 (2019/4/22)
 			$src = preg_replace( '/'.preg_quote('//platform.twitter.com/','/').'/', '//platform.twitter.com__/', $src );
