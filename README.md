@@ -404,6 +404,10 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ## 更新履歴 - Change log
 
+### pickles2/px2-px2dthelper v2.0.13 (リリース日未定)
+
+- Broccoli編集画面を停止させる外部のスクリプトを無効化するようにした。
+
 ### pickles2/px2-px2dthelper v2.0.12 (2019年6月8日)
 
 - PXコマンド `PX=px2dthelper.config.parse` と `PX=px2dthelper.config.update` を追加。
