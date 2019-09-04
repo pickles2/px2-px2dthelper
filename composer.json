@@ -15,7 +15,7 @@
             "php ./vendor/phpunit/phpunit/phpunit"
         ],
         "documentation": [
-            "php ./vendor/phpdocumentor/phpdocumentor/bin/phpdoc --title \"pickles2/px2-px2dthelper@2.0.12 API Document\" -d \"./php/\" -t \"./doc/\""
+            "php ./vendor/phpdocumentor/phpdocumentor/bin/phpdoc --title \"pickles2/px2-px2dthelper@2.0.13 API Document\" -d \"./php/\" -t \"./doc/\""
         ]
     } ,
     "repositories": [
