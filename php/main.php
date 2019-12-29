@@ -247,7 +247,7 @@ class main{
 		$path_content = null;
 		if( $this->px->site() ){
 			$tmp_page_info = $this->px->site()->get_page_info($page_path);
-			if( is_array($path_content) ){
+			if( is_array($tmp_page_info) ){
 				$path_content = $tmp_page_info['content'];
 			}
 			unset($tmp_page_info);
@@ -274,7 +274,6 @@ class main{
 				'filename'=>basename($this->px->fs()->trim_extension($path_content)),
 				'ext'=>strtolower($this->px->fs()->get_extension($path_content)),
 			);
-			if( $data['dirname'] == '.' ){ $data['dirname'] = ''; }
 			$rtn = str_replace( '{$dirname}', $data['dirname'], $rtn );
 			$rtn = str_replace( '{$filename}', $data['filename'], $rtn );
 			$rtn = str_replace( '{$ext}', $data['ext'], $rtn );
