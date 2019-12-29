@@ -41,7 +41,9 @@ class fncs_change_content_editor_mode{
 		$path_content_to = null;
 		if( $this->px->site() ){
 			$page_info = $this->px->site()->get_page_info( $page_path );
-			$path_content_to = $page_info['content'];
+			if( is_array($page_info) && array_key_exists('content', $page_info) ){
+				$path_content_to = $page_info['content'];
+			}
 		}
 		if( !strlen( $path_content_to ) ){
 			$path_content_to = $page_path;
