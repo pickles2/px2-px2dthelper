@@ -244,15 +244,18 @@ class main{
 	 * @return string バインド後のパス文字列
 	 */
 	private function bind_path_files( $template, $page_path = null ){
+		$path_content = null;
 		if( $this->px->site() ){
 			$tmp_page_info = $this->px->site()->get_page_info($page_path);
-			$path_content = $tmp_page_info['content'];
+			if( is_array($path_content) ){
+				$path_content = $tmp_page_info['content'];
+			}
 			unset($tmp_page_info);
 		}
-		if( @is_null($path_content) ){
+		if( is_null($path_content) ){
 			$path_content = $page_path;
 		}
-		if( @is_null($path_content) ){
+		if( is_null($path_content) ){
 			$path_content = $this->px->req()->get_request_file_path();
 		}
 
