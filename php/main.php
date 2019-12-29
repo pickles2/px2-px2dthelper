@@ -274,6 +274,7 @@ class main{
 				'filename'=>basename($this->px->fs()->trim_extension($path_content)),
 				'ext'=>strtolower($this->px->fs()->get_extension($path_content)),
 			);
+			if( $data['dirname'] == '.' ){ $data['dirname'] = ''; }
 			$rtn = str_replace( '{$dirname}', $data['dirname'], $rtn );
 			$rtn = str_replace( '{$filename}', $data['filename'], $rtn );
 			$rtn = str_replace( '{$ext}', $data['ext'], $rtn );
