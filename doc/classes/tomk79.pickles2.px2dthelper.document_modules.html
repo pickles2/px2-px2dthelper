@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <meta charset="utf-8"/>
-    <title>pickles2/px2-px2dthelper@2.0.13 API Document</title>
+    <title>pickles2/px2-px2dthelper@2.0.14 API Document</title>
     <meta name="author" content=""/>
     <meta name="description" content=""/>
 
@@ -24,7 +24,7 @@
     <script type="text/javascript">
     function loadExternalCodeSnippets() {
         Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
-            var src = pre.getAttribute('data-src');
+            var src = pre.getAttribute('data-src').replace( /\\/g, '/');
             var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
             var language = 'php';
 
@@ -83,7 +83,7 @@
             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                 <i class="icon-ellipsis-vertical"></i>
             </a>
-            <a class="brand" href="../index.html">pickles2/px2-px2dthelper@2.0.13 API Document</a>
+            <a class="brand" href="../index.html">pickles2/px2-px2dthelper@2.0.14 API Document</a>
 
             <div class="nav-collapse">
                 <ul class="nav pull-right">
@@ -144,37 +144,37 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-821169028"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-49448588"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-821169028" class="accordion-body collapse in">
+            <div id="namespace-49448588" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-42845646"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2058901273"></a>
                                 <a href="../namespaces/tomk79.html" style="margin-left: 30px; padding-left: 0">tomk79</a>
             </div>
-            <div id="namespace-42845646" class="accordion-body collapse ">
+            <div id="namespace-2058901273" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1158282614"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-212495838"></a>
                                 <a href="../namespaces/tomk79.pickles2.html" style="margin-left: 30px; padding-left: 0">pickles2</a>
             </div>
-            <div id="namespace-1158282614" class="accordion-body collapse ">
+            <div id="namespace-212495838" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-377321393"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2122006698"></a>
                                 <a href="../namespaces/tomk79.pickles2.px2dthelper.html" style="margin-left: 30px; padding-left: 0">px2dthelper</a>
             </div>
-            <div id="namespace-377321393" class="accordion-body collapse ">
+            <div id="namespace-2122006698" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -315,7 +315,7 @@
                         
                         
                         
-                        
+                                                
                                                                         </dl>
                     <h2>Tags</h2>
                     <table class="table table-condensed">
@@ -413,13 +413,15 @@
                                             </table>
                 
                 
-                				
+                
                             </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/tomk79.pickles2.px2dthelper.document_modules.html"><div class="path-wrapper">\tomk79\pickles2\px2dthelper\document_modules</div></a></dd>
+                                                            </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -446,13 +448,15 @@ print (new \tomk79\pickles2\px2dthelper\main($px))-&gt;document_modules()-&gt;lo
                                     <h4>Returns</h4>
                     string
                                             &mdash; <p>HTMLコード(styleタグ、およびscriptタグ)</p>
-                                    				
+                                    
                             </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/tomk79.pickles2.px2dthelper.document_modules.html"><div class="path-wrapper">\tomk79\pickles2\px2dthelper\document_modules</div></a></dd>
+                                                            </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -480,13 +484,15 @@ print (new \tomk79\pickles2\px2dthelper\main($px))-&gt;document_modules()-&gt;bu
                                     <h4>Returns</h4>
                     string
                                             &mdash; <p>CSSコード</p>
-                                    				
+                                    
                             </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/tomk79.pickles2.px2dthelper.document_modules.html"><div class="path-wrapper">\tomk79\pickles2\px2dthelper\document_modules</div></a></dd>
+                                                            </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -517,13 +523,15 @@ print (new \tomk79\pickles2\px2dthelper\main($px))-&gt;document_modules()-&gt;bu
                                     <h4>Returns</h4>
                     string
                                             &mdash; <p>CSSコード</p>
-                                    				
+                                    
                             </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/tomk79.pickles2.px2dthelper.document_modules.html"><div class="path-wrapper">\tomk79\pickles2\px2dthelper\document_modules</div></a></dd>
+                                                            </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -551,13 +559,15 @@ print (new \tomk79\pickles2\px2dthelper\main($px))-&gt;document_modules()-&gt;bu
                                     <h4>Returns</h4>
                     string
                                             &mdash; <p>JavaScriptコード</p>
-                                    				
+                                    
                             </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/tomk79.pickles2.px2dthelper.document_modules.html"><div class="path-wrapper">\tomk79\pickles2\px2dthelper\document_modules</div></a></dd>
+                                                            </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -588,13 +598,15 @@ print (new \tomk79\pickles2\px2dthelper\main($px))-&gt;document_modules()-&gt;bu
                                     <h4>Returns</h4>
                     string
                                             &mdash; <p>JavaScriptコード</p>
-                                    				
+                                    
                             </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/tomk79.pickles2.px2dthelper.document_modules.html"><div class="path-wrapper">\tomk79\pickles2\px2dthelper\document_modules</div></a></dd>
+                                                            </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -625,13 +637,15 @@ print (new \tomk79\pickles2\px2dthelper\main($px))-&gt;document_modules()-&gt;bu
                                     <h4>Returns</h4>
                     string
                                             &mdash; <p>ビルドされたCSSソース</p>
-                                    				
+                                    
                             </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/tomk79.pickles2.px2dthelper.document_modules.html"><div class="path-wrapper">\tomk79\pickles2\px2dthelper\document_modules</div></a></dd>
+                                                            </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -667,13 +681,15 @@ print (new \tomk79\pickles2\px2dthelper\main($px))-&gt;document_modules()-&gt;bu
                                     <h4>Returns</h4>
                     string
                                             &mdash; <p>CSSコード</p>
-                                    				
+                                    
                             </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/tomk79.pickles2.px2dthelper.document_modules.html"><div class="path-wrapper">\tomk79\pickles2\px2dthelper\document_modules</div></a></dd>
+                                                            </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -704,13 +720,15 @@ print (new \tomk79\pickles2\px2dthelper\main($px))-&gt;document_modules()-&gt;bu
                                     <h4>Returns</h4>
                     string
                                             &mdash; <p>ビルドされたJSソース</p>
-                                    				
+                                    
                             </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/tomk79.pickles2.px2dthelper.document_modules.html"><div class="path-wrapper">\tomk79\pickles2\px2dthelper\document_modules</div></a></dd>
+                                                            </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -751,13 +769,15 @@ print (new \tomk79\pickles2\px2dthelper\main($px))-&gt;document_modules()-&gt;bu
                                     <h4>Returns</h4>
                     boolean
                                             &mdash; <p>読み込み可能な場合に <code>true</code>、読み込みできない場合に <code>false</code> を返します。</p>
-                                    				
+                                    
                             </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/tomk79.pickles2.px2dthelper.document_modules.html"><div class="path-wrapper">\tomk79\pickles2\px2dthelper\document_modules</div></a></dd>
+                                                            </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -798,13 +818,15 @@ print (new \tomk79\pickles2\px2dthelper\main($px))-&gt;document_modules()-&gt;bu
                                     <h4>Returns</h4>
                     boolean
                                             &mdash; <p>読み込み可能な場合に <code>true</code>、読み込みできない場合に <code>false</code> を返します。</p>
-                                    				
+                                    
                             </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/tomk79.pickles2.px2dthelper.document_modules.html"><div class="path-wrapper">\tomk79\pickles2\px2dthelper\document_modules</div></a></dd>
+                                                            </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -862,7 +884,7 @@ print (new \tomk79\pickles2\px2dthelper\main($px))-&gt;document_modules()-&gt;bu
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on September 4th, 2019 at 11:54.
+                    on January 1st, 2020 at 21:31.
                 </section>
             </section>
         </section>

@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <meta charset="utf-8"/>
-    <title>pickles2/px2-px2dthelper@2.0.13 API Document</title>
+    <title>pickles2/px2-px2dthelper@2.0.14 API Document</title>
     <meta name="author" content=""/>
     <meta name="description" content=""/>
 
@@ -24,7 +24,7 @@
     <script type="text/javascript">
     function loadExternalCodeSnippets() {
         Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
-            var src = pre.getAttribute('data-src');
+            var src = pre.getAttribute('data-src').replace( /\\/g, '/');
             var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
             var language = 'php';
 
@@ -83,7 +83,7 @@
             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                 <i class="icon-ellipsis-vertical"></i>
             </a>
-            <a class="brand" href="../index.html">pickles2/px2-px2dthelper@2.0.13 API Document</a>
+            <a class="brand" href="../index.html">pickles2/px2-px2dthelper@2.0.14 API Document</a>
 
             <div class="nav-collapse">
                 <ul class="nav pull-right">
@@ -144,37 +144,37 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1802132005"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1051430782"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1802132005" class="accordion-body collapse in">
+            <div id="namespace-1051430782" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1493184810"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1187865796"></a>
                                 <a href="../namespaces/tomk79.html" style="margin-left: 30px; padding-left: 0">tomk79</a>
             </div>
-            <div id="namespace-1493184810" class="accordion-body collapse ">
+            <div id="namespace-1187865796" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-979055104"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1130951234"></a>
                                 <a href="../namespaces/tomk79.pickles2.html" style="margin-left: 30px; padding-left: 0">pickles2</a>
             </div>
-            <div id="namespace-979055104" class="accordion-body collapse ">
+            <div id="namespace-1130951234" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2018716437"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1079377411"></a>
                                 <a href="../namespaces/tomk79.pickles2.px2dthelper.html" style="margin-left: 30px; padding-left: 0">px2dthelper</a>
             </div>
-            <div id="namespace-2018716437" class="accordion-body collapse ">
+            <div id="namespace-1079377411" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -311,7 +311,7 @@
                         
                         
                         
-                        
+                                                
                                                                         </dl>
                     <h2>Tags</h2>
                     <table class="table table-condensed">
@@ -409,13 +409,15 @@
                                             </table>
                 
                 
-                				
+                
                             </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/tomk79.pickles2.px2dthelper.packages.html"><div class="path-wrapper">\tomk79\pickles2\px2dthelper\packages</div></a></dd>
+                                                            </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -438,13 +440,15 @@
                                     <h4>Returns</h4>
                     array
                                             &mdash; <p>パッケージの一覧</p>
-                                    				
+                                    
                             </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/tomk79.pickles2.px2dthelper.packages.html"><div class="path-wrapper">\tomk79\pickles2\px2dthelper\packages</div></a></dd>
+                                                            </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -468,13 +472,15 @@
                                     <h4>Returns</h4>
                     string
                                             &mdash; <p><code>composer.json</code> が設置されているディレクトリのパス</p>
-                                    				
+                                    
                             </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/tomk79.pickles2.px2dthelper.packages.html"><div class="path-wrapper">\tomk79\pickles2\px2dthelper\packages</div></a></dd>
+                                                            </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -498,13 +504,15 @@
                                     <h4>Returns</h4>
                     string
                                             &mdash; <p><code>package.json</code> が設置されているディレクトリのパス</p>
-                                    				
+                                    
                             </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/tomk79.pickles2.px2dthelper.packages.html"><div class="path-wrapper">\tomk79\pickles2\px2dthelper\packages</div></a></dd>
+                                                            </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -540,13 +548,15 @@
                                     <h4>Returns</h4>
                     object
                                             &mdash; <p>更新された <code>$package_list</code></p>
-                                    				
+                                    
                             </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/tomk79.pickles2.px2dthelper.packages.html"><div class="path-wrapper">\tomk79\pickles2\px2dthelper\packages</div></a></dd>
+                                                            </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -592,13 +602,15 @@
                                     <h4>Returns</h4>
                     object
                                             &mdash; <p>更新された <code>$package_list</code></p>
-                                    				
+                                    
                             </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/tomk79.pickles2.px2dthelper.packages.html"><div class="path-wrapper">\tomk79\pickles2\px2dthelper\packages</div></a></dd>
+                                                            </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -644,13 +656,15 @@
                                     <h4>Returns</h4>
                     object
                                             &mdash; <p>更新された <code>$package_list</code></p>
-                                    				
+                                    
                             </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/tomk79.pickles2.px2dthelper.packages.html"><div class="path-wrapper">\tomk79\pickles2\px2dthelper\packages</div></a></dd>
+                                                            </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -708,7 +722,7 @@
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on September 4th, 2019 at 11:54.
+                    on January 1st, 2020 at 21:31.
                 </section>
             </section>
         </section>

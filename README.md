@@ -36,22 +36,12 @@ Pickles 2 用のプラグインです。Pickles 2 Desktop Tool と連携させ�
 
 ## インストール - Install
 
-次の手順でセットアップしてください。
+次の手順でインストールしてください。
 
-### composer.json に追記する。
-
-```json
-{
-	"require": {
-		"pickles2/px2-px2dthelper": "^2.0"
-	}
-}
-```
-
-### composer を更新する。
+### Composer パッケージを読み込む。
 
 ```bash
-$ composer update
+$ composer require pickles2/px2-px2dthelper
 ```
 
 ### Pickles2 のコンフィグに追記する。
@@ -404,7 +394,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ## 更新履歴 - Change log
 
-### pickles2/px2-px2dthelper v2.0.14 (リリース日未定)
+### pickles2/px2-px2dthelper v2.0.14 (2020年1月2日)
 
 - PHP 7.4 に対応した。
 
@@ -497,18 +487,6 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 - initial release.
 
 
-## ライセンス - License
-
-MIT License
-
-
-## 作者 - Author
-
-- Tomoya Koyanagi <tomk79@gmail.com>
-- website: <https://www.pxt.jp/>
-- Twitter: @tomk79 <https://twitter.com/tomk79/>
-
-
 ## for Developer
 
 ### テスト - Test
@@ -522,3 +500,16 @@ $ ./vendor/phpunit/phpunit/phpunit
 ```
 $ composer run-script documentation
 ```
+
+
+## ライセンス - License
+
+Copyright (c)2001-2020 Tomoya Koyanagi, and Pickles 2 Project<br />
+MIT License https://opensource.org/licenses/mit-license.php
+
+
+## 作者 - Author
+
+- Tomoya Koyanagi <tomk79@gmail.com>
+- website: <https://www.pxt.jp/>
+- Twitter: @tomk79 <https://twitter.com/tomk79/>
