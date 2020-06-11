@@ -22,7 +22,7 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "tomk79/php-excel2html": "^0.0",
+        "tomk79/php-excel2html": "^0.0||^0.1",
         "michelf/php-markdown": ">=1.6",
         "leafo/scssphp": ">=0.7",
         "pickles2/lib-px2-contents-editor": "^2.0",
@@ -32,11 +32,11 @@
     "require-dev": {
         "broccoli-html-editor/broccoli-module-fess": "dev-develop",
         "broccoli-html-editor/broccoli-module-plain-html-elements": "dev-develop",
-        "pickles2/px-fw-2.x": "dev-develop" ,
-        "pickles2/px2-sitemapexcel": "dev-develop",
-        "pickles2/px2-multitheme": "dev-develop",
-        "tomk79/filesystem": "^1.0.0",
-        "phpunit/phpunit": "^4.1.0",
+        "pickles2/px-fw-2.x": "~2.0" ,
+        "pickles2/px2-sitemapexcel": "~2.0",
+        "pickles2/px2-multitheme": "~2.0",
+        "tomk79/filesystem": "~1.0.0",
+        "phpunit/phpunit": "^4.8.0",
         "phpdocumentor/phpdocumentor": "^2.9.0",
         "jms/serializer": "<1.8"
     },
