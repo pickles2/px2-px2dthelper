@@ -22,7 +22,7 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "tomk79/php-excel2html": "^0.0||^0.1",
+        "tomk79/php-excel2html": "^0.0.8||^0.1.0",
         "michelf/php-markdown": ">=1.6",
         "leafo/scssphp": ">=0.7",
         "pickles2/lib-px2-contents-editor": "^2.0",
