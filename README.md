@@ -394,6 +394,10 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ## 更新履歴 - Change log
 
+### pickles2/px2-px2dthelper v2.0.15 (2020年6月21日)
+
+- 外部依存パッケージのバージョンを更新。
+
 ### pickles2/px2-px2dthelper v2.0.14 (2020年1月2日)
 
 - PHP 7.4 に対応した。
