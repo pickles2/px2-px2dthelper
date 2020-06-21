@@ -22,12 +22,12 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "tomk79/php-excel2html": "^0.0.8||^0.1.0",
-        "michelf/php-markdown": ">=1.6",
-        "leafo/scssphp": ">=0.7",
-        "pickles2/lib-px2-contents-editor": "^2.0",
-        "pickles2/lib-px2-module-editor": "^0.2",
-        "broccoli-html-editor/broccoli-html-editor": "^0.3"
+        "tomk79/php-excel2html": "^0.0.8||~0.1",
+        "michelf/php-markdown": "~1.6",
+        "leafo/scssphp": "~0.7",
+        "pickles2/lib-px2-contents-editor": "~2.0",
+        "pickles2/lib-px2-module-editor": "~0.2",
+        "broccoli-html-editor/broccoli-html-editor": "~0.3"
     },
     "require-dev": {
         "broccoli-html-editor/broccoli-module-fess": "dev-develop",
@@ -37,8 +37,7 @@
         "pickles2/px2-multitheme": "~2.0",
         "tomk79/filesystem": "~1.0.0",
         "phpunit/phpunit": "^4.8.0",
-        "phpdocumentor/phpdocumentor": "^2.9.0",
-        "jms/serializer": "<1.8"
+        "phpdocumentor/phpdocumentor": "^2.9.0"
     },
     "autoload": {
         "files": [
