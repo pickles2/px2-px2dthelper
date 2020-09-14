@@ -72,6 +72,7 @@ class broccoli_receive_message{
 <script data-broccoli-receive-message="yes">
 window.addEventListener('message',(function() {
 return function f(event) {
+if(!event.data.scriptUrl){return;}
 <?php
 if( count($enabled_origin) ){
 	print 'if(';
