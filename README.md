@@ -394,6 +394,11 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ## 更新履歴 - Change log
 
+### pickles2/px2-px2dthelper v2.0.16 (2020年10月17日)
+
+- Firefox で、 Broccoliエディタの初期化が完了できない問題に対する修正。
+- その他の細かい内部コード修正。
+
 ### pickles2/px2-px2dthelper v2.0.15 (2020年6月21日)
 
 - 外部依存パッケージのバージョンを更新。
