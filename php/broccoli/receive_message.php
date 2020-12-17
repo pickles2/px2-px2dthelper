@@ -80,7 +80,7 @@ if( count($enabled_origin) ){
 	foreach($enabled_origin as $origin){
 		array_push( $tmp_origin, 'event.origin!=\''.$origin.'\'' );
 	}
-	print implode($tmp_origin, ' && ');
+	print implode(' && ', $tmp_origin);
 	print '){ console.error(\'Unauthorized access.\');return;}';
 }
 ?>
