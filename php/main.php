@@ -839,6 +839,14 @@ class main{
 				print $std_output->data_convert( $result );
 				exit;
 				break;
+
+			case 'px2te':
+				// Pickles 2 Theme Editor
+				$apis = new px2te_apis($this->px, $this);
+				$result = $apis->execute_px_command($this->command[2]);
+				print $std_output->data_convert( $result );
+				exit;
+				break;
 		}
 
 		print $this->px->pxcmd()->get_cli_header();

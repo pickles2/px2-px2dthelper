@@ -27,6 +27,7 @@
         "leafo/scssphp": "~0.7",
         "pickles2/lib-px2-contents-editor": "~2.0",
         "pickles2/lib-px2-module-editor": "~0.2",
+        "pickles2/lib-px2-theme-editor": "dev-develop",
         "broccoli-html-editor/broccoli-html-editor": "~0.3"
     },
     "require-dev": {
@@ -44,7 +45,8 @@
             "php/main.php",
             "php/broccoli/receive_message.php",
             "php/px2ce/apis.php",
-            "php/px2me/apis.php"
+            "php/px2me/apis.php",
+            "php/px2te/apis.php"
         ]
     }
 }

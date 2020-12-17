@@ -375,8 +375,9 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 #### PX=px2dthelper.px2ce.gpi
 #### PX=px2dthelper.px2me.gpi
+#### PX=px2dthelper.px2te.gpi
 
-それぞれ、Pickles 2 Contents Editor、Pickles 2 Module Editor のGPIを呼び出します。
+それぞれ、Pickles 2 Contents Editor、Pickles 2 Module Editor、Pickles 2 Theme Editor  のGPIを呼び出します。
 
 次のオプションを指定できます。
 
@@ -386,13 +387,18 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 #### PX=px2dthelper.px2ce.client_resources
 #### PX=px2dthelper.px2me.client_resources
+#### PX=px2dthelper.px2te.client_resources
 
-それぞれ、 Pickles 2 Contents Editor、Pickles 2 Module Editor の、クライアントサイドで読み込むべきリソースの一覧を返します。
+それぞれ、 Pickles 2 Contents Editor、Pickles 2 Module Editor、Pickles 2 Theme Editor の、クライアントサイドで読み込むべきリソースの一覧を返します。
 
 デフォルトでは、サーバー内部の絶対パスを返します。 `dist` パラメータにサーバー内部のディレクトリパスを渡すと、指定のディレクトリ内にコピーを作成し、そこからの相対パスを返すようになります。
 
 
 ## 更新履歴 - Change log
+
+### pickles2/px2-px2dthelper v2.0.17 (リリース日未定)
+
+- `PX=px2dthelper.px2te.gpi`, `PX=px2dthelper.px2te.client_resources` を追加。
 
 ### pickles2/px2-px2dthelper v2.0.16 (2020年10月17日)
 

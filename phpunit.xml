@@ -18,6 +18,7 @@
 			<file>./tests/broccoliTest.php</file>
 			<file>./tests/px2ceTest.php</file>
 			<file>./tests/px2meTest.php</file>
+			<file>./tests/px2teTest.php</file>
 			<file>./tests/tableApiTest.php</file>
 		</testsuite>
 	</testsuites>
