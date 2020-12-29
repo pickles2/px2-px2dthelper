@@ -67,40 +67,17 @@ class px2te_apis{
 	 */
 	private function create_px2te(){
 		$current_page_info = $this->px->site()->get_current_page_info();
-		$px2te = new \pickles2\libs\moduleEditor\main();
+		$px2te = new \pickles2\libs\themeEditor\main();
 		$appMode = $this->px->req()->get_param('appMode');
 		if( !$appMode ){
 			$appMode = 'web';
 		}
 
 		$init_options = array(
-			'page_path' => $this->px->req()->get_request_file_path(), // <- 編集対象ページのパス
 			'appMode' => $appMode, // 'web' or 'desktop'. default to 'web'
 			'entryScript' => $_SERVER['SCRIPT_FILENAME'],
-			'customFields' => array() ,
-			'log' => function($msg){
-				$this->px->error($msg);
-			}
 		);
 
-
-		// --------------------------------------
-		// カスタムフィールドを読み込む
-		// $init_options['customFields'] = array();
-		// // プロジェクトが拡張するフィールド
-		// $confCustomFields = @$this->px->conf()->plugins->px2dt->guieditor->custom_fields;
-		// if( is_array($confCustomFields) ){
-		// 	foreach( $confCustomFields as $fieldName=>$field){
-		// 		if( $confCustomFields[$fieldName]->backend->require ){
-		// 			$path_backend_field = $this->px->fs()->normalize_path( $this->px->fs()->get_realpath( $confCustomFields[$fieldName]->backend->require ) );
-		// 			require_once( $path_backend_field );
-		// 		}
-		// 		if( $confCustomFields[$fieldName]->backend->class ){
-		// 			$init_options['customFields'] = $confCustomFields[$fieldName]->backend->class;
-		// 		}
-		// 	}
-		// }
-		// var_dump($init_options['customFields']);
 
 		// var_dump($init_options);
 		$px2te->init($init_options);

@@ -24,14 +24,14 @@ class px2teTest extends PHPUnit_Framework_TestCase{
 			__DIR__.'/testData/broccoli/.px_execute.php' ,
 			'/guiedit/index.html?PX=px2dthelper.px2te.gpi&data='.urlencode(base64_encode(json_encode(
 				array(
-					'api' => 'getConfig'
+					'api' => 'getBootupInfomations'
 				)
 			))) ,
 		] );
 		// var_dump($output);
 		$json = json_decode($output);
 		// var_dump($json);
-		$this->assertEquals( $json->appMode, 'web' );
+		$this->assertEquals( $json->conf->appMode, 'web' );
 
 		// 後始末
 		$output = $this->passthru( [
@@ -47,7 +47,7 @@ class px2teTest extends PHPUnit_Framework_TestCase{
 	public function testGpiDataFile(){
 		$data = json_encode(
 			array(
-				'api' => 'getConfig'
+				'api' => 'getBootupInfomations'
 			)
 		);
 		$data_realpath = __DIR__.'/testData/broccoli/px-files/_sys/ram/data/testdata_filename';
@@ -63,7 +63,7 @@ class px2teTest extends PHPUnit_Framework_TestCase{
 		// var_dump($output);
 		$json = json_decode($output);
 		// var_dump($json);
-		$this->assertEquals( $json->appMode, 'web' );
+		$this->assertEquals( $json->conf->appMode, 'web' );
 
 		// GPI (ディレクトリトラバーサル対策により失敗する)
 		$output = $this->passthru( [
