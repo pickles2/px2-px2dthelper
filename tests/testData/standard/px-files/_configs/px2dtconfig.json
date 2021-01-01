@@ -9,5 +9,8 @@
     "guieditor": {
         "path_data_dir": "/{$dirname}/{$filename}_files/guieditor.ignore/",
         "path_resource_dir": "/{$dirname}/{$filename}_files/resources/"
+    },
+    "customConsoleExtensions": {
+        "customTest0001": "customTest0001"
     }
 }

@@ -24,7 +24,7 @@ class customConsoleExtensionsTest extends PHPUnit_Framework_TestCase{
 		// var_dump($output);
 		$json = json_decode( $output );
 		// var_dump($json);
-		$this->assertTrue( is_array($json) );
+		$this->assertTrue( is_object($json) );
 
 		// 後始末
 		$output = $this->passthru( [
@@ -33,7 +33,7 @@ class customConsoleExtensionsTest extends PHPUnit_Framework_TestCase{
 			'/?PX=clearcache' ,
 		] );
 
-	}//testCustomConsoleExtensions()
+	} // testCustomConsoleExtensions()
 
 
 
