@@ -393,10 +393,11 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 デフォルトでは、サーバー内部の絶対パスを返します。 `dist` パラメータにサーバー内部のディレクトリパスを渡すと、指定のディレクトリ内にコピーを作成し、そこからの相対パスを返すようになります。
 
+#### PX=px2dthelper.custom_console_extensions
 #### PX=px2dthelper.custom_console_extensions.XXXX
 
 `$conf->plugins->px2dt->customConsoleExtensions` に登録された拡張機能へアクセスするAPIを提供します。
-第3引数の `XXXX` には、 `customConsoleExtensions` に登録した添字を指定します。
+第3引数の `XXXX` には、 `customConsoleExtensions` に登録した添字を指定します。省略時には、登録されている拡張機能の一覧を返します。
 
 
 ## 更新履歴 - Change log

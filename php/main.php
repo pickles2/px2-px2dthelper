@@ -847,6 +847,32 @@ class main{
 				print $std_output->data_convert( $result );
 				exit;
 				break;
+
+			case 'custom_console_extensions':
+				// Custom Console Extensions
+				// 管理画面を拡張するインターフェイス
+				require_once(__DIR__.'/fncs/customConsoleExtensions.php');
+				$ccExtMgr = new customConsoleExtensions($this->px, $this);
+				if( array_key_exists(2, $this->command) && strlen($this->command[2]) ){
+					$ccExt = $ccExtMgr->get($this->command[2]);
+					if( !$ccExt ){
+						print $std_output->data_convert( array(
+							'result' => false,
+							'message' => 'Custom Console Extension "'.$this->command[2].'" is NOT available.',
+						) );
+						exit;
+					}
+					$result = $ccExt->gpi();
+					print $std_output->data_convert( $result );
+					exit;
+				}
+
+				// 拡張機能のIDがない場合、
+				// 拡張機能の一覧を返す。
+				$list = $ccExtMgr->get_list();
+				print $std_output->data_convert( $list );
+				exit;
+				break;
 		}
 
 		print $this->px->pxcmd()->get_cli_header();
