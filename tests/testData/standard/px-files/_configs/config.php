@@ -217,6 +217,11 @@ return call_user_func( function(){
 	];
 
 
+	// Custom Console Extensions
+	require_once(__DIR__.'/customConsoleExtensions/customConsoleExtensionsTest0001/main.php');
+
+
+
 	// -------- PHP Setting --------
 
 	/**

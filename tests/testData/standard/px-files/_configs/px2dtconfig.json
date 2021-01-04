@@ -11,6 +11,6 @@
         "path_resource_dir": "/{$dirname}/{$filename}_files/resources/"
     },
     "customConsoleExtensions": {
-        "customTest0001": "customTest0001"
+        "customConsoleExtensionsTest0001": "customConsoleExtensionsTest0001"
     }
 }

@@ -851,8 +851,8 @@ class main{
 			case 'custom_console_extensions':
 				// Custom Console Extensions
 				// 管理画面を拡張するインターフェイス
-				require_once(__DIR__.'/fncs/customConsoleExtensions.php');
-				$ccExtMgr = new customConsoleExtensions($this->px, $this);
+				require_once(__DIR__.'/fncs/customConsoleExtensions/pxcmdOperator.php');
+				$ccExtMgr = new customConsoleExtensions_pxcmdOperator($this->px, $this);
 				if( array_key_exists(2, $this->command) && strlen($this->command[2]) ){
 					$ccExt = $ccExtMgr->get($this->command[2]);
 					if( !$ccExt ){

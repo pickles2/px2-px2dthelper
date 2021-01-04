@@ -5,9 +5,9 @@
 namespace tomk79\pickles2\px2dthelper;
 
 /**
- * customConsoleExtensions.php
+ * pxcmd.php
  */
-class customConsoleExtensions{
+class customConsoleExtensions_pxcmdOperator{
 
 	/**
 	 * Picklesオブジェクト
@@ -49,12 +49,27 @@ class customConsoleExtensions{
 	 */
 	public function get_list(){
 		$ccEConf = $this->get_cce_conf();
-		if( !$ccEConf ){
+		if( !is_array($ccEConf) && !is_object($ccEConf) ){
 			return false;
 		}
 
-		// TODO: 開発中
-		return $ccEConf;
+		$rtn = array();
+		foreach($ccEConf as $cce_id=>$ccEInfo){
+			$rtn[$cce_id] = array();
+			$rtn[$cce_id]['id'] = $cce_id;
+			$rtn[$cce_id]['label'] = $cce_id;
+			$rtn[$cce_id]['className'] = null;
+			if( is_string($ccEInfo) ){
+				$rtn[$cce_id]['className'] = $ccEInfo;
+			}
+			$cceObj = $this->get($cce_id);
+			if( !$cceObj ){
+				continue;
+			}
+			$rtn[$cce_id]['label'] = $cceObj->get_label();
+		}
+
+		return $rtn;
 	}
 
 	/**
@@ -63,18 +78,37 @@ class customConsoleExtensions{
 	 */
 	public function get( $cce_id ){
 		$ccEConf = $this->get_cce_conf();
-		if( !is_object($ccEConf) ){
+		if( !is_array($ccEConf) && !is_object($ccEConf) ){
 			return false;
 		}
 
-		if( !array_key_exists($cce_id, $ccEConf) ){
+		$ccEInfo = null;
+		if( is_array($ccEConf) ){
+			if( !array_key_exists($cce_id, $ccEConf) ){
+				return false;
+			}
+			$ccEInfo = $ccEConf[$cce_id];
+		}elseif( is_object($ccEConf) ){
+			if( !property_exists($ccEConf, $cce_id) ){
+				return false;
+			}
+			$ccEInfo = $ccEConf->{$cce_id};
+		}
+
+		$className = null;
+		if( is_string($ccEInfo) ){
+			$className = $ccEInfo;
+		}
+		if( !strlen($className) ){
+			return false;
+		}
+		if( !class_exists($ccEInfo) ){
 			return false;
 		}
 
-		$ccEInfo = $ccEConf[$cce_id];
+		$rtn = new $ccEInfo( $this->px );
 
-		// TODO: 開発中
-		return false;
+		return $rtn;
 	}
 
 }

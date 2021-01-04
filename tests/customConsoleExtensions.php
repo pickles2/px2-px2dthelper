@@ -25,6 +25,7 @@ class customConsoleExtensionsTest extends PHPUnit_Framework_TestCase{
 		$json = json_decode( $output );
 		// var_dump($json);
 		$this->assertTrue( is_object($json) );
+		$this->assertSame( $json->customConsoleExtensionsTest0001->label, '拡張機能0001' );
 
 		// 後始末
 		$output = $this->passthru( [
