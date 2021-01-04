@@ -31,7 +31,7 @@ class customConsoleExtensionsTest0001{
 	public function get_client_resource_list(){
 		$rtn = array();
 		$rtn['css'] = array('styles/cce0001.css');
-		$rtn['js'] = array('styles/cce0001.js');
+		$rtn['js'] = array('scripts/cce0001.js');
 		return $rtn;
 	}
 
