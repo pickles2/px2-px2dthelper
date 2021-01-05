@@ -176,11 +176,21 @@ class customConsoleExtensions_pxcmdOperator{
 					$client_resources = $ccExt->get_client_resource_list();
 					$realpath_dist = $this->px->req()->get_param('dist');
 					if( strlen($realpath_dist) ){
+						$realpath_dist = $this->px->fs()->get_realpath($realpath_dist.'/');
 						$this->px->fs()->copy_r($realpath_base_dir, $realpath_dist);
 					}
 					$resources = array();
 					foreach($client_resources as $key=>$row){
 						$resources[$key] = array();
+						if( $key == 'js' ){
+							$realpath_cceAgent = __DIR__.'/Px2dthelperCceAgent.js';
+							if( !strlen($realpath_dist) ){
+								array_push($resources[$key], $realpath_cceAgent);
+							}else{
+								$this->px->fs()->copy($realpath_cceAgent, $realpath_dist.'Px2dthelperCceAgent.js');
+								array_push($resources[$key], 'Px2dthelperCceAgent.js');
+							}
+						}
 						foreach($row as $path){
 							if( !strlen($realpath_dist) ){
 								$path = realpath($realpath_base_dir.'/'.$path);
