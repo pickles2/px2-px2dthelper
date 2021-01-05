@@ -147,6 +147,12 @@ class customConsoleExtensions_pxcmdOperator{
 		if( strlen($subcommand) ){
 			switch( $subcommand ){
 				case 'gpi':
+					if( !is_callable( array($ccExt, 'gpi') ) ){
+						return array(
+							'result' => false,
+							'message' => 'Custom Console Extension: `gpi()` is NOT callable.',
+						);
+					}
 					$request = $this->px->req()->get_param('request');
 					$request = json_decode($request);
 					$rtn['response'] = $ccExt->gpi( $request );
