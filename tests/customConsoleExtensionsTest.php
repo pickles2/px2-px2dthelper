@@ -54,6 +54,19 @@ class customConsoleExtensionsTest extends PHPUnit_Framework_TestCase{
 		$this->assertSame( true, is_file(__DIR__.'/testData/standard/px-files/_sys/ram/caches/tmpResTest/'.$json->js[0]) );
 
 
+		// ----------------------------------------
+		// PX Command: Custom Console Extensions のGPIを呼び出す
+		$this->fs->save_file(__DIR__.'/testData/standard/px-files/_sys/ram/data/tmp_request.txt', 'PX=px2dthelper.custom_console_extensions.customConsoleExtensionsTest0001.gpi&request='.urlencode(json_encode(array('command'=>'test-command'))));
+		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '--method', 'post', '--body-file', 'tmp_request.txt', '/' ] );
+		// var_dump($output);
+		$json = json_decode( $output );
+		// var_dump($json);
+		$this->assertTrue( is_object($json) );
+		$this->assertSame( true, $json->result );
+		$this->assertSame( 'OK', $json->message );
+		$this->fs->rm(__DIR__.'/testData/standard/px-files/_sys/ram/data/tmp_request.txt');
+
+
 		// 後始末
 		$output = $this->passthru( [
 			'php',

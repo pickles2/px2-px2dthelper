@@ -46,6 +46,14 @@ class customConsoleExtensionsTest0001{
 	 * General Purpose Interface
 	 */
 	public function gpi( $request ){
+		switch( $request->command ){
+			case 'test-command':
+				return array(
+					'result' => true,
+					'message' => 'OK',
+				);
+				break;
+		}
 		return false;
 	}
 }
