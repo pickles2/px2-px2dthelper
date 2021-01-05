@@ -19,7 +19,8 @@ class customConsoleExtensionsTest extends PHPUnit_Framework_TestCase{
 	 */
 	public function testCustomConsoleExtensions(){
 
-		// Pickles 2 実行
+		// ----------------------------------------
+		// PX Command: Custom Console Extensions の一覧取得
 		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.custom_console_extensions' ] );
 		// var_dump($output);
 		$json = json_decode( $output );
@@ -28,7 +29,8 @@ class customConsoleExtensionsTest extends PHPUnit_Framework_TestCase{
 		$this->assertSame( $json->customConsoleExtensionsTest0001->id, 'customConsoleExtensionsTest0001' );
 		$this->assertSame( $json->customConsoleExtensionsTest0001->label, '拡張機能0001' );
 
-		// Pickles 2 実行
+		// ----------------------------------------
+		// PX Command: Custom Console Extensions のクライアント資材一覧取得
 		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.custom_console_extensions.customConsoleExtensionsTest0001.client_resources' ] );
 		// var_dump($output);
 		$json = json_decode( $output );
@@ -36,6 +38,21 @@ class customConsoleExtensionsTest extends PHPUnit_Framework_TestCase{
 		$this->assertTrue( is_object($json) );
 		$this->assertSame( $json->css[0], realpath(__DIR__.'/testData/standard/px-files/customConsoleExtensions/customConsoleExtensionsTest0001/resources/styles/cce0001.css') );
 		$this->assertSame( $json->js[0], realpath(__DIR__.'/testData/standard/px-files/customConsoleExtensions/customConsoleExtensionsTest0001/resources/scripts/cce0001.js') );
+		$this->assertSame( false, is_file(__DIR__.'/testData/standard/px-files/_sys/ram/caches/tmpResTest/'.$json->css[0]) );
+		$this->assertSame( false, is_file(__DIR__.'/testData/standard/px-files/_sys/ram/caches/tmpResTest/'.$json->js[0]) );
+
+		// ----------------------------------------
+		// PX Command: Custom Console Extensions のクライアント資材一覧取得 (出力先を指定した場合)
+		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.custom_console_extensions.customConsoleExtensionsTest0001.client_resources&dist='.__DIR__.'/testData/standard/px-files/_sys/ram/caches/tmpResTest/' ] );
+		// var_dump($output);
+		$json = json_decode( $output );
+		// var_dump($json);
+		$this->assertTrue( is_object($json) );
+		$this->assertSame( $json->css[0], 'styles/cce0001.css' );
+		$this->assertSame( $json->js[0], 'scripts/cce0001.js' );
+		$this->assertSame( true, is_file(__DIR__.'/testData/standard/px-files/_sys/ram/caches/tmpResTest/'.$json->css[0]) );
+		$this->assertSame( true, is_file(__DIR__.'/testData/standard/px-files/_sys/ram/caches/tmpResTest/'.$json->js[0]) );
+
 
 		// 後始末
 		$output = $this->passthru( [

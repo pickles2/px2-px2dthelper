@@ -853,49 +853,11 @@ class main{
 				// 管理画面を拡張するインターフェイス
 				require_once(__DIR__.'/fncs/customConsoleExtensions/pxcmdOperator.php');
 				$ccExtMgr = new customConsoleExtensions_pxcmdOperator($this->px, $this);
-				if( array_key_exists(2, $this->command) && strlen($this->command[2]) ){
-					$ccExt = $ccExtMgr->get($this->command[2]);
-					if( !$ccExt ){
-						print $std_output->data_convert( array(
-							'result' => false,
-							'message' => 'Custom Console Extension "'.$this->command[2].'" is NOT available.',
-						) );
-						exit;
-					}
-					if( array_key_exists(3, $this->command) && strlen($this->command[3]) ){
-						switch( $this->command[3] ){
-							case 'client_resources':
-								$realpath_base_dir = $ccExt->get_client_resource_base_dir();
-								$client_resources = $ccExt->get_client_resource_list();
-								$rtn = array();
-								foreach($client_resources as $key=>$row){
-									$rtn[$key] = array();
-									foreach($row as $path){
-										$path = realpath($realpath_base_dir.'/'.$path);
-										array_push($rtn[$key], $path);
-									}
-								}
-								print $std_output->data_convert( $rtn );
-								exit;
-								break;
-							case 'gpi':
-								$request = $this->px->req()->get_param('request');
-								$request = json_decode($request);
-								$result = $ccExt->gpi( $request );
-								print $std_output->data_convert( $result );
-								exit;
-								break;
-						}
-					}
-
-					print $std_output->data_convert( false );
-					exit;
-				}
-
-				// 拡張機能のIDがない場合、
-				// 拡張機能の一覧を返す。
-				$list = $ccExtMgr->get_list();
-				print $std_output->data_convert( $list );
+				$ary_px_command = $this->command;
+				array_shift($ary_px_command);
+				array_shift($ary_px_command);
+				$result = $ccExtMgr->execute_px_command($ary_px_command);
+				print $std_output->data_convert( $result );
 				exit;
 				break;
 		}

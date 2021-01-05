@@ -5,7 +5,7 @@
 			<file>./tests/themeCollectionTest.php</file>
 			<file>./tests/packagesTest.php</file>
 			<file>./tests/pluginsTest.php</file>
-			<file>./tests/customConsoleExtensions.php</file>
+			<file>./tests/customConsoleExtensionsTest.php</file>
 			<file>./tests/searchSitemapTest.php</file>
 			<file>./tests/sitemapTest.php</file>
 			<file>./tests/getNavigationInfoTest.php</file>
