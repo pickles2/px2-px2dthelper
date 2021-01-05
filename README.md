@@ -406,7 +406,8 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 ### pickles2/px2-px2dthelper v2.0.17 (リリース日未定)
 
 - `PX=px2dthelper.px2te.gpi`, `PX=px2dthelper.px2te.client_resources` を追加。
-- カスタムコンソール機能拡張を追加。 `PX=px2dthelper.custom_console_extensions.XXXX` を追加。
+- カスタムコンソール機能拡張を追加。 `PX=px2dthelper.custom_console_extensions` を追加。
+- `PX=px2dthelper.get.all` の返却値に `custom_console_extensions` を追加。
 
 ### pickles2/px2-px2dthelper v2.0.16 (2020年10月17日)
 

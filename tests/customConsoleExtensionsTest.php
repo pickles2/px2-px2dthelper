@@ -30,6 +30,26 @@ class customConsoleExtensionsTest extends PHPUnit_Framework_TestCase{
 		$this->assertSame( $json->customConsoleExtensionsTest0001->label, '拡張機能0001' );
 
 		// ----------------------------------------
+		// PX Command: Custom Console Extensions 存在しない拡張機能の情報取得
+		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.custom_console_extensions.undefinedCustomConsoleExtension' ] );
+		// var_dump($output);
+		$json = json_decode( $output );
+		// var_dump($json);
+		$this->assertTrue( is_object($json) );
+		$this->assertFalse( $json->result );
+		$this->assertSame( $json->message, 'Custom Console Extension "undefinedCustomConsoleExtension" is NOT available.' );
+
+		// ----------------------------------------
+		// PX Command: Custom Console Extensions 拡張機能0001の情報取得
+		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.custom_console_extensions.customConsoleExtensionsTest0001' ] );
+		// var_dump($output);
+		$json = json_decode( $output );
+		// var_dump($json);
+		$this->assertTrue( is_object($json) );
+		$this->assertSame( $json->id, 'customConsoleExtensionsTest0001' );
+		$this->assertSame( $json->label, '拡張機能0001' );
+
+		// ----------------------------------------
 		// PX Command: Custom Console Extensions のクライアント資材一覧取得
 		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.custom_console_extensions.customConsoleExtensionsTest0001.client_resources' ] );
 		// var_dump($output);

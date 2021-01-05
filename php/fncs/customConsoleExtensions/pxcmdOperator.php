@@ -169,6 +169,10 @@ class customConsoleExtensions_pxcmdOperator{
 			}
 		}
 
+		$list = $this->get_list();
+		if( array_key_exists($cce_id, $list) ){
+			return $list[$cce_id];
+		}
 		return false;
 	}
 

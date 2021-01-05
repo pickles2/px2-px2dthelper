@@ -596,6 +596,10 @@ class main{
 						@$rtn->packages->path_npm_root_dir = $this->packages()->get_path_npm_root_dir();
 						@$rtn->packages->package_list = $this->packages()->get_package_list();
 
+						require_once(__DIR__.'/fncs/customConsoleExtensions/pxcmdOperator.php');
+						$ccExtMgr = new customConsoleExtensions_pxcmdOperator($this->px, $this);
+						$rtn->custom_console_extensions = $ccExtMgr->get_list();
+
 						print $std_output->data_convert( $rtn );
 						exit;
 						break;
