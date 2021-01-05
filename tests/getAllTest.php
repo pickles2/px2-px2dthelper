@@ -113,7 +113,7 @@ class getAllTest extends PHPUnit_Framework_TestCase{
 
 		// Custom Console Extensions
 		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.custom_console_extensions' ] ));
-		$this->assertEquals( $json->custom_console_extensions, $output );
+		$this->assertEquals( $json->custom_console_extensions, $output->list );
 
 		// 後始末
 		$output = $this->passthru( [

@@ -66,7 +66,9 @@ class customConsoleExtensions_pxcmdOperator{
 			if( !$cceObj ){
 				continue;
 			}
-			$rtn[$cce_id]['label'] = $cceObj->get_label();
+			if( is_callable( array($cceObj, 'get_label') ) ){
+				$rtn[$cce_id]['label'] = $cceObj->get_label();
+			}
 		}
 
 		return $rtn;
@@ -115,14 +117,18 @@ class customConsoleExtensions_pxcmdOperator{
 	 * PX Command を実行する
 	 */
 	public function execute_px_command( $ary_px_command ){
+		$rtn = array(
+			'result' => true,
+			'message' => 'OK',
+		);
 		$cce_id = null;
 		$subcommand = null;
 
 		if( !count($ary_px_command) ){
 			// 拡張機能のIDがない場合、
 			// 拡張機能の一覧を返す。
-			$list = $this->get_list();
-			return $list;
+			$rtn['list'] = $this->get_list();
+			return $rtn;
 		}
 		if( array_key_exists(0, $ary_px_command) && strlen($ary_px_command[0]) ){
 			$cce_id = $ary_px_command[0];
@@ -143,37 +149,56 @@ class customConsoleExtensions_pxcmdOperator{
 				case 'gpi':
 					$request = $this->px->req()->get_param('request');
 					$request = json_decode($request);
-					$result = $ccExt->gpi( $request );
-					return $result;
+					$rtn['response'] = $ccExt->gpi( $request );
+					return $rtn;
 					break;
 
 				case 'client_resources':
+					if( !is_callable( array($ccExt, 'get_client_resource_base_dir') ) ){
+						return array(
+							'result' => false,
+							'message' => 'Custom Console Extension: `get_client_resource_base_dir()` is NOT callable.',
+						);
+					}
+					if( !is_callable( array($ccExt, 'get_client_resource_list') ) ){
+						return array(
+							'result' => false,
+							'message' => 'Custom Console Extension: `get_client_resource_list()` is NOT callable.',
+						);
+					}
 					$realpath_base_dir = $ccExt->get_client_resource_base_dir();
 					$client_resources = $ccExt->get_client_resource_list();
 					$realpath_dist = $this->px->req()->get_param('dist');
 					if( strlen($realpath_dist) ){
 						$this->px->fs()->copy_r($realpath_base_dir, $realpath_dist);
 					}
-					$rtn = array();
+					$resources = array();
 					foreach($client_resources as $key=>$row){
-						$rtn[$key] = array();
+						$resources[$key] = array();
 						foreach($row as $path){
 							if( !strlen($realpath_dist) ){
 								$path = realpath($realpath_base_dir.'/'.$path);
 							}
-							array_push($rtn[$key], $path);
+							array_push($resources[$key], $path);
 						}
 					}
+					$rtn['resources'] = $resources;
 					return $rtn;
 					break;
 			}
 		}
 
+		// $cce_id 単体の情報を返す
 		$list = $this->get_list();
 		if( array_key_exists($cce_id, $list) ){
-			return $list[$cce_id];
+			$rtn['info'] = $list[$cce_id];
+			return $rtn;
 		}
-		return false;
+
+		return array(
+			'result' => false,
+			'message' => 'Custom Console Extension: Unavailable command.',
+		);
 	}
 
 }

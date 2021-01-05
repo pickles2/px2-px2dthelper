@@ -26,8 +26,10 @@ class customConsoleExtensionsTest extends PHPUnit_Framework_TestCase{
 		$json = json_decode( $output );
 		// var_dump($json);
 		$this->assertTrue( is_object($json) );
-		$this->assertSame( $json->customConsoleExtensionsTest0001->id, 'customConsoleExtensionsTest0001' );
-		$this->assertSame( $json->customConsoleExtensionsTest0001->label, '拡張機能0001' );
+		$this->assertSame( $json->result, true );
+		$this->assertSame( $json->message, 'OK' );
+		$this->assertSame( $json->list->customConsoleExtensionsTest0001->id, 'customConsoleExtensionsTest0001' );
+		$this->assertSame( $json->list->customConsoleExtensionsTest0001->label, '拡張機能0001' );
 
 		// ----------------------------------------
 		// PX Command: Custom Console Extensions 存在しない拡張機能の情報取得
@@ -46,8 +48,10 @@ class customConsoleExtensionsTest extends PHPUnit_Framework_TestCase{
 		$json = json_decode( $output );
 		// var_dump($json);
 		$this->assertTrue( is_object($json) );
-		$this->assertSame( $json->id, 'customConsoleExtensionsTest0001' );
-		$this->assertSame( $json->label, '拡張機能0001' );
+		$this->assertSame( $json->result, true );
+		$this->assertSame( $json->message, 'OK' );
+		$this->assertSame( $json->info->id, 'customConsoleExtensionsTest0001' );
+		$this->assertSame( $json->info->label, '拡張機能0001' );
 
 		// ----------------------------------------
 		// PX Command: Custom Console Extensions のクライアント資材一覧取得
@@ -56,10 +60,12 @@ class customConsoleExtensionsTest extends PHPUnit_Framework_TestCase{
 		$json = json_decode( $output );
 		// var_dump($json);
 		$this->assertTrue( is_object($json) );
-		$this->assertSame( $json->css[0], realpath(__DIR__.'/testData/standard/px-files/customConsoleExtensions/customConsoleExtensionsTest0001/resources/styles/cce0001.css') );
-		$this->assertSame( $json->js[0], realpath(__DIR__.'/testData/standard/px-files/customConsoleExtensions/customConsoleExtensionsTest0001/resources/scripts/cce0001.js') );
-		$this->assertSame( false, is_file(__DIR__.'/testData/standard/px-files/_sys/ram/caches/tmpResTest/'.$json->css[0]) );
-		$this->assertSame( false, is_file(__DIR__.'/testData/standard/px-files/_sys/ram/caches/tmpResTest/'.$json->js[0]) );
+		$this->assertSame( $json->result, true );
+		$this->assertSame( $json->message, 'OK' );
+		$this->assertSame( $json->resources->css[0], realpath(__DIR__.'/testData/standard/px-files/customConsoleExtensions/customConsoleExtensionsTest0001/resources/styles/cce0001.css') );
+		$this->assertSame( $json->resources->js[0], realpath(__DIR__.'/testData/standard/px-files/customConsoleExtensions/customConsoleExtensionsTest0001/resources/scripts/cce0001.js') );
+		$this->assertSame( false, is_file(__DIR__.'/testData/standard/px-files/_sys/ram/caches/tmpResTest/'.$json->resources->css[0]) );
+		$this->assertSame( false, is_file(__DIR__.'/testData/standard/px-files/_sys/ram/caches/tmpResTest/'.$json->resources->js[0]) );
 
 		// ----------------------------------------
 		// PX Command: Custom Console Extensions のクライアント資材一覧取得 (出力先を指定した場合)
@@ -68,10 +74,12 @@ class customConsoleExtensionsTest extends PHPUnit_Framework_TestCase{
 		$json = json_decode( $output );
 		// var_dump($json);
 		$this->assertTrue( is_object($json) );
-		$this->assertSame( $json->css[0], 'styles/cce0001.css' );
-		$this->assertSame( $json->js[0], 'scripts/cce0001.js' );
-		$this->assertSame( true, is_file(__DIR__.'/testData/standard/px-files/_sys/ram/caches/tmpResTest/'.$json->css[0]) );
-		$this->assertSame( true, is_file(__DIR__.'/testData/standard/px-files/_sys/ram/caches/tmpResTest/'.$json->js[0]) );
+		$this->assertSame( $json->result, true );
+		$this->assertSame( $json->message, 'OK' );
+		$this->assertSame( $json->resources->css[0], 'styles/cce0001.css' );
+		$this->assertSame( $json->resources->js[0], 'scripts/cce0001.js' );
+		$this->assertSame( true, is_file(__DIR__.'/testData/standard/px-files/_sys/ram/caches/tmpResTest/'.$json->resources->css[0]) );
+		$this->assertSame( true, is_file(__DIR__.'/testData/standard/px-files/_sys/ram/caches/tmpResTest/'.$json->resources->js[0]) );
 
 
 		// ----------------------------------------
