@@ -10,7 +10,7 @@
         "path_data_dir": "/{$dirname}/{$filename}_files/guieditor.ignore/",
         "path_resource_dir": "/{$dirname}/{$filename}_files/resources/"
     },
-    "customConsoleExtensions": {
+    "custom_console_extensions": {
         "customConsoleExtensionsTest0001": "customConsoleExtensionsTest0001"
     }
 }

@@ -36,10 +36,10 @@ class customConsoleExtensions_pxcmdOperator{
 	 */
 	private function get_cce_conf(){
 		$conf = $this->main->get_px2dtconfig();
-		if( !is_object($conf) || !property_exists($conf, 'customConsoleExtensions') ){
+		if( !is_object($conf) || !property_exists($conf, 'custom_console_extensions') ){
 			return false;
 		}
-		$ccEConf = (array) $conf->customConsoleExtensions;
+		$ccEConf = (array) $conf->custom_console_extensions;
 		return $ccEConf;
 	}
 
