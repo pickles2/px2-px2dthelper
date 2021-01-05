@@ -30,6 +30,7 @@ class customConsoleExtensionsTest extends PHPUnit_Framework_TestCase{
 		$this->assertSame( $json->message, 'OK' );
 		$this->assertSame( $json->list->customConsoleExtensionsTest0001->id, 'customConsoleExtensionsTest0001' );
 		$this->assertSame( $json->list->customConsoleExtensionsTest0001->label, '拡張機能0001' );
+		$this->assertSame( $json->list->customConsoleExtensionsTest0001->client_initialize_function, 'window.customConsoleExtensionsTest0001' );
 
 		// ----------------------------------------
 		// PX Command: Custom Console Extensions 存在しない拡張機能の情報取得
@@ -52,6 +53,7 @@ class customConsoleExtensionsTest extends PHPUnit_Framework_TestCase{
 		$this->assertSame( $json->message, 'OK' );
 		$this->assertSame( $json->info->id, 'customConsoleExtensionsTest0001' );
 		$this->assertSame( $json->info->label, '拡張機能0001' );
+		$this->assertSame( $json->info->client_initialize_function, 'window.customConsoleExtensionsTest0001' );
 
 		// ----------------------------------------
 		// PX Command: Custom Console Extensions のクライアント資材一覧取得

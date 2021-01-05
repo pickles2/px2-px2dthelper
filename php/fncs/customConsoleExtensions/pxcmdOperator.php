@@ -58,16 +58,21 @@ class customConsoleExtensions_pxcmdOperator{
 			$rtn[$cce_id] = array();
 			$rtn[$cce_id]['id'] = $cce_id;
 			$rtn[$cce_id]['label'] = $cce_id;
-			$rtn[$cce_id]['className'] = null;
+			$rtn[$cce_id]['class_name'] = null;
 			if( is_string($ccEInfo) ){
-				$rtn[$cce_id]['className'] = $ccEInfo;
+				$rtn[$cce_id]['class_name'] = $ccEInfo;
 			}
+			$rtn[$cce_id]['client_initialize_function'] = null;
+
 			$cceObj = $this->get($cce_id);
 			if( !$cceObj ){
 				continue;
 			}
 			if( is_callable( array($cceObj, 'get_label') ) ){
 				$rtn[$cce_id]['label'] = $cceObj->get_label();
+			}
+			if( is_callable( array($cceObj, 'get_client_initialize_function') ) ){
+				$rtn[$cce_id]['client_initialize_function'] = $cceObj->get_client_initialize_function();
 			}
 		}
 
@@ -104,11 +109,11 @@ class customConsoleExtensions_pxcmdOperator{
 		if( !strlen($className) ){
 			return false;
 		}
-		if( !class_exists($ccEInfo) ){
+		if( !class_exists($className) ){
 			return false;
 		}
 
-		$rtn = new $ccEInfo( $this->px );
+		$rtn = new $className( $this->px );
 
 		return $rtn;
 	}
