@@ -858,8 +858,8 @@ class main{
 				require_once(__DIR__.'/fncs/customConsoleExtensions/pxcmdOperator.php');
 				$ccExtMgr = new customConsoleExtensions_pxcmdOperator($this->px, $this);
 				$ary_px_command = $this->command;
-				array_shift($ary_px_command);
-				array_shift($ary_px_command);
+				array_shift($ary_px_command); // <- `px2dthelper` をトル
+				array_shift($ary_px_command); // <- `custom_console_extensions` をトル
 				$result = $ccExtMgr->execute_px_command($ary_px_command);
 				print $std_output->data_convert( $result );
 				exit;

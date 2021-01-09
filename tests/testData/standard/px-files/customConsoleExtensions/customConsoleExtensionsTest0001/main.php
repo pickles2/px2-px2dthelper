@@ -7,12 +7,16 @@ class customConsoleExtensionsTest0001{
 	/** $json */
 	private $json;
 
+	/** $cceAgent */
+	private $cceAgent;
+
 	/**
 	 * Constructor
 	 */
-	public function __construct($px, $json){
+	public function __construct($px, $json, $cceAgent){
 		$this->px = $px;
 		$this->json = $json;
+		$this->cceAgent = $cceAgent;
 	}
 
 	/**

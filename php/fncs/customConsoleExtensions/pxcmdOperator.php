@@ -19,6 +19,7 @@ class customConsoleExtensions_pxcmdOperator{
 	 */
 	private $main;
 
+
 	/**
 	 * constructor
 	 *
@@ -110,6 +111,7 @@ class customConsoleExtensions_pxcmdOperator{
 			return false;
 		}
 
+		// オプションがあるなら、取り出す
 		$className = preg_replace( '/^\\\\*/', '\\', $className );
 		$option_value = null;
 		preg_match( '/^(.*?)(?:\\((.*)\\))?$/s', $className, $matched );
@@ -130,7 +132,12 @@ class customConsoleExtensions_pxcmdOperator{
 			return false;
 		}
 
-		$rtn = new $className( $this->px, $option_value );
+
+		// $cceAgent
+		require_once(__DIR__.'/cceAgent.php');
+		$cceAgent = new customConsoleExtensions_cceAgent($this->px, $this->main);
+
+		$rtn = new $className( $this->px, $option_value, $cceAgent );
 
 		return $rtn;
 	}
