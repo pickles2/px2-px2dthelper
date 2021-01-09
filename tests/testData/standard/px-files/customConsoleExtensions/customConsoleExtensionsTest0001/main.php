@@ -4,18 +4,22 @@ class customConsoleExtensionsTest0001{
 	/** $px */
 	private $px;
 
+	/** $json */
+	private $json;
+
 	/**
 	 * Constructor
 	 */
-	public function __construct($px){
+	public function __construct($px, $json){
 		$this->px = $px;
+		$this->json = $json;
 	}
 
 	/**
 	 * 機能拡張の名前を取得する
 	 */
 	public function get_label(){
-		return '拡張機能0001';
+		return $this->json->label;
 	}
 
 	/**

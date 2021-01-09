@@ -109,11 +109,28 @@ class customConsoleExtensions_pxcmdOperator{
 		if( !strlen($className) ){
 			return false;
 		}
+
+		$className = preg_replace( '/^\\\\*/', '\\', $className );
+		$option_value = null;
+		preg_match( '/^(.*?)(?:\\((.*)\\))?$/s', $className, $matched );
+		if(array_key_exists( 1, $matched )){
+			$className = @$matched[1];
+		}
+		if(array_key_exists( 2, $matched )){
+			$option_value = @$matched[2];
+		}
+		unset($matched);
+		if( strlen( trim($option_value) ) ){
+			$option_value = json_decode( $option_value );
+		}else{
+			$option_value = null;
+		}
+
 		if( !class_exists($className) ){
 			return false;
 		}
 
-		$rtn = new $className( $this->px );
+		$rtn = new $className( $this->px, $option_value );
 
 		return $rtn;
 	}

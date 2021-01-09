@@ -11,6 +11,6 @@
         "path_resource_dir": "/{$dirname}/{$filename}_files/resources/"
     },
     "custom_console_extensions": {
-        "customConsoleExtensionsTest0001": "customConsoleExtensionsTest0001"
+        "customConsoleExtensionsTest0001": "customConsoleExtensionsTest0001({\"test1\":\"test1val\",\"test2\":\"test2val\",\"label\":\"拡張機能0001\"})"
     }
 }
