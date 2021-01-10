@@ -165,6 +165,82 @@ class customConsoleExtensionsTest extends PHPUnit_Framework_TestCase{
 	} // testAppMode()
 
 
+	/**
+	 * サーバーサイドで非同期処理を実行するテスト
+	 */
+	public function testAsync(){
+
+		// ----------------------------------------
+		// Sync
+		$this->fs->save_file(
+			__DIR__.'/testData/standard/px-files/_sys/ram/data/tmp_request.txt',
+			'PX=px2dthelper.custom_console_extensions.customConsoleExtensionsTest0001.gpi'
+				.'&appMode=desktop'
+				.'&request='.urlencode(json_encode(array(
+					'command'=>'test-async',
+				)))
+		);
+		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '--method', 'post', '--body-file', 'tmp_request.txt', '/' ] );
+		// var_dump($output);
+		$json = json_decode( $output );
+		// var_dump($json);
+		$this->assertTrue( is_object($json) );
+		$this->assertSame( true, $json->result );
+		$this->assertSame( 'OK', $json->message );
+		$this->fs->rm(__DIR__.'/testData/standard/px-files/_sys/ram/data/tmp_request.txt');
+
+
+		// ----------------------------------------
+		// File
+		$realpath_sync_dir = __DIR__.'/testData/standard/px-files/_sys/ram/data/syncDir/';
+		$this->fs->mkdir($realpath_sync_dir);
+		$this->fs->save_file(
+			__DIR__.'/testData/standard/px-files/_sys/ram/data/tmp_request.txt',
+			'PX=px2dthelper.custom_console_extensions.customConsoleExtensionsTest0001.gpi'
+				.'&asyncMethod=file'
+				.'&asyncDir='.urlencode($realpath_sync_dir)
+				.'&appMode=desktop'
+				.'&request='.urlencode(json_encode(array(
+					'command'=>'test-async',
+				)))
+		);
+		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '--method', 'post', '--body-file', 'tmp_request.txt', '/' ] );
+		// var_dump($output);
+		$json = json_decode( $output );
+		// var_dump($json);
+		$this->assertTrue( is_object($json) );
+		$this->assertSame( true, $json->result );
+		$this->assertSame( 'OK', $json->message );
+		$this->fs->rm(__DIR__.'/testData/standard/px-files/_sys/ram/data/tmp_request.txt');
+
+		$this->fs->save_file(
+			__DIR__.'/testData/standard/px-files/_sys/ram/data/tmp_request.txt',
+			'PX=px2dthelper.custom_console_extensions.customConsoleExtensionsTest0001.async_run'
+				.'&asyncMethod=file'
+				.'&asyncDir='.urlencode($realpath_sync_dir)
+				.'&appMode=desktop'
+		);
+		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '--method', 'post', '--body-file', 'tmp_request.txt', '/' ] );
+		// var_dump($output);
+		$json = json_decode( $output );
+		// var_dump($json);
+		$this->assertTrue( is_object($json) );
+		$this->assertSame( true, $json->result );
+		$this->assertSame( 'OK', $json->message );
+		$this->fs->rm(__DIR__.'/testData/standard/px-files/_sys/ram/data/tmp_request.txt');
+
+
+		// 後始末
+		$this->fs->rm($realpath_sync_dir);
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/standard/.px_execute.php' ,
+			'/?PX=clearcache' ,
+		] );
+
+	} // testAsync()
+
+
 
 
 	/**

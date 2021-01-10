@@ -230,6 +230,40 @@ class customConsoleExtensions_pxcmdOperator{
 					$rtn['resources'] = $resources;
 					return $rtn;
 					break;
+
+				case 'async_run':
+					require_once(__DIR__.'/async.php');
+					$async = new customConsoleExtensions_async($this->px, $this->main);
+					$config = $async->get_config();
+					switch( $config->method ){
+						case 'file':
+							$realpath_dir = $config->dir;
+							if( !strlen($realpath_dir) || !is_dir($realpath_dir) || !is_writable($realpath_dir) ){
+								return false;
+							}
+							$realpath_dir = $this->px->fs()->get_realpath($realpath_dir.'/');
+							$cmdList = $this->px->fs()->ls($realpath_dir);
+							$rtn['response'] = array();
+							foreach($cmdList as $filename){
+								$command = false;
+								$file_content = file_get_contents( $realpath_dir.$filename );
+								try{
+									$command = json_decode( $file_content );
+									unlink($realpath_dir.$filename);
+								}catch(Exception $e){}
+								$result = $async->run( $command );
+								array_push($rtn['response'], $result);
+							}
+							return $rtn;
+							break;
+						case 'sync':
+							return array(
+								'result' => false,
+								'message' => 'Method "sync" is unable to call by outside.',
+							);
+							break;
+					}
+					break;
 			}
 		}
 

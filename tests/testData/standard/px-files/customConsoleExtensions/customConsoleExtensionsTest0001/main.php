@@ -68,6 +68,16 @@ class customConsoleExtensionsTest0001{
 					'appMode' => $this->cceAgent->get_app_mode(),
 				);
 				break;
+			case 'test-async':
+				$this->cceAgent->async(array(
+					'type' => 'gpi',
+					'command' => 'test-async-run',
+				));
+				return array(
+					'result' => true,
+					'message' => 'OK',
+				);
+				break;
 		}
 		return false;
 	}
