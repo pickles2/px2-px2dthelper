@@ -235,6 +235,7 @@ class customConsoleExtensions_pxcmdOperator{
 					require_once(__DIR__.'/async.php');
 					$async = new customConsoleExtensions_async($this->px, $this->main);
 					$config = $async->get_config();
+
 					switch( $config->method ){
 						case 'file':
 							$realpath_dir = $config->dir;
@@ -244,13 +245,15 @@ class customConsoleExtensions_pxcmdOperator{
 							$realpath_dir = $this->px->fs()->get_realpath($realpath_dir.'/');
 							$cmdList = $this->px->fs()->ls($realpath_dir);
 							$rtn['response'] = array();
+
 							foreach($cmdList as $filename){
 								$command = false;
 								$file_content = file_get_contents( $realpath_dir.$filename );
 								try{
 									$command = json_decode( $file_content );
 									unlink($realpath_dir.$filename);
-								}catch(Exception $e){}
+								}catch(Exception $e){
+								}
 								$result = $async->run( $command );
 								array_push($rtn['response'], $result);
 							}

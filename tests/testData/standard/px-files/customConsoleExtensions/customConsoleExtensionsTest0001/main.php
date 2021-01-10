@@ -78,6 +78,15 @@ class customConsoleExtensionsTest0001{
 					'message' => 'OK',
 				);
 				break;
+			case 'test-broadcast':
+				$this->cceAgent->broadcast(array(
+					'message' => 'This is a boroadcast message.',
+				));
+				return array(
+					'result' => true,
+					'message' => 'OK',
+				);
+				break;
 		}
 		return false;
 	}

@@ -66,7 +66,7 @@ class customConsoleExtensions_cceAgent{
 	public function broadcast($message){
 		require_once(__DIR__.'/broadcast.php');
 		$broadcast = new customConsoleExtensions_broadcast($this->px, $this->main);
-		return $broadcast->call( $command );
+		return $broadcast->call( $message );
 	}
 
 }

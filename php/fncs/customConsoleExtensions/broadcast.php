@@ -71,17 +71,30 @@ class customConsoleExtensions_broadcast{
 	}
 
 	/**
-	 * 非同期処理を呼び出す
+	 * メッセージの配信処理を要求する
 	 */
-	public function call($command){
-		$command = json_decode(json_encode($command), true);
-		if( !is_array($command) ){
+	public function call( $message ){
+		$message = json_decode(json_encode($message), true);
+		if( !is_array($message) ){
 			return false;
 		}
 
 		$config = $this->get_config();
 		switch( $config->method ){
 			case 'file':
+			default:
+				// ファイルで命令を伝える
+				$realpath_dir = $config->dir;
+				if( !strlen($realpath_dir) || !is_dir($realpath_dir) || !is_writable($realpath_dir) ){
+					return false;
+				}
+				$realpath_dir = $this->px->fs()->get_realpath($realpath_dir.'/');
+
+				$filename = '__broadcast_message_'.date('Y-m-d-His').'_'.microtime(true).'_'.rand().'.json';
+				$bin_command = json_encode( $message );
+				$this->px->fs()->save_file($realpath_dir.$filename, $bin_command);
+
+				return true;
 				break;
 		}
 		return true;

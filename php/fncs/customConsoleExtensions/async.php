@@ -90,8 +90,9 @@ class customConsoleExtensions_async{
 				}
 				$realpath_dir = $this->px->fs()->get_realpath($realpath_dir.'/');
 
-				$filename = '_async_command_'.date('Y-m-d-His').'.json';
+				$filename = '__async_command_'.date('Y-m-d-His').'_'.microtime(true).'_'.rand().'.json';
 				$bin_command = json_encode( $command );
+				$this->px->fs()->save_file($realpath_dir.$filename, $bin_command);
 
 				return true;
 				break;
