@@ -94,6 +94,9 @@ class customConsoleExtensionsTest extends PHPUnit_Framework_TestCase{
 		$this->assertTrue( is_object($json) );
 		$this->assertSame( true, $json->result );
 		$this->assertSame( 'OK', $json->message );
+		$this->assertTrue( is_object($json->response) );
+		$this->assertSame( true, $json->response->result );
+		$this->assertSame( 'OK', $json->response->message );
 		$this->fs->rm(__DIR__.'/testData/standard/px-files/_sys/ram/data/tmp_request.txt');
 
 
@@ -105,6 +108,61 @@ class customConsoleExtensionsTest extends PHPUnit_Framework_TestCase{
 		] );
 
 	} // testCustomConsoleExtensions()
+
+	/**
+	 * サーバーサイドでappModeを取り扱うテスト
+	 */
+	public function testAppMode(){
+
+		// ----------------------------------------
+		// PX Command: Custom Console Extensions のGPIを呼び出す
+		$this->fs->save_file(
+			__DIR__.'/testData/standard/px-files/_sys/ram/data/tmp_request.txt',
+			'PX=px2dthelper.custom_console_extensions.customConsoleExtensionsTest0001.gpi'
+				.'&appMode=desktop'
+				.'&request='.urlencode(json_encode(array(
+					'command'=>'get-app-mode',
+				)))
+		);
+		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '--method', 'post', '--body-file', 'tmp_request.txt', '/' ] );
+		// var_dump($output);
+		$json = json_decode( $output );
+		// var_dump($json);
+		$this->assertTrue( is_object($json) );
+		$this->assertSame( true, $json->result );
+		$this->assertSame( 'OK', $json->message );
+		$this->assertSame( 'desktop', $json->response->{'appMode'} );
+		$this->fs->rm(__DIR__.'/testData/standard/px-files/_sys/ram/data/tmp_request.txt');
+
+		// ----------------------------------------
+		// PX Command: Custom Console Extensions のGPIを呼び出す
+		$this->fs->save_file(
+			__DIR__.'/testData/standard/px-files/_sys/ram/data/tmp_request.txt',
+			'PX=px2dthelper.custom_console_extensions.customConsoleExtensionsTest0001.gpi'
+				.'&appMode=web'
+				.'&request='.urlencode(json_encode(array(
+					'command'=>'get-app-mode',
+				)))
+		);
+		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '--method', 'post', '--body-file', 'tmp_request.txt', '/' ] );
+		// var_dump($output);
+		$json = json_decode( $output );
+		// var_dump($json);
+		$this->assertTrue( is_object($json) );
+		$this->assertSame( true, $json->result );
+		$this->assertSame( 'OK', $json->message );
+		$this->assertSame( 'web', $json->response->{'appMode'} );
+		$this->fs->rm(__DIR__.'/testData/standard/px-files/_sys/ram/data/tmp_request.txt');
+
+
+		// 後始末
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/standard/.px_execute.php' ,
+			'/?PX=clearcache' ,
+		] );
+
+	} // testAppMode()
 
 
 

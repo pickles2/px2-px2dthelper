@@ -61,6 +61,13 @@ class customConsoleExtensionsTest0001{
 					'message' => 'OK',
 				);
 				break;
+			case 'get-app-mode':
+				return array(
+					'result' => true,
+					'message' => 'OK',
+					'appMode' => $this->cceAgent->get_app_mode(),
+				);
+				break;
 		}
 		return false;
 	}
