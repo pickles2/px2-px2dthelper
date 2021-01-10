@@ -864,6 +864,53 @@ class main{
 				print $std_output->data_convert( $result );
 				exit;
 				break;
+
+			case 'custom_console_extensions_async_run':
+				require_once(__DIR__.'/fncs/customConsoleExtensions/async.php');
+				$tmpAsync = new customConsoleExtensions_async(null, $this->px, $this);
+				$config = $tmpAsync->get_config();
+				$rtn = array(
+					'result' => true,
+					'message' => 'OK',
+				);
+
+				switch( $config->method ){
+					case 'file':
+						$realpath_dir = $config->dir;
+						if( !strlen($realpath_dir) || !is_dir($realpath_dir) || !is_writable($realpath_dir) ){
+							return false;
+						}
+						$realpath_dir = $this->px->fs()->get_realpath($realpath_dir.'/');
+						$cmdList = $this->px->fs()->ls($realpath_dir);
+						$rtn['responses'] = array();
+
+						foreach($cmdList as $filename){
+							$command = false;
+							$file_content = file_get_contents( $realpath_dir.$filename );
+							try{
+								$command = json_decode( $file_content );
+								unlink($realpath_dir.$filename);
+							}catch(Exception $e){
+							}
+							$async = new customConsoleExtensions_async($command->cce_id, $this->px, $this);
+							$result = $async->run( $command->command );
+							array_push($rtn['responses'], $result);
+						}
+						print $std_output->data_convert( $rtn );
+						exit;
+						break;
+					case 'sync':
+						print $std_output->data_convert( array(
+							'result' => false,
+							'message' => 'Method "sync" is unable to call by outside.',
+						) );
+						exit;
+						break;
+				}
+
+				print $std_output->data_convert( false );
+				exit;
+				break;
 		}
 
 		print $this->px->pxcmd()->get_cli_header();

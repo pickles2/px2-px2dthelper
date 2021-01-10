@@ -97,7 +97,10 @@ class customConsoleExtensions_async{
 				$realpath_dir = $this->px->fs()->get_realpath($realpath_dir.'/');
 
 				$filename = '__async_command_'.date('Y-m-d-His').'_'.microtime(true).'_'.rand().'.json';
-				$bin_command = json_encode( $command );
+				$bin_command = json_encode( array(
+					'cce_id' => $this->cce_id,
+					'command' => $command,
+				) );
 				$this->px->fs()->save_file($realpath_dir.$filename, $bin_command);
 
 				return true;
@@ -156,8 +159,27 @@ class customConsoleExtensions_async{
 
 				return $src_out;
 				break;
+
 			case 'pxcmd':
+				$str_param = http_build_query( $command['params'] );
+				if( !is_string($command['command']) || !strlen($command['command']) ){
+					return false;
+				}
+
+				$params = 'PX='.urlencode($command['command']);
+				$params .= (strlen($str_param) ? '&'.$str_param : '');
+
+				$src_out = $this->px->internal_sub_request(
+					'/?'.$params,
+					array(
+						'output' => 'json',
+					),
+					$return_value
+				);
+
+				return $src_out;
 				break;
+
 			case 'cmd':
 				break;
 		}

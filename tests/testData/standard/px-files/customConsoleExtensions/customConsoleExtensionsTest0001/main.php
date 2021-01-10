@@ -81,6 +81,9 @@ class customConsoleExtensionsTest0001{
 				);
 				break;
 			case 'test-async-run':
+				$realpath_data = $this->px->get_realpath_homedir();
+				$this->px->fs()->save_file($realpath_data.'_sys/ram/data/__output.txt', 'test-async-run: called.');
+
 				return array(
 					'result' => true,
 					'message' => 'OK',

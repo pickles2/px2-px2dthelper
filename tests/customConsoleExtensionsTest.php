@@ -169,6 +169,7 @@ class customConsoleExtensionsTest extends PHPUnit_Framework_TestCase{
 	 * サーバーサイドで非同期処理を実行するテスト
 	 */
 	public function testAsync(){
+		$realpath_output_file = __DIR__.'/testData/standard/px-files/_sys/ram/data/__output.txt';
 
 		// ----------------------------------------
 		// Sync
@@ -189,9 +190,14 @@ class customConsoleExtensionsTest extends PHPUnit_Framework_TestCase{
 		$this->assertSame( 'OK', $json->message );
 		$this->fs->rm(__DIR__.'/testData/standard/px-files/_sys/ram/data/tmp_request.txt');
 
+		$this->assertTrue( is_file( $realpath_output_file ) );
+		$this->assertSame( 'test-async-run: called.', file_get_contents( $realpath_output_file ) );
+		unlink( $realpath_output_file );
+
 
 		// ----------------------------------------
 		// File
+
 		$realpath_sync_dir = __DIR__.'/testData/standard/px-files/_sys/ram/data/syncDir/';
 		if(is_dir($realpath_sync_dir)){
 			$this->fs->rm($realpath_sync_dir);
@@ -207,6 +213,7 @@ class customConsoleExtensionsTest extends PHPUnit_Framework_TestCase{
 					'command'=>'test-async',
 				)))
 		);
+
 		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '--method', 'post', '--body-file', 'tmp_request.txt', '/' ] );
 		// var_dump($output);
 		$json = json_decode( $output );
@@ -220,10 +227,12 @@ class customConsoleExtensionsTest extends PHPUnit_Framework_TestCase{
 		$files = $this->fs->ls( $realpath_sync_dir );
 		// var_dump($files);
 		$this->assertSame( 1, count($files) );
+		$json = json_decode( file_get_contents( $realpath_sync_dir.$files[0] ) );
+		$this->assertSame( 'customConsoleExtensionsTest0001', $json->cce_id );
 
 		$this->fs->save_file(
 			__DIR__.'/testData/standard/px-files/_sys/ram/data/tmp_request.txt',
-			'PX=px2dthelper.custom_console_extensions.customConsoleExtensionsTest0001.async_run'
+			'PX=px2dthelper.custom_console_extensions_async_run'
 				.'&asyncMethod=file'
 				.'&asyncDir='.urlencode($realpath_sync_dir)
 				.'&appMode=desktop'
@@ -241,6 +250,10 @@ class customConsoleExtensionsTest extends PHPUnit_Framework_TestCase{
 		$files = $this->fs->ls( $realpath_sync_dir );
 		// var_dump($files);
 		$this->assertSame( 0, count($files) );
+
+		$this->assertTrue( is_file( $realpath_output_file ) );
+		$this->assertSame( 'test-async-run: called.', file_get_contents( $realpath_output_file ) );
+		unlink( $realpath_output_file );
 
 
 		// 後始末

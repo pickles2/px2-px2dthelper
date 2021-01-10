@@ -396,6 +396,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 #### PX=px2dthelper.custom_console_extensions
 #### PX=px2dthelper.custom_console_extensions.XXXX.client_resources
 #### PX=px2dthelper.custom_console_extensions.XXXX.gpi
+#### PX=px2dthelper.custom_console_extensions_async_run
 
 `$conf->plugins->px2dt->customConsoleExtensions` に登録された拡張機能へアクセスするAPIを提供します。
 第3引数の `XXXX` には、 Custom Console Extensions に登録したID(添字)を指定します。省略時には、登録されている拡張機能の一覧を返します。
