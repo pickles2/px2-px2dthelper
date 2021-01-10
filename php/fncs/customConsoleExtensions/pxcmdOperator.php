@@ -135,7 +135,7 @@ class customConsoleExtensions_pxcmdOperator{
 
 		// $cceAgent
 		require_once(__DIR__.'/cceAgent.php');
-		$cceAgent = new customConsoleExtensions_cceAgent($this->px, $this->main);
+		$cceAgent = new customConsoleExtensions_cceAgent($cce_id, $this->px, $this->main);
 
 		$rtn = new $className( $this->px, $option_value, $cceAgent );
 
@@ -233,7 +233,7 @@ class customConsoleExtensions_pxcmdOperator{
 
 				case 'async_run':
 					require_once(__DIR__.'/async.php');
-					$async = new customConsoleExtensions_async($this->px, $this->main);
+					$async = new customConsoleExtensions_async($cce_id, $this->px, $this->main);
 					$config = $async->get_config();
 
 					switch( $config->method ){

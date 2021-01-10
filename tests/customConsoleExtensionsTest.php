@@ -193,6 +193,9 @@ class customConsoleExtensionsTest extends PHPUnit_Framework_TestCase{
 		// ----------------------------------------
 		// File
 		$realpath_sync_dir = __DIR__.'/testData/standard/px-files/_sys/ram/data/syncDir/';
+		if(is_dir($realpath_sync_dir)){
+			$this->fs->rm($realpath_sync_dir);
+		}
 		$this->fs->mkdir($realpath_sync_dir);
 		$this->fs->save_file(
 			__DIR__.'/testData/standard/px-files/_sys/ram/data/tmp_request.txt',

@@ -10,6 +10,11 @@ namespace tomk79\pickles2\px2dthelper;
 class customConsoleExtensions_async{
 
 	/**
+	 * Custom Console Extension ID
+	 */
+	private $cce_id;
+
+	/**
 	 * Picklesオブジェクト
 	 */
 	private $px;
@@ -25,7 +30,8 @@ class customConsoleExtensions_async{
 	 * @param object $px $pxオブジェクト
 	 * @param object $main main.php のインスタンス
 	 */
-	public function __construct( $px, $main ){
+	public function __construct( $cce_id, $px, $main ){
+		$this->cce_id = $cce_id;
 		$this->px = $px;
 		$this->main = $main;
 	}
@@ -113,6 +119,47 @@ class customConsoleExtensions_async{
 		$command = json_decode(json_encode($command), true);
 		if( !is_array($command) ){
 			return false;
+		}
+
+		if( !array_key_exists('type', $command) || !strlen($command['type']) ){
+			$command['type'] = 'gpi';
+		}
+		if( !array_key_exists('command', $command) || !strlen($command['command']) ){
+			$command['command'] = null;
+		}
+		if( !array_key_exists('request', $command) || !is_array($command['request']) ){
+			$command['request'] = array();
+		}
+		if( !array_key_exists('params', $command) || !is_array($command['params']) ){
+			$command['params'] = array();
+		}
+
+		switch( $command['type'] ){
+			case 'gpi':
+				$cce_id = $this->cce_id;
+				if( !strlen($cce_id) ){
+					return false;
+				}
+				$str_param = http_build_query( $command['params'] );
+
+				$params = 'PX=px2dthelper.custom_console_extensions.'.urlencode($cce_id).'.gpi';
+				$params .= '&request='.urlencode( json_encode( $command['request'] ) );
+				$params .= (strlen($str_param) ? '&'.$str_param : '');
+
+				$src_out = $this->px->internal_sub_request(
+					'/?'.$params,
+					array(
+						'output' => 'json',
+					),
+					$return_value
+				);
+
+				return $src_out;
+				break;
+			case 'pxcmd':
+				break;
+			case 'cmd':
+				break;
 		}
 
 		return true;

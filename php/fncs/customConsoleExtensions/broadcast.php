@@ -10,6 +10,11 @@ namespace tomk79\pickles2\px2dthelper;
 class customConsoleExtensions_broadcast{
 
 	/**
+	 * Custom Console Extension ID
+	 */
+	private $cce_id;
+
+	/**
 	 * Picklesオブジェクト
 	 */
 	private $px;
@@ -25,7 +30,8 @@ class customConsoleExtensions_broadcast{
 	 * @param object $px $pxオブジェクト
 	 * @param object $main main.php のインスタンス
 	 */
-	public function __construct( $px, $main ){
+	public function __construct( $cce_id, $px, $main ){
+		$this->cce_id = $cce_id;
 		$this->px = $px;
 		$this->main = $main;
 	}

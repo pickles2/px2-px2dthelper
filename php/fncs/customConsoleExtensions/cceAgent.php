@@ -10,6 +10,11 @@ namespace tomk79\pickles2\px2dthelper;
 class customConsoleExtensions_cceAgent{
 
 	/**
+	 * Custom Console Extension ID
+	 */
+	private $cce_id;
+
+	/**
 	 * Picklesオブジェクト
 	 */
 	private $px;
@@ -25,7 +30,8 @@ class customConsoleExtensions_cceAgent{
 	 * @param object $px $pxオブジェクト
 	 * @param object $main main.php のインスタンス
 	 */
-	public function __construct( $px, $main ){
+	public function __construct( $cce_id, $px, $main ){
+		$this->cce_id = $cce_id;
 		$this->px = $px;
 		$this->main = $main;
 	}
@@ -53,7 +59,7 @@ class customConsoleExtensions_cceAgent{
 	 */
 	public function async($command){
 		require_once(__DIR__.'/async.php');
-		$async = new customConsoleExtensions_async($this->px, $this->main);
+		$async = new customConsoleExtensions_async($this->cce_id, $this->px, $this->main);
 		return $async->call( $command );
 	}
 
@@ -65,7 +71,7 @@ class customConsoleExtensions_cceAgent{
 	 */
 	public function broadcast($message){
 		require_once(__DIR__.'/broadcast.php');
-		$broadcast = new customConsoleExtensions_broadcast($this->px, $this->main);
+		$broadcast = new customConsoleExtensions_broadcast($this->cce_id, $this->px, $this->main);
 		return $broadcast->call( $message );
 	}
 

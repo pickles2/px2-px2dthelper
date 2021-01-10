@@ -71,11 +71,20 @@ class customConsoleExtensionsTest0001{
 			case 'test-async':
 				$this->cceAgent->async(array(
 					'type' => 'gpi',
-					'command' => 'test-async-run',
+					'request' => array(
+						'command' => 'test-async-run',
+					),
 				));
 				return array(
 					'result' => true,
 					'message' => 'OK',
+				);
+				break;
+			case 'test-async-run':
+				return array(
+					'result' => true,
+					'message' => 'OK',
+					'content' => 'test-async-run: called.',
 				);
 				break;
 			case 'test-broadcast':
