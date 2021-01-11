@@ -1,9 +1,9 @@
 window.Px2dthelperCceAgent = function(options){
+	var onBroadcast = function(message){};
 	options = options || {};
 	options.elm = options.elm || false;
 	options.lang = options.lang || 'ja';
 	options.gpiBridge = options.gpiBridge || function(request, callback){};
-	options.onBroadcast = options.onBroadcast || function(message){};
 	this.elm = function(){return options.elm;}
 	this.lang = function(){return options.lang;}
 	this.gpi = function(request, callback){
@@ -19,6 +19,9 @@ window.Px2dthelperCceAgent = function(options){
 		});
 	}
 	this.putBroadcastMessage = function(message){
-		options.onBroadcast(message);
+		onBroadcast(message);
+	};
+	this.onBroadcast = function(callback){
+		onBroadcast = callback;
 	}
 }
