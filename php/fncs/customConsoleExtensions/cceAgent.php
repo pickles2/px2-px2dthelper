@@ -69,10 +69,10 @@ class customConsoleExtensions_cceAgent{
 	 * `async()` と同様、px2dthelper自身には、メッセージを送信する能力はなく、
 	 * 仲介するアプリケーション(babycorn や burdock)に、配信処理を依存します。
 	 */
-	public function broadcast($message){
+	public function broadcast($message, $scope = null){
 		require_once(__DIR__.'/broadcast.php');
 		$broadcast = new customConsoleExtensions_broadcast($this->cce_id, $this->px, $this->main);
-		return $broadcast->call( $message );
+		return $broadcast->call( $message, $scope );
 	}
 
 }

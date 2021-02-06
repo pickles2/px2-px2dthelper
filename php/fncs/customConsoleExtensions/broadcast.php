@@ -78,8 +78,17 @@ class customConsoleExtensions_broadcast{
 
 	/**
 	 * メッセージの配信処理を要求する
+	 *
+	 * @param array|object $message 配信する情報。
+	 * @param string $scope 配信する範囲。
+	 * - `self` = 実行者のみ (default)
+	 * - `branch` = 同じブランチの編集者
+	 * - `project` = 同じプロジェクトの編集者
+	 * - `all` = 全編集者
+	 *
+	 * @return boolean 結果
 	 */
-	public function call( $message ){
+	public function call( $message, $scope = null ){
 		$message = json_decode(json_encode($message), true);
 		if( !is_array($message) ){
 			return false;
