@@ -5,7 +5,9 @@
 namespace tomk79\pickles2\px2dthelper;
 
 /**
- * pxcmd.php
+ * pxcmdOperator.php
+ *
+ * PX Command `PX=px2dthelper.custom_console_extensions.*` を処理します。
  */
 class customConsoleExtensions_pxcmdOperator{
 

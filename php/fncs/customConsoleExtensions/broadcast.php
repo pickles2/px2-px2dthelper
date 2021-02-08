@@ -6,6 +6,10 @@ namespace tomk79\pickles2\px2dthelper;
 
 /**
  * broadcast.php
+ *
+ * `$cceAgent` の機能の一部として呼び出され、非同期のブロードキャストを仲介します。
+ * ブロードキャストは、WebSocketのような実装が期待され、呼び出し元アプリに依存します。
+ * このオブジェクトは、メッセージをファイル等に保存し、呼び出し元へ伝達します。
  */
 class customConsoleExtensions_broadcast{
 
