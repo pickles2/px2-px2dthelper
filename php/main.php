@@ -169,11 +169,31 @@ class main{
 	 *
 	 * @return string テーマコレクションディレクトリの絶対パス, 失敗した場合 `false`
 	 */
-	public function get_realpath_theme_collection_dir(){
+	public function get_path_theme_collection_dir(){
 		$theme_plugin_name = 'tomk79\\pickles2\\multitheme\\theme::exec';
 		$val = $this->plugins()->get_plugin_options($theme_plugin_name, 'processor.html');
-		if( @$val[0]->options->path_theme_collection ){
-			return $this->px->fs()->get_realpath($val[0]->options->path_theme_collection.'/');
+		if(
+			is_array($val)
+			&& array_key_exists(0, $val)
+			&& is_object($val[0])
+			&& property_exists($val[0], 'options')
+			&& is_object($val[0]->options)
+			&& property_exists($val[0]->options, 'path_theme_collection')
+			&& @$val[0]->options->path_theme_collection ){
+			return $this->px->fs()->get_realpath($val[0]->options->path_theme_collection, '/');
+		}
+		return false;
+	}
+
+	/**
+	 * テーマコレクションディレクトリのパスを得る。
+	 *
+	 * @return string テーマコレクションディレクトリの絶対パス, 失敗した場合 `false`
+	 */
+	public function get_realpath_theme_collection_dir(){
+		$path_theme_collection_dir = $this->get_path_theme_collection_dir();
+		if( $path_theme_collection_dir ){
+			return $this->px->fs()->get_realpath('.'.$path_theme_collection_dir);
 		}
 		return false;
 	}
@@ -526,6 +546,11 @@ class main{
 
 			case 'get':
 				switch( @$this->command[2] ){
+					case 'path_theme_collection_dir':
+						$request_path = $this->px->req()->get_request_file_path();
+						print $std_output->data_convert( $this->get_path_theme_collection_dir() );
+						exit;
+						break;
 					case 'realpath_theme_collection_dir':
 						$request_path = $this->px->req()->get_request_file_path();
 						print $std_output->data_convert( $this->get_realpath_theme_collection_dir() );
@@ -566,6 +591,7 @@ class main{
 						@$rtn->realpath_homedir = $this->px->get_path_homedir();
 						@$rtn->path_controot = $this->px->get_path_controot();
 						@$rtn->realpath_docroot = $this->px->get_path_docroot();
+						@$rtn->path_theme_collection_dir = $this->get_path_theme_collection_dir();
 						@$rtn->realpath_theme_collection_dir = $this->get_realpath_theme_collection_dir();
 						@$rtn->realpath_data_dir = $this->get_realpath_data_dir( $request_path );
 

@@ -29,6 +29,16 @@ class themeCollectionTest extends PHPUnit_Framework_TestCase{
 		$this->assertTrue( is_string($output) );
 		$this->assertEquals( $this->fs->get_realpath(__DIR__.'/testData/theme_collection/px-files/themes/'), $output );
 
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/theme_collection/.px_execute.php',
+			'/?PX=px2dthelper.get.path_theme_collection_dir'
+		] );
+		$output = json_decode($output);
+		// var_dump($output);
+		$this->assertTrue( is_string($output) );
+		$this->assertEquals( '/px-files/themes/', $output );
+
 
 		$output = $this->passthru( [
 			'php',
