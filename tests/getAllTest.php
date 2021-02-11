@@ -519,6 +519,13 @@ class getAllTest extends PHPUnit_Framework_TestCase{
 		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.get.custom_fields' ] ));
 		$this->assertEquals( $json->custom_fields, $output );
 
+		// path_homedir
+		$this->assertEquals( $json->path_homedir, '/px-files/' );
+			// NOTE: Pickles Framework に `$px->get_path_homedir()` があるが、
+			//       このメソッドは `$px->get_realpath_homedir()` の古い名前であり、絶対パスが返される。
+			//       過去の挙動を壊さないように、このメソッドの振る舞いは変更しない。
+			//       なので、代わりに `$this->get_path_homedir()` を作り、これを使うことにした。
+
 		// realpath_homedir
 		$output = json_decode($this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=api.get.path_homedir' ] ));
 		$this->assertEquals( $json->realpath_homedir, $output );

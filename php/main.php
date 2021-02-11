@@ -63,8 +63,8 @@ class main{
 		$this->px2dtconfig = json_decode('{}');
 		if( @is_object($this->px->conf()->plugins->px2dt) ){
 			$this->px2dtconfig = $this->px->conf()->plugins->px2dt;
-		}elseif( is_file( $this->px->get_path_homedir().'px2dtconfig.json' ) ){
-			$this->px2dtconfig = json_decode( $this->px->fs()->read_file( $this->px->get_path_homedir().'px2dtconfig.json' ) );
+		}elseif( is_file( $this->px->get_realpath_homedir().'px2dtconfig.json' ) ){
+			$this->px2dtconfig = json_decode( $this->px->fs()->read_file( $this->px->get_realpath_homedir().'px2dtconfig.json' ) );
 		}
 		$this->px2dtconfig = json_decode( json_encode($this->px2dtconfig) ); // 連想配列で設定されている場合を考慮して、オブジェクト形式に変換する
 
@@ -148,7 +148,7 @@ class main{
 		$rtn = $this->px->fs()->normalize_path($rtn);
 		$rtn = preg_replace( '/^\/+/', '/', $rtn );
 		return $rtn;
-	}//path_files()
+	} // path_files()
 
 
 	/**
@@ -162,7 +162,24 @@ class main{
 		$rtn = $this->px->fs()->get_realpath( $rtn );
 		$rtn = $this->px->fs()->get_realpath( $this->px->get_realpath_docroot().$rtn );
 		return $rtn;
-	}//realpath_files()
+	} // realpath_files()
+
+	/**
+	 * ホームディレクトリのパスを得る。
+	 *
+	 * NOTE: Pickles Framework に `$px->get_path_homedir()` があるが、
+	 *       このメソッドは `$px->get_realpath_homedir()` の古い名前であり、絶対パスが返される。
+	 *       過去の挙動を壊さないように、このメソッドの振る舞いは変更しない。
+	 *       なので、代わりに `$this->get_path_homedir()` を作り、これを使うことにした。
+	 *
+	 * @return string ホームディレクトリのパス, 失敗した場合 `false`
+	 */
+	public function get_path_homedir(){
+		$realpath_homedir = $this->px->get_realpath_homedir();
+		$path_homedir = $this->px->fs()->get_relatedpath($realpath_homedir);
+		$path_homedir = $this->px->fs()->get_realpath($path_homedir, '/');
+		return $path_homedir;
+	} // get_path_homedir()
 
 	/**
 	 * テーマコレクションディレクトリのパスを得る。
@@ -588,7 +605,12 @@ class main{
 						@$rtn->check_status->pxfw_api->version = $rtn->version->pxfw;
 						@$rtn->check_status->pxfw_api->is_sitemap_loaded = (is_object($this->px->site()) ? true : false);
 						@$rtn->custom_fields = $this->get_custom_fields();
-						@$rtn->realpath_homedir = $this->px->get_path_homedir();
+						@$rtn->path_homedir = $this->get_path_homedir();
+							// NOTE: Pickles Framework に `$px->get_path_homedir()` があるが、
+							//       このメソッドは `$px->get_realpath_homedir()` の古い名前であり、絶対パスが返される。
+							//       過去の挙動を壊さないように、このメソッドの振る舞いは変更しない。
+							//       なので、代わりに `$this->get_path_homedir()` を作り、これを使うことにした。
+						@$rtn->realpath_homedir = $this->px->get_realpath_homedir();
 						@$rtn->path_controot = $this->px->get_path_controot();
 						@$rtn->realpath_docroot = $this->px->get_path_docroot();
 						@$rtn->path_theme_collection_dir = $this->get_path_theme_collection_dir();
