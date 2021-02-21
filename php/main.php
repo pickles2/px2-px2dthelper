@@ -49,7 +49,7 @@ class main{
 	 * @return string バージョン番号を示す文字列
 	 */
 	public function get_version(){
-		return '2.0.17-alpha.1+dev';
+		return '2.0.17';
 	}
 
 
