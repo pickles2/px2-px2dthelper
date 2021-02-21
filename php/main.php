@@ -161,6 +161,7 @@ class main{
 		$rtn = $this->path_files( $page_path );
 		$rtn = $this->px->fs()->get_realpath( $rtn );
 		$rtn = $this->px->fs()->get_realpath( $this->px->get_realpath_docroot().$rtn );
+		$rtn = $this->px->fs()->normalize_path($rtn);
 		return $rtn;
 	} // realpath_files()
 
@@ -177,6 +178,7 @@ class main{
 	public function get_path_homedir(){
 		$realpath_homedir = $this->px->get_realpath_homedir();
 		$path_homedir = $this->px->fs()->get_relatedpath($realpath_homedir);
+		$path_homedir = $this->px->fs()->normalize_path($path_homedir);
 		return $path_homedir;
 	} // get_path_homedir()
 
@@ -197,6 +199,7 @@ class main{
 			&& property_exists($val[0]->options, 'path_theme_collection')
 			&& @$val[0]->options->path_theme_collection ){
 			$relatedpath = $this->px->fs()->get_relatedpath($val[0]->options->path_theme_collection);
+			$relatedpath = $this->px->fs()->normalize_path($relatedpath);
 			return $relatedpath;
 		}
 		return false;
@@ -210,7 +213,7 @@ class main{
 	public function get_realpath_theme_collection_dir(){
 		$path_theme_collection_dir = $this->get_path_theme_collection_dir();
 		if( $path_theme_collection_dir ){
-			return $this->px->fs()->get_realpath('./'.$path_theme_collection_dir);
+			return $this->px->fs()->normalize_path( $this->px->fs()->get_realpath('./'.$path_theme_collection_dir) );
 		}
 		return false;
 	}
