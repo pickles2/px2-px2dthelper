@@ -177,7 +177,6 @@ class main{
 	public function get_path_homedir(){
 		$realpath_homedir = $this->px->get_realpath_homedir();
 		$path_homedir = $this->px->fs()->get_relatedpath($realpath_homedir);
-		$path_homedir = $this->px->fs()->get_realpath($path_homedir, '/');
 		return $path_homedir;
 	} // get_path_homedir()
 
@@ -275,7 +274,7 @@ class main{
 	}//get_path_resource_dir()
 
 	/**
-	 * realpath_data_dir のパスを得る。
+	 * リソースパステンプレートに実際の値を当てはめる。
 	 *
 	 * @param string $template テンプレート
 	 * @param string $page_path ページのパス
@@ -324,7 +323,7 @@ class main{
 			$rtn .= '/';
 		}
 		return $rtn;
-	}//bind_path_files()
+	} // bind_path_files()
 
 	/**
 	 * Get custom_fields
