@@ -404,6 +404,10 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ## 更新履歴 - Change log
 
+### pickles2/px2-px2dthelper v2.0.18 (リリース日未定)
+
+- テーマコレクションディレクトリが、プレビューのドキュメントルート外に置かれている場合に、正しいパスを返せない不具合を修正。
+
 ### pickles2/px2-px2dthelper v2.0.17 (2021年2月21日)
 
 - Update: Broccoli v0.4.x

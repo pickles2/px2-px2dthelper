@@ -37,7 +37,7 @@ class themeCollectionTest extends PHPUnit_Framework_TestCase{
 		$output = json_decode($output);
 		// var_dump($output);
 		$this->assertTrue( is_string($output) );
-		$this->assertEquals( '/px-files/themes/', $output );
+		$this->assertEquals( './px-files/themes/', $output );
 
 
 		$output = $this->passthru( [
