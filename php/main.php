@@ -49,7 +49,7 @@ class main{
 	 * @return string バージョン番号を示す文字列
 	 */
 	public function get_version(){
-		return '2.0.18-alpha.1+dev';
+		return '2.0.18';
 	}
 
 
@@ -177,7 +177,8 @@ class main{
 	 */
 	public function get_path_homedir(){
 		$realpath_homedir = $this->px->get_realpath_homedir();
-		$path_homedir = $this->px->fs()->normalize_path($this->px->fs()->get_relatedpath($realpath_homedir));
+		$path_homedir = $this->px->fs()->get_relatedpath($realpath_homedir);
+		$path_homedir = $this->px->fs()->normalize_path($path_homedir);
 		return $path_homedir;
 	} // get_path_homedir()
 
@@ -197,7 +198,8 @@ class main{
 			&& is_object($val[0]->options)
 			&& property_exists($val[0]->options, 'path_theme_collection')
 			&& @$val[0]->options->path_theme_collection ){
-			$relatedpath = $this->px->fs()->normalize_path( $this->px->fs()->get_relatedpath($val[0]->options->path_theme_collection) );
+			$relatedpath = $this->px->fs()->get_relatedpath($val[0]->options->path_theme_collection);
+			$relatedpath = $this->px->fs()->normalize_path($relatedpath);
 			return $relatedpath;
 		}
 		return false;
