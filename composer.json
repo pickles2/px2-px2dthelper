@@ -10,6 +10,7 @@
         }
     ],
     "minimum-stability": "dev",
+    "prefer-stable": true,
     "scripts":{
         "test": [
             "php ./vendor/phpunit/phpunit/phpunit"
