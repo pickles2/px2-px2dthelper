@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <meta charset="utf-8"/>
-    <title>pickles2/px2-px2dthelper@2.0.7 API Document</title>
+    <title>pickles2/px2-px2dthelper@2.0.19 API Document</title>
     <meta name="author" content=""/>
     <meta name="description" content=""/>
 
@@ -24,7 +24,7 @@
         <script type="text/javascript">
         function loadExternalCodeSnippets() {
             Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
-                var src = pre.getAttribute('data-src');
+                var src = pre.getAttribute('data-src').replace( /\\/g, '/');
                 var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
                 var language = 'php';
 
@@ -83,7 +83,7 @@
             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                 <i class="icon-ellipsis-vertical"></i>
             </a>
-            <a class="brand" href="../index.html">pickles2/px2-px2dthelper@2.0.7 API Document</a>
+            <a class="brand" href="../index.html">pickles2/px2-px2dthelper@2.0.19 API Document</a>
 
             <div class="nav-collapse">
                 <ul class="nav pull-right">
@@ -114,12 +114,12 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">224</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">246</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
                                 </a>
                             </li>
                             <li>
@@ -144,50 +144,59 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-2121975445"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-468031149"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-2121975445" class="accordion-body collapse in">
+            <div id="namespace-468031149" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-215620058"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1300445098"></a>
                                 <a href="../namespaces/tomk79.html" style="margin-left: 30px; padding-left: 0">tomk79</a>
             </div>
-            <div id="namespace-215620058" class="accordion-body collapse ">
+            <div id="namespace-1300445098" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-115841567"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-42563525"></a>
                                 <a href="../namespaces/tomk79.pickles2.html" style="margin-left: 30px; padding-left: 0">pickles2</a>
             </div>
-            <div id="namespace-115841567" class="accordion-body collapse ">
+            <div id="namespace-42563525" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1699827759"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1299476341"></a>
                                 <a href="../namespaces/tomk79.pickles2.px2dthelper.html" style="margin-left: 30px; padding-left: 0">px2dthelper</a>
             </div>
-            <div id="namespace-1699827759" class="accordion-body collapse ">
+            <div id="namespace-1299476341" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
                     <ul>
                                                                                                     <li class="class"><a href="../classes/tomk79.pickles2.px2dthelper.broccoli_receive_message.html">broccoli_receive_message</a></li>
+                                                    <li class="class"><a href="../classes/tomk79.pickles2.px2dthelper.customConsoleExtensions_async.html">customConsoleExtensions_async</a></li>
+                                                    <li class="class"><a href="../classes/tomk79.pickles2.px2dthelper.customConsoleExtensions_broadcast.html">customConsoleExtensions_broadcast</a></li>
+                                                    <li class="class"><a href="../classes/tomk79.pickles2.px2dthelper.customConsoleExtensions_cceAgent.html">customConsoleExtensions_cceAgent</a></li>
+                                                    <li class="class"><a href="../classes/tomk79.pickles2.px2dthelper.customConsoleExtensions_pxcmdOperator.html">customConsoleExtensions_pxcmdOperator</a></li>
                                                     <li class="class"><a href="../classes/tomk79.pickles2.px2dthelper.document_modules.html">document_modules</a></li>
                                                     <li class="class"><a href="../classes/tomk79.pickles2.px2dthelper.fncs_change_content_editor_mode.html">fncs_change_content_editor_mode</a></li>
+                                                    <li class="class"><a href="../classes/tomk79.pickles2.px2dthelper.fncs_config_parser.html">fncs_config_parser</a></li>
                                                     <li class="class"><a href="../classes/tomk79.pickles2.px2dthelper.fncs_copy_content.html">fncs_copy_content</a></li>
                                                     <li class="class"><a href="../classes/tomk79.pickles2.px2dthelper.fncs_init_content.html">fncs_init_content</a></li>
                                                     <li class="class"><a href="../classes/tomk79.pickles2.px2dthelper.fncs_search_sitemap.html">fncs_search_sitemap</a></li>
+                                                    <li class="class"><a href="../classes/tomk79.pickles2.px2dthelper.fncs_sitemap_editor.html">fncs_sitemap_editor</a></li>
                                                     <li class="class"><a href="../classes/tomk79.pickles2.px2dthelper.main.html">main</a></li>
                                                     <li class="class"><a href="../classes/tomk79.pickles2.px2dthelper.packages.html">packages</a></li>
                                                     <li class="class"><a href="../classes/tomk79.pickles2.px2dthelper.plugins.html">plugins</a></li>
+                                                    <li class="class"><a href="../classes/tomk79.pickles2.px2dthelper.px2ce_apis.html">px2ce_apis</a></li>
+                                                    <li class="class"><a href="../classes/tomk79.pickles2.px2dthelper.px2me_apis.html">px2me_apis</a></li>
+                                                    <li class="class"><a href="../classes/tomk79.pickles2.px2dthelper.px2te_apis.html">px2te_apis</a></li>
                                                     <li class="class"><a href="../classes/tomk79.pickles2.px2dthelper.simple_html_dom.html">simple_html_dom</a></li>
                                                     <li class="class"><a href="../classes/tomk79.pickles2.px2dthelper.simple_html_dom_node.html">simple_html_dom_node</a></li>
                                                     <li class="class"><a href="../classes/tomk79.pickles2.px2dthelper.std_output.html">std_output</a></li>
@@ -241,7 +250,7 @@
                     <table class="table table-hover">
                                             <tr>
                             <td><a href="../classes/tomk79.pickles2.px2dthelper.broccoli_receive_message.html">broccoli_receive_message</a></td>
-                            <td><em>broccoli_receive_message.php</em></td>
+                            <td><em>broccoli/receive_message.php</em></td>
                         </tr>
                                         </table>
                                     </div>
@@ -313,7 +322,7 @@
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on February 19th, 2018 at 08:37.
+                    on April 23rd, 2021 at 16:02.
                 </section>
             </section>
         </section>

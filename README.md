@@ -404,7 +404,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ## 更新履歴 - Change log
 
-### pickles2/px2-px2dthelper v2.0.19 (リリース日未定)
+### pickles2/px2-px2dthelper v2.0.19 (2021年4月24日)
 
 - `scssphp/scssphp` への対応を追加。
 - その他の細かい内部コード修正。
