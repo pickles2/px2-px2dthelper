@@ -24,11 +24,14 @@
         "php": ">=5.4.0",
         "tomk79/php-excel2html": "^0.0.8||~0.1",
         "michelf/php-markdown": "~1.6",
-        "leafo/scssphp": "~0.7",
+        "leafo/scssphp": ">=0.7",
         "pickles2/lib-px2-contents-editor": "~2.0",
         "pickles2/lib-px2-module-editor": "~0.2",
         "pickles2/lib-px2-theme-editor": "~0.0",
         "broccoli-html-editor/broccoli-html-editor": "~0.4"
+    },
+    "suggest": {
+        "scssphp/scssphp": "This is the successor package to \"leafo/scssphp\"."
     },
     "require-dev": {
         "broccoli-html-editor/broccoli-module-fess": "*",
@@ -38,15 +41,14 @@
         "pickles2/px2-multitheme": "~2.0",
         "tomk79/filesystem": "~1.0.0",
         "phpunit/phpunit": "^4.8.0",
-        "phpdocumentor/phpdocumentor": "^2.9.0"
+        "phpdocumentor/phpdocumentor": "^2.9.0",
+        "scssphp/scssphp": "~1.4.1"
     },
     "autoload": {
-        "files": [
-            "php/main.php",
-            "php/broccoli/receive_message.php",
-            "php/px2ce/apis.php",
-            "php/px2me/apis.php",
-            "php/px2te/apis.php"
-        ]
+        "psr-4": {
+            "tomk79\\pickles2\\px2dthelper\\": [
+                "php"
+            ]
+        }
     }
 }
