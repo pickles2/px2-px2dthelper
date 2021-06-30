@@ -594,48 +594,53 @@ class main{
 						exit;
 						break;
 					case 'all':
-						$rtn = json_decode('{}');
+						$rtn = (object) array();
 						$request_path = $this->px->req()->get_param('path');
 						if( !strlen( $request_path ) ){
 							$request_path = $this->px->req()->get_request_file_path();
 						}
 
-						@$rtn->config = $this->px->conf();
-						@$rtn->version->pxfw = $this->px->get_version();
-						@$rtn->version->px2dthelper = $this->get_version();
-						@$rtn->px2dtconfig = $this->get_px2dtconfig();
-						@$rtn->check_status->px2dthelper = $this->check_status();
-						@$rtn->check_status->pxfw_api->version = $rtn->version->pxfw;
-						@$rtn->check_status->pxfw_api->is_sitemap_loaded = (is_object($this->px->site()) ? true : false);
-						@$rtn->custom_fields = $this->get_custom_fields();
-						@$rtn->path_homedir = $this->get_path_homedir();
+						$rtn->config = $this->px->conf();
+						$rtn->version = (object) array();
+						$rtn->version->pxfw = $this->px->get_version();
+						$rtn->version->px2dthelper = $this->get_version();
+						$rtn->px2dtconfig = $this->get_px2dtconfig();
+						$rtn->check_status = (object) array();
+						$rtn->check_status->px2dthelper = $this->check_status();
+						$rtn->check_status->pxfw_api = (object) array();
+						$rtn->check_status->pxfw_api->version = $rtn->version->pxfw;
+						$rtn->check_status->pxfw_api->is_sitemap_loaded = (is_object($this->px->site()) ? true : false);
+						$rtn->custom_fields = $this->get_custom_fields();
+						$rtn->path_homedir = $this->get_path_homedir();
 							// NOTE: Pickles Framework に `$px->get_path_homedir()` があるが、
 							//       このメソッドは `$px->get_realpath_homedir()` の古い名前であり、絶対パスが返される。
 							//       過去の挙動を壊さないように、このメソッドの振る舞いは変更しない。
 							//       なので、代わりに `$this->get_path_homedir()` を作り、これを使うことにした。
-						@$rtn->realpath_homedir = $this->px->get_realpath_homedir();
-						@$rtn->path_controot = $this->px->get_path_controot();
-						@$rtn->realpath_docroot = $this->px->get_path_docroot();
-						@$rtn->path_theme_collection_dir = $this->get_path_theme_collection_dir();
-						@$rtn->realpath_theme_collection_dir = $this->get_realpath_theme_collection_dir();
-						@$rtn->realpath_data_dir = $this->get_realpath_data_dir( $request_path );
+						$rtn->realpath_homedir = $this->px->get_realpath_homedir();
+						$rtn->path_controot = $this->px->get_path_controot();
+						$rtn->realpath_docroot = $this->px->get_path_docroot();
+						$rtn->path_theme_collection_dir = $this->get_path_theme_collection_dir();
+						$rtn->realpath_theme_collection_dir = $this->get_realpath_theme_collection_dir();
+						$rtn->realpath_data_dir = $this->get_realpath_data_dir( $request_path );
 
-						@$rtn->page_info = false;
-						@$rtn->path_type = false;
-						@$rtn->path_files = false;
-						@$rtn->path_resource_dir = false;
-						@$rtn->realpath_files = false;
-						@$rtn->navigation_info = false;
+						$rtn->page_info = false;
+						$rtn->path_type = false;
+						$rtn->path_files = false;
+						$rtn->path_resource_dir = false;
+						$rtn->realpath_files = false;
+						$rtn->navigation_info = false;
 
 						if( is_object($this->px->site()) ){
-							@$rtn->page_info = $this->px->site()->get_page_info( $request_path );
-							@$rtn->path_type = $this->px->get_path_type( $rtn->page_info['path'] );
-							if( $rtn->path_type != 'alias' ){
+							$rtn->page_info = $this->px->site()->get_page_info( $request_path );
+							if( is_array($rtn->page_info) && array_key_exists('path', $rtn->page_info) ){
+								$rtn->path_type = $this->px->get_path_type( $rtn->page_info['path'] );
+							}
+							if( $rtn->path_type && $rtn->path_type != 'alias' ){
 								@$rtn->path_files = $this->path_files( $request_path );
 								@$rtn->path_resource_dir = $this->get_path_resource_dir( $request_path );
 								@$rtn->realpath_files = $this->realpath_files( $request_path );
 							}else{
-								@$rtn->realpath_data_dir = false;
+								$rtn->realpath_data_dir = false;
 							}
 							@$rtn->navigation_info = $this->get_navigation_info( $request_path, $sitemap_filter_options($this->px, $this->command[2]) );
 							if( is_callable(array($this->px->site(), 'get_page_originated_csv')) ){
@@ -643,9 +648,10 @@ class main{
 							}
 						}
 
-						@$rtn->packages->path_composer_root_dir = $this->packages()->get_path_composer_root_dir();
-						@$rtn->packages->path_npm_root_dir = $this->packages()->get_path_npm_root_dir();
-						@$rtn->packages->package_list = $this->packages()->get_package_list();
+						$rtn->packages = (object) array();
+						$rtn->packages->path_composer_root_dir = $this->packages()->get_path_composer_root_dir();
+						$rtn->packages->path_npm_root_dir = $this->packages()->get_path_npm_root_dir();
+						$rtn->packages->package_list = $this->packages()->get_package_list();
 
 						require_once(__DIR__.'/fncs/customConsoleExtensions/pxcmdOperator.php');
 						$ccExtMgr = new customConsoleExtensions_pxcmdOperator($this->px, $this);
