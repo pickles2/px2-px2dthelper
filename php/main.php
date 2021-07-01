@@ -636,15 +636,15 @@ class main{
 								$rtn->path_type = $this->px->get_path_type( $rtn->page_info['path'] );
 							}
 							if( $rtn->path_type && $rtn->path_type != 'alias' ){
-								@$rtn->path_files = $this->path_files( $request_path );
-								@$rtn->path_resource_dir = $this->get_path_resource_dir( $request_path );
-								@$rtn->realpath_files = $this->realpath_files( $request_path );
+								$rtn->path_files = $this->path_files( $request_path );
+								$rtn->path_resource_dir = $this->get_path_resource_dir( $request_path );
+								$rtn->realpath_files = $this->realpath_files( $request_path );
 							}else{
 								$rtn->realpath_data_dir = false;
 							}
-							@$rtn->navigation_info = $this->get_navigation_info( $request_path, $sitemap_filter_options($this->px, $this->command[2]) );
+							$rtn->navigation_info = $this->get_navigation_info( $request_path, $sitemap_filter_options($this->px, $this->command[2]) );
 							if( is_callable(array($this->px->site(), 'get_page_originated_csv')) ){
-								@$rtn->page_originated_csv = $this->px->site()->get_page_originated_csv( $request_path );
+								$rtn->page_originated_csv = $this->px->site()->get_page_originated_csv( $request_path );
 							}
 						}
 
