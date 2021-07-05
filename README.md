@@ -406,6 +406,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ### pickles2/px2-px2dthelper v2.0.20 (リリース日未定)
 
+- 拡張field設定のフロントエンドリソースが複数ある場合に処理できない不具合を修正。
 - その他の細かい内部コード修正。
 
 ### pickles2/px2-px2dthelper v2.0.19 (2021年4月24日)

@@ -127,7 +127,7 @@ class mainTest extends PHPUnit_Framework_TestCase{
 		$this->assertEquals( gettype(new stdClass), gettype($output->projectCustom1) );
 		$this->assertEquals( gettype(new stdClass), gettype($output->projectCustom2) );
 		$this->assertEquals( $this->fs->normalize_path($this->fs->get_realpath(__DIR__.'/testData/px2dt_config/px-files/broccoli-fields/projectCustom2/backend.js')), $output->projectCustom2->backend->require );
-		$this->assertEquals( $this->fs->normalize_path($this->fs->get_realpath(__DIR__.'/testData/px2dt_config/px-files/broccoli-fields/projectCustom2/frontend.js')), $output->projectCustom2->frontend->file );
+		$this->assertEquals( $this->fs->normalize_path($this->fs->get_realpath(__DIR__.'/testData/px2dt_config/px-files/broccoli-fields/projectCustom2/frontend.js')), $output->projectCustom2->frontend->file[0] );
 		$this->assertEquals( 'window.broccoliFieldProjectCustom2', $output->projectCustom2->frontend->function );
 
 		$output = $this->passthru( [
@@ -141,7 +141,7 @@ class mainTest extends PHPUnit_Framework_TestCase{
 		$this->assertEquals( gettype(new stdClass), gettype($output->projectCustom1) );
 		$this->assertEquals( gettype(new stdClass), gettype($output->projectCustom2) );
 		$this->assertEquals( $this->fs->normalize_path($this->fs->get_realpath(__DIR__.'/testData/px2dt_config/subapp/px-files/broccoli-fields/projectCustom2/backend.js')), $output->projectCustom2->backend->require );
-		$this->assertEquals( $this->fs->normalize_path($this->fs->get_realpath(__DIR__.'/testData/px2dt_config/subapp/px-files/broccoli-fields/projectCustom2/frontend.js')), $output->projectCustom2->frontend->file );
+		$this->assertEquals( $this->fs->normalize_path($this->fs->get_realpath(__DIR__.'/testData/px2dt_config/subapp/px-files/broccoli-fields/projectCustom2/frontend.js')), $output->projectCustom2->frontend->file[0] );
 		$this->assertEquals( 'window.broccoliFieldProjectCustom2', $output->projectCustom2->frontend->function );
 
 

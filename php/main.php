@@ -339,7 +339,15 @@ class main{
 
 		foreach( $rtn as $field ){
 			$field->backend->require = $this->px->fs()->normalize_path( $this->px->fs()->get_realpath( './'.$field->backend->require ) );
-			$field->frontend->file = $this->px->fs()->normalize_path( $this->px->fs()->get_realpath( './'.$field->frontend->file ) );
+
+			if( is_string($field->frontend->file) ){
+				$field->frontend->file = array( $field->frontend->file );
+			}
+			if( is_array($field->frontend->file) ){
+				foreach( $field->frontend->file as $key => $row ){
+					$field->frontend->file[$key] = $this->px->fs()->normalize_path( $this->px->fs()->get_realpath( './'.$field->frontend->file[$key] ) );
+				}
+			}
 		}
 
 		return $rtn;
