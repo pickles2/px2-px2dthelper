@@ -79,7 +79,7 @@ class px2ce_apis{
 	 */
 	private function create_px2ce(){
 		$current_page_info = $this->px->site()->get_current_page_info();
-		$px2ce = new \pickles2\libs\contentsEditor\main();
+		$px2ce = new \pickles2\libs\contentsEditor\main( $this->px );
 		$appMode = $this->px->req()->get_param('appMode');
 		if( !$appMode ){
 			$appMode = 'web';

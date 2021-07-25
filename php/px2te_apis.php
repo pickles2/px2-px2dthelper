@@ -67,7 +67,7 @@ class px2te_apis{
 	 */
 	private function create_px2te(){
 		$current_page_info = $this->px->site()->get_current_page_info();
-		$px2te = new \pickles2\libs\themeEditor\main();
+		$px2te = new \pickles2\libs\themeEditor\main( $this->px );
 		$appMode = $this->px->req()->get_param('appMode');
 		if( !$appMode ){
 			$appMode = 'web';
