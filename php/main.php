@@ -22,12 +22,19 @@ class main{
 	 * entry
 	 *
 	 * @param object $px Picklesオブジェクト
+	 * @param object $options プラグイン設定
 	 */
-	static public function register($px){
+	static public function register( $px = null, $options = null ){
+		if( count(func_get_args()) <= 1 ){
+			return __CLASS__.'::'.__FUNCTION__.'('.( is_array($px) ? json_encode($px) : '' ).')';
+		}
+
 		$px->pxcmd()->register('px2dthelper', function($px){
 			(new self( $px ))->kick();
 			exit;
 		}, true);
+
+		return;
 	}
 
 	/**

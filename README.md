@@ -406,6 +406,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ### pickles2/px2-px2dthelper v2.0.21 (リリース日未定)
 
+- 同梱のプラグインが、より直接的な表現で設定できるようになった。
 - パフォーマンスに関する改善。
 
 ### pickles2/px2-px2dthelper v2.0.20 (2021年7月10日)
