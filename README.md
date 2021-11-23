@@ -404,6 +404,10 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ## 更新履歴 - Change log
 
+### pickles2/px2-px2dthelper v2.0.22 (リリース日未定)
+
+- `$conf->plugins->px2dt->enable_document_modules_cache` を追加。Broccoli関連リソースのビルドをキャッシュするか設定できるようになった。デフォルトは無効。
+
 ### pickles2/px2-px2dthelper v2.0.21 (2021年8月21日)
 
 - 同梱のプラグインが、より直接的な表現で設定できるようになった。

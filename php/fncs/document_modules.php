@@ -442,6 +442,9 @@ class document_modules{
 	 * @return bool 読み込み可能な場合に `true`、読み込みできない場合に `false` を返します。
 	 */
 	private function is_cache( $ext, $newest_timestamp, $theme_id = null ){
+		if( !isset($this->main->get_px2dtconfig()->enable_document_modules_cache) || !$this->main->get_px2dtconfig()->enable_document_modules_cache ){
+			return false;
+		}
 		$path_cache = $this->px->get_realpath_homedir().'_sys/ram/caches/px2dthelper/document_modules/modules_'.urlencode($theme_id).'.'.urlencode($ext);
 		if( !is_file($path_cache) ){
 			return false;
