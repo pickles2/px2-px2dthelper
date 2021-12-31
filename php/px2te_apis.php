@@ -76,8 +76,19 @@ class px2te_apis{
 		$init_options = array(
 			'appMode' => $appMode, // 'web' or 'desktop'. default to 'web'
 			'entryScript' => $_SERVER['SCRIPT_FILENAME'],
+			'commands' => array(
+				'php' => array(),
+			),
 		);
 
+		$command_php = $this->px->req()->get_cli_option( '--command-php' );
+		if( isset($command_php) && is_string($command_php) && strlen($command_php) ){
+			$init_options['commands']['php']['bin'] = $command_php;
+		}
+		$command_php_ini = $this->px->req()->get_cli_option( '-c' );
+		if( isset($command_php_ini) && is_string($command_php_ini) && strlen($command_php_ini) ){
+			$init_options['commands']['php']['ini'] = $command_php_ini;
+		}
 
 		// var_dump($init_options);
 		$px2te->init($init_options);
