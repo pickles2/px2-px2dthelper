@@ -100,6 +100,15 @@ class px2ce_apis{
 			}
 		);
 
+		$command_php = $this->px->req()->get_cli_option( '--command-php' );
+		if( isset($command_php) && is_string($command_php) && strlen($command_php) ){
+			$init_options['php'] = $command_php;
+		}
+		$command_php_ini = $this->px->req()->get_cli_option( '-c' );
+		if( isset($command_php_ini) && is_string($command_php_ini) && strlen($command_php_ini) ){
+			$init_options['php_ini'] = $command_php_ini;
+		}
+
 		// --------------------------------------
 		// カスタムフィールドを読み込む
 		// プロジェクトが拡張するフィールド
