@@ -426,7 +426,7 @@ class document_modules{
 	 * @return bool 読み込み可能な場合に `true`、読み込みできない場合に `false` を返します。
 	 */
 	private function save_cache( $content, $ext, $theme_id = null ){
-		$path_cache = $this->px->get_realpath_homedir().'_sys/ram/caches/px2dthelper/document_modules/modules_'.urlencode($theme_id).'.'.urlencode($ext);
+		$path_cache = $this->px->get_realpath_homedir().'_sys/ram/caches/px2dthelper/document_modules/modules_'.urlencode(''.$theme_id).'.'.urlencode(''.$ext);
 		if( !is_dir(dirname($path_cache)) ){
 			$this->px->fs()->mkdir_r(dirname($path_cache));
 		}
