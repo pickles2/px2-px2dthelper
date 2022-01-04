@@ -3,7 +3,7 @@
  * Test for pickles2\px2-px2dthelper
  */
 
-class publishSinglePageTest extends PHPUnit_Framework_TestCase{
+class publishSinglePageTest extends PHPUnit\Framework\TestCase{
 
 	private $fs;
 	private $path_dist;
@@ -11,7 +11,7 @@ class publishSinglePageTest extends PHPUnit_Framework_TestCase{
 	/**
 	 * setup
 	 */
-	public function setup(){
+	public function setup() : void{
 		set_time_limit(60);
 		$this->fs = new \tomk79\filesystem();
 		$this->path_dist = __DIR__.'/testData/publish/px-files/dist/';

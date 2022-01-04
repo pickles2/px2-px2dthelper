@@ -3,12 +3,12 @@
  * Test for pickles2\px2-px2dthelper
  */
 
-class copyContentTest extends PHPUnit_Framework_TestCase{
+class copyContentTest extends PHPUnit\Framework\TestCase{
 
 	/**
 	 * setup
 	 */
-	public function setup(){
+	public function setup() : void{
 		set_time_limit(60);
 		$this->fs = new \tomk79\filesystem();
 	}

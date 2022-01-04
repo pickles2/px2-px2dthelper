@@ -3,12 +3,12 @@
  * Test for pickles2\px2-px2dthelper
  */
 
-class getAllTest extends PHPUnit_Framework_TestCase{
+class getAllTest extends PHPUnit\Framework\TestCase{
 
 	/**
 	 * setup
 	 */
-	public function setup(){
+	public function setup() : void{
 		set_time_limit(60);
 		$this->fs = new \tomk79\filesystem();
 		require_once(__DIR__.'/../php/simple_html_dom.php');
