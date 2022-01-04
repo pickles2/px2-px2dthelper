@@ -109,7 +109,7 @@ class customConsoleExtensions_pxcmdOperator{
 		if( is_string($ccEInfo) ){
 			$className = $ccEInfo;
 		}
-		if( !strlen($className) ){
+		if( !strlen(''.$className) ){
 			return false;
 		}
 
@@ -124,7 +124,7 @@ class customConsoleExtensions_pxcmdOperator{
 			$option_value = @$matched[2];
 		}
 		unset($matched);
-		if( strlen( trim($option_value) ) ){
+		if( strlen( trim(''.$option_value) ) ){
 			$option_value = json_decode( $option_value );
 		}else{
 			$option_value = null;
@@ -161,10 +161,10 @@ class customConsoleExtensions_pxcmdOperator{
 			$rtn['list'] = $this->get_list();
 			return $rtn;
 		}
-		if( array_key_exists(0, $ary_px_command) && strlen($ary_px_command[0]) ){
+		if( array_key_exists(0, $ary_px_command) && strlen(''.$ary_px_command[0]) ){
 			$cce_id = $ary_px_command[0];
 		}
-		if( array_key_exists(1, $ary_px_command) && strlen($ary_px_command[1]) ){
+		if( array_key_exists(1, $ary_px_command) && strlen(''.$ary_px_command[1]) ){
 			$subcommand = $ary_px_command[1];
 		}
 
@@ -175,7 +175,7 @@ class customConsoleExtensions_pxcmdOperator{
 				'message' => 'Custom Console Extension "'.$cce_id.'" is NOT available.',
 			);
 		}
-		if( strlen($subcommand) ){
+		if( strlen(''.$subcommand) ){
 			switch( $subcommand ){
 				case 'gpi':
 					if( !is_callable( array($ccExt, 'gpi') ) ){
@@ -206,7 +206,7 @@ class customConsoleExtensions_pxcmdOperator{
 					$realpath_base_dir = $ccExt->get_client_resource_base_dir();
 					$client_resources = $ccExt->get_client_resource_list();
 					$realpath_dist = $this->px->req()->get_param('dist');
-					if( strlen($realpath_dist) ){
+					if( strlen(''.$realpath_dist) ){
 						$realpath_dist = $this->px->fs()->get_realpath($realpath_dist.'/');
 						$this->px->fs()->copy_r($realpath_base_dir, $realpath_dist);
 					}
@@ -215,7 +215,7 @@ class customConsoleExtensions_pxcmdOperator{
 						$resources[$key] = array();
 						if( $key == 'js' ){
 							$realpath_cceAgent = __DIR__.'/Px2dthelperCceAgent.js';
-							if( !strlen($realpath_dist) ){
+							if( !strlen(''.$realpath_dist) ){
 								array_push($resources[$key], $realpath_cceAgent);
 							}else{
 								$this->px->fs()->copy($realpath_cceAgent, $realpath_dist.'Px2dthelperCceAgent.js');
@@ -223,7 +223,7 @@ class customConsoleExtensions_pxcmdOperator{
 							}
 						}
 						foreach($row as $path){
-							if( !strlen($realpath_dist) ){
+							if( !strlen(''.$realpath_dist) ){
 								$path = realpath($realpath_base_dir.'/'.$path);
 							}
 							array_push($resources[$key], $path);

@@ -173,7 +173,7 @@ class fncs_config_parser{
 						'value' => null,
 					);
 					if( preg_match($pattern['preg_pattern'], $src_config_php, $matched) ){
-						if( strlen($matched[1]) ){
+						if( strlen(''.$matched[1]) ){
 							$rtn['value'] = $matched[2];
 							return $rtn;
 						}
@@ -207,7 +207,7 @@ class fncs_config_parser{
 						'value' => null,
 					);
 					if( preg_match($pattern['preg_pattern'], $src_config_php, $matched) ){
-						if( strlen($matched[1]) ){
+						if( strlen(''.$matched[1]) ){
 							$rtn['value'] = $matched[2];
 							return $rtn;
 						}
@@ -244,7 +244,7 @@ class fncs_config_parser{
 						'value' => null,
 					);
 					if( preg_match($pattern['preg_pattern'], $src_config_php, $matched) ){
-						if( strlen($matched[1]) ){
+						if( strlen(''.$matched[1]) ){
 							$rtn['value'] = $matched[2];
 							return $rtn;
 						}

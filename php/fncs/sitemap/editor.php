@@ -38,7 +38,7 @@ class fncs_sitemap_editor{
 	 * @return array 実行結果
 	 */
 	public function create( $filename ){
-		if( !strlen($filename) ){
+		if( !strlen(''.$filename) ){
 			return array(
 				'result'=>false,
 				'message'=>'Filename is required.',
@@ -100,7 +100,7 @@ class fncs_sitemap_editor{
 	 * @return array 実行結果
 	 */
 	public function delete( $filename ){
-		if( !strlen($filename) ){
+		if( !strlen(''.$filename) ){
 			return array(
 				'result'=>false,
 				'message'=>'Filename is required.',

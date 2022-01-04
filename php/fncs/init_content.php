@@ -35,7 +35,7 @@ class fncs_init_content{
 	 * @return array `array(boolean $result, string $error_msg)`
 	 */
 	public function init_content( $editor_mode = 'html', $options = array() ){
-		if(!@strlen($editor_mode)){ $editor_mode = 'html'; }
+		if(!@strlen(''.$editor_mode)){ $editor_mode = 'html'; }
 		$flg_force = false;
 		if( is_array($options) && array_key_exists('force', $options) ){
 			$flg_force = !!$options['force'];

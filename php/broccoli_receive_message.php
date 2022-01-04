@@ -48,7 +48,7 @@ class broccoli_receive_message{
 	 * @return string 変換されたHTMLソース
 	 */
 	private function detoxify_sabotage_script($px, $src){
-		if( strlen( $px->req()->get_param('PICKLES2_CONTENTS_EDITOR') ) ){
+		if( strlen( ''.$px->req()->get_param('PICKLES2_CONTENTS_EDITOR') ) ){
 			// なぜかBroccoliをフリーズさせる外部のJS。
 			// 無効化したら動くようになった。 (2019/4/22)
 			$src = preg_replace( '/'.preg_quote('//platform.twitter.com/','/').'/', '//platform.twitter.com__/', $src );
@@ -121,7 +121,7 @@ window.removeEventListener('message', f, false);
 		}
 
 		$rtn = '';
-		if( @strlen($errorHtml) ){
+		if( @strlen(''.$errorHtml) ){
 			$rtn .= '<div style="position: fixed; top: 10px; left: 5%; width: 90%; font-size: 14px; opacity: 0.8; z-index: 2147483000;" onclick="this.style.display=\'none\';">';
 			$rtn .= $errorHtml;
 			$rtn .= '</div>';

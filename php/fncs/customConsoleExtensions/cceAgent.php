@@ -46,7 +46,7 @@ class customConsoleExtensions_cceAgent{
     public function get_app_mode(){
 		$rtn = 'desktop';
 		$appMode = $this->px->req()->get_param('appMode');
-		if( strlen($appMode) ){
+		if( strlen(''.$appMode) ){
 			$rtn = $appMode;
 		}
 

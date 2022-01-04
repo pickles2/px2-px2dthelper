@@ -54,7 +54,7 @@ class customConsoleExtensions_async{
 
 		// JSONファイルに与えられている場合
 		// 読み込んでデコードする
-		if( strlen($realpath_config) && is_file($realpath_config) && is_readable($realpath_config) ){
+		if( strlen(''.$realpath_config) && is_file($realpath_config) && is_readable($realpath_config) ){
 			$config = json_decode(file_get_contents( $realpath_config ));
 		}
 
@@ -62,20 +62,20 @@ class customConsoleExtensions_async{
 		// 連携方法
 		// `file` => 指定されたディレクトリに、命令をファイルとして保存する。
 		// `sync` => 非同期せず、直接同期実行する。 (default)
-		if( !property_exists($config, 'method') || !strlen($config->method) ){
+		if( !property_exists($config, 'method') || !strlen(''.$config->method) ){
 			$config->method = 'sync';
 		}
-		if( strlen($param_asyncMethod) ){
+		if( strlen(''.$param_asyncMethod) ){
 			$config->method = $param_asyncMethod;
 		}
 
 		// --------------------
 		// 出力先ファイル
 		// `method`=`file` の場合に、命令ファイルを出力する先のディレクトリパス。
-		if( !property_exists($config, 'dir') || !strlen($config->dir) ){
+		if( !property_exists($config, 'dir') || !strlen(''.$config->dir) ){
 			$config->dir = null;
 		}
-		if( strlen($param_asyncDir) ){
+		if( strlen(''.$param_asyncDir) ){
 			$config->dir = $param_asyncDir;
 		}
 
@@ -96,7 +96,7 @@ class customConsoleExtensions_async{
 			case 'file':
 				// ファイルで命令を伝える
 				$realpath_dir = $config->dir;
-				if( !strlen($realpath_dir) || !is_dir($realpath_dir) || !is_writable($realpath_dir) ){
+				if( !strlen(''.$realpath_dir) || !is_dir($realpath_dir) || !is_writable($realpath_dir) ){
 					return false;
 				}
 				$realpath_dir = $this->px->fs()->get_realpath($realpath_dir.'/');
@@ -129,10 +129,10 @@ class customConsoleExtensions_async{
 			return false;
 		}
 
-		if( !array_key_exists('type', $command) || !strlen($command['type']) ){
+		if( !array_key_exists('type', $command) || !strlen(''.$command['type']) ){
 			$command['type'] = 'gpi';
 		}
-		if( !array_key_exists('command', $command) || !strlen($command['command']) ){
+		if( !array_key_exists('command', $command) || !strlen(''.$command['command']) ){
 			$command['command'] = null;
 		}
 		if( !array_key_exists('request', $command) || !is_array($command['request']) ){
@@ -145,14 +145,14 @@ class customConsoleExtensions_async{
 		switch( $command['type'] ){
 			case 'gpi':
 				$cce_id = $this->cce_id;
-				if( !strlen($cce_id) ){
+				if( !strlen(''.$cce_id) ){
 					return false;
 				}
 				$str_param = http_build_query( $command['params'] );
 
 				$params = 'PX=px2dthelper.custom_console_extensions.'.urlencode($cce_id).'.gpi';
 				$params .= '&request='.urlencode( json_encode( $command['request'] ) );
-				$params .= (strlen($str_param) ? '&'.$str_param : '');
+				$params .= (strlen(''.$str_param) ? '&'.$str_param : '');
 				$params .= '&appMode='.urlencode( $this->px->req()->get_param('appMode') );
 				$params .= '&asyncMethod='.urlencode( $this->px->req()->get_param('asyncMethod') );
 				$params .= '&asyncDir='.urlencode( $this->px->req()->get_param('asyncDir') );
@@ -172,12 +172,12 @@ class customConsoleExtensions_async{
 
 			case 'pxcmd':
 				$str_param = http_build_query( $command['params'] );
-				if( !is_string($command['command']) || !strlen($command['command']) ){
+				if( !is_string($command['command']) || !strlen(''.$command['command']) ){
 					return false;
 				}
 
 				$params = 'PX='.urlencode($command['command']);
-				$params .= (strlen($str_param) ? '&'.$str_param : '');
+				$params .= (strlen(''.$str_param) ? '&'.$str_param : '');
 
 				$src_out = $this->px->internal_sub_request(
 					'/?'.$params,

@@ -56,7 +56,7 @@ class main{
 	 * @return string バージョン番号を示す文字列
 	 */
 	public function get_version(){
-		return '2.0.22';
+		return '2.1.0-alpha.1';
 	}
 
 
@@ -113,7 +113,7 @@ class main{
 	public function find_page_content( $page_path = null ){
 		// execute Content
 		$path_content = $this->px->req()->get_request_file_path();
-		if( strlen($page_path) ){
+		if( strlen(''.$page_path) ){
 			$path_content = $page_path;
 		}
 		$ext = $this->px->get_path_proc_type( $this->px->req()->get_request_file_path() );
@@ -121,7 +121,7 @@ class main{
 			if( $this->px->site() ){
 				$current_page_info = $this->px->site()->get_page_info($page_path);
 				$tmp_path_content = @$current_page_info['content'];
-				if( strlen( $tmp_path_content ) ){
+				if( strlen( ''.$tmp_path_content ) ){
 					$path_content = $tmp_path_content;
 				}
 				unset($current_page_info, $tmp_path_content);
@@ -410,7 +410,7 @@ class main{
 	 * @param string $page_path 対象のページのパス
 	 */
 	public function check_editor_mode( $page_path = null ){
-		if(!strlen($page_path)){
+		if(!strlen(''.$page_path)){
 			$page_path = $this->px->req()->get_request_file_path();
 		}
 		$page_info = null;
@@ -545,7 +545,7 @@ class main{
 		$sitemap_filter_options = function($px, $cmd=null){
 			$options = array();
 			$options['filter'] = $px->req()->get_param('filter');
-			if( strlen($options['filter']) ){
+			if( strlen(''.$options['filter']) ){
 				switch( $options['filter'] ){
 					case 'true':
 					case '1':
@@ -611,7 +611,7 @@ class main{
 					case 'all':
 						$rtn = (object) array();
 						$request_path = $this->px->req()->get_param('path');
-						if( !strlen( $request_path ) ){
+						if( !strlen( ''.$request_path ) ){
 							$request_path = $this->px->req()->get_request_file_path();
 						}
 
@@ -687,7 +687,7 @@ class main{
 			case 'check_editor_mode':
 				// コンテンツの編集モードを調べる
 				$request_path = $this->px->req()->get_param('path');
-				if( !strlen( $request_path ) ){
+				if( !strlen( ''.$request_path ) ){
 					$request_path = $this->px->req()->get_request_file_path();
 				}
 				print $std_output->data_convert( $this->check_editor_mode( $request_path ) );
@@ -746,7 +746,7 @@ class main{
 				$flg_force = $this->px->req()->get_param('force');
 				$path_to = $this->px->req()->get_request_file_path();
 				$param_to = $this->px->req()->get_param('to');
-				if( strlen( $param_to ) ){
+				if( strlen( ''.$param_to ) ){
 					$path_to = $param_to;
 				}
 				$result = $this->copy_content(
@@ -800,7 +800,7 @@ class main{
 							header('Content-type: text/javascript; charset=UTF-8');
 							$this->px->req()->set_param('type', 'js');
 						}
-						if( strlen($theme_id) ){
+						if( strlen(''.$theme_id) ){
 							$val = $this->document_modules()->build_theme_js( $theme_id );
 						}else{
 							$val = $this->document_modules()->build_js();
@@ -833,10 +833,10 @@ class main{
 						$set_vars = array();
 						$base64_json = $this->px->req()->get_param('base64_json');
 						$json = $this->px->req()->get_param('json');
-						if( strlen($base64_json) ){
+						if( strlen(''.$base64_json) ){
 							$json = base64_decode($base64_json);
 						}
-						if( strlen($json) ){
+						if( strlen(''.$json) ){
 							$set_vars = json_decode($json, true);
 						}
 						$result = $config_parser->update($set_vars);
@@ -949,7 +949,7 @@ class main{
 				switch( $config->method ){
 					case 'file':
 						$realpath_dir = $config->dir;
-						if( !strlen($realpath_dir) || !is_dir($realpath_dir) || !is_writable($realpath_dir) ){
+						if( !strlen(''.$realpath_dir) || !is_dir($realpath_dir) || !is_writable($realpath_dir) ){
 							return false;
 						}
 						$realpath_dir = $this->px->fs()->get_realpath($realpath_dir.'/');

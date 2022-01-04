@@ -83,7 +83,7 @@ class std_output{
 	 */
 	private function data2jsonp($val){
 		//JSONPのコールバック関数名は、パラメータ callback に受け取る。
-		$cb = trim( $this->px->req()->get_param('callback') );
+		$cb = trim( ''.$this->px->req()->get_param('callback') );
 		if( !strlen($cb) ){
 			$cb = 'callback';
 		}

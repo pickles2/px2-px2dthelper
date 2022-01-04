@@ -82,7 +82,7 @@ class document_modules{
 
 		// ディレクトリからモジュールを検索
 		$realpath_module_dir = @$conf->path_module_templates_dir;
-		if( strlen($realpath_module_dir) && is_dir($realpath_module_dir) ){
+		if( strlen(''.$realpath_module_dir) && is_dir($realpath_module_dir) ){
 			$ls = $this->px->fs()->ls($realpath_module_dir);
 			sort($ls);
 			foreach( $ls as $key ){
@@ -127,7 +127,7 @@ class document_modules{
 	public function build_theme_css( $theme_id ){
 		$conf = $this->main->get_px2dtconfig();
 		$array_files = array();
-		if( !strlen( $theme_id ) ){
+		if( !strlen( ''.$theme_id ) ){
 			return '';
 		}
 		$max_mtime = 0;
@@ -139,7 +139,7 @@ class document_modules{
 
 		// ディレクトリからモジュールを検索
 		$realpath_module_dir = @$realpath_theme_collection_dir.'/'.$theme_id.'/broccoli_module_packages/';
-		if( strlen($realpath_module_dir) && is_dir($realpath_module_dir) ){
+		if( strlen(''.$realpath_module_dir) && is_dir($realpath_module_dir) ){
 			$ls = $this->px->fs()->ls($realpath_module_dir);
 			sort($ls);
 			foreach( $ls as $key ){
@@ -205,7 +205,7 @@ class document_modules{
 				$tmp_bin = $this->build_css_resources( $path, $tmp_bin );
 
 				$tmp_bin = trim($tmp_bin);
-				if(!strlen($tmp_bin)){
+				if(!strlen(''.$tmp_bin)){
 					unset($tmp_bin);
 					continue;
 				}
@@ -297,7 +297,7 @@ class document_modules{
 		}
 		// ディレクトリからモジュールを検索
 		$realpath_module_dir = @$conf->path_module_templates_dir;
-		if( strlen($realpath_module_dir) && is_dir($realpath_module_dir) ){
+		if( strlen(''.$realpath_module_dir) && is_dir($realpath_module_dir) ){
 			$ls = $this->px->fs()->ls($realpath_module_dir);
 			sort($ls);
 			foreach( $ls as $packageId ){
@@ -340,7 +340,7 @@ class document_modules{
 	public function build_theme_js( $theme_id ){
 		$conf = $this->main->get_px2dtconfig();
 		$array_files = array();
-		if( !strlen( $theme_id ) ){
+		if( !strlen( ''.$theme_id ) ){
 			return '';
 		}
 		$max_mtime = 0;
@@ -352,7 +352,7 @@ class document_modules{
 
 		// ディレクトリからモジュールを検索
 		$realpath_module_dir = @$realpath_theme_collection_dir.'/'.$theme_id.'/broccoli_module_packages/';
-		if( strlen($realpath_module_dir) && is_dir($realpath_module_dir) ){
+		if( strlen(''.$realpath_module_dir) && is_dir($realpath_module_dir) ){
 			$ls = $this->px->fs()->ls($realpath_module_dir);
 			sort($ls);
 			foreach( $ls as $packageId ){
@@ -400,7 +400,7 @@ class document_modules{
 				$tmp_bin = $this->px->fs()->read_file( $path );
 
 				$tmp_bin = trim($tmp_bin);
-				if(!strlen($tmp_bin)){
+				if(!strlen(''.$tmp_bin)){
 					unset($tmp_bin);
 					continue;
 				}

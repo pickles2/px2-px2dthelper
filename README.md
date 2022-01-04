@@ -407,6 +407,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 ### pickles2/px2-px2dthelper v2.1.0 (リリース日未定)
 
 - サポートするPHPのバージョンを `>=7.3.0` に変更。
+- PHP 8.1 に対応した。
 
 ### pickles2/px2-px2dthelper v2.0.22 (2022年1月4日)
 
