@@ -15,7 +15,7 @@
             "php ./vendor/phpunit/phpunit/phpunit"
         ],
         "documentation": [
-            "php ./vendor/phpdocumentor/phpdocumentor/bin/phpdoc --title \"pickles2/px2-px2dthelper v2.0.22 API Document\" -d \"./php/\" -t \"./doc/\""
+            "php ./vendor/phpdocumentor/phpdocumentor/bin/phpdoc --title \"pickles2/px2-px2dthelper v2.1.0-alpha.1 API Document\" -d \"./php/\" -t \"./doc/\""
         ]
     } ,
     "repositories": [
@@ -37,7 +37,7 @@
         "pickles2/px2-multitheme": "~2.0",
         "tomk79/filesystem": "~1.0",
         "phpunit/phpunit": "~9.5",
-        "phpdocumentor/phpdocumentor": "^3.0.0"
+        "phpdocumentor/phpdocumentor": "~3.0.0"
     },
     "autoload": {
         "psr-4": {
