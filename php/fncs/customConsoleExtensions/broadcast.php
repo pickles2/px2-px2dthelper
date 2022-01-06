@@ -47,9 +47,9 @@ class customConsoleExtensions_broadcast{
 	public function get_config(){
 		$config = new \stdClass();
 
-		$realpath_config = trim($this->px->req()->get_param('broadcastConfFile'));
-		$param_broadcastMethod = trim($this->px->req()->get_param('broadcastMethod'));
-		$param_broadcastDir = trim($this->px->req()->get_param('broadcastDir'));
+		$realpath_config = trim(''.$this->px->req()->get_param('broadcastConfFile'));
+		$param_broadcastMethod = trim(''.$this->px->req()->get_param('broadcastMethod'));
+		$param_broadcastDir = trim(''.$this->px->req()->get_param('broadcastDir'));
 
 		// JSONファイルに与えられている場合
 		// 読み込んでデコードする

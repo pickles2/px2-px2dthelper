@@ -318,8 +318,8 @@ class main{
 			$rtn = $template;
 			$data = array(
 				'dirname'=>$this->px->fs()->normalize_path(dirname($path_content)),
-				'filename'=>basename($this->px->fs()->trim_extension($path_content)),
-				'ext'=>strtolower($this->px->fs()->get_extension($path_content)),
+				'filename'=>basename(''.$this->px->fs()->trim_extension($path_content)),
+				'ext'=>strtolower(''.$this->px->fs()->get_extension($path_content)),
 			);
 			$rtn = str_replace( '{$dirname}', $data['dirname'], $rtn );
 			$rtn = str_replace( '{$filename}', $data['filename'], $rtn );
@@ -789,7 +789,7 @@ class main{
 							header('Content-type: text/css; charset=UTF-8');
 							$this->px->req()->set_param('type', 'css');
 						}
-						if( strlen($theme_id) ){
+						if( strlen(''.$theme_id) ){
 							$val = $this->document_modules()->build_theme_css( $theme_id );
 						}else{
 							$val = $this->document_modules()->build_css();

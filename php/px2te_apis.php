@@ -36,7 +36,7 @@ class px2te_apis{
 			case 'gpi':
 				$data = $this->px->req()->get_param('data');
 				$data_filename = $this->px->req()->get_param('data_filename');
-				if( strlen($data_filename) ){
+				if( strlen(''.$data_filename) ){
 					if( strpos( $data_filename, '/' ) !== false || strpos( $data_filename, '\\' ) !== false || $data_filename == '.' || $data_filename == '.' ){
 						// ディレクトリトラバーサル対策
 						return false;
@@ -44,7 +44,7 @@ class px2te_apis{
 					}
 				}
 				$realpath_data_file = $this->px->get_realpath_homedir().'/_sys/ram/data/'.$data_filename;
-				if( !strlen( $data ) && strlen($data_filename) && is_file( $realpath_data_file ) ){
+				if( !strlen( ''.$data ) && strlen(''.$data_filename) && is_file( $realpath_data_file ) ){
 					$data = file_get_contents( $realpath_data_file );
 					$data = json_decode($data, true);
 				}else{
@@ -82,11 +82,11 @@ class px2te_apis{
 		);
 
 		$command_php = $this->px->req()->get_cli_option( '--command-php' );
-		if( isset($command_php) && is_string($command_php) && strlen($command_php) ){
+		if( isset($command_php) && is_string($command_php) && strlen(''.$command_php) ){
 			$init_options['commands']['php']['bin'] = $command_php;
 		}
 		$command_php_ini = $this->px->req()->get_cli_option( '-c' );
-		if( isset($command_php_ini) && is_string($command_php_ini) && strlen($command_php_ini) ){
+		if( isset($command_php_ini) && is_string($command_php_ini) && strlen(''.$command_php_ini) ){
 			$init_options['commands']['php']['ini'] = $command_php_ini;
 		}
 

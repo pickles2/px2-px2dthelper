@@ -48,9 +48,9 @@ class customConsoleExtensions_async{
 	public function get_config(){
 		$config = new \stdClass();
 
-		$realpath_config = trim($this->px->req()->get_param('asyncConfFile'));
-		$param_asyncMethod = trim($this->px->req()->get_param('asyncMethod'));
-		$param_asyncDir = trim($this->px->req()->get_param('asyncDir'));
+		$realpath_config = trim(''.$this->px->req()->get_param('asyncConfFile'));
+		$param_asyncMethod = trim(''.$this->px->req()->get_param('asyncMethod'));
+		$param_asyncDir = trim(''.$this->px->req()->get_param('asyncDir'));
 
 		// JSONファイルに与えられている場合
 		// 読み込んでデコードする
@@ -150,14 +150,14 @@ class customConsoleExtensions_async{
 				}
 				$str_param = http_build_query( $command['params'] );
 
-				$params = 'PX=px2dthelper.custom_console_extensions.'.urlencode($cce_id).'.gpi';
+				$params = 'PX=px2dthelper.custom_console_extensions.'.urlencode(''.$cce_id).'.gpi';
 				$params .= '&request='.urlencode( json_encode( $command['request'] ) );
 				$params .= (strlen(''.$str_param) ? '&'.$str_param : '');
-				$params .= '&appMode='.urlencode( $this->px->req()->get_param('appMode') );
-				$params .= '&asyncMethod='.urlencode( $this->px->req()->get_param('asyncMethod') );
-				$params .= '&asyncDir='.urlencode( $this->px->req()->get_param('asyncDir') );
-				$params .= '&broadcastMethod='.urlencode( $this->px->req()->get_param('broadcastMethod') );
-				$params .= '&broadcastDir='.urlencode( $this->px->req()->get_param('broadcastDir') );
+				$params .= '&appMode='.urlencode( ''.$this->px->req()->get_param('appMode') );
+				$params .= '&asyncMethod='.urlencode( ''.$this->px->req()->get_param('asyncMethod') );
+				$params .= '&asyncDir='.urlencode( ''.$this->px->req()->get_param('asyncDir') );
+				$params .= '&broadcastMethod='.urlencode( ''.$this->px->req()->get_param('broadcastMethod') );
+				$params .= '&broadcastDir='.urlencode( ''.$this->px->req()->get_param('broadcastDir') );
 
 				$src_out = $this->px->internal_sub_request(
 					'/?'.$params,
