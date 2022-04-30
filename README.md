@@ -404,6 +404,10 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ## 更新履歴 - Change log
 
+### pickles2/px2-px2dthelper v2.1.1 (リリース日未定)
+
+- Px2CE, Px2TE, Px2ME に、 `$conf->commands->php` の設定が伝播されない不具合を修正。
+
 ### pickles2/px2-px2dthelper v2.1.0 (2022年1月8日)
 
 - サポートするPHPのバージョンを `>=7.3.0` に変更。

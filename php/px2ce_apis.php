@@ -97,12 +97,14 @@ class px2ce_apis{
 			'customFields' => array() ,
 			'log' => function($msg){
 				$this->px->error($msg);
-			}
+			},
 		);
 
 		$command_php = $this->px->req()->get_cli_option( '--command-php' );
 		if( isset($command_php) && is_string($command_php) && strlen(''.$command_php) ){
 			$init_options['php'] = $command_php;
+		}elseif( isset($this->px->conf()->commands->php) && strlen($this->px->conf()->commands->php) ){
+			$init_options['php'] = $this->px->conf()->commands->php;
 		}
 		$command_php_ini = $this->px->req()->get_cli_option( '-c' );
 		if( isset($command_php_ini) && is_string($command_php_ini) && strlen(''.$command_php_ini) ){
