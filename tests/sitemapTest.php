@@ -55,7 +55,7 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 
 		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.sitemap.csv2xlsx&filename=create_new_sitemap' ] );
 		clearstatcache();
-		var_dump($output);
+		// var_dump($output);
 		$json = json_decode( $output );
 		// var_dump($json);
 		$this->assertTrue( is_object($json) );
@@ -72,7 +72,7 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 
 		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.sitemap.xlsx2csv&filename=create_new_sitemap' ] );
 		clearstatcache();
-		var_dump($output);
+		// var_dump($output);
 		$json = json_decode( $output );
 		// var_dump($json);
 		$this->assertTrue( is_object($json) );
@@ -81,6 +81,21 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 		$this->assertTrue( $this->fs->is_file( __DIR__.'/testData/standard/px-files/sitemaps/create_new_sitemap.xlsx' ) );
 
 	} // testSitemapXlsx2Csv()
+
+	/**
+	 * PX=px2dthelper.sitemap.filelist のテスト
+	 */
+	public function testSitemapFileList(){
+
+		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.sitemap.filelist' ] );
+		clearstatcache();
+		// var_dump($output);
+		$json = json_decode( $output );
+		// var_dump($json);
+		$this->assertTrue( is_object($json) );
+		$this->assertTrue( $json->result );
+
+	} // testSitemapFileList()
 
 	/**
 	 * PX=px2dthelper.sitemap.delete のテスト

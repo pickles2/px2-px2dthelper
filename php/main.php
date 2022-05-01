@@ -711,6 +711,13 @@ class main{
 				require_once(__DIR__.'/fncs/sitemap/editor.php');
 				$sitemap_editor = new fncs_sitemap_editor( $this, $this->px );
 				switch( @$this->command[2] ){
+					case 'filelist':
+						$filename = $this->px->req()->get_param('filename');
+						$result = $sitemap_editor->filelist($filename);
+						print $std_output->data_convert( $result );
+						exit;
+						break;
+
 					case 'create':
 						$filename = $this->px->req()->get_param('filename');
 						$result = $sitemap_editor->create($filename);

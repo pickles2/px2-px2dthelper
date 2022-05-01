@@ -406,6 +406,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ### pickles2/px2-px2dthelper v2.1.1 (リリース日未定)
 
+- `PX=px2dthelper.sitemap.filelist` を追加。
 - `PX=px2dthelper.sitemap.csv2xlsx` を追加。
 - `PX=px2dthelper.sitemap.xlsx2csv` を追加。
 - Px2CE, Px2TE, Px2ME に、 `$conf->commands->php` の設定が伝播されない不具合を修正。

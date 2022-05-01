@@ -32,6 +32,53 @@ class fncs_sitemap_editor{
 	}
 
 	/**
+	 * サイトマップファイルリストを取得する
+	 *
+	 * @return array 実行結果
+	 */
+	public function filelist(){
+		$rtn = array(
+			'result'=>true,
+			'message'=>'OK',
+			'list' => array(),
+			'list_origcase' => array(),
+			'fullname_list' => array(),
+		);
+
+		$realpath_home = $this->px->get_realpath_homedir();
+		$ls = $this->px->fs()->ls( $realpath_home.'sitemaps/' );
+		foreach( $ls as $basename ){
+			if( preg_match('/^\.\~.*\.csv\#$/', $basename) ){
+				continue;
+			}
+			if( preg_match('/^\~\$.*$/', $basename) ){
+				continue;
+			}
+
+			array_push( $rtn['fullname_list'], $basename );
+
+			if( !preg_match('/^(.+)\.(.+?)$/', $basename, $matched) ){
+				continue;
+			}
+
+			$filename = $matched[1];
+			$ext = $matched[2];
+			if( !isset($rtn['list_origcase'][$filename]) ){
+				$rtn['list_origcase'][$filename] = array();
+			}
+			array_push($rtn['list_origcase'][$filename], $ext);
+
+			$filename_lowercase = strtolower($filename);
+			$ext_lowercase = strtolower($ext);
+			if( !isset($rtn['list'][$filename_lowercase]) ){
+				$rtn['list'][$filename_lowercase] = array();
+			}
+			array_push($rtn['list'][$filename_lowercase], $ext_lowercase);
+		}
+		return $rtn;
+	}
+
+	/**
 	 * 新規サイトマップファイルを作成する
 	 *
 	 * @param string $filename 対象ファイル名(拡張子を含まない)
