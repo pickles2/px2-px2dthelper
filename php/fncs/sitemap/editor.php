@@ -94,6 +94,82 @@ class fncs_sitemap_editor{
 	}
 
 	/**
+	 * xlsx を CSV に変換する
+	 *
+	 * @param string $filename 対象ファイル名(拡張子を含まない)
+	 * @return array 実行結果
+	 */
+	public function xlsx2csv( $filename ){
+		if( !strlen(''.$filename) ){
+			return array(
+				'result'=>false,
+				'message'=>'Filename is required.',
+			);
+		}
+
+		if( !class_exists('\\tomk79\\pickles2\\sitemap_excel\\pickles_sitemap_excel') ){
+			return array(
+				'result'=>false,
+				'message'=>'px2-sitemapexcel is not defined.',
+			);
+		}
+
+		$rtn = array(
+			'result'=>true,
+			'message'=>'OK',
+		);
+
+		$px2_sitemapexcel = new \tomk79\pickles2\sitemap_excel\pickles_sitemap_excel($this->px);
+		$realpath_home = $this->px->get_realpath_homedir();
+		$rtn['result'] = !!$px2_sitemapexcel->xlsx2csv(
+			$realpath_home.'sitemaps/'.$filename.'.xlsx',
+			$realpath_home.'sitemaps/'.$filename.'.csv'
+		);
+		if( !$rtn['result'] ){
+			$rtn['message'] = 'Failed to convert.';
+		}
+		return $rtn;
+	}
+
+	/**
+	 * CSV を xlsx に変換する
+	 *
+	 * @param string $filename 対象ファイル名(拡張子を含まない)
+	 * @return array 実行結果
+	 */
+	public function csv2xlsx( $filename ){
+		if( !strlen(''.$filename) ){
+			return array(
+				'result'=>false,
+				'message'=>'Filename is required.',
+			);
+		}
+
+		if( !class_exists('\\tomk79\\pickles2\\sitemap_excel\\pickles_sitemap_excel') ){
+			return array(
+				'result'=>false,
+				'message'=>'px2-sitemapexcel is not defined.',
+			);
+		}
+
+		$rtn = array(
+			'result'=>true,
+			'message'=>'OK',
+		);
+
+		$px2_sitemapexcel = new \tomk79\pickles2\sitemap_excel\pickles_sitemap_excel($this->px);
+		$realpath_home = $this->px->get_realpath_homedir();
+		$rtn['result'] = !!$px2_sitemapexcel->csv2xlsx(
+			$realpath_home.'sitemaps/'.$filename.'.csv',
+			$realpath_home.'sitemaps/'.$filename.'.xlsx'
+		);
+		if( !$rtn['result'] ){
+			$rtn['message'] = 'Failed to convert.';
+		}
+		return $rtn;
+	}
+
+	/**
 	 * サイトマップファイルを削除する
 	 *
 	 * @param string $filename 対象ファイル名(拡張子を含まない)

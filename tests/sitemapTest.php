@@ -15,9 +15,9 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 	}
 
 	/**
-	 * PX=px2dthelper.sitemap.create と PX=px2dthelper.sitemap.delete のテスト
+	 * PX=px2dthelper.sitemap.create のテスト
 	 */
-	public function testSitemapCreateDelete(){
+	public function testSitemapCreat(){
 
 		// ---------------------------
 		// 新しいサイトマップファイルを作成
@@ -41,10 +41,51 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 		$json = json_decode( $output );
 		// var_dump($json);
 		$this->assertTrue( is_object($json) );
-		$this->assertFalse( $json->result );
+		$this->assertFalse( $json->result ); // 失敗 `false` が得られる
 		$this->assertTrue( $this->fs->is_file( __DIR__.'/testData/standard/px-files/sitemaps/create_new_sitemap.csv' ) );
 		$this->assertTrue( $this->fs->is_file( __DIR__.'/testData/standard/px-files/sitemaps/create_new_sitemap.xlsx' ) );
 
+
+	} // testSitemapCreat()
+
+	/**
+	 * PX=px2dthelper.sitemap.csv2xlsx のテスト
+	 */
+	public function testSitemapCsv2Xlsx(){
+
+		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.sitemap.csv2xlsx&filename=create_new_sitemap' ] );
+		clearstatcache();
+		var_dump($output);
+		$json = json_decode( $output );
+		// var_dump($json);
+		$this->assertTrue( is_object($json) );
+		$this->assertTrue( $json->result );
+		$this->assertTrue( $this->fs->is_file( __DIR__.'/testData/standard/px-files/sitemaps/create_new_sitemap.csv' ) );
+		$this->assertTrue( $this->fs->is_file( __DIR__.'/testData/standard/px-files/sitemaps/create_new_sitemap.xlsx' ) );
+
+	} // testSitemapCsv2Xlsx()
+
+	/**
+	 * PX=px2dthelper.sitemap.xlsx2csv のテスト
+	 */
+	public function testSitemapXlsx2Csv(){
+
+		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.sitemap.xlsx2csv&filename=create_new_sitemap' ] );
+		clearstatcache();
+		var_dump($output);
+		$json = json_decode( $output );
+		// var_dump($json);
+		$this->assertTrue( is_object($json) );
+		$this->assertTrue( $json->result );
+		$this->assertTrue( $this->fs->is_file( __DIR__.'/testData/standard/px-files/sitemaps/create_new_sitemap.csv' ) );
+		$this->assertTrue( $this->fs->is_file( __DIR__.'/testData/standard/px-files/sitemaps/create_new_sitemap.xlsx' ) );
+
+	} // testSitemapXlsx2Csv()
+
+	/**
+	 * PX=px2dthelper.sitemap.delete のテスト
+	 */
+	public function testSitemapDelete(){
 
 		// ---------------------------
 		// サイトマップファイルを削除
@@ -66,7 +107,7 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 			'/?PX=clearcache' ,
 		] );
 
-	}//testSitemapCreateDelete()
+	} // testSitemapDelete()
 
 
 

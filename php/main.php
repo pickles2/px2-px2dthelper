@@ -718,6 +718,20 @@ class main{
 						exit;
 						break;
 
+					case 'xlsx2csv':
+						$filename = $this->px->req()->get_param('filename');
+						$result = $sitemap_editor->xlsx2csv($filename);
+						print $std_output->data_convert( $result );
+						exit;
+						break;
+
+					case 'csv2xlsx':
+						$filename = $this->px->req()->get_param('filename');
+						$result = $sitemap_editor->csv2xlsx($filename);
+						print $std_output->data_convert( $result );
+						exit;
+						break;
+
 					case 'delete':
 						$filename = $this->px->req()->get_param('filename');
 						$result = $sitemap_editor->delete($filename);
