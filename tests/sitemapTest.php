@@ -103,6 +103,25 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 	} // testSitemapFileList()
 
 	/**
+	 * PX=px2dthelper.sitemap.download のテスト
+	 */
+	public function testSitemapFileDownload(){
+
+		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.sitemap.download&filefullname=create_new_sitemap.xlsx' ] );
+		clearstatcache();
+		// var_dump($output);
+		$json = json_decode( $output );
+		// var_dump($json);
+		$this->assertTrue( is_object($json) );
+		$this->assertTrue( $json->result );
+		$this->assertIsString( $json->message );
+		$this->assertSame( $json->filename, 'create_new_sitemap.xlsx' );
+		$this->assertIsString( $json->base64 );
+		$this->assertFalse( isset($json->bin) );
+
+	} // testSitemapFileDownload()
+
+	/**
 	 * PX=px2dthelper.sitemap.delete のテスト
 	 */
 	public function testSitemapDelete(){

@@ -728,6 +728,13 @@ class main{
 					case 'download':
 						$filefullname = $this->px->req()->get_param('filefullname');
 						$result = $sitemap_editor->read($filefullname);
+						if( !$this->px->req()->is_cmd() ){
+							header('Content-type: application/octet-stream');
+							print $result['bin'];
+							exit;
+						}
+						$result['base64'] = base64_encode($result['bin']);
+						unset($result['bin']);
 						print $std_output->data_convert( $result );
 						exit;
 						break;

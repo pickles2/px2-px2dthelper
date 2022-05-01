@@ -76,7 +76,10 @@ class beforeSitemapTest extends PHPUnit\Framework\TestCase{
 			'/?PX=clearcache' ,
 		] );
 
-	}//testCleanup()
+		$this->assertFalse( is_dir(__DIR__.'/testData/before_sitemap/px-files/_sys/ram/caches/sitemaps/') );
+		$this->assertFalse( is_dir(__DIR__.'/testData/standard/px-files/_sys/ram/caches/sitemaps/') );
+
+	} // testCleanup()
 
 
 
