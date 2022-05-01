@@ -46,8 +46,7 @@ class fncs_sitemap_editor{
 			'fullname_list_origcase' => array(),
 		);
 
-		$realpath_home = $this->px->get_realpath_homedir();
-		$ls = $this->px->fs()->ls( $realpath_home.'sitemaps/' );
+		$ls = $this->px->fs()->ls( $this->realpath_sitemap_dir );
 		foreach( $ls as $basename ){
 			if( preg_match('/^\.\~.*\.csv\#$/', $basename) ){
 				continue;
@@ -143,6 +142,78 @@ class fncs_sitemap_editor{
 	}
 
 	/**
+	 * サイトマップファイルを読み込むする
+	 *
+	 * @param string $filefullname 対象ファイル名(拡張子を含む)
+	 * @return array 実行結果
+	 */
+	public function read( $filefullname ){
+		$rtn = array(
+			'result' => true,
+			'message' => 'OK',
+			'filename' => null,
+			'bin' => false,
+		);
+		$filefullname_lower = strtolower($filefullname);
+		$ls = $this->px->fs()->ls($this->realpath_sitemap_dir);
+		foreach( $ls as $basename ){
+			if( strtolower($basename) == $filefullname_lower ){
+				$rtn['filename'] = $basename;
+				$rtn['bin'] = $this->px->fs()->read_file( $this->realpath_sitemap_dir.$basename );
+				if( !$rtn['bin'] ){
+					$rtn['result'] = false;
+					$rtn['message'] = 'Failed to open file.';
+				}
+				return $rtn;
+			}
+		}
+		return array(
+			'result' => false,
+			'message' => 'File not found.',
+			'filename' => null,
+			'bin' => false,
+		);
+	}
+
+	/**
+	 * サイトマップファイルを保存する
+	 *
+	 * @param string $filefullname 対象ファイル名(拡張子を含む)
+	 * @param string $bin ファイル
+	 * @return array 実行結果
+	 */
+	public function save( $filefullname, $bin ){
+		$rtn = array(
+			'result' => true,
+			'message' => 'OK',
+			'filename' => null,
+		);
+		$filefullname_lower = strtolower($filefullname);
+		$ls = $this->px->fs()->ls($this->realpath_sitemap_dir);
+		foreach( $ls as $basename ){
+			if( strtolower($basename) == $filefullname_lower ){
+				$rtn['filename'] = $basename;
+				$rtn['result'] = $this->px->fs()->write_file( $this->realpath_sitemap_dir.$basename, $bin );
+				if( !$rtn['result'] ){
+					$rtn['result'] = false;
+					$rtn['message'] = 'Failed to overwrite file.';
+				}
+				return $rtn;
+			}
+		}
+
+		// 既存の該当ファイルが見つからない場合、
+		// lowercase に変換した名前で保存する。
+		$rtn['filename'] = $filefullname_lower;
+		$rtn['result'] = $this->px->fs()->write_file( $this->realpath_sitemap_dir.$filefullname_lower, $bin );
+		if( !$rtn['result'] ){
+			$rtn['result'] = false;
+			$rtn['message'] = 'Failed to write new file.';
+		}
+		return $rtn;
+	}
+
+	/**
 	 * xlsx を CSV に変換する
 	 *
 	 * @param string $filename 対象ファイル名(拡張子を含まない)
@@ -169,10 +240,9 @@ class fncs_sitemap_editor{
 		);
 
 		$px2_sitemapexcel = new \tomk79\pickles2\sitemap_excel\pickles_sitemap_excel($this->px);
-		$realpath_home = $this->px->get_realpath_homedir();
 		$rtn['result'] = !!$px2_sitemapexcel->xlsx2csv(
-			$realpath_home.'sitemaps/'.$filename.'.xlsx',
-			$realpath_home.'sitemaps/'.$filename.'.csv'
+			$this->realpath_sitemap_dir.$filename.'.xlsx',
+			$this->realpath_sitemap_dir.$filename.'.csv'
 		);
 		if( !$rtn['result'] ){
 			$rtn['message'] = 'Failed to convert.';
@@ -207,10 +277,9 @@ class fncs_sitemap_editor{
 		);
 
 		$px2_sitemapexcel = new \tomk79\pickles2\sitemap_excel\pickles_sitemap_excel($this->px);
-		$realpath_home = $this->px->get_realpath_homedir();
 		$rtn['result'] = !!$px2_sitemapexcel->csv2xlsx(
-			$realpath_home.'sitemaps/'.$filename.'.csv',
-			$realpath_home.'sitemaps/'.$filename.'.xlsx'
+			$this->realpath_sitemap_dir.$filename.'.csv',
+			$this->realpath_sitemap_dir.$filename.'.xlsx'
 		);
 		if( !$rtn['result'] ){
 			$rtn['message'] = 'Failed to convert.';

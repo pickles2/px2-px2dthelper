@@ -725,6 +725,21 @@ class main{
 						exit;
 						break;
 
+					case 'download':
+						$filefullname = $this->px->req()->get_param('filefullname');
+						$result = $sitemap_editor->read($filefullname);
+						print $std_output->data_convert( $result );
+						exit;
+						break;
+
+					case 'upload':
+						$filefullname = $this->px->req()->get_param('filefullname');
+						$bin = $this->px->req()->get_param('filefullname');
+						$result = $sitemap_editor->save($filefullname, $bin);
+						print $std_output->data_convert( $result );
+						exit;
+						break;
+
 					case 'xlsx2csv':
 						$filename = $this->px->req()->get_param('filename');
 						$result = $sitemap_editor->xlsx2csv($filename);
