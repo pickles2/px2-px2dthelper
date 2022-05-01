@@ -183,6 +183,21 @@ class fncs_sitemap_editor{
 	 * @return array 実行結果
 	 */
 	public function save( $filefullname, $bin ){
+		if( !preg_match('/^[a-zA-Z0-9].*\.[a-zA-Z0-9]+$/', $filefullname) ){
+			return array(
+				'result' => false,
+				'message' => 'Invalid Filename',
+				'filename' => null,
+			);
+		}
+		if( !is_string($bin) || !strlen($bin) ){
+			return array(
+				'result' => false,
+				'message' => 'File contains no contents.',
+				'filename' => null,
+			);
+		}
+
 		$rtn = array(
 			'result' => true,
 			'message' => 'OK',
@@ -205,7 +220,7 @@ class fncs_sitemap_editor{
 		// 既存の該当ファイルが見つからない場合、
 		// lowercase に変換した名前で保存する。
 		$rtn['filename'] = $filefullname_lower;
-		$rtn['result'] = $this->px->fs()->write_file( $this->realpath_sitemap_dir.$filefullname_lower, $bin );
+		$rtn['result'] = $this->px->fs()->save_file( $this->realpath_sitemap_dir.$filefullname_lower, $bin );
 		if( !$rtn['result'] ){
 			$rtn['result'] = false;
 			$rtn['message'] = 'Failed to write new file.';

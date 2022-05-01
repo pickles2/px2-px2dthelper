@@ -741,7 +741,15 @@ class main{
 
 					case 'upload':
 						$filefullname = $this->px->req()->get_param('filefullname');
-						$bin = $this->px->req()->get_param('filefullname');
+						$file = $this->px->req()->get_param('file');
+						if( !$this->px->req()->is_cmd() ){
+							if( !strlen($filefullname) ){
+								$filefullname = $file['name'];
+							}
+							$bin = $this->px->fs()->read_file( $file['tmp_name'] );
+						}else{
+							$bin = $this->px->fs()->read_file( $file );
+						}
 						$result = $sitemap_editor->save($filefullname, $bin);
 						print $std_output->data_convert( $result );
 						exit;
