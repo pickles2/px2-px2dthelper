@@ -43,6 +43,7 @@ class fncs_sitemap_editor{
 			'list' => array(),
 			'list_origcase' => array(),
 			'fullname_list' => array(),
+			'fullname_list_origcase' => array(),
 		);
 
 		$realpath_home = $this->px->get_realpath_homedir();
@@ -55,7 +56,8 @@ class fncs_sitemap_editor{
 				continue;
 			}
 
-			array_push( $rtn['fullname_list'], $basename );
+			array_push( $rtn['fullname_list'], strtolower($basename) );
+			array_push( $rtn['fullname_list_origcase'], $basename );
 
 			if( !preg_match('/^(.+)\.(.+?)$/', $basename, $matched) ){
 				continue;

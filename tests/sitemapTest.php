@@ -94,6 +94,11 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 		// var_dump($json);
 		$this->assertTrue( is_object($json) );
 		$this->assertTrue( $json->result );
+		$this->assertIsString( $json->message );
+		$this->assertIsObject( $json->list );
+		$this->assertIsObject( $json->list_origcase );
+		$this->assertIsArray( $json->fullname_list );
+		$this->assertIsArray( $json->fullname_list_origcase );
 
 	} // testSitemapFileList()
 
