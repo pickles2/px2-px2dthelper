@@ -208,7 +208,7 @@ class fncs_sitemap_editor{
 		foreach( $ls as $basename ){
 			if( strtolower($basename) == $filefullname_lower ){
 				$rtn['filename'] = $basename;
-				$rtn['result'] = $this->px->fs()->write_file( $this->realpath_sitemap_dir.$basename, $bin );
+				$rtn['result'] = $this->px->fs()->save_file( $this->realpath_sitemap_dir.$basename, $bin );
 				if( !$rtn['result'] ){
 					$rtn['result'] = false;
 					$rtn['message'] = 'Failed to overwrite file.';
