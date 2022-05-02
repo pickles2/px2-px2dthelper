@@ -496,10 +496,35 @@ Search.appendIndex(
             "summary": "constructor",
             "url": "classes/tomk79-pickles2-px2dthelper-fncs-sitemap-editor.html#method___construct"
         },                {
+            "fqsen": "\\tomk79\\pickles2\\px2dthelper\\fncs_sitemap_editor\u003A\u003Afilelist\u0028\u0029",
+            "name": "filelist",
+            "summary": "\u30B5\u30A4\u30C8\u30DE\u30C3\u30D7\u30D5\u30A1\u30A4\u30EB\u30EA\u30B9\u30C8\u3092\u53D6\u5F97\u3059\u308B",
+            "url": "classes/tomk79-pickles2-px2dthelper-fncs-sitemap-editor.html#method_filelist"
+        },                {
             "fqsen": "\\tomk79\\pickles2\\px2dthelper\\fncs_sitemap_editor\u003A\u003Acreate\u0028\u0029",
             "name": "create",
             "summary": "\u65B0\u898F\u30B5\u30A4\u30C8\u30DE\u30C3\u30D7\u30D5\u30A1\u30A4\u30EB\u3092\u4F5C\u6210\u3059\u308B",
             "url": "classes/tomk79-pickles2-px2dthelper-fncs-sitemap-editor.html#method_create"
+        },                {
+            "fqsen": "\\tomk79\\pickles2\\px2dthelper\\fncs_sitemap_editor\u003A\u003Aread\u0028\u0029",
+            "name": "read",
+            "summary": "\u30B5\u30A4\u30C8\u30DE\u30C3\u30D7\u30D5\u30A1\u30A4\u30EB\u3092\u8AAD\u307F\u8FBC\u3080\u3059\u308B",
+            "url": "classes/tomk79-pickles2-px2dthelper-fncs-sitemap-editor.html#method_read"
+        },                {
+            "fqsen": "\\tomk79\\pickles2\\px2dthelper\\fncs_sitemap_editor\u003A\u003Asave\u0028\u0029",
+            "name": "save",
+            "summary": "\u30B5\u30A4\u30C8\u30DE\u30C3\u30D7\u30D5\u30A1\u30A4\u30EB\u3092\u4FDD\u5B58\u3059\u308B",
+            "url": "classes/tomk79-pickles2-px2dthelper-fncs-sitemap-editor.html#method_save"
+        },                {
+            "fqsen": "\\tomk79\\pickles2\\px2dthelper\\fncs_sitemap_editor\u003A\u003Axlsx2csv\u0028\u0029",
+            "name": "xlsx2csv",
+            "summary": "xlsx\u0020\u3092\u0020CSV\u0020\u306B\u5909\u63DB\u3059\u308B",
+            "url": "classes/tomk79-pickles2-px2dthelper-fncs-sitemap-editor.html#method_xlsx2csv"
+        },                {
+            "fqsen": "\\tomk79\\pickles2\\px2dthelper\\fncs_sitemap_editor\u003A\u003Acsv2xlsx\u0028\u0029",
+            "name": "csv2xlsx",
+            "summary": "CSV\u0020\u3092\u0020xlsx\u0020\u306B\u5909\u63DB\u3059\u308B",
+            "url": "classes/tomk79-pickles2-px2dthelper-fncs-sitemap-editor.html#method_csv2xlsx"
         },                {
             "fqsen": "\\tomk79\\pickles2\\px2dthelper\\fncs_sitemap_editor\u003A\u003Adelete\u0028\u0029",
             "name": "delete",
@@ -765,6 +790,106 @@ Search.appendIndex(
             "name": "main",
             "summary": "px2dthelper\u0020object",
             "url": "classes/tomk79-pickles2-px2dthelper-px2te-apis.html#property_main"
+        },                {
+            "fqsen": "\\HDOM_TYPE_ELEMENT",
+            "name": "HDOM_TYPE_ELEMENT",
+            "summary": "",
+            "url": "namespaces/default.html#constant_HDOM_TYPE_ELEMENT"
+        },                {
+            "fqsen": "\\HDOM_TYPE_COMMENT",
+            "name": "HDOM_TYPE_COMMENT",
+            "summary": "",
+            "url": "namespaces/default.html#constant_HDOM_TYPE_COMMENT"
+        },                {
+            "fqsen": "\\HDOM_TYPE_TEXT",
+            "name": "HDOM_TYPE_TEXT",
+            "summary": "",
+            "url": "namespaces/default.html#constant_HDOM_TYPE_TEXT"
+        },                {
+            "fqsen": "\\HDOM_TYPE_ENDTAG",
+            "name": "HDOM_TYPE_ENDTAG",
+            "summary": "",
+            "url": "namespaces/default.html#constant_HDOM_TYPE_ENDTAG"
+        },                {
+            "fqsen": "\\HDOM_TYPE_ROOT",
+            "name": "HDOM_TYPE_ROOT",
+            "summary": "",
+            "url": "namespaces/default.html#constant_HDOM_TYPE_ROOT"
+        },                {
+            "fqsen": "\\HDOM_TYPE_UNKNOWN",
+            "name": "HDOM_TYPE_UNKNOWN",
+            "summary": "",
+            "url": "namespaces/default.html#constant_HDOM_TYPE_UNKNOWN"
+        },                {
+            "fqsen": "\\HDOM_QUOTE_DOUBLE",
+            "name": "HDOM_QUOTE_DOUBLE",
+            "summary": "",
+            "url": "namespaces/default.html#constant_HDOM_QUOTE_DOUBLE"
+        },                {
+            "fqsen": "\\HDOM_QUOTE_SINGLE",
+            "name": "HDOM_QUOTE_SINGLE",
+            "summary": "",
+            "url": "namespaces/default.html#constant_HDOM_QUOTE_SINGLE"
+        },                {
+            "fqsen": "\\HDOM_QUOTE_NO",
+            "name": "HDOM_QUOTE_NO",
+            "summary": "",
+            "url": "namespaces/default.html#constant_HDOM_QUOTE_NO"
+        },                {
+            "fqsen": "\\HDOM_INFO_BEGIN",
+            "name": "HDOM_INFO_BEGIN",
+            "summary": "",
+            "url": "namespaces/default.html#constant_HDOM_INFO_BEGIN"
+        },                {
+            "fqsen": "\\HDOM_INFO_END",
+            "name": "HDOM_INFO_END",
+            "summary": "",
+            "url": "namespaces/default.html#constant_HDOM_INFO_END"
+        },                {
+            "fqsen": "\\HDOM_INFO_QUOTE",
+            "name": "HDOM_INFO_QUOTE",
+            "summary": "",
+            "url": "namespaces/default.html#constant_HDOM_INFO_QUOTE"
+        },                {
+            "fqsen": "\\HDOM_INFO_SPACE",
+            "name": "HDOM_INFO_SPACE",
+            "summary": "",
+            "url": "namespaces/default.html#constant_HDOM_INFO_SPACE"
+        },                {
+            "fqsen": "\\HDOM_INFO_TEXT",
+            "name": "HDOM_INFO_TEXT",
+            "summary": "",
+            "url": "namespaces/default.html#constant_HDOM_INFO_TEXT"
+        },                {
+            "fqsen": "\\HDOM_INFO_INNER",
+            "name": "HDOM_INFO_INNER",
+            "summary": "",
+            "url": "namespaces/default.html#constant_HDOM_INFO_INNER"
+        },                {
+            "fqsen": "\\HDOM_INFO_OUTER",
+            "name": "HDOM_INFO_OUTER",
+            "summary": "",
+            "url": "namespaces/default.html#constant_HDOM_INFO_OUTER"
+        },                {
+            "fqsen": "\\HDOM_INFO_ENDSPACE",
+            "name": "HDOM_INFO_ENDSPACE",
+            "summary": "",
+            "url": "namespaces/default.html#constant_HDOM_INFO_ENDSPACE"
+        },                {
+            "fqsen": "\\DEFAULT_TARGET_CHARSET",
+            "name": "DEFAULT_TARGET_CHARSET",
+            "summary": "",
+            "url": "namespaces/default.html#constant_DEFAULT_TARGET_CHARSET"
+        },                {
+            "fqsen": "\\DEFAULT_BR_TEXT",
+            "name": "DEFAULT_BR_TEXT",
+            "summary": "",
+            "url": "namespaces/default.html#constant_DEFAULT_BR_TEXT"
+        },                {
+            "fqsen": "\\DEFAULT_SPAN_TEXT",
+            "name": "DEFAULT_SPAN_TEXT",
+            "summary": "",
+            "url": "namespaces/default.html#constant_DEFAULT_SPAN_TEXT"
         },                {
             "fqsen": "\\tomk79\\pickles2\\px2dthelper\\file_get_html\u0028\u0029",
             "name": "file_get_html",

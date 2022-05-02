@@ -404,7 +404,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ## 更新履歴 - Change log
 
-### pickles2/px2-px2dthelper v2.1.1 (リリース日未定)
+### pickles2/px2-px2dthelper v2.1.1 (2022年5月2日)
 
 - `PX=px2dthelper.sitemap.filelist` を追加。
 - `PX=px2dthelper.sitemap.download` を追加。
@@ -566,13 +566,14 @@ $ ./vendor/phpunit/phpunit/phpunit
 ### ドキュメント出力 - phpDocumentor
 
 ```
-$ composer run-script documentation
+$ wget https://phpdoc.org/phpDocumentor.phar;
+$ composer run-script documentation;
 ```
 
 
 ## ライセンス - License
 
-Copyright (c)2001-2021 Tomoya Koyanagi, and Pickles 2 Project<br />
+Copyright (c)2001-2022 Tomoya Koyanagi, and Pickles 2 Project<br />
 MIT License https://opensource.org/licenses/mit-license.php
 
 
