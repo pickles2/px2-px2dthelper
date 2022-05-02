@@ -729,7 +729,7 @@ class main{
 						$filefullname = $this->px->req()->get_param('filefullname');
 						$result = $sitemap_editor->read($filefullname);
 						if( !$this->px->req()->is_cmd() ){
-							header('Content-type: application/octet-stream');
+							$this->px->header('Content-type: application/octet-stream');
 							print $result['bin'];
 							exit;
 						}
@@ -743,6 +743,14 @@ class main{
 						$filefullname = $this->px->req()->get_param('filefullname');
 						$file = $this->px->req()->get_param('file');
 						if( !$this->px->req()->is_cmd() ){
+							if( $this->px->req()->get_method() != 'post' ){
+								$this->px->set_status(405);
+								print $std_output->data_convert( array(
+									'result' => false,
+									'message' => "405 Method Not Allowed.",
+								) );
+								exit;
+							}
 							if( !strlen($filefullname) ){
 								$filefullname = $file['name'];
 							}
