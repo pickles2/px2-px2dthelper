@@ -3,7 +3,7 @@
  * Test for pickles2\px2-px2dthelper
  */
 
-class pluginsTest extends PHPUnit_Framework_TestCase{
+class pluginsTest extends PHPUnit\Framework\TestCase{
 
 	private $fs;
 	private $px2query;
@@ -11,7 +11,7 @@ class pluginsTest extends PHPUnit_Framework_TestCase{
 	/**
 	 * setup
 	 */
-	public function setup(){
+	public function setup() : void{
 		set_time_limit(60);
 		$this->fs = new \tomk79\filesystem();
 		require_once(__DIR__.'/testHelper/pickles2query.php');

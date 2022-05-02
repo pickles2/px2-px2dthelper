@@ -32,7 +32,7 @@ class fncs_change_content_editor_mode{
 	 * @param string $page_path ページのパス。
 	 */
 	public function change_content_editor_mode( $editor_mode_to, $page_path=null ){
-		if( !strlen($editor_mode_to) ){
+		if( !strlen(''.$editor_mode_to) ){
 			// 必須オプションが省略
 			return array(false, 'Option "$editor_mode_to" is required.');
 		}
@@ -45,7 +45,7 @@ class fncs_change_content_editor_mode{
 				$path_content_to = $page_info['content'];
 			}
 		}
-		if( !strlen( $path_content_to ) ){
+		if( !strlen( ''.$path_content_to ) ){
 			$path_content_to = $page_path;
 		}
 		$path_content_from = $this->px2dthelper->find_page_content( $page_path );

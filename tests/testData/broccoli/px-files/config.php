@@ -205,6 +205,9 @@ return call_user_func( function(){
 	/** GUI編集リソース出力先ディレクトリ */
 	// $conf->plugins->px2dt->guieditor->path_resource_dir = '{$dirname}/{$filename}_files/resources/';
 
+	/** Broccoliモジュールリソースのキャッシュを有効にする */
+	$conf->plugins->px2dt->enable_document_modules_cache = false;
+
 
 	// -------- PHP Setting --------
 

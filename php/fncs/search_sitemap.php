@@ -40,7 +40,7 @@ class fncs_search_sitemap{
 		}
 
 		$keyword = ''.$keyword;
-		if( !strlen($keyword) ){
+		if( !strlen(''.$keyword) ){
 			return array();
 		}
 

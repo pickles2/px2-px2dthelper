@@ -82,7 +82,7 @@ class document_modules{
 
 		// ディレクトリからモジュールを検索
 		$realpath_module_dir = @$conf->path_module_templates_dir;
-		if( strlen($realpath_module_dir) && is_dir($realpath_module_dir) ){
+		if( strlen(''.$realpath_module_dir) && is_dir($realpath_module_dir) ){
 			$ls = $this->px->fs()->ls($realpath_module_dir);
 			sort($ls);
 			foreach( $ls as $key ){
@@ -127,7 +127,7 @@ class document_modules{
 	public function build_theme_css( $theme_id ){
 		$conf = $this->main->get_px2dtconfig();
 		$array_files = array();
-		if( !strlen( $theme_id ) ){
+		if( !strlen( ''.$theme_id ) ){
 			return '';
 		}
 		$max_mtime = 0;
@@ -139,7 +139,7 @@ class document_modules{
 
 		// ディレクトリからモジュールを検索
 		$realpath_module_dir = @$realpath_theme_collection_dir.'/'.$theme_id.'/broccoli_module_packages/';
-		if( strlen($realpath_module_dir) && is_dir($realpath_module_dir) ){
+		if( strlen(''.$realpath_module_dir) && is_dir($realpath_module_dir) ){
 			$ls = $this->px->fs()->ls($realpath_module_dir);
 			sort($ls);
 			foreach( $ls as $key ){
@@ -189,7 +189,15 @@ class document_modules{
 				if( $this->px->fs()->get_extension( $path ) == 'scss' ){
 					$tmp_current_dir = realpath('./');
 					chdir( dirname( $path ) );
-					$scss = new \Leafo\ScssPhp\Compiler();
+					$scss = null;
+					if (class_exists('\ScssPhp\ScssPhp\Compiler')) {
+						$scss = new \ScssPhp\ScssPhp\Compiler();
+					} elseif (class_exists('\Leafo\ScssPhp\Compiler')) {
+						$scss = new \Leafo\ScssPhp\Compiler();
+					}else{
+						trigger_error('SCSS Proccessor is NOT available.');
+						continue;
+					}
 					$tmp_bin = $scss->compile( $tmp_bin );
 					chdir( $tmp_current_dir );
 				}
@@ -197,7 +205,7 @@ class document_modules{
 				$tmp_bin = $this->build_css_resources( $path, $tmp_bin );
 
 				$tmp_bin = trim($tmp_bin);
-				if(!strlen($tmp_bin)){
+				if(!strlen(''.$tmp_bin)){
 					unset($tmp_bin);
 					continue;
 				}
@@ -289,7 +297,7 @@ class document_modules{
 		}
 		// ディレクトリからモジュールを検索
 		$realpath_module_dir = @$conf->path_module_templates_dir;
-		if( strlen($realpath_module_dir) && is_dir($realpath_module_dir) ){
+		if( strlen(''.$realpath_module_dir) && is_dir($realpath_module_dir) ){
 			$ls = $this->px->fs()->ls($realpath_module_dir);
 			sort($ls);
 			foreach( $ls as $packageId ){
@@ -332,7 +340,7 @@ class document_modules{
 	public function build_theme_js( $theme_id ){
 		$conf = $this->main->get_px2dtconfig();
 		$array_files = array();
-		if( !strlen( $theme_id ) ){
+		if( !strlen( ''.$theme_id ) ){
 			return '';
 		}
 		$max_mtime = 0;
@@ -344,7 +352,7 @@ class document_modules{
 
 		// ディレクトリからモジュールを検索
 		$realpath_module_dir = @$realpath_theme_collection_dir.'/'.$theme_id.'/broccoli_module_packages/';
-		if( strlen($realpath_module_dir) && is_dir($realpath_module_dir) ){
+		if( strlen(''.$realpath_module_dir) && is_dir($realpath_module_dir) ){
 			$ls = $this->px->fs()->ls($realpath_module_dir);
 			sort($ls);
 			foreach( $ls as $packageId ){
@@ -392,7 +400,7 @@ class document_modules{
 				$tmp_bin = $this->px->fs()->read_file( $path );
 
 				$tmp_bin = trim($tmp_bin);
-				if(!strlen($tmp_bin)){
+				if(!strlen(''.$tmp_bin)){
 					unset($tmp_bin);
 					continue;
 				}
@@ -418,7 +426,7 @@ class document_modules{
 	 * @return bool 読み込み可能な場合に `true`、読み込みできない場合に `false` を返します。
 	 */
 	private function save_cache( $content, $ext, $theme_id = null ){
-		$path_cache = $this->px->get_realpath_homedir().'_sys/ram/caches/px2dthelper/document_modules/modules_'.urlencode($theme_id).'.'.urlencode($ext);
+		$path_cache = $this->px->get_realpath_homedir().'_sys/ram/caches/px2dthelper/document_modules/modules_'.urlencode(''.$theme_id).'.'.urlencode(''.$ext);
 		if( !is_dir(dirname($path_cache)) ){
 			$this->px->fs()->mkdir_r(dirname($path_cache));
 		}
@@ -434,6 +442,9 @@ class document_modules{
 	 * @return bool 読み込み可能な場合に `true`、読み込みできない場合に `false` を返します。
 	 */
 	private function is_cache( $ext, $newest_timestamp, $theme_id = null ){
+		if( !isset($this->main->get_px2dtconfig()->enable_document_modules_cache) || !$this->main->get_px2dtconfig()->enable_document_modules_cache ){
+			return false;
+		}
 		$path_cache = $this->px->get_realpath_homedir().'_sys/ram/caches/px2dthelper/document_modules/modules_'.urlencode($theme_id).'.'.urlencode($ext);
 		if( !is_file($path_cache) ){
 			return false;

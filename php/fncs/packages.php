@@ -164,7 +164,13 @@ class packages{
 				break;
 			case 'field':
 				$row->backend->require = $this->px->fs()->get_realpath( $path_dir.'/'.$row->backend->require );
-				$row->frontend->file = $this->px->fs()->get_realpath( $path_dir.'/'.$row->frontend->file );
+				if( is_array($row->frontend->file) ){
+					foreach( $row->frontend->file as $num => $val ){
+						$row->frontend->file[$num] = $this->px->fs()->get_realpath( $path_dir.'/'.$row->frontend->file[$num] );
+					}					
+				}elseif( is_string($row->frontend->file) ){
+					$row->frontend->file = $this->px->fs()->get_realpath( $path_dir.'/'.$row->frontend->file );
+				}
 				array_push($package_list->broccoliFields, $row);
 				break;
 		}

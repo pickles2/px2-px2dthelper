@@ -22,12 +22,19 @@ class main{
 	 * entry
 	 *
 	 * @param object $px Picklesオブジェクト
+	 * @param object $options プラグイン設定
 	 */
-	static public function register($px){
+	static public function register( $px = null, $options = null ){
+		if( count(func_get_args()) <= 1 ){
+			return __CLASS__.'::'.__FUNCTION__.'('.( is_array($px) ? json_encode($px) : '' ).')';
+		}
+
 		$px->pxcmd()->register('px2dthelper', function($px){
 			(new self( $px ))->kick();
 			exit;
 		}, true);
+
+		return;
 	}
 
 	/**
@@ -49,7 +56,7 @@ class main{
 	 * @return string バージョン番号を示す文字列
 	 */
 	public function get_version(){
-		return '2.0.17-alpha.1+dev';
+		return '2.1.1';
 	}
 
 
@@ -63,8 +70,8 @@ class main{
 		$this->px2dtconfig = json_decode('{}');
 		if( @is_object($this->px->conf()->plugins->px2dt) ){
 			$this->px2dtconfig = $this->px->conf()->plugins->px2dt;
-		}elseif( is_file( $this->px->get_path_homedir().'px2dtconfig.json' ) ){
-			$this->px2dtconfig = json_decode( $this->px->fs()->read_file( $this->px->get_path_homedir().'px2dtconfig.json' ) );
+		}elseif( is_file( $this->px->get_realpath_homedir().'px2dtconfig.json' ) ){
+			$this->px2dtconfig = json_decode( $this->px->fs()->read_file( $this->px->get_realpath_homedir().'px2dtconfig.json' ) );
 		}
 		$this->px2dtconfig = json_decode( json_encode($this->px2dtconfig) ); // 連想配列で設定されている場合を考慮して、オブジェクト形式に変換する
 
@@ -106,7 +113,7 @@ class main{
 	public function find_page_content( $page_path = null ){
 		// execute Content
 		$path_content = $this->px->req()->get_request_file_path();
-		if( strlen($page_path) ){
+		if( strlen(''.$page_path) ){
 			$path_content = $page_path;
 		}
 		$ext = $this->px->get_path_proc_type( $this->px->req()->get_request_file_path() );
@@ -114,7 +121,7 @@ class main{
 			if( $this->px->site() ){
 				$current_page_info = $this->px->site()->get_page_info($page_path);
 				$tmp_path_content = @$current_page_info['content'];
-				if( strlen( $tmp_path_content ) ){
+				if( strlen( ''.$tmp_path_content ) ){
 					$path_content = $tmp_path_content;
 				}
 				unset($current_page_info, $tmp_path_content);
@@ -148,7 +155,7 @@ class main{
 		$rtn = $this->px->fs()->normalize_path($rtn);
 		$rtn = preg_replace( '/^\/+/', '/', $rtn );
 		return $rtn;
-	}//path_files()
+	} // path_files()
 
 
 	/**
@@ -161,8 +168,49 @@ class main{
 		$rtn = $this->path_files( $page_path );
 		$rtn = $this->px->fs()->get_realpath( $rtn );
 		$rtn = $this->px->fs()->get_realpath( $this->px->get_realpath_docroot().$rtn );
+		$rtn = $this->px->fs()->normalize_path($rtn);
 		return $rtn;
-	}//realpath_files()
+	} // realpath_files()
+
+	/**
+	 * ホームディレクトリのパスを得る。
+	 *
+	 * NOTE: Pickles Framework に `$px->get_path_homedir()` があるが、
+	 *       このメソッドは `$px->get_realpath_homedir()` の古い名前であり、絶対パスが返される。
+	 *       過去の挙動を壊さないように、このメソッドの振る舞いは変更しない。
+	 *       なので、代わりに `$this->get_path_homedir()` を作り、これを使うことにした。
+	 *
+	 * @return string ホームディレクトリのパス, 失敗した場合 `false`
+	 */
+	public function get_path_homedir(){
+		$realpath_homedir = $this->px->get_realpath_homedir();
+		$path_homedir = $this->px->fs()->get_relatedpath($realpath_homedir);
+		$path_homedir = $this->px->fs()->normalize_path($path_homedir);
+		return $path_homedir;
+	} // get_path_homedir()
+
+	/**
+	 * テーマコレクションディレクトリのパスを得る。
+	 *
+	 * @return string テーマコレクションディレクトリの絶対パス, 失敗した場合 `false`
+	 */
+	public function get_path_theme_collection_dir(){
+		$theme_plugin_name = 'tomk79\\pickles2\\multitheme\\theme::exec';
+		$val = $this->plugins()->get_plugin_options($theme_plugin_name, 'processor.html');
+		if(
+			is_array($val)
+			&& array_key_exists(0, $val)
+			&& is_object($val[0])
+			&& property_exists($val[0], 'options')
+			&& is_object($val[0]->options)
+			&& property_exists($val[0]->options, 'path_theme_collection')
+			&& @$val[0]->options->path_theme_collection ){
+			$relatedpath = $this->px->fs()->get_relatedpath($val[0]->options->path_theme_collection);
+			$relatedpath = $this->px->fs()->normalize_path($relatedpath);
+			return $relatedpath;
+		}
+		return false;
+	}
 
 	/**
 	 * テーマコレクションディレクトリのパスを得る。
@@ -170,10 +218,9 @@ class main{
 	 * @return string テーマコレクションディレクトリの絶対パス, 失敗した場合 `false`
 	 */
 	public function get_realpath_theme_collection_dir(){
-		$theme_plugin_name = 'tomk79\\pickles2\\multitheme\\theme::exec';
-		$val = $this->plugins()->get_plugin_options($theme_plugin_name, 'processor.html');
-		if( @$val[0]->options->path_theme_collection ){
-			return $this->px->fs()->get_realpath($val[0]->options->path_theme_collection.'/');
+		$path_theme_collection_dir = $this->get_path_theme_collection_dir();
+		if( $path_theme_collection_dir ){
+			return $this->px->fs()->normalize_path( $this->px->fs()->get_realpath('./'.$path_theme_collection_dir) );
 		}
 		return false;
 	}
@@ -205,7 +252,7 @@ class main{
 		$rtn = $this->px->fs()->normalize_path($rtn);
 		$rtn = preg_replace( '/^\/+/', '/', $rtn );
 		return $rtn;
-	}//get_realpath_data_dir()
+	} // get_realpath_data_dir()
 
 	/**
 	 * Get path_resource_dir
@@ -237,7 +284,7 @@ class main{
 	}//get_path_resource_dir()
 
 	/**
-	 * realpath_data_dir のパスを得る。
+	 * リソースパステンプレートに実際の値を当てはめる。
 	 *
 	 * @param string $template テンプレート
 	 * @param string $page_path ページのパス
@@ -271,8 +318,8 @@ class main{
 			$rtn = $template;
 			$data = array(
 				'dirname'=>$this->px->fs()->normalize_path(dirname($path_content)),
-				'filename'=>basename($this->px->fs()->trim_extension($path_content)),
-				'ext'=>strtolower($this->px->fs()->get_extension($path_content)),
+				'filename'=>basename(''.$this->px->fs()->trim_extension($path_content)),
+				'ext'=>strtolower(''.$this->px->fs()->get_extension($path_content)),
 			);
 			$rtn = str_replace( '{$dirname}', $data['dirname'], $rtn );
 			$rtn = str_replace( '{$filename}', $data['filename'], $rtn );
@@ -286,7 +333,7 @@ class main{
 			$rtn .= '/';
 		}
 		return $rtn;
-	}//bind_path_files()
+	} // bind_path_files()
 
 	/**
 	 * Get custom_fields
@@ -299,7 +346,15 @@ class main{
 
 		foreach( $rtn as $field ){
 			$field->backend->require = $this->px->fs()->normalize_path( $this->px->fs()->get_realpath( './'.$field->backend->require ) );
-			$field->frontend->file = $this->px->fs()->normalize_path( $this->px->fs()->get_realpath( './'.$field->frontend->file ) );
+
+			if( is_string($field->frontend->file) ){
+				$field->frontend->file = array( $field->frontend->file );
+			}
+			if( is_array($field->frontend->file) ){
+				foreach( $field->frontend->file as $key => $row ){
+					$field->frontend->file[$key] = $this->px->fs()->normalize_path( $this->px->fs()->get_realpath( './'.$field->frontend->file[$key] ) );
+				}
+			}
 		}
 
 		return $rtn;
@@ -355,7 +410,7 @@ class main{
 	 * @param string $page_path 対象のページのパス
 	 */
 	public function check_editor_mode( $page_path = null ){
-		if(!strlen($page_path)){
+		if(!strlen(''.$page_path)){
 			$page_path = $this->px->req()->get_request_file_path();
 		}
 		$page_info = null;
@@ -490,7 +545,7 @@ class main{
 		$sitemap_filter_options = function($px, $cmd=null){
 			$options = array();
 			$options['filter'] = $px->req()->get_param('filter');
-			if( strlen($options['filter']) ){
+			if( strlen(''.$options['filter']) ){
 				switch( $options['filter'] ){
 					case 'true':
 					case '1':
@@ -526,6 +581,11 @@ class main{
 
 			case 'get':
 				switch( @$this->command[2] ){
+					case 'path_theme_collection_dir':
+						$request_path = $this->px->req()->get_request_file_path();
+						print $std_output->data_convert( $this->get_path_theme_collection_dir() );
+						exit;
+						break;
 					case 'realpath_theme_collection_dir':
 						$request_path = $this->px->req()->get_request_file_path();
 						print $std_output->data_convert( $this->get_realpath_theme_collection_dir() );
@@ -549,52 +609,64 @@ class main{
 						exit;
 						break;
 					case 'all':
-						$rtn = json_decode('{}');
+						$rtn = (object) array();
 						$request_path = $this->px->req()->get_param('path');
-						if( !strlen( $request_path ) ){
+						if( !strlen( ''.$request_path ) ){
 							$request_path = $this->px->req()->get_request_file_path();
 						}
 
-						@$rtn->config = $this->px->conf();
-						@$rtn->version->pxfw = $this->px->get_version();
-						@$rtn->version->px2dthelper = $this->get_version();
-						@$rtn->px2dtconfig = $this->get_px2dtconfig();
-						@$rtn->check_status->px2dthelper = $this->check_status();
-						@$rtn->check_status->pxfw_api->version = $rtn->version->pxfw;
-						@$rtn->check_status->pxfw_api->is_sitemap_loaded = (is_object($this->px->site()) ? true : false);
-						@$rtn->custom_fields = $this->get_custom_fields();
-						@$rtn->realpath_homedir = $this->px->get_path_homedir();
-						@$rtn->path_controot = $this->px->get_path_controot();
-						@$rtn->realpath_docroot = $this->px->get_path_docroot();
-						@$rtn->realpath_theme_collection_dir = $this->get_realpath_theme_collection_dir();
-						@$rtn->realpath_data_dir = $this->get_realpath_data_dir( $request_path );
+						$rtn->config = $this->px->conf();
+						$rtn->version = (object) array();
+						$rtn->version->pxfw = $this->px->get_version();
+						$rtn->version->px2dthelper = $this->get_version();
+						$rtn->px2dtconfig = $this->get_px2dtconfig();
+						$rtn->check_status = (object) array();
+						$rtn->check_status->px2dthelper = $this->check_status();
+						$rtn->check_status->pxfw_api = (object) array();
+						$rtn->check_status->pxfw_api->version = $rtn->version->pxfw;
+						$rtn->check_status->pxfw_api->is_sitemap_loaded = (is_object($this->px->site()) ? true : false);
+						$rtn->custom_fields = $this->get_custom_fields();
+						$rtn->path_homedir = $this->get_path_homedir();
+							// NOTE: Pickles Framework に `$px->get_path_homedir()` があるが、
+							//       このメソッドは `$px->get_realpath_homedir()` の古い名前であり、絶対パスが返される。
+							//       過去の挙動を壊さないように、このメソッドの振る舞いは変更しない。
+							//       なので、代わりに `$this->get_path_homedir()` を作り、これを使うことにした。
+						$rtn->realpath_homedir = $this->px->get_realpath_homedir();
+						$rtn->path_controot = $this->px->get_path_controot();
+						$rtn->realpath_docroot = $this->px->get_path_docroot();
+						$rtn->path_theme_collection_dir = $this->get_path_theme_collection_dir();
+						$rtn->realpath_theme_collection_dir = $this->get_realpath_theme_collection_dir();
+						$rtn->realpath_data_dir = $this->get_realpath_data_dir( $request_path );
 
-						@$rtn->page_info = false;
-						@$rtn->path_type = false;
-						@$rtn->path_files = false;
-						@$rtn->path_resource_dir = false;
-						@$rtn->realpath_files = false;
-						@$rtn->navigation_info = false;
+						$rtn->page_info = false;
+						$rtn->path_type = false;
+						$rtn->path_files = false;
+						$rtn->path_resource_dir = false;
+						$rtn->realpath_files = false;
+						$rtn->navigation_info = false;
 
 						if( is_object($this->px->site()) ){
-							@$rtn->page_info = $this->px->site()->get_page_info( $request_path );
-							@$rtn->path_type = $this->px->get_path_type( $rtn->page_info['path'] );
-							if( $rtn->path_type != 'alias' ){
-								@$rtn->path_files = $this->path_files( $request_path );
-								@$rtn->path_resource_dir = $this->get_path_resource_dir( $request_path );
-								@$rtn->realpath_files = $this->realpath_files( $request_path );
-							}else{
-								@$rtn->realpath_data_dir = false;
+							$rtn->page_info = $this->px->site()->get_page_info( $request_path );
+							if( is_array($rtn->page_info) && array_key_exists('path', $rtn->page_info) ){
+								$rtn->path_type = $this->px->get_path_type( $rtn->page_info['path'] );
 							}
-							@$rtn->navigation_info = $this->get_navigation_info( $request_path, $sitemap_filter_options($this->px, $this->command[2]) );
+							if( $rtn->path_type && $rtn->path_type != 'alias' ){
+								$rtn->path_files = $this->path_files( $request_path );
+								$rtn->path_resource_dir = $this->get_path_resource_dir( $request_path );
+								$rtn->realpath_files = $this->realpath_files( $request_path );
+							}else{
+								$rtn->realpath_data_dir = false;
+							}
+							$rtn->navigation_info = $this->get_navigation_info( $request_path, $sitemap_filter_options($this->px, $this->command[2]) );
 							if( is_callable(array($this->px->site(), 'get_page_originated_csv')) ){
-								@$rtn->page_originated_csv = $this->px->site()->get_page_originated_csv( $request_path );
+								$rtn->page_originated_csv = $this->px->site()->get_page_originated_csv( $request_path );
 							}
 						}
 
-						@$rtn->packages->path_composer_root_dir = $this->packages()->get_path_composer_root_dir();
-						@$rtn->packages->path_npm_root_dir = $this->packages()->get_path_npm_root_dir();
-						@$rtn->packages->package_list = $this->packages()->get_package_list();
+						$rtn->packages = (object) array();
+						$rtn->packages->path_composer_root_dir = $this->packages()->get_path_composer_root_dir();
+						$rtn->packages->path_npm_root_dir = $this->packages()->get_path_npm_root_dir();
+						$rtn->packages->package_list = $this->packages()->get_package_list();
 
 						require_once(__DIR__.'/fncs/customConsoleExtensions/pxcmdOperator.php');
 						$ccExtMgr = new customConsoleExtensions_pxcmdOperator($this->px, $this);
@@ -615,7 +687,7 @@ class main{
 			case 'check_editor_mode':
 				// コンテンツの編集モードを調べる
 				$request_path = $this->px->req()->get_param('path');
-				if( !strlen( $request_path ) ){
+				if( !strlen( ''.$request_path ) ){
 					$request_path = $this->px->req()->get_request_file_path();
 				}
 				print $std_output->data_convert( $this->check_editor_mode( $request_path ) );
@@ -639,9 +711,68 @@ class main{
 				require_once(__DIR__.'/fncs/sitemap/editor.php');
 				$sitemap_editor = new fncs_sitemap_editor( $this, $this->px );
 				switch( @$this->command[2] ){
+					case 'filelist':
+						$filename = $this->px->req()->get_param('filename');
+						$result = $sitemap_editor->filelist($filename);
+						print $std_output->data_convert( $result );
+						exit;
+						break;
+
 					case 'create':
 						$filename = $this->px->req()->get_param('filename');
 						$result = $sitemap_editor->create($filename);
+						print $std_output->data_convert( $result );
+						exit;
+						break;
+
+					case 'download':
+						$filefullname = $this->px->req()->get_param('filefullname');
+						$result = $sitemap_editor->read($filefullname);
+						if( !$this->px->req()->is_cmd() ){
+							$this->px->header('Content-type: application/octet-stream');
+							print $result['bin'];
+							exit;
+						}
+						$result['base64'] = base64_encode($result['bin']);
+						unset($result['bin']);
+						print $std_output->data_convert( $result );
+						exit;
+						break;
+
+					case 'upload':
+						$filefullname = $this->px->req()->get_param('filefullname');
+						$file = $this->px->req()->get_param('file');
+						if( !$this->px->req()->is_cmd() ){
+							if( $this->px->req()->get_method() != 'post' ){
+								$this->px->set_status(405);
+								print $std_output->data_convert( array(
+									'result' => false,
+									'message' => "405 Method Not Allowed.",
+								) );
+								exit;
+							}
+							if( !strlen($filefullname) ){
+								$filefullname = $file['name'];
+							}
+							$bin = $this->px->fs()->read_file( $file['tmp_name'] );
+						}else{
+							$bin = $this->px->fs()->read_file( $file );
+						}
+						$result = $sitemap_editor->save($filefullname, $bin);
+						print $std_output->data_convert( $result );
+						exit;
+						break;
+
+					case 'xlsx2csv':
+						$filename = $this->px->req()->get_param('filename');
+						$result = $sitemap_editor->xlsx2csv($filename);
+						print $std_output->data_convert( $result );
+						exit;
+						break;
+
+					case 'csv2xlsx':
+						$filename = $this->px->req()->get_param('filename');
+						$result = $sitemap_editor->csv2xlsx($filename);
 						print $std_output->data_convert( $result );
 						exit;
 						break;
@@ -674,7 +805,7 @@ class main{
 				$flg_force = $this->px->req()->get_param('force');
 				$path_to = $this->px->req()->get_request_file_path();
 				$param_to = $this->px->req()->get_param('to');
-				if( strlen( $param_to ) ){
+				if( strlen( ''.$param_to ) ){
 					$path_to = $param_to;
 				}
 				$result = $this->copy_content(
@@ -717,7 +848,7 @@ class main{
 							header('Content-type: text/css; charset=UTF-8');
 							$this->px->req()->set_param('type', 'css');
 						}
-						if( strlen($theme_id) ){
+						if( strlen(''.$theme_id) ){
 							$val = $this->document_modules()->build_theme_css( $theme_id );
 						}else{
 							$val = $this->document_modules()->build_css();
@@ -728,7 +859,7 @@ class main{
 							header('Content-type: text/javascript; charset=UTF-8');
 							$this->px->req()->set_param('type', 'js');
 						}
-						if( strlen($theme_id) ){
+						if( strlen(''.$theme_id) ){
 							$val = $this->document_modules()->build_theme_js( $theme_id );
 						}else{
 							$val = $this->document_modules()->build_js();
@@ -761,10 +892,10 @@ class main{
 						$set_vars = array();
 						$base64_json = $this->px->req()->get_param('base64_json');
 						$json = $this->px->req()->get_param('json');
-						if( strlen($base64_json) ){
+						if( strlen(''.$base64_json) ){
 							$json = base64_decode($base64_json);
 						}
-						if( strlen($json) ){
+						if( strlen(''.$json) ){
 							$set_vars = json_decode($json, true);
 						}
 						$result = $config_parser->update($set_vars);
@@ -877,7 +1008,7 @@ class main{
 				switch( $config->method ){
 					case 'file':
 						$realpath_dir = $config->dir;
-						if( !strlen($realpath_dir) || !is_dir($realpath_dir) || !is_writable($realpath_dir) ){
+						if( !strlen(''.$realpath_dir) || !is_dir($realpath_dir) || !is_writable($realpath_dir) ){
 							return false;
 						}
 						$realpath_dir = $this->px->fs()->get_realpath($realpath_dir.'/');

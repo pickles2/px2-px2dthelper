@@ -3,12 +3,12 @@
  * Test for pickles2\px2-px2dthelper
  */
 
-class px2teTest extends PHPUnit_Framework_TestCase{
+class px2teTest extends PHPUnit\Framework\TestCase{
 
 	/**
 	 * setup
 	 */
-	public function setup(){
+	public function setup() : void{
 		set_time_limit(60);
 		$this->fs = new \tomk79\filesystem();
 		require_once(__DIR__.'/../php/simple_html_dom.php');
@@ -24,7 +24,7 @@ class px2teTest extends PHPUnit_Framework_TestCase{
 			__DIR__.'/testData/broccoli/.px_execute.php' ,
 			'/guiedit/index.html?PX=px2dthelper.px2te.gpi&data='.urlencode(base64_encode(json_encode(
 				array(
-					'api' => 'getBootupInfomations'
+					'api' => 'getBootupInformations'
 				)
 			))) ,
 		] );
@@ -47,7 +47,7 @@ class px2teTest extends PHPUnit_Framework_TestCase{
 	public function testGpiDataFile(){
 		$data = json_encode(
 			array(
-				'api' => 'getBootupInfomations'
+				'api' => 'getBootupInformations'
 			)
 		);
 		$data_realpath = __DIR__.'/testData/broccoli/px-files/_sys/ram/data/testdata_filename';

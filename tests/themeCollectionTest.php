@@ -3,12 +3,12 @@
  * Test for pickles2\px2-px2dthelper
  */
 
-class themeCollectionTest extends PHPUnit_Framework_TestCase{
+class themeCollectionTest extends PHPUnit\Framework\TestCase{
 
 	/**
 	 * setup
 	 */
-	public function setup(){
+	public function setup() : void{
 		set_time_limit(60);
 		$this->fs = new \tomk79\filesystem();
 		require_once(__DIR__.'/../php/simple_html_dom.php');
@@ -27,7 +27,17 @@ class themeCollectionTest extends PHPUnit_Framework_TestCase{
 		$output = json_decode($output);
 		// var_dump($output);
 		$this->assertTrue( is_string($output) );
-		$this->assertEquals( $this->fs->get_realpath(__DIR__.'/testData/theme_collection/px-files/themes/'), $output );
+		$this->assertEquals( $this->fs->normalize_path($this->fs->get_realpath(__DIR__.'/testData/theme_collection/px-files/themes/')), $output );
+
+		$output = $this->passthru( [
+			'php',
+			__DIR__.'/testData/theme_collection/.px_execute.php',
+			'/?PX=px2dthelper.get.path_theme_collection_dir'
+		] );
+		$output = json_decode($output);
+		// var_dump($output);
+		$this->assertTrue( is_string($output) );
+		$this->assertEquals( './px-files/themes/', $output );
 
 
 		$output = $this->passthru( [

@@ -404,12 +404,54 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ## 更新履歴 - Change log
 
-### pickles2/px2-px2dthelper v2.0.17 (リリース日未定)
+### pickles2/px2-px2dthelper v2.1.1 (2022年5月2日)
+
+- `PX=px2dthelper.sitemap.filelist` を追加。
+- `PX=px2dthelper.sitemap.download` を追加。
+- `PX=px2dthelper.sitemap.upload` を追加。
+- `PX=px2dthelper.sitemap.csv2xlsx` を追加。
+- `PX=px2dthelper.sitemap.xlsx2csv` を追加。
+- Px2CE, Px2TE, Px2ME に、 `$conf->commands->php` の設定が伝播されない不具合を修正。
+
+### pickles2/px2-px2dthelper v2.1.0 (2022年1月8日)
+
+- サポートするPHPのバージョンを `>=7.3.0` に変更。
+- PHP 8.1 に対応した。
+
+### pickles2/px2-px2dthelper v2.0.22 (2022年1月4日)
+
+- `$conf->plugins->px2dt->enable_document_modules_cache` を追加。Broccoli関連リソースのビルドをキャッシュするか設定できるようになった。デフォルトは無効。
+- Pickles 2 Contents Editor、 Pickles 2 Module Editor、 Pickles 2 Theme Editor の初期化に関する不具合を修正。
+
+### pickles2/px2-px2dthelper v2.0.21 (2021年8月21日)
+
+- 同梱のプラグインが、より直接的な表現で設定できるようになった。
+- パフォーマンスに関する改善。
+
+### pickles2/px2-px2dthelper v2.0.20 (2021年7月10日)
+
+- 拡張field設定のフロントエンドリソースが複数ある場合に処理できない不具合を修正。
+- その他の細かい内部コード修正。
+
+### pickles2/px2-px2dthelper v2.0.19 (2021年4月24日)
+
+- `scssphp/scssphp` への対応を追加。
+- その他の細かい内部コード修正。
+
+### pickles2/px2-px2dthelper v2.0.18 (2021年2月21日)
+
+- ホームディレクトリ、およびテーマコレクションディレクトリが、プレビューのドキュメントルート外に置かれている場合に、正しいパスを返せない不具合を修正。
+- APIが返すパスの、Windowsパスに関する環境依存を修正。
+
+### pickles2/px2-px2dthelper v2.0.17 (2021年2月21日)
 
 - Update: Broccoli v0.4.x
 - `PX=px2dthelper.px2te.gpi`, `PX=px2dthelper.px2te.client_resources` を追加。
 - カスタムコンソール機能拡張を追加。 `PX=px2dthelper.custom_console_extensions` を追加。
 - `PX=px2dthelper.get.all` の返却値に `custom_console_extensions` を追加。
+- `PX=px2dthelper.get.path_theme_collection_dir` を追加。
+- `PX=px2dthelper.get.all` の返却値に `path_theme_collection_dir` を追加。
+- `PX=px2dthelper.get.all` の返却値に `path_homedir` を追加。
 
 ### pickles2/px2-px2dthelper v2.0.16 (2020年10月17日)
 
@@ -524,13 +566,14 @@ $ ./vendor/phpunit/phpunit/phpunit
 ### ドキュメント出力 - phpDocumentor
 
 ```
-$ composer run-script documentation
+$ wget https://phpdoc.org/phpDocumentor.phar;
+$ composer run-script documentation;
 ```
 
 
 ## ライセンス - License
 
-Copyright (c)2001-2020 Tomoya Koyanagi, and Pickles 2 Project<br />
+Copyright (c)2001-2022 Tomoya Koyanagi, and Pickles 2 Project<br />
 MIT License https://opensource.org/licenses/mit-license.php
 
 

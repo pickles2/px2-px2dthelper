@@ -6,6 +6,9 @@ namespace tomk79\pickles2\px2dthelper;
 
 /**
  * cceAgent.php
+ *
+ * 拡張機能のバックエンドスクリプトへ、引数として提供されるユーティリティオブジェクトです。
+ * このオブジェクトのインターフェイスは、拡張機能開発者に対して公開されます。
  */
 class customConsoleExtensions_cceAgent{
 
@@ -43,7 +46,7 @@ class customConsoleExtensions_cceAgent{
     public function get_app_mode(){
 		$rtn = 'desktop';
 		$appMode = $this->px->req()->get_param('appMode');
-		if( strlen($appMode) ){
+		if( strlen(''.$appMode) ){
 			$rtn = $appMode;
 		}
 

@@ -3,12 +3,12 @@
  * Test for pickles2\px2-px2dthelper
  */
 
-class beforeSitemapTest extends PHPUnit_Framework_TestCase{
+class beforeSitemapTest extends PHPUnit\Framework\TestCase{
 
 	/**
 	 * setup
 	 */
-	public function setup(){
+	public function setup() : void{
 		set_time_limit(60);
 		$this->fs = new \tomk79\filesystem();
 	}
@@ -76,7 +76,10 @@ class beforeSitemapTest extends PHPUnit_Framework_TestCase{
 			'/?PX=clearcache' ,
 		] );
 
-	}//testCleanup()
+		$this->assertFalse( is_dir(__DIR__.'/testData/before_sitemap/px-files/_sys/ram/caches/sitemaps/') );
+		$this->assertFalse( is_dir(__DIR__.'/testData/standard/px-files/_sys/ram/caches/sitemaps/') );
+
+	} // testCleanup()
 
 
 

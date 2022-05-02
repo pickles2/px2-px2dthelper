@@ -132,7 +132,7 @@ return call_user_func( function(){
 		'picklesFramework2\commands\publish::register' ,
 
 		// PX=px2dthelper
-		'tomk79\pickles2\px2dthelper\main::register' ,
+		tomk79\pickles2\px2dthelper\main::register() ,
 
 		 // プラグイン関連機能のテスト
 		'tomk79\plugin_sample\test::exec2' ,
