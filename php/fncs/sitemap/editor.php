@@ -206,7 +206,11 @@ class fncs_sitemap_editor{
 			if( strtolower($basename) == $filefullname_lower ){
 				$rtn['filename'] = $basename;
 				$rtn['result'] = $this->px->fs()->save_file( $this->realpath_sitemap_dir.$basename, $bin );
-				if( !$rtn['result'] ){
+				if( $rtn['result'] ){
+					// 保存したファイルを CSV/Xlsx 変換する
+					$this->save_convert_csv_xlsx( $filefullname );
+				}else{
+					// 保存に失敗したら
 					$rtn['result'] = false;
 					$rtn['message'] = 'Failed to overwrite file.';
 				}
@@ -218,11 +222,73 @@ class fncs_sitemap_editor{
 		// lowercase に変換した名前で保存する。
 		$rtn['filename'] = $filefullname_lower;
 		$rtn['result'] = $this->px->fs()->save_file( $this->realpath_sitemap_dir.$filefullname_lower, $bin );
-		if( !$rtn['result'] ){
+		if( $rtn['result'] ){
+			// 保存したファイルを CSV/Xlsx 変換する
+			$this->save_convert_csv_xlsx( $filefullname );
+		} else {
+			// 保存に失敗したら
 			$rtn['result'] = false;
 			$rtn['message'] = 'Failed to write new file.';
 		}
+
 		return $rtn;
+	}
+
+	/**
+	 * サイトマップファイルの保存後に CSV/Xlsx 変換する
+	 */
+	private function save_convert_csv_xlsx( $filefullname ){
+		if( !preg_match( '/^(.*)\.([a-zA-Z0-9]+)$/', $filefullname, $matched ) ){
+			return false;
+		}
+		$filename = $matched[1];
+		$ext_from = $matched[2];
+		$filename_lower = strtolower($filename);
+		$ext_from_lower = strtolower($ext_from);
+		$ext_to = null;
+		$ext_to_lower = null;
+
+		$ls = $this->px->fs()->ls($this->realpath_sitemap_dir);
+		$realpath_from = null;
+		$realpath_to = null;
+		foreach( $ls as $basename ){
+			if( preg_match('/^'.preg_quote($filename, '/').'\.'.preg_quote($ext_from, '/').'$/i', $basename) ){
+				$realpath_from = $this->px-fs()->get_realpath($this->realpath_sitemap_dir.$basename);
+				continue;
+			}
+			if( preg_match('/^'.preg_quote($filename, '/').'\.(.+?)$/i', $basename, $matched) ){
+				$ext_to = $matched[1];
+				$ext_to_lower = strtolower($ext_to);
+				$realpath_to = $this->px-fs()->get_realpath($this->realpath_sitemap_dir.$basename);
+				continue;
+			}
+		}
+
+		if( !$realpath_from || !is_file($realpath_from) ){
+			return false;
+		}
+		if( !$realpath_to || !is_file($realpath_to) ){
+			// 既存のファイルがないなら変換しない
+			return false;
+		}
+
+		$px2_sitemapexcel = new \tomk79\pickles2\sitemap_excel\pickles_sitemap_excel($this->px);
+		$result = null;
+		if( $ext_from_lower ){
+			// アップロードされたファイルがCSVなら、XLSXに変換する
+			$result = !!$px2_sitemapexcel->csv2xlsx(
+				$realpath_from,
+				$realpath_to
+			);
+		}else{
+			// アップロードされたファイルがXLSXなら、CSVに変換する
+			$result = !!$px2_sitemapexcel->xlsx2csv(
+				$realpath_from,
+				$realpath_to
+			);
+		}
+
+		return $result;
 	}
 
 	/**

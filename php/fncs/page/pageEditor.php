@@ -298,7 +298,7 @@ class pageEditor{
 	 * @param string $filefullname 対象ファイル名(拡張子を含む)
 	 * @return array 実行結果
 	 */
-	public function csv2xlsx( $filefullname ){
+	private function csv2xlsx( $filefullname ){
 		if( !class_exists('\\tomk79\\pickles2\\sitemap_excel\\pickles_sitemap_excel') ){
 			return false;
 		}
