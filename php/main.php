@@ -787,6 +787,14 @@ class main{
 				// サイトマップ/ページ操作
 				$sitemap_editor = new fncs\page\pageEditor( $this, $this->px );
 				switch( @$this->command[2] ){
+					case 'get_page_info_raw':
+						$filename = $this->px->req()->get_param('filefullname');
+						$row = $this->px->req()->get_param('row');
+						$result = $sitemap_editor->get_page_info_raw($filename, $row);
+						print $std_output->data_convert( $result );
+						exit;
+						break;
+
 					case 'add_page_info_raw':
 						$this->route_only_post_cmd();
 						$filename = $this->px->req()->get_param('filefullname');
@@ -807,10 +815,11 @@ class main{
 						exit;
 						break;
 
-					case 'get_page_info_raw':
+					case 'delete_page_info_raw':
+						$this->route_only_post_cmd();
 						$filename = $this->px->req()->get_param('filefullname');
 						$row = $this->px->req()->get_param('row');
-						$result = $sitemap_editor->get_page_info_raw($filename, $row);
+						$result = $sitemap_editor->delete_page_info_raw($filename, $row);
 						print $std_output->data_convert( $result );
 						exit;
 						break;

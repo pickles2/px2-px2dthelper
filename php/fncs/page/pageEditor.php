@@ -32,6 +32,37 @@ class pageEditor{
 	}
 
 	/**
+	 * サイトマップファイルから行データを直接取得する
+	 */
+	public function get_page_info_raw( $filefullname, $row ){
+		$rtn = array(
+			'result'=>true,
+			'message'=>'OK',
+			'sitemap_definition'=>null,
+			'page_info' => null,
+		);
+
+		$realpath_csv = $this->realpath_sitemap_file( $filefullname );
+		$csv = $this->px->fs()->read_csv($realpath_csv);
+		if( !$this->has_sitemap_definition( $csv ) && !$row){
+			return array(
+				'result'=>false,
+				'message'=>'Invalid row number.',
+			);
+		}
+		$rtn['sitemap_definition'] = $this->parse_sitemap_definition( $csv );
+		if( !isset($csv[$row]) ){
+			return array(
+				'result'=>false,
+				'message'=>'Invalid row number.',
+			);
+		}
+		$rtn['page_info'] = $csv[$row];
+
+		return $rtn;
+	}
+
+	/**
 	 * サイトマップファイルに行データを直接追加する
 	 */
 	public function add_page_info_raw( $filefullname, $row = 0, $page_info = array() ){
@@ -79,7 +110,7 @@ class pageEditor{
 	}
 
 	/**
-	 * サイトマップファイルに行データを直接更新する
+	 * サイトマップファイルの行データを直接更新する
 	 */
 	public function update_page_info_raw( $filefullname, $row = 0, $page_info = array() ){
 		$rtn = array(
@@ -126,32 +157,39 @@ class pageEditor{
 	}
 
 	/**
-	 * サイトマップファイルから行データを直接取得する
+	 * サイトマップファイルの行データを直接削除する
 	 */
-	public function get_page_info_raw( $filefullname, $row ){
+	public function delete_page_info_raw( $filefullname, $row = 0, $page_info = array() ){
 		$rtn = array(
 			'result'=>true,
 			'message'=>'OK',
-			'sitemap_definition'=>null,
-			'page_info' => null,
 		);
 
 		$realpath_csv = $this->realpath_sitemap_file( $filefullname );
-		$csv = $this->px->fs()->read_csv($realpath_csv);
+		$csv = $this->px->fs()->read_csv( $realpath_csv );
+		if( !is_array($csv) ){
+			return array(
+				'result' => false,
+				'message' => 'Failed to load sitemap file.',
+			);
+		}
 		if( !$this->has_sitemap_definition( $csv ) && !$row){
 			return array(
 				'result'=>false,
 				'message'=>'Invalid row number.',
 			);
 		}
-		$rtn['sitemap_definition'] = $this->parse_sitemap_definition( $csv );
-		if( !isset($csv[$row]) ){
+
+		unset($csv[$row]);
+
+		$src_csv = $this->px->fs()->mk_csv($csv);
+		$result = $this->px->fs()->save_file( $realpath_csv, $src_csv );
+		if( !$result ){
 			return array(
-				'result'=>false,
-				'message'=>'Invalid row number.',
+				'result' => false,
+				'message' => 'Failed to save sitemap file.',
 			);
 		}
-		$rtn['page_info'] = $csv[$row];
 
 		return $rtn;
 	}

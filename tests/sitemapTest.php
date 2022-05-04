@@ -195,6 +195,30 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 	} // testPageUpdatePageInfoRaw()
 
 	/**
+	 * PX=px2dthelper.page.delete_page_info_raw のテスト
+	 */
+	public function testPageDeletePageInfoRaw(){
+
+		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.page.delete_page_info_raw&filefullname=create_new_sitemap.csv&row=1' ] );
+		clearstatcache();
+		// var_dump($output);
+		$json = json_decode( $output );
+		// var_dump($json);
+		$this->assertTrue( is_object($json) );
+		$this->assertTrue( $json->result );
+
+		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.page.get_page_info_raw&filefullname=create_new_sitemap.csv&row=1' ] );
+		clearstatcache();
+		// var_dump($output);
+		$json = json_decode( $output );
+		// var_dump($json);
+		$this->assertTrue( is_object($json) );
+		$this->assertFalse( $json->result );
+		$this->assertSame( $json->message, 'Invalid row number.' );
+
+	} // testPageDeletePageInfoRaw()
+
+	/**
 	 * PX=px2dthelper.sitemap.delete のテスト
 	 */
 	public function testSitemapDelete(){
