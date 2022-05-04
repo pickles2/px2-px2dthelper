@@ -41,7 +41,6 @@ class pageEditor{
 		);
 
 		$realpath_csv = $this->realpath_sitemap_file( $filefullname );
-		$sitemap_definition = $this->get_default_sitemap_definition();
 		$csv = $this->px->fs()->read_csv( $realpath_csv );
 		if( !is_array($csv) ){
 			return array(
@@ -49,9 +48,13 @@ class pageEditor{
 				'message' => 'Failed to load sitemap file.',
 			);
 		}
-		if( count($csv) && preg_match('/^\*/', $csv[0][0]) ){
-			$sitemap_definition = $this->parse_sitemap_definition( $csv[0] );
+		if( !$this->has_sitemap_definition( $csv ) && !$row){
+			return array(
+				'result'=>false,
+				'message'=>'Invalid row number.',
+			);
 		}
+		$sitemap_definition = $this->parse_sitemap_definition( $csv );
 
 		$sitemap_row = array();
 		foreach( $sitemap_definition as $definition_col ){
@@ -78,7 +81,7 @@ class pageEditor{
 	/**
 	 * サイトマップファイルから行データを直接取得する
 	 */
-	public function get_page_info_raw( $filefullname, $row = 1 ){
+	public function get_page_info_raw( $filefullname, $row ){
 		$rtn = array(
 			'result'=>true,
 			'message'=>'OK',
@@ -88,7 +91,19 @@ class pageEditor{
 
 		$realpath_csv = $this->realpath_sitemap_file( $filefullname );
 		$csv = $this->px->fs()->read_csv($realpath_csv);
-		$rtn['sitemap_definition'] = $this->parse_sitemap_definition( $csv[0] );
+		if( !$this->has_sitemap_definition( $csv ) && !$row){
+			return array(
+				'result'=>false,
+				'message'=>'Invalid row number.',
+			);
+		}
+		$rtn['sitemap_definition'] = $this->parse_sitemap_definition( $csv );
+		if( !isset($csv[$row]) ){
+			return array(
+				'result'=>false,
+				'message'=>'Invalid row number.',
+			);
+		}
 		$rtn['page_info'] = $csv[$row];
 
 		return $rtn;
@@ -141,10 +156,39 @@ class pageEditor{
 	}
 
 	/**
+	 * サイトマップに定義行が含まれるか調べる
+	 */
+	private function has_sitemap_definition( $csv ){
+		if( !is_array($csv) || !count($csv) || !isset($csv[0]) ){
+			return false;
+		}
+
+		$row = $csv[0];
+		if( !is_array($row) || !count($row) || !isset($row[0]) ){
+			return false;
+		}
+		if( !preg_match('/^\*/', $row[0]) ){
+			return false;
+		}
+		return true;
+	}
+
+	/**
 	 * デフォルトのサイトマップ定義を取得する
 	 */
-	private function parse_sitemap_definition( $row ){
-		return $this->get_default_sitemap_definition();
+	private function parse_sitemap_definition( $csv ){
+		if( !$this->has_sitemap_definition( $csv ) ){
+			return $this->get_default_sitemap_definition();
+		}
+
+		$row = $csv[0];
+		$rtn = array();
+		foreach($row as $col){
+			$def = preg_replace('/^\*\s*/', '', $col);
+			array_push( $rtn, $def );
+		}
+
+		return $rtn;
 	}
 
 }
