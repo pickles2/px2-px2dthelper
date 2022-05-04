@@ -797,6 +797,16 @@ class main{
 						exit;
 						break;
 
+					case 'update_page_info_raw':
+						$this->route_only_post_cmd();
+						$filename = $this->px->req()->get_param('filefullname');
+						$row = $this->px->req()->get_param('row');
+						$page_info = $this->px->req()->get_param('page_info');
+						$result = $sitemap_editor->update_page_info_raw($filename, $row, $page_info);
+						print $std_output->data_convert( $result );
+						exit;
+						break;
+
 					case 'get_page_info_raw':
 						$filename = $this->px->req()->get_param('filefullname');
 						$row = $this->px->req()->get_param('row');
