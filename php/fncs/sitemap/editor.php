@@ -154,25 +154,22 @@ class fncs_sitemap_editor{
 			'filename' => null,
 			'bin' => false,
 		);
-		$filefullname_lower = strtolower($filefullname);
-		$ls = $this->px->fs()->ls($this->realpath_sitemap_dir);
-		foreach( $ls as $basename ){
-			if( strtolower($basename) == $filefullname_lower ){
-				$rtn['filename'] = $basename;
-				$rtn['bin'] = $this->px->fs()->read_file( $this->realpath_sitemap_dir.$basename );
-				if( !$rtn['bin'] ){
-					$rtn['result'] = false;
-					$rtn['message'] = 'Failed to open file.';
-				}
-				return $rtn;
-			}
+		$realpath = $this->realpath_sitemap_file( $filefullname );
+		if( $realpath === false ){
+			return array(
+				'result' => false,
+				'message' => 'File not found.',
+				'filename' => null,
+				'bin' => false,
+			);
 		}
-		return array(
-			'result' => false,
-			'message' => 'File not found.',
-			'filename' => null,
-			'bin' => false,
-		);
+		$rtn['filename'] = basename( $realpath );
+		$rtn['bin'] = $this->px->fs()->read_file( $realpath );
+		if( !$rtn['bin'] ){
+			$rtn['result'] = false;
+			$rtn['message'] = 'Failed to open file.';
+		}
+		return $rtn;
 	}
 
 	/**
@@ -340,6 +337,26 @@ class fncs_sitemap_editor{
 		}
 
 		return $rtn;
+	}
+
+	/**
+	 * 実在するファイルの絶対パスを取得する
+	 *
+	 * 大文字・小文字 の区別をせずに検索する。
+	 *
+	 * @param string $filefullname 対象ファイル名(拡張子を含む)
+	 * @return string|boolean ファイルの絶対パスを返す。ファイルが見つからない場合に `false` を返す。
+	 */
+	private function realpath_sitemap_file( $filefullname ){
+		$filefullname_lower = strtolower($filefullname);
+		$ls = $this->px->fs()->ls($this->realpath_sitemap_dir);
+		foreach( $ls as $basename ){
+			if( strtolower($basename) == $filefullname_lower ){
+				$realpath = $this->px->fs()->get_realpath( $this->realpath_sitemap_dir.$basename );
+				return $realpath;
+			}
+		}
+		return false;
 	}
 
 }
