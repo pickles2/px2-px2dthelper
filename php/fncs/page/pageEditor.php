@@ -106,6 +106,9 @@ class pageEditor{
 			);
 		}
 
+		// NOTE: 暫定処理: CSVを更新したら、xlsx も更新する。
+		$this->csv2xlsx( $filefullname );
+
 		return $rtn;
 	}
 
@@ -153,6 +156,9 @@ class pageEditor{
 			);
 		}
 
+		// NOTE: 暫定処理: CSVを更新したら、xlsx も更新する。
+		$this->csv2xlsx( $filefullname );
+
 		return $rtn;
 	}
 
@@ -191,8 +197,14 @@ class pageEditor{
 			);
 		}
 
+		// NOTE: 暫定処理: CSVを更新したら、xlsx も更新する。
+		$this->csv2xlsx( $filefullname );
+
 		return $rtn;
 	}
+
+
+	// ----------------------------------------------------------------------------
 
 	/**
 	 * 実在するファイルの絶対パスを取得する
@@ -274,6 +286,45 @@ class pageEditor{
 		}
 
 		return $rtn;
+	}
+
+
+	/**
+	 * CSV を xlsx に変換する
+	 *
+	 * NOTE: これは暫定的な処理です。サイトマップのページ数が多くなると、この処理は重くなります。
+	 * TODO: CSV全体を変換することはせず、CSVに反映した変更と同じ変更をXlsxにも差分反映させる処理に変更します。
+	 *
+	 * @param string $filefullname 対象ファイル名(拡張子を含む)
+	 * @return array 実行結果
+	 */
+	public function csv2xlsx( $filefullname ){
+		if( !class_exists('\\tomk79\\pickles2\\sitemap_excel\\pickles_sitemap_excel') ){
+			return false;
+		}
+		if( !is_string($filefullname) || !strlen($filefullname) ){
+			return false;
+		}
+		if( !preg_match('/\.csv$/si', $filefullname) ){
+			return false;
+		}
+
+		$realpath_csv = $this->realpath_sitemap_file( $filefullname );
+		if( !is_file( $realpath_csv ) ){
+			return false;
+		}
+		$filefullname_xlsx = preg_replace('/\.csv$/si', '.xlsx', $filefullname);
+		$realpath_xlsx = $this->realpath_sitemap_file( $filefullname_xlsx );
+		if( !is_file( $realpath_xlsx ) ){
+			return false;
+		}
+
+		$px2_sitemapexcel = new \tomk79\pickles2\sitemap_excel\pickles_sitemap_excel($this->px);
+		$result = !!$px2_sitemapexcel->csv2xlsx(
+			$realpath_csv,
+			$realpath_xlsx
+		);
+		return $result;
 	}
 
 }
