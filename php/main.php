@@ -827,6 +827,19 @@ class main{
 				}
 				break;
 
+			case 'content':
+				// コンテンツ操作
+				$content_editor = new fncs\content\contentEditor( $this, $this->px );
+				switch( @$this->command[2] ){
+					case 'delete':
+						$result = $content_editor->delete();
+						print $std_output->data_convert( $result );
+						exit;
+						break;
+				}
+
+				break;
+
 			case 'init_content':
 				// コンテンツを初期化する
 				$this->route_only_post_cmd();

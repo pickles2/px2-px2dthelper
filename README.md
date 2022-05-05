@@ -411,6 +411,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 - `PX=px2dthelper.page.get_page_info_raw` を追加。
 - `PX=px2dthelper.page.update_page_info_raw` を追加。
 - `PX=px2dthelper.page.delete_page_info_raw` を追加。
+- `PX=px2dthelper.content.delete` を追加。
 - その他いくつかの細かい修正。
 
 ### pickles2/px2-px2dthelper v2.1.1 (2022年5月2日)

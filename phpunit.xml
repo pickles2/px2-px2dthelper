@@ -14,6 +14,7 @@
 			<file>./tests/initContentTest.php</file>
 			<file>./tests/configParserTest.php</file>
 			<file>./tests/copyContentTest.php</file>
+			<file>./tests/contentTest.php</file>
 			<file>./tests/changeContentEditorModeTest.php</file>
 			<file>./tests/publishSinglePageTest.php</file>
 			<file>./tests/broccoliTest.php</file>
