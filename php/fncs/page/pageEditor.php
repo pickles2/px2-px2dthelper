@@ -69,7 +69,17 @@ class pageEditor{
 		$rtn = array(
 			'result'=>true,
 			'message'=>'OK',
+			'errors' => null,
 		);
+		$validated = $this->validate_page_info( $page_info );
+		if( count($validated) ){
+			$rtn = array(
+				'result'=>false,
+				'message'=>'Validation Error.',
+				'errors' => $validated,
+			);
+			return $rtn;
+		}
 
 		$realpath_csv = $this->realpath_sitemap_file( $filefullname );
 		$csv = $this->px->fs()->read_csv( $realpath_csv );
@@ -119,7 +129,17 @@ class pageEditor{
 		$rtn = array(
 			'result'=>true,
 			'message'=>'OK',
+			'errors' => null,
 		);
+		$validated = $this->validate_page_info( $page_info );
+		if( count($validated) ){
+			$rtn = array(
+				'result'=>false,
+				'message'=>'Validation Error.',
+				'errors' => $validated,
+			);
+			return $rtn;
+		}
 
 		$realpath_csv = $this->realpath_sitemap_file( $filefullname );
 		$csv = $this->px->fs()->read_csv( $realpath_csv );
@@ -224,6 +244,30 @@ class pageEditor{
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * Validation: ページ情報
+	 */
+	private function validate_page_info( $page_info ){
+		$rtn = array();
+		foreach( $page_info as $key=>$val ){
+			switch( $key ){
+				case 'path':
+					if( !strlen( $val ) ){
+						$rtn[$key] = 'path は必須項目です。';
+					}elseif( !preg_match( '/^\//', $val ) ){
+						$rtn[$key] = 'path は "/" (スラッシュ) から始まる値である必要があります。';
+					}
+					break;
+				case 'title':
+					if( !strlen( $val ) ){
+						$rtn[$key] = 'title は必須項目です。';
+					}
+					break;
+			}
+		}
+		return $rtn;
 	}
 
 	/**
