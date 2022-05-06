@@ -126,6 +126,7 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 	 */
 	public function testPageAddPageInfoRaw(){
 
+		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=clearcache'] );
 		$page_info = array(
 			'page_info' => array(
 				'path'=>'/added_page_sample/index.html',
@@ -147,6 +148,7 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 	 */
 	public function testPageGetPageInfoRaw(){
 
+		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=clearcache'] );
 		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.page.get_page_info_raw&filefullname=create_new_sitemap.csv&row=1' ] );
 		clearstatcache();
 		// var_dump($output);
@@ -166,6 +168,7 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 	 */
 	public function testPageUpdatePageInfoRaw(){
 
+		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=clearcache'] );
 		$page_info = array(
 			'page_info' => array(
 				'path'=>'/added_page_sample/2.html',
@@ -199,6 +202,7 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 	 */
 	public function testPageDeletePageInfoRaw(){
 
+		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=clearcache'] );
 		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.page.delete_page_info_raw&filefullname=create_new_sitemap.csv&row=1' ] );
 		clearstatcache();
 		// var_dump($output);
@@ -207,6 +211,7 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 		$this->assertTrue( is_object($json) );
 		$this->assertTrue( $json->result );
 
+		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=clearcache'] );
 		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.page.get_page_info_raw&filefullname=create_new_sitemap.csv&row=1' ] );
 		clearstatcache();
 		// var_dump($output);
