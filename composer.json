@@ -33,9 +33,9 @@
         "broccoli-html-editor/broccoli-module-fess": "*",
         "broccoli-html-editor/broccoli-module-plain-html-elements": "*",
         "pickles2/px-fw-2.x": "~2.1||~2.0" ,
-        "pickles2/px2-sitemapexcel": "~2.0",
-        "pickles2/px2-multitheme": "~2.0",
-        "tomk79/filesystem": "~1.0",
+        "pickles2/px2-sitemapexcel": "~2.2",
+        "pickles2/px2-multitheme": "~2.1",
+        "tomk79/filesystem": "~1.1",
         "phpunit/phpunit": "~9.5"
     },
     "autoload": {
