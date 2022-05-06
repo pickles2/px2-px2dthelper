@@ -102,11 +102,13 @@
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/tomk79.html">tomk79</a></li>
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/tomk79-pickles2.html">pickles2</a></li>
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/tomk79-pickles2-px2dthelper.html">px2dthelper</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/tomk79-pickles2-px2dthelper-fncs.html">fncs</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/tomk79-pickles2-px2dthelper-fncs-page.html">page</a></li>
     </ul>
 
     <article class="phpdocumentor-element -class">
         <h2 class="phpdocumentor-content__title">
-    fncs_sitemap_editor
+    pageEditor
 
     
             <div class="phpdocumentor-element__package">
@@ -120,13 +122,13 @@
     </h2>
 
         <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/sitemap/editor.php"><a href="files/php-fncs-sitemap-editor.html"><abbr title="php/fncs/sitemap/editor.php">editor.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/page/pageEditor.php"><a href="files/php-fncs-page-pageeditor.html"><abbr title="php/fncs/page/pageEditor.php">pageEditor.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">10</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">fncs/sitemap/editor.php</p>
+            <p class="phpdocumentor-summary">fncs/page/editor.php</p>
 
 
 
@@ -143,95 +145,102 @@
 
 <dl class="phpdocumentor-table-of-contents">
                     <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/tomk79-pickles2-px2dthelper-fncs-sitemap-editor.html#property_px">$px</a>
+    <a href="classes/tomk79-pickles2-px2dthelper-fncs-page-pageEditor.html#property_px">$px</a>
     <span>
                         &nbsp;: mixed            </span>
 </dt>
 <dd>Picklesオブジェクト</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/tomk79-pickles2-px2dthelper-fncs-sitemap-editor.html#property_px2dthelper">$px2dthelper</a>
+    <a href="classes/tomk79-pickles2-px2dthelper-fncs-page-pageEditor.html#property_px2dthelper">$px2dthelper</a>
     <span>
                         &nbsp;: mixed            </span>
 </dt>
 <dd>px2dthelperオブジェクト</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/tomk79-pickles2-px2dthelper-fncs-sitemap-editor.html#property_realpath_sitemap_dir">$realpath_sitemap_dir</a>
+    <a href="classes/tomk79-pickles2-px2dthelper-fncs-page-pageEditor.html#property_realpath_sitemap_dir">$realpath_sitemap_dir</a>
     <span>
                         &nbsp;: mixed            </span>
 </dt>
 <dd>サイトマップディレクトリ</dd>
 
                 <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/tomk79-pickles2-px2dthelper-fncs-sitemap-editor.html#method___construct">__construct()</a>
+    <a href="classes/tomk79-pickles2-px2dthelper-fncs-page-pageEditor.html#method___construct">__construct()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
 <dd>constructor</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/tomk79-pickles2-px2dthelper-fncs-sitemap-editor.html#method_create">create()</a>
+    <a href="classes/tomk79-pickles2-px2dthelper-fncs-page-pageEditor.html#method_add_page_info_raw">add_page_info_raw()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: mixed    </span>
 </dt>
-<dd>新規サイトマップファイルを作成する</dd>
+<dd>サイトマップファイルに行データを直接追加する</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/tomk79-pickles2-px2dthelper-fncs-sitemap-editor.html#method_csv2xlsx">csv2xlsx()</a>
+    <a href="classes/tomk79-pickles2-px2dthelper-fncs-page-pageEditor.html#method_delete_page_info_raw">delete_page_info_raw()</a>
+    <span>
+                                &nbsp;: mixed    </span>
+</dt>
+<dd>サイトマップファイルの行データを直接削除する</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/tomk79-pickles2-px2dthelper-fncs-page-pageEditor.html#method_get_page_info_raw">get_page_info_raw()</a>
+    <span>
+                                &nbsp;: mixed    </span>
+</dt>
+<dd>サイトマップファイルから行データを直接取得する</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/tomk79-pickles2-px2dthelper-fncs-page-pageEditor.html#method_update_page_info_raw">update_page_info_raw()</a>
+    <span>
+                                &nbsp;: mixed    </span>
+</dt>
+<dd>サイトマップファイルの行データを直接更新する</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/tomk79-pickles2-px2dthelper-fncs-page-pageEditor.html#method_csv2xlsx">csv2xlsx()</a>
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
 <dd>CSV を xlsx に変換する</dd>
 
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/tomk79-pickles2-px2dthelper-fncs-sitemap-editor.html#method_delete">delete()</a>
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/tomk79-pickles2-px2dthelper-fncs-page-pageEditor.html#method_get_default_sitemap_definition">get_default_sitemap_definition()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: mixed    </span>
 </dt>
-<dd>サイトマップファイルを削除する</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/tomk79-pickles2-px2dthelper-fncs-sitemap-editor.html#method_filelist">filelist()</a>
-    <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
-</dt>
-<dd>サイトマップファイルリストを取得する</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/tomk79-pickles2-px2dthelper-fncs-sitemap-editor.html#method_read">read()</a>
-    <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
-</dt>
-<dd>サイトマップファイルを読み込むする</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/tomk79-pickles2-px2dthelper-fncs-sitemap-editor.html#method_save">save()</a>
-    <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
-</dt>
-<dd>サイトマップファイルを保存する</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/tomk79-pickles2-px2dthelper-fncs-sitemap-editor.html#method_xlsx2csv">xlsx2csv()</a>
-    <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
-</dt>
-<dd>xlsx を CSV に変換する</dd>
+<dd>デフォルトのサイトマップ定義を取得する</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/tomk79-pickles2-px2dthelper-fncs-sitemap-editor.html#method_realpath_sitemap_file">realpath_sitemap_file()</a>
+    <a href="classes/tomk79-pickles2-px2dthelper-fncs-page-pageEditor.html#method_has_sitemap_definition">has_sitemap_definition()</a>
+    <span>
+                                &nbsp;: mixed    </span>
+</dt>
+<dd>サイトマップに定義行が含まれるか調べる</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/tomk79-pickles2-px2dthelper-fncs-page-pageEditor.html#method_parse_sitemap_definition">parse_sitemap_definition()</a>
+    <span>
+                                &nbsp;: mixed    </span>
+</dt>
+<dd>デフォルトのサイトマップ定義を取得する</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/tomk79-pickles2-px2dthelper-fncs-page-pageEditor.html#method_realpath_sitemap_file">realpath_sitemap_file()</a>
     <span>
                                 &nbsp;: string|bool    </span>
 </dt>
 <dd>実在するファイルの絶対パスを取得する</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/tomk79-pickles2-px2dthelper-fncs-sitemap-editor.html#method_save_convert_csv_xlsx">save_convert_csv_xlsx()</a>
+    <a href="classes/tomk79-pickles2-px2dthelper-fncs-page-pageEditor.html#method_validate_page_info">validate_page_info()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>サイトマップファイルの保存後に CSV/Xlsx 変換する</dd>
+<dd>Validation: ページ情報</dd>
 
         </dl>
 
@@ -243,7 +252,7 @@
     <section class="phpdocumentor-properties">
         <h3 class="phpdocumentor-elements__header" id="properties">
             Properties
-            <a href="classes/tomk79-pickles2-px2dthelper-fncs-sitemap-editor.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/tomk79-pickles2-px2dthelper-fncs-page-pageEditor.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
         </h3>
                     <article
         class="
@@ -254,12 +263,12 @@
 >
     <h4 class="phpdocumentor-element__name" id="property_px">
         $px
-        <a href="classes/tomk79-pickles2-px2dthelper-fncs-sitemap-editor.html#property_px" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-page-pageEditor.html#property_px" class="headerlink"><i class="fas fa-link"></i></a>
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/sitemap/editor.php"><a href="files/php-fncs-sitemap-editor.html"><abbr title="php/fncs/sitemap/editor.php">editor.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/page/pageEditor.php"><a href="files/php-fncs-page-pageeditor.html"><abbr title="php/fncs/page/pageEditor.php">pageEditor.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">13</span>
 
@@ -288,12 +297,12 @@
 >
     <h4 class="phpdocumentor-element__name" id="property_px2dthelper">
         $px2dthelper
-        <a href="classes/tomk79-pickles2-px2dthelper-fncs-sitemap-editor.html#property_px2dthelper" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-page-pageEditor.html#property_px2dthelper" class="headerlink"><i class="fas fa-link"></i></a>
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/sitemap/editor.php"><a href="files/php-fncs-sitemap-editor.html"><abbr title="php/fncs/sitemap/editor.php">editor.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/page/pageEditor.php"><a href="files/php-fncs-page-pageeditor.html"><abbr title="php/fncs/page/pageEditor.php">pageEditor.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">16</span>
 
@@ -322,12 +331,12 @@
 >
     <h4 class="phpdocumentor-element__name" id="property_realpath_sitemap_dir">
         $realpath_sitemap_dir
-        <a href="classes/tomk79-pickles2-px2dthelper-fncs-sitemap-editor.html#property_realpath_sitemap_dir" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-page-pageEditor.html#property_realpath_sitemap_dir" class="headerlink"><i class="fas fa-link"></i></a>
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/sitemap/editor.php"><a href="files/php-fncs-sitemap-editor.html"><abbr title="php/fncs/sitemap/editor.php">editor.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/page/pageEditor.php"><a href="files/php-fncs-page-pageeditor.html"><abbr title="php/fncs/page/pageEditor.php">pageEditor.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">19</span>
 
@@ -352,7 +361,7 @@
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
             Methods
-            <a href="classes/tomk79-pickles2-px2dthelper-fncs-sitemap-editor.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/tomk79-pickles2-px2dthelper-fncs-page-pageEditor.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
         </h3>
                     <article
         class="phpdocumentor-element
@@ -362,10 +371,10 @@
 >
     <h4 class="phpdocumentor-element__name" id="method___construct">
         __construct()
-        <a href="classes/tomk79-pickles2-px2dthelper-fncs-sitemap-editor.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-page-pageEditor.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/sitemap/editor.php"><a href="files/php-fncs-sitemap-editor.html"><abbr title="php/fncs/sitemap/editor.php">editor.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/page/pageEditor.php"><a href="files/php-fncs-page-pageeditor.html"><abbr title="php/fncs/page/pageEditor.php">pageEditor.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">27</span>
 
@@ -414,33 +423,48 @@
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_create">
-        create()
-        <a href="classes/tomk79-pickles2-px2dthelper-fncs-sitemap-editor.html#method_create" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_add_page_info_raw">
+        add_page_info_raw()
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-page-pageEditor.html#method_add_page_info_raw" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/sitemap/editor.php"><a href="files/php-fncs-sitemap-editor.html"><abbr title="php/fncs/sitemap/editor.php">editor.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/page/pageEditor.php"><a href="files/php-fncs-page-pageeditor.html"><abbr title="php/fncs/page/pageEditor.php">pageEditor.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">88</span>
+    <span class="phpdocumentor-element-found-in__line">68</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">新規サイトマップファイルを作成する</p>
+        <p class="phpdocumentor-summary">サイトマップファイルに行データを直接追加する</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">create</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filename</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">add_page_info_raw</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filefullname</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$row</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$page_info</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">array()</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$filename</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                <span class="phpdocumentor-signature__argument__name">$filefullname</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>対象ファイル名(拡張子を含まない)</p>
-</section>
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$row</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$page_info</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">array()</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
 
             </dd>
             </dl>
@@ -448,11 +472,9 @@
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
             &mdash;
-            <section class="phpdocumentor-description"><p>実行結果</p>
-</section>
-
+        
     
 </article>
                     <article
@@ -461,153 +483,199 @@
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_csv2xlsx">
-        csv2xlsx()
-        <a href="classes/tomk79-pickles2-px2dthelper-fncs-sitemap-editor.html#method_csv2xlsx" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_delete_page_info_raw">
+        delete_page_info_raw()
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-page-pageEditor.html#method_delete_page_info_raw" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/sitemap/editor.php"><a href="files/php-fncs-sitemap-editor.html"><abbr title="php/fncs/sitemap/editor.php">editor.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/page/pageEditor.php"><a href="files/php-fncs-page-pageeditor.html"><abbr title="php/fncs/page/pageEditor.php">pageEditor.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">337</span>
+    <span class="phpdocumentor-element-found-in__line">188</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">サイトマップファイルの行データを直接削除する</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">delete_page_info_raw</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filefullname</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$row</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$page_info</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">array()</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$filefullname</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$row</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$page_info</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">array()</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_get_page_info_raw">
+        get_page_info_raw()
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-page-pageEditor.html#method_get_page_info_raw" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/page/pageEditor.php"><a href="files/php-fncs-page-pageeditor.html"><abbr title="php/fncs/page/pageEditor.php">pageEditor.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">37</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">サイトマップファイルから行データを直接取得する</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">get_page_info_raw</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filefullname</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$row</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$filefullname</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$row</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_update_page_info_raw">
+        update_page_info_raw()
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-page-pageEditor.html#method_update_page_info_raw" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/page/pageEditor.php"><a href="files/php-fncs-page-pageeditor.html"><abbr title="php/fncs/page/pageEditor.php">pageEditor.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">128</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">サイトマップファイルの行データを直接更新する</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">update_page_info_raw</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filefullname</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$row</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$page_info</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">array()</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$filefullname</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$row</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$page_info</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">array()</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_csv2xlsx">
+        csv2xlsx()
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-page-pageEditor.html#method_csv2xlsx" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/page/pageEditor.php"><a href="files/php-fncs-page-pageeditor.html"><abbr title="php/fncs/page/pageEditor.php">pageEditor.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">345</span>
 
     </aside>
 
         <p class="phpdocumentor-summary">CSV を xlsx に変換する</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">csv2xlsx</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filename</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">csv2xlsx</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filefullname</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
 
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$filename</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>対象ファイル名(拡張子を含まない)</p>
+        <section class="phpdocumentor-description"><p>NOTE: これは暫定的な処理です。サイトマップのページ数が多くなると、この処理は重くなります。
+TODO: CSV全体を変換することはせず、CSVに反映した変更と同じ変更をXlsxにも差分反映させる処理に変更します。</p>
 </section>
 
-            </dd>
-            </dl>
-
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
-            &mdash;
-            <section class="phpdocumentor-description"><p>実行結果</p>
-</section>
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_delete">
-        delete()
-        <a href="classes/tomk79-pickles2-px2dthelper-fncs-sitemap-editor.html#method_delete" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/sitemap/editor.php"><a href="files/php-fncs-sitemap-editor.html"><abbr title="php/fncs/sitemap/editor.php">editor.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">374</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">サイトマップファイルを削除する</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">delete</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filename</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
-
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$filename</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>対象ファイル名(拡張子を含まない)</p>
-</section>
-
-            </dd>
-            </dl>
-
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
-            &mdash;
-            <section class="phpdocumentor-description"><p>実行結果</p>
-</section>
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_filelist">
-        filelist()
-        <a href="classes/tomk79-pickles2-px2dthelper-fncs-sitemap-editor.html#method_filelist" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/sitemap/editor.php"><a href="files/php-fncs-sitemap-editor.html"><abbr title="php/fncs/sitemap/editor.php">editor.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">39</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">サイトマップファイルリストを取得する</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">filelist</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
-
-    
-    
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
-            &mdash;
-            <section class="phpdocumentor-description"><p>実行結果</p>
-</section>
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_read">
-        read()
-        <a href="classes/tomk79-pickles2-px2dthelper-fncs-sitemap-editor.html#method_read" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/sitemap/editor.php"><a href="files/php-fncs-sitemap-editor.html"><abbr title="php/fncs/sitemap/editor.php">editor.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">150</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">サイトマップファイルを読み込むする</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">read</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filefullname</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
-
-    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -616,109 +684,6 @@
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>対象ファイル名(拡張子を含む)</p>
-</section>
-
-            </dd>
-            </dl>
-
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
-            &mdash;
-            <section class="phpdocumentor-description"><p>実行結果</p>
-</section>
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_save">
-        save()
-        <a href="classes/tomk79-pickles2-px2dthelper-fncs-sitemap-editor.html#method_save" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/sitemap/editor.php"><a href="files/php-fncs-sitemap-editor.html"><abbr title="php/fncs/sitemap/editor.php">editor.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">182</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">サイトマップファイルを保存する</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">save</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filefullname</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$bin</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
-
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$filefullname</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>対象ファイル名(拡張子を含む)</p>
-</section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$bin</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>ファイル</p>
-</section>
-
-            </dd>
-            </dl>
-
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
-            &mdash;
-            <section class="phpdocumentor-description"><p>実行結果</p>
-</section>
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_xlsx2csv">
-        xlsx2csv()
-        <a href="classes/tomk79-pickles2-px2dthelper-fncs-sitemap-editor.html#method_xlsx2csv" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/sitemap/editor.php"><a href="files/php-fncs-sitemap-editor.html"><abbr title="php/fncs/sitemap/editor.php">editor.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">300</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">xlsx を CSV に変換する</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">xlsx2csv</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filename</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
-
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$filename</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>対象ファイル名(拡張子を含まない)</p>
 </section>
 
             </dd>
@@ -740,14 +705,135 @@
             -private
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_realpath_sitemap_file">
-        realpath_sitemap_file()
-        <a href="classes/tomk79-pickles2-px2dthelper-fncs-sitemap-editor.html#method_realpath_sitemap_file" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_get_default_sitemap_definition">
+        get_default_sitemap_definition()
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-page-pageEditor.html#method_get_default_sitemap_definition" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/sitemap/editor.php"><a href="files/php-fncs-sitemap-editor.html"><abbr title="php/fncs/sitemap/editor.php">editor.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/page/pageEditor.php"><a href="files/php-fncs-page-pageeditor.html"><abbr title="php/fncs/page/pageEditor.php">pageEditor.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">416</span>
+    <span class="phpdocumentor-element-found-in__line">276</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">デフォルトのサイトマップ定義を取得する</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">get_default_sitemap_definition</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_has_sitemap_definition">
+        has_sitemap_definition()
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-page-pageEditor.html#method_has_sitemap_definition" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/page/pageEditor.php"><a href="files/php-fncs-page-pageeditor.html"><abbr title="php/fncs/page/pageEditor.php">pageEditor.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">302</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">サイトマップに定義行が含まれるか調べる</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">has_sitemap_definition</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$csv</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$csv</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_parse_sitemap_definition">
+        parse_sitemap_definition()
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-page-pageEditor.html#method_parse_sitemap_definition" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/page/pageEditor.php"><a href="files/php-fncs-page-pageeditor.html"><abbr title="php/fncs/page/pageEditor.php">pageEditor.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">320</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">デフォルトのサイトマップ定義を取得する</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">parse_sitemap_definition</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$csv</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$csv</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_realpath_sitemap_file">
+        realpath_sitemap_file()
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-page-pageEditor.html#method_realpath_sitemap_file" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/page/pageEditor.php"><a href="files/php-fncs-page-pageeditor.html"><abbr title="php/fncs/page/pageEditor.php">pageEditor.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">237</span>
 
     </aside>
 
@@ -789,28 +875,28 @@
             -private
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_save_convert_csv_xlsx">
-        save_convert_csv_xlsx()
-        <a href="classes/tomk79-pickles2-px2dthelper-fncs-sitemap-editor.html#method_save_convert_csv_xlsx" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_validate_page_info">
+        validate_page_info()
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-page-pageEditor.html#method_validate_page_info" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/sitemap/editor.php"><a href="files/php-fncs-sitemap-editor.html"><abbr title="php/fncs/sitemap/editor.php">editor.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/page/pageEditor.php"><a href="files/php-fncs-page-pageeditor.html"><abbr title="php/fncs/page/pageEditor.php">pageEditor.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">240</span>
+    <span class="phpdocumentor-element-found-in__line">252</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">サイトマップファイルの保存後に CSV/Xlsx 変換する</p>
+        <p class="phpdocumentor-summary">Validation: ページ情報</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">save_convert_csv_xlsx</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filefullname</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">validate_page_info</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$page_info</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$filefullname</span>
+                <span class="phpdocumentor-signature__argument__name">$page_info</span>
                 : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
@@ -905,7 +991,7 @@
 </section>
             </div>
         </div>
-        <a href="classes/tomk79-pickles2-px2dthelper-fncs-sitemap-editor.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-page-pageEditor.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
     </main>
 
