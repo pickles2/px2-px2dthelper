@@ -36,8 +36,7 @@
         "pickles2/px2-sitemapexcel": "~2.0",
         "pickles2/px2-multitheme": "~2.0",
         "tomk79/filesystem": "~1.0",
-        "phpunit/phpunit": "~9.5",
-        "phpdocumentor/phpdocumentor": "~3.0.0"
+        "phpunit/phpunit": "~9.5"
     },
     "autoload": {
         "psr-4": {
