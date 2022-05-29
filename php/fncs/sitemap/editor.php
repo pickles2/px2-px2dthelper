@@ -274,7 +274,7 @@ class fncs_sitemap_editor{
 
 		$px2_sitemapexcel = new \tomk79\pickles2\sitemap_excel\pickles_sitemap_excel($this->px);
 		$result = null;
-		if( $ext_from_lower ){
+		if( $ext_from_lower == 'csv' ){
 			// アップロードされたファイルがCSVなら、XLSXに変換する
 			$result = !!$px2_sitemapexcel->csv2xlsx(
 				$realpath_from,
