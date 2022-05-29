@@ -404,6 +404,10 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ## 更新履歴 - Change log
 
+### pickles2/px2-px2dthelper v2.1.3 (リリース日未定)
+
+- その他いくつかの不具合の修正など。
+
 ### pickles2/px2-px2dthelper v2.1.2 (2022年5月6日)
 
 - `PX=px2dthelper.sitemap.upload` が、ファイルの保存に失敗する場合がある不具合を修正。

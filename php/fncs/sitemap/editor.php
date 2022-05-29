@@ -253,13 +253,13 @@ class fncs_sitemap_editor{
 		$realpath_to = null;
 		foreach( $ls as $basename ){
 			if( preg_match('/^'.preg_quote($filename, '/').'\.'.preg_quote($ext_from, '/').'$/i', $basename) ){
-				$realpath_from = $this->px-fs()->get_realpath($this->realpath_sitemap_dir.$basename);
+				$realpath_from = $this->px->fs()->get_realpath($this->realpath_sitemap_dir.$basename);
 				continue;
 			}
 			if( preg_match('/^'.preg_quote($filename, '/').'\.(.+?)$/i', $basename, $matched) ){
 				$ext_to = $matched[1];
 				$ext_to_lower = strtolower($ext_to);
-				$realpath_to = $this->px-fs()->get_realpath($this->realpath_sitemap_dir.$basename);
+				$realpath_to = $this->px->fs()->get_realpath($this->realpath_sitemap_dir.$basename);
 				continue;
 			}
 		}
