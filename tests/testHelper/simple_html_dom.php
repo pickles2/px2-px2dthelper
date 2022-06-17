@@ -37,7 +37,6 @@
  * @package PlaceLocalInclude
  * @subpackage simple_html_dom
  */
-namespace tomk79\pickles2\px2dthelper;
 
 /**
  * All of the Defines for the classes below.

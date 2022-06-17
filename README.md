@@ -404,6 +404,10 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ## 更新履歴 - Change log
 
+### pickles2/px2-px2dthelper v2.1.4 (リリース日未定)
+
+- 内部コードの修正、ファイルの整理など。
+
 ### pickles2/px2-px2dthelper v2.1.3 (2022年6月5日)
 
 - サイトマップ変換に関する不具合の修正。

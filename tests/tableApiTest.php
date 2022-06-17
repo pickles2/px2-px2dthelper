@@ -11,7 +11,7 @@ class tableApiTest extends PHPUnit\Framework\TestCase{
 	public function setup() : void{
 		set_time_limit(60);
 		$this->fs = new \tomk79\filesystem();
-		require_once(__DIR__.'/../php/simple_html_dom.php');
+		require_once(__DIR__.'/testHelper/simple_html_dom.php');
 	}
 
 	/**
@@ -25,7 +25,7 @@ class tableApiTest extends PHPUnit\Framework\TestCase{
 		// var_dump($output);
 		$this->assertEquals( gettype(''), gettype($output) );
 
-		$html = \tomk79\pickles2\px2dthelper\str_get_html(
+		$html = str_get_html(
 			$output ,
 			true, // $lowercase
 			true, // $forceTagsClosed
