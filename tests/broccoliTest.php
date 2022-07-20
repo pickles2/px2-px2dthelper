@@ -51,15 +51,35 @@ class broccoliTest extends PHPUnit\Framework\TestCase{
 		$expected = '/**'."\n"
 					.' * module: Modules1:foo/bar'."\n"
 					.' */'."\n"
+					.'try{'."\n"
+					.'	(function(){'."\n"
+					.''."\n"
 					.'alert(\'foo/bar\');'."\n"
-					."\n"
+					.''."\n"
+					.'	})();'."\n"
+					.''."\n"
+					.'}catch(err){'."\n"
+					.'	console.error(\'Module Error:\', "Modules1:foo/bar", err);'."\n"
+					.'}'."\n"
+					.''."\n"
+					.''."\n"
 					.'/**'."\n"
 					.' * module: pkg:cat/mod1'."\n" //←path_module_templates_dir が機能している。
 					.' */'."\n"
+					.'try{'."\n"
+					.'	(function(){'."\n"
+					.''."\n"
 					.'function pkg_cat_mod1(){'."\n"
 					.'    alert(\'pkg:cat/mod1\');'."\n"
 					.'}'."\n"
+					.''."\n"
+					.'	})();'."\n"
+					.''."\n"
+					.'}catch(err){'."\n"
+					.'	console.error(\'Module Error:\', "pkg:cat/mod1", err);'."\n"
+					.'}'."\n"
 		;
+
 		$this->assertEquals(
 			preg_replace('/\r\n|\r|\n/', "\n", $expected),
 			preg_replace('/\r\n|\r|\n/', "\n", $outputJs)
