@@ -404,7 +404,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ## 更新履歴 - Change log
 
-### pickles2/px2-px2dthelper v2.1.4 (リリース日未定)
+### pickles2/px2-px2dthelper v2.1.4 (2022年7月20日)
 
 - `module.js` の安定性に関する修正。
 - 内部コードの修正、ファイルの整理など。
