@@ -404,6 +404,10 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ## 更新履歴 - Change log
 
+### pickles2/px2-px2dthelper v2.1.5 (リリース日未定)
+
+- `PX=px2dthelper.page.add_page_info_raw` のバリデーションを改善。
+
 ### pickles2/px2-px2dthelper v2.1.4 (2022年7月20日)
 
 - `module.js` の安定性に関する修正。

@@ -80,6 +80,22 @@ class pageEditor{
 			);
 			return $rtn;
 		}
+		if( isset($page_info['id']) && strlen($page_info['id']) && $this->px->site()->get_page_info($page_info['id']) ){
+			$rtn = array(
+				'result'=>false,
+				'message'=>'ID is already exists.',
+				'errors' => $validated,
+			);
+			return $rtn;
+		}
+		if( isset($page_info['path']) && strlen($page_info['path']) && $this->px->site()->get_page_info($page_info['path']) ){
+			$rtn = array(
+				'result'=>false,
+				'message'=>'Path is already exists.',
+				'errors' => $validated,
+			);
+			return $rtn;
+		}
 
 		$realpath_csv = $this->realpath_sitemap_file( $filefullname );
 		$csv = $this->px->fs()->read_csv( $realpath_csv );
