@@ -81,6 +81,7 @@ class pageEditor{
 			return $rtn;
 		}
 		if( isset($page_info['id']) && strlen($page_info['id']) && $this->px->site()->get_page_info($page_info['id']) ){
+			$validated['id'] = 'ID is already exists.';
 			$rtn = array(
 				'result'=>false,
 				'message'=>'ID is already exists.',
@@ -89,6 +90,7 @@ class pageEditor{
 			return $rtn;
 		}
 		if( isset($page_info['path']) && strlen($page_info['path']) && $this->px->site()->get_page_info($page_info['path']) ){
+			$validated['path'] = 'Path is already exists.';
 			$rtn = array(
 				'result'=>false,
 				'message'=>'Path is already exists.',
