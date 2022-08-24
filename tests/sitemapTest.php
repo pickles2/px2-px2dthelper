@@ -140,6 +140,18 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 		$this->assertTrue( is_object($json) );
 		$this->assertTrue( $json->result );
 
+		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=clearcache' ] );
+		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/added_page_sample/?PX=api.get.page_info' ] );
+		// var_dump($output);
+
+		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.page.add_page_info_raw&filefullname=create_new_sitemap.csv&row=1&'.http_build_query($page_info) ] );
+		clearstatcache();
+		// var_dump($output);
+		$json = json_decode( $output );
+		// var_dump($json);
+		$this->assertTrue( is_object($json) );
+		$this->assertFalse( $json->result );
+
 	} // testPageAddPageInfoRaw()
 
 	/**

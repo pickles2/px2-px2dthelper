@@ -80,7 +80,7 @@ class pageEditor{
 			);
 			return $rtn;
 		}
-		if( isset($page_info['id']) && strlen($page_info['id']) && $this->px->site()->get_page_info($page_info['id']) ){
+		if( isset($page_info['id']) && strlen($page_info['id']) && $this->px->site()->get_page_info_by_id($page_info['id']) ){
 			$validated['id'] = 'ID is already exists.';
 			$rtn = array(
 				'result'=>false,
@@ -89,14 +89,17 @@ class pageEditor{
 			);
 			return $rtn;
 		}
-		if( isset($page_info['path']) && strlen($page_info['path']) && $this->px->site()->get_page_info($page_info['path']) ){
-			$validated['path'] = 'Path is already exists.';
-			$rtn = array(
-				'result'=>false,
-				'message'=>'Path is already exists.',
-				'errors' => $validated,
-			);
-			return $rtn;
+		$tmp_page_info = $this->px->site()->get_page_info($page_info['path']);
+		if( isset($page_info['path']) && strlen($page_info['path']) && $tmp_page_info ){
+			if( $this->px->href($page_info['path']) == $this->px->href($tmp_page_info['path']) ){
+				$validated['path'] = 'Path is already exists.';
+				$rtn = array(
+					'result'=>false,
+					'message'=>'Path is already exists.',
+					'errors' => $validated,
+				);
+				return $rtn;
+			}
 		}
 
 		$realpath_csv = $this->realpath_sitemap_file( $filefullname );
