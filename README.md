@@ -300,7 +300,7 @@ $base64_json = base64_encode( json_encode( array(
 		'name' => 'New Site Name',
 	),
 
-	// config の物理構造に合致しない設定項目は、`symbols` の中に分類されます。
+	// config の構造に合致しない設定項目は、`symbols` の中に分類されます。
 	'symbols' => array(
 		'theme_id' => 'new_theme_id', 
 	),
@@ -401,11 +401,36 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 `$conf->plugins->px2dt->customConsoleExtensions` に登録された拡張機能へアクセスするAPIを提供します。
 第3引数の `XXXX` には、 Custom Console Extensions に登録したID(添字)を指定します。省略時には、登録されている拡張機能の一覧を返します。
 
+#### PX=px2dthelper.get.path_theme_collection_dir
+
+#### PX=px2dthelper.page.add_page_info_raw
+
+#### PX=px2dthelper.page.get_page_info_raw
+
+#### PX=px2dthelper.page.update_page_info_raw
+
+#### PX=px2dthelper.page.move_page_info_raw
+
+#### PX=px2dthelper.page.delete_page_info_raw
+
+#### PX=px2dthelper.content.delete
+
+#### PX=px2dthelper.sitemap.filelist
+
+#### PX=px2dthelper.sitemap.download
+
+#### PX=px2dthelper.sitemap.upload
+
+#### PX=px2dthelper.sitemap.csv2xlsx
+
+#### PX=px2dthelper.sitemap.xlsx2csv
+
 
 ## 更新履歴 - Change log
 
 ### pickles2/px2-px2dthelper v2.1.5 (リリース日未定)
 
+- `PX=px2dthelper.page.move_page_info_raw` を追加。
 - `PX=px2dthelper.page.add_page_info_raw` のバリデーションを改善。
 
 ### pickles2/px2-px2dthelper v2.1.4 (2022年7月20日)

@@ -143,6 +143,91 @@ class pageEditor{
 		return $rtn;
 	}
 
+
+	/**
+	 * サイトマップファイルの行データを移動する
+	 */
+	public function move_page_info_raw( $from_filename, $from_row, $to_filename, $to_row ){
+		$realpath_from_csv = $this->realpath_sitemap_file( $from_filename );
+		$realpath_to_csv = $this->realpath_sitemap_file( $to_filename );
+
+		if( !is_file($realpath_from_csv) ){
+			return array(
+				'result' => false,
+				'message' => 'from_filename is not exists.',
+			);
+		}
+		if( !is_file($realpath_to_csv) ){
+			return array(
+				'result' => false,
+				'message' => 'to_filename is not exists.',
+			);
+		}
+
+		$from_csv = $this->px->fs()->read_csv( $realpath_from_csv );
+
+		$spliced_row = array_splice( $from_csv, $from_row, 1, null );
+
+
+		if( $from_filename === $to_filename ){
+			// --------------------------------------
+			// 同じファイル内での移動
+
+			if( $from_row < $to_row ){
+				$to_row --;
+			}
+
+			array_splice( $from_csv, $to_row, 0, $spliced_row );
+
+			$src_from_csv = $this->px->fs()->mk_csv($from_csv);
+			$result = $this->px->fs()->save_file( $realpath_from_csv, $src_from_csv );
+			if( !$result ){
+				return array(
+					'result' => false,
+					'message' => 'Failed to save sitemap file (from, to).',
+				);
+			}
+
+			// NOTE: 暫定処理: CSVを更新したら、xlsx も更新する。
+			$this->csv2xlsx( $from_filename );
+		}else{
+			// --------------------------------------
+			// 別のファイルへの移動
+
+			$to_csv = $this->px->fs()->read_csv( $realpath_to_csv );
+			array_splice( $to_csv, $to_row, 0, $spliced_row );
+				// TODO: [未実装] サイトマップ定義の列が異なる場合を想定できていない。列合わせの処理が必要。
+
+			$src_from_csv = $this->px->fs()->mk_csv($from_csv);
+			$result = $this->px->fs()->save_file( $realpath_from_csv, $src_from_csv );
+			if( !$result ){
+				return array(
+					'result' => false,
+					'message' => 'Failed to save sitemap file (from).',
+				);
+			}
+
+			$src_to_csv = $this->px->fs()->mk_csv($to_csv);
+			$result = $this->px->fs()->save_file( $realpath_to_csv, $src_to_csv );
+			if( !$result ){
+				return array(
+					'result' => false,
+					'message' => 'Failed to save sitemap file (to).',
+				);
+			}
+
+			// NOTE: 暫定処理: CSVを更新したら、xlsx も更新する。
+			$this->csv2xlsx( $from_filename );
+			$this->csv2xlsx( $to_filename );
+		}
+
+		return array(
+			'result' => true,
+			'message' => 'OK',
+		);
+	}
+
+
 	/**
 	 * サイトマップファイルの行データを直接更新する
 	 */

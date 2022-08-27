@@ -805,6 +805,17 @@ class main{
 						exit;
 						break;
 
+					case 'move_page_info_raw':
+						$this->route_only_post_cmd();
+						$from_filename = $this->px->req()->get_param('from_filefullname');
+						$from_row = $this->px->req()->get_param('from_row');
+						$to_filename = $this->px->req()->get_param('to_filefullname');
+						$to_row = $this->px->req()->get_param('to_row');
+						$result = $sitemap_editor->move_page_info_raw($from_filename, $from_row, $to_filename, $to_row);
+						print $std_output->data_convert( $result );
+						exit;
+						break;
+
 					case 'update_page_info_raw':
 						$this->route_only_post_cmd();
 						$filename = $this->px->req()->get_param('filefullname');
@@ -1109,6 +1120,7 @@ class main{
 
 		print $this->px->pxcmd()->get_cli_header();
 		print 'Pickles 2 Desktop Tool Helper plugin.'."\n";
+		print 'Command not found.'."\n";
 		print $this->px->pxcmd()->get_cli_footer();
 		exit;
 	}
