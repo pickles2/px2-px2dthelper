@@ -11,6 +11,8 @@ class px2meTest extends PHPUnit\Framework\TestCase{
 	public function setup() : void{
 		set_time_limit(60);
 		$this->fs = new \tomk79\filesystem();
+		require_once(__DIR__.'/testHelper/pickles2query.php');
+		$this->px2query = new testHelper_pickles2query();
 	}
 
 	/**
@@ -18,8 +20,7 @@ class px2meTest extends PHPUnit\Framework\TestCase{
 	 */
 	public function testGpi(){
 		// GPI
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/broccoli/.px_execute.php' ,
 			'/guiedit/index.html?PX=px2dthelper.px2me.gpi&data='.urlencode(base64_encode(json_encode(
 				array(
@@ -33,8 +34,7 @@ class px2meTest extends PHPUnit\Framework\TestCase{
 		$this->assertEquals( $json->appMode, 'web' );
 
 		// 後始末
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/broccoli/.px_execute.php' ,
 			'/?PX=clearcache' ,
 		] );
@@ -54,8 +54,7 @@ class px2meTest extends PHPUnit\Framework\TestCase{
 		$this->assertTrue( is_file($data_realpath) );
 
 		// GPI
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/broccoli/.px_execute.php' ,
 			'/guiedit/index.html?PX=px2dthelper.px2me.gpi&data_filename=testdata_filename' ,
 		] );
@@ -65,8 +64,7 @@ class px2meTest extends PHPUnit\Framework\TestCase{
 		$this->assertEquals( $json->appMode, 'web' );
 
 		// GPI (ディレクトリトラバーサル対策により失敗する)
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/broccoli/.px_execute.php' ,
 			'/guiedit/index.html?PX=px2dthelper.px2me.gpi&data_filename=a/../testdata_filename' ,
 		] );
@@ -81,8 +79,7 @@ class px2meTest extends PHPUnit\Framework\TestCase{
 		clearstatcache();
 		$this->assertFalse( is_file($data_realpath) );
 
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/broccoli/.px_execute.php' ,
 			'/?PX=clearcache' ,
 		] );
@@ -93,8 +90,7 @@ class px2meTest extends PHPUnit\Framework\TestCase{
 	 */
 	public function testGetClientResources(){
 		// client_resources
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/broccoli/.px_execute.php' ,
 			'/guiedit/index.html?PX=px2dthelper.px2me.client_resources' ,
 		] );
@@ -107,8 +103,7 @@ class px2meTest extends PHPUnit\Framework\TestCase{
 		// client_resources
 		$realpath_dir = __DIR__.'/testData/broccoli/caches/client_resources/';
 		mkdir($realpath_dir);
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/broccoli/.px_execute.php' ,
 			'/guiedit/index.html?PX=px2dthelper.px2me.client_resources&dist='.urlencode($realpath_dir) ,
 		] );
@@ -119,32 +114,10 @@ class px2meTest extends PHPUnit\Framework\TestCase{
 		$this->assertTrue( is_array($json->js) );
 
 		// 後始末
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/broccoli/.px_execute.php' ,
 			'/?PX=clearcache' ,
 		] );
 	}
-
-
-	/**
-	 * コマンドを実行し、標準出力値を返す
-	 * @param array $ary_command コマンドのパラメータを要素として持つ配列
-	 * @return string コマンドの標準出力値
-	 */
-	private function passthru( $ary_command ){
-		set_time_limit(60*10);
-		$cmd = array();
-		foreach( $ary_command as $row ){
-			$param = escapeshellcmd($row);
-			array_push( $cmd, $param );
-		}
-		$cmd = implode( ' ', $cmd );
-		ob_start();
-		passthru( $cmd );
-		$bin = ob_get_clean();
-		set_time_limit(30);
-		return $bin;
-	}// passthru()
 
 }

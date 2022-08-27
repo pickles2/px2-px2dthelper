@@ -11,6 +11,8 @@ class changeContentEditorModeTest extends PHPUnit\Framework\TestCase{
 	public function setup() : void{
 		set_time_limit(60);
 		$this->fs = new \tomk79\filesystem();
+		require_once(__DIR__.'/testHelper/pickles2query.php');
+		$this->px2query = new testHelper_pickles2query();
 	}
 
 	/**
@@ -19,8 +21,7 @@ class changeContentEditorModeTest extends PHPUnit\Framework\TestCase{
 	public function testChangeContentEditorMode(){
 
 		// init content
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php',
 			'/init_content/html/test.html?PX=px2dthelper.init_content&editor_mode=html'
 		] );
@@ -31,8 +32,7 @@ class changeContentEditorModeTest extends PHPUnit\Framework\TestCase{
 		);
 
 		// PX=px2dthelper.change_content_editor_mode
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php',
 			'/init_content/html/test.html?PX=px2dthelper.change_content_editor_mode&editor_mode=md'
 		] );
@@ -44,8 +44,7 @@ class changeContentEditorModeTest extends PHPUnit\Framework\TestCase{
 		$this->assertFalse( $this->fs->is_file( __DIR__.'/testData/standard/init_content/html/test.html' ) );
 		$this->assertTrue( $this->fs->is_file( __DIR__.'/testData/standard/init_content/html/test.html.md' ) );
 
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php',
 			'/init_content/html/test.html?PX=px2dthelper.change_content_editor_mode&editor_mode=html.gui'
 		] );
@@ -65,8 +64,7 @@ class changeContentEditorModeTest extends PHPUnit\Framework\TestCase{
 		$this->assertEquals( '_sys/html', $json->bowl->main->fields->main[0]->modId );
 		$this->assertEquals( '<p>HTML Content.</p>', $json->bowl->main->fields->main[0]->fields->main );
 
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php',
 			'/init_content/html/test.html?PX=px2dthelper.change_content_editor_mode&editor_mode=html'
 		] );
@@ -83,8 +81,7 @@ class changeContentEditorModeTest extends PHPUnit\Framework\TestCase{
 
 		// 後始末
 		$this->fs->rm(__DIR__.'/testData/standard/init_content/');
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=clearcache' ,
 		] );
@@ -96,8 +93,7 @@ class changeContentEditorModeTest extends PHPUnit\Framework\TestCase{
 	public function testChangeContentEditorModeContNotExists(){
 
 		// PX=px2dthelper.change_content_editor_mode
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php',
 			'/init_content/content/not/exists.html?PX=px2dthelper.change_content_editor_mode&editor_mode=md'
 		] );
@@ -113,8 +109,7 @@ class changeContentEditorModeTest extends PHPUnit\Framework\TestCase{
 
 
 		// 後始末
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=clearcache' ,
 		] );
@@ -126,15 +121,13 @@ class changeContentEditorModeTest extends PHPUnit\Framework\TestCase{
 	public function testChangeContentEditorModeNoChange(){
 
 		// init content
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php',
 			'/init_content/html/test.html?PX=px2dthelper.init_content&editor_mode=html'
 		] );
 
 		// PX=px2dthelper.change_content_editor_mode
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php',
 			'/init_content/html/test.html?PX=px2dthelper.change_content_editor_mode&editor_mode=html'
 		] );
@@ -150,8 +143,7 @@ class changeContentEditorModeTest extends PHPUnit\Framework\TestCase{
 
 		// 後始末
 		$this->fs->rm(__DIR__.'/testData/standard/init_content/');
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=clearcache' ,
 		] );
@@ -163,15 +155,13 @@ class changeContentEditorModeTest extends PHPUnit\Framework\TestCase{
 	public function testChangeContentEditorModeNoEditorModeOption(){
 
 		// init content
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php',
 			'/init_content/html/test.html?PX=px2dthelper.init_content&editor_mode=html'
 		] );
 
 		// PX=px2dthelper.change_content_editor_mode
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php',
 			'/init_content/html/test.html?PX=px2dthelper.change_content_editor_mode'
 		] );
@@ -187,32 +177,10 @@ class changeContentEditorModeTest extends PHPUnit\Framework\TestCase{
 
 		// 後始末
 		$this->fs->rm(__DIR__.'/testData/standard/init_content/');
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=clearcache' ,
 		] );
 	} // testChangeContentEditorModeNoEditorModeOption()
-
-
-
-
-	/**
-	 * コマンドを実行し、標準出力値を返す
-	 * @param array $ary_command コマンドのパラメータを要素として持つ配列
-	 * @return string コマンドの標準出力値
-	 */
-	private function passthru( $ary_command ){
-		$cmd = array();
-		foreach( $ary_command as $row ){
-			$param = '"'.addslashes($row).'"';
-			array_push( $cmd, $param );
-		}
-		$cmd = implode( ' ', $cmd );
-		ob_start();
-		passthru( $cmd );
-		$bin = ob_get_clean();
-		return $bin;
-	}// passthru()
 
 }

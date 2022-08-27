@@ -11,6 +11,8 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 	public function setup() : void{
 		set_time_limit(60);
 		$this->fs = new \tomk79\filesystem();
+		require_once(__DIR__.'/testHelper/pickles2query.php');
+		$this->px2query = new testHelper_pickles2query();
 	}
 
 	/**
@@ -20,7 +22,10 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 
 		// ---------------------------
 		// 新しいサイトマップファイルを作成
-		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.sitemap.create&filename=create_new_sitemap' ] );
+		$output = $this->px2query->query( [
+			__DIR__.'/testData/standard/.px_execute.php',
+			'/?PX=px2dthelper.sitemap.create&filename=create_new_sitemap'
+		] );
 		clearstatcache();
 		// var_dump($output);
 		$json = json_decode( $output );
@@ -34,7 +39,10 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 		// ---------------------------
 		// 同じファイル名でもう一度作成
 		// ただし、ファイル名の一部を大文字に。大文字・小文字は区別しないのが正解。
-		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.sitemap.create&filename=create_NEW_sitemap' ] );
+		$output = $this->px2query->query( [
+			__DIR__.'/testData/standard/.px_execute.php',
+			'/?PX=px2dthelper.sitemap.create&filename=create_NEW_sitemap'
+		] );
 		clearstatcache();
 		// var_dump($output);
 		$json = json_decode( $output );
@@ -52,7 +60,10 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 	 */
 	public function testSitemapCsv2Xlsx(){
 
-		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.sitemap.csv2xlsx&filename=create_new_sitemap' ] );
+		$output = $this->px2query->query( [
+			__DIR__.'/testData/standard/.px_execute.php',
+			'/?PX=px2dthelper.sitemap.csv2xlsx&filename=create_new_sitemap'
+		] );
 		clearstatcache();
 		// var_dump($output);
 		$json = json_decode( $output );
@@ -69,7 +80,10 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 	 */
 	public function testSitemapXlsx2Csv(){
 
-		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.sitemap.xlsx2csv&filename=create_new_sitemap' ] );
+		$output = $this->px2query->query( [
+			__DIR__.'/testData/standard/.px_execute.php',
+			'/?PX=px2dthelper.sitemap.xlsx2csv&filename=create_new_sitemap'
+		] );
 		clearstatcache();
 		// var_dump($output);
 		$json = json_decode( $output );
@@ -86,7 +100,10 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 	 */
 	public function testSitemapFileList(){
 
-		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.sitemap.filelist' ] );
+		$output = $this->px2query->query( [
+			__DIR__.'/testData/standard/.px_execute.php',
+			'/?PX=px2dthelper.sitemap.filelist'
+		] );
 		clearstatcache();
 		// var_dump($output);
 		$json = json_decode( $output );
@@ -106,7 +123,10 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 	 */
 	public function testSitemapFileDownload(){
 
-		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.sitemap.download&filefullname=create_new_sitemap.xlsx' ] );
+		$output = $this->px2query->query( [
+			__DIR__.'/testData/standard/.px_execute.php',
+			'/?PX=px2dthelper.sitemap.download&filefullname=create_new_sitemap.xlsx'
+		] );
 		clearstatcache();
 		// var_dump($output);
 		$json = json_decode( $output );
@@ -125,14 +145,20 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 	 */
 	public function testPageAddPageInfoRaw(){
 
-		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=clearcache'] );
+		$output = $this->px2query->query( [
+			__DIR__.'/testData/standard/.px_execute.php',
+			'/?PX=clearcache'
+		] );
 		$page_info = array(
 			'page_info' => array(
 				'path'=>'/added_page_sample/index.html',
 				'title'=>'Page Title',
 			),
 		);
-		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.page.add_page_info_raw&filefullname=create_new_sitemap.csv&row=1&'.http_build_query($page_info) ] );
+		$output = $this->px2query->query( [
+			__DIR__.'/testData/standard/.px_execute.php',
+			'/?PX=px2dthelper.page.add_page_info_raw&filefullname=create_new_sitemap.csv&row=1&'.http_build_query($page_info)
+		] );
 		clearstatcache();
 		// var_dump($output);
 		$json = json_decode( $output );
@@ -140,11 +166,22 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 		$this->assertTrue( is_object($json) );
 		$this->assertTrue( $json->result );
 
-		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=clearcache' ] );
-		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/added_page_sample/?PX=api.get.page_info' ] );
+		$output = $this->px2query->query( [
+			__DIR__.'/testData/standard/.px_execute.php',
+			'/?PX=clearcache'
+		] );
+		$output = $this->px2query->query( [
+			__DIR__.'/testData/standard/.px_execute.php',
+			'/added_page_sample/?PX=api.get.page_info'
+		] );
 		// var_dump($output);
 
-		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.page.add_page_info_raw&filefullname=create_new_sitemap.csv&row=1&'.http_build_query($page_info) ] );
+
+		// パスが重複しているために失敗するテスト
+		$output = $this->px2query->query( [
+			__DIR__.'/testData/standard/.px_execute.php',
+			'/?PX=px2dthelper.page.add_page_info_raw&filefullname=create_new_sitemap.csv&row=1&'.http_build_query($page_info)
+		] );
 		clearstatcache();
 		// var_dump($output);
 		$json = json_decode( $output );
@@ -159,8 +196,14 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 	 */
 	public function testPageGetPageInfoRaw(){
 
-		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=clearcache'] );
-		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.page.get_page_info_raw&filefullname=create_new_sitemap.csv&row=1' ] );
+		$output = $this->px2query->query( [
+			__DIR__.'/testData/standard/.px_execute.php',
+			'/?PX=clearcache'
+		] );
+		$output = $this->px2query->query( [
+			__DIR__.'/testData/standard/.px_execute.php',
+			'/?PX=px2dthelper.page.get_page_info_raw&filefullname=create_new_sitemap.csv&row=1'
+		] );
 		clearstatcache();
 		// var_dump($output);
 		$json = json_decode( $output );
@@ -179,14 +222,20 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 	 */
 	public function testPageUpdatePageInfoRaw(){
 
-		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=clearcache'] );
+		$output = $this->px2query->query( [
+			__DIR__.'/testData/standard/.px_execute.php',
+			'/?PX=clearcache'
+		] );
 		$page_info = array(
 			'page_info' => array(
 				'path'=>'/added_page_sample/2.html',
 				'title'=>'Page Title 2',
 			),
 		);
-		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.page.update_page_info_raw&filefullname=create_new_sitemap.csv&row=1&'.http_build_query($page_info) ] );
+		$output = $this->px2query->query( [
+			__DIR__.'/testData/standard/.px_execute.php',
+			'/?PX=px2dthelper.page.update_page_info_raw&filefullname=create_new_sitemap.csv&row=1&'.http_build_query($page_info)
+		] );
 		clearstatcache();
 		// var_dump($output);
 		$json = json_decode( $output );
@@ -194,7 +243,10 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 		$this->assertTrue( is_object($json) );
 		$this->assertTrue( $json->result );
 
-		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.page.get_page_info_raw&filefullname=create_new_sitemap.csv&row=1' ] );
+		$output = $this->px2query->query( [
+			__DIR__.'/testData/standard/.px_execute.php',
+			'/?PX=px2dthelper.page.get_page_info_raw&filefullname=create_new_sitemap.csv&row=1'
+		] );
 		clearstatcache();
 		// var_dump($output);
 		$json = json_decode( $output );
@@ -213,8 +265,14 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 	 */
 	public function testPageDeletePageInfoRaw(){
 
-		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=clearcache'] );
-		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.page.delete_page_info_raw&filefullname=create_new_sitemap.csv&row=1' ] );
+		$output = $this->px2query->query( [
+			__DIR__.'/testData/standard/.px_execute.php',
+			'/?PX=clearcache'
+		] );
+		$output = $this->px2query->query( [
+			__DIR__.'/testData/standard/.px_execute.php',
+			'/?PX=px2dthelper.page.delete_page_info_raw&filefullname=create_new_sitemap.csv&row=1'
+		] );
 		clearstatcache();
 		// var_dump($output);
 		$json = json_decode( $output );
@@ -222,8 +280,14 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 		$this->assertTrue( is_object($json) );
 		$this->assertTrue( $json->result );
 
-		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=clearcache'] );
-		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.page.get_page_info_raw&filefullname=create_new_sitemap.csv&row=1' ] );
+		$output = $this->px2query->query( [
+			__DIR__.'/testData/standard/.px_execute.php',
+			'/?PX=clearcache'
+		] );
+		$output = $this->px2query->query( [
+			__DIR__.'/testData/standard/.px_execute.php',
+			'/?PX=px2dthelper.page.get_page_info_raw&filefullname=create_new_sitemap.csv&row=1'
+		] );
 		clearstatcache();
 		// var_dump($output);
 		$json = json_decode( $output );
@@ -241,7 +305,10 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 
 		// ---------------------------
 		// サイトマップファイルを削除
-		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.sitemap.delete&filename=create_new_sitemap' ] );
+		$output = $this->px2query->query( [
+			__DIR__.'/testData/standard/.px_execute.php',
+			'/?PX=px2dthelper.sitemap.delete&filename=create_new_sitemap'
+		] );
 		clearstatcache();
 		// var_dump($output);
 		$json = json_decode( $output );
@@ -253,33 +320,11 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 
 
 		// 後始末
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=clearcache' ,
 		] );
 
 	} // testSitemapDelete()
-
-
-
-
-	/**
-	 * コマンドを実行し、標準出力値を返す
-	 * @param array $ary_command コマンドのパラメータを要素として持つ配列
-	 * @return string コマンドの標準出力値
-	 */
-	private function passthru( $ary_command ){
-		$cmd = array();
-		foreach( $ary_command as $row ){
-			$param = '"'.addslashes($row).'"';
-			array_push( $cmd, $param );
-		}
-		$cmd = implode( ' ', $cmd );
-		ob_start();
-		passthru( $cmd );
-		$bin = ob_get_clean();
-		return $bin;
-	}// passthru()
 
 }

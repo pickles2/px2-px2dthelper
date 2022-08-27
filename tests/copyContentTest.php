@@ -11,6 +11,8 @@ class copyContentTest extends PHPUnit\Framework\TestCase{
 	public function setup() : void{
 		set_time_limit(60);
 		$this->fs = new \tomk79\filesystem();
+		require_once(__DIR__.'/testHelper/pickles2query.php');
+		$this->px2query = new testHelper_pickles2query();
 	}
 
 	/**
@@ -24,8 +26,7 @@ class copyContentTest extends PHPUnit\Framework\TestCase{
 		$this->assertFalse( $this->fs->is_file(__DIR__.'/testData/standard/copy/to_files/test.txt') );
 
 		// PX=px2dthelper.copy_content
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=px2dthelper.copy_content&from='.urlencode('/copy/from.html').'&to='.urlencode('/copy/to.html') ,
 		] );
@@ -54,8 +55,7 @@ class copyContentTest extends PHPUnit\Framework\TestCase{
 
 
 		// PX=px2dthelper.copy_content
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/copy/from.html?PX=px2dthelper.copy_content&from='.urlencode('/copy/to.html') ,
 		] );
@@ -83,8 +83,7 @@ class copyContentTest extends PHPUnit\Framework\TestCase{
 
 
 		// 後始末
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=clearcache' ,
 		] );
@@ -105,8 +104,7 @@ class copyContentTest extends PHPUnit\Framework\TestCase{
 		$this->assertTrue( $this->fs->is_file(__DIR__.'/testData/standard/copy/to_files/test.txt') );
 
 		// PX=px2dthelper.copy_content
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=px2dthelper.copy_content&from='.urlencode('/copy/from.html').'&to='.urlencode('/copy/to.html') ,
 		] );
@@ -117,8 +115,7 @@ class copyContentTest extends PHPUnit\Framework\TestCase{
 		$this->assertEquals( $result[1], 'Contents already exists.' );
 
 		// PX=px2dthelper.copy_content
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=px2dthelper.copy_content&from='.urlencode('/copy/from.html').'&to='.urlencode('/copy/to.html').'&force=1' ,
 		] );
@@ -149,8 +146,7 @@ class copyContentTest extends PHPUnit\Framework\TestCase{
 
 
 		// PX=px2dthelper.copy_content
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/copy/from.html?PX=px2dthelper.copy_content&from='.urlencode('/copy/to.html') ,
 		] );
@@ -179,8 +175,7 @@ class copyContentTest extends PHPUnit\Framework\TestCase{
 
 
 		// 後始末
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=clearcache' ,
 		] );
@@ -193,8 +188,7 @@ class copyContentTest extends PHPUnit\Framework\TestCase{
 	public function testCopySameContent(){
 
 		// PX=px2dthelper.copy_content
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=px2dthelper.copy_content&from='.urlencode('/copy/from.html').'&to='.urlencode('/copy/from.html') ,
 		] );
@@ -209,32 +203,11 @@ class copyContentTest extends PHPUnit\Framework\TestCase{
 
 
 		// 後始末
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=clearcache' ,
 		] );
 
 	}//testCopySameContent()
-
-
-
-	/**
-	 * コマンドを実行し、標準出力値を返す
-	 * @param array $ary_command コマンドのパラメータを要素として持つ配列
-	 * @return string コマンドの標準出力値
-	 */
-	private function passthru( $ary_command ){
-		$cmd = array();
-		foreach( $ary_command as $row ){
-			$param = '"'.addslashes($row).'"';
-			array_push( $cmd, $param );
-		}
-		$cmd = implode( ' ', $cmd );
-		ob_start();
-		passthru( $cmd );
-		$bin = ob_get_clean();
-		return $bin;
-	}// passthru()
 
 }

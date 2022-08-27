@@ -11,6 +11,8 @@ class searchSitemapTest extends PHPUnit\Framework\TestCase{
 	public function setup() : void{
 		set_time_limit(60);
 		$this->fs = new \tomk79\filesystem();
+		require_once(__DIR__.'/testHelper/pickles2query.php');
+		$this->px2query = new testHelper_pickles2query();
 	}
 
 	/**
@@ -19,8 +21,7 @@ class searchSitemapTest extends PHPUnit\Framework\TestCase{
 	public function testSearchSitemap(){
 
 		// PX=px2dthelper.init_content
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php',
 			'/index.html?PX=px2dthelper.search_sitemap&keyword='.urlencode('Build by')
 		] );
@@ -35,8 +36,7 @@ class searchSitemapTest extends PHPUnit\Framework\TestCase{
 
 		// 後始末
 		$this->fs->rm(__DIR__.'/testData/standard/init_content/');
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=clearcache' ,
 		] );
@@ -48,8 +48,7 @@ class searchSitemapTest extends PHPUnit\Framework\TestCase{
 	public function testSearchSitemapLimited(){
 
 		// PX=px2dthelper.init_content
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php',
 			'/index.html?PX=px2dthelper.search_sitemap&keyword='.urlencode('/').'&limit=2'
 		] );
@@ -63,32 +62,10 @@ class searchSitemapTest extends PHPUnit\Framework\TestCase{
 
 		// 後始末
 		$this->fs->rm(__DIR__.'/testData/standard/init_content/');
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=clearcache' ,
 		] );
 	} // testSearchSitemapLimited()
-
-
-
-
-	/**
-	 * コマンドを実行し、標準出力値を返す
-	 * @param array $ary_command コマンドのパラメータを要素として持つ配列
-	 * @return string コマンドの標準出力値
-	 */
-	private function passthru( $ary_command ){
-		$cmd = array();
-		foreach( $ary_command as $row ){
-			$param = '"'.addslashes($row).'"';
-			array_push( $cmd, $param );
-		}
-		$cmd = implode( ' ', $cmd );
-		ob_start();
-		passthru( $cmd );
-		$bin = ob_get_clean();
-		return $bin;
-	}// passthru()
 
 }

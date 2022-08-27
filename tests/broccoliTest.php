@@ -11,6 +11,8 @@ class broccoliTest extends PHPUnit\Framework\TestCase{
 	public function setup() : void{
 		set_time_limit(60);
 		$this->fs = new \tomk79\filesystem();
+		require_once(__DIR__.'/testHelper/pickles2query.php');
+		$this->px2query = new testHelper_pickles2query();
 	}
 
 	/**
@@ -19,8 +21,7 @@ class broccoliTest extends PHPUnit\Framework\TestCase{
 	public function testBuildCssJs(){
 
 		// build "CSS"
-		$outputCss = $this->passthru( [
-			'php',
+		$outputCss = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/test1_build_css.html' ,
 		] );
@@ -29,8 +30,7 @@ class broccoliTest extends PHPUnit\Framework\TestCase{
 		$this->assertTrue( strpos( $outputCss, '.hoge_fuga .hoge_fuga-child {' ) !== false );//←SCSSが機能している。
 		$this->assertTrue( strpos( $outputCss, 'data:image/png;base64,' ) !== false );//←SCSSが機能している。
 		$this->assertTrue( strpos( $outputCss, 'pkg:cat/mod1' ) !== false );//←path_module_templates_dir が機能している。
-		$outputCssApi = $this->passthru( [
-			'php',
+		$outputCssApi = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=px2dthelper.document_modules.build_css' ,
 		] );
@@ -42,8 +42,7 @@ class broccoliTest extends PHPUnit\Framework\TestCase{
 
 
 		// build "JavaScript"
-		$outputJs = $this->passthru( [
-			'php',
+		$outputJs = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/test1_build_js.html' ,
 		] );
@@ -84,8 +83,7 @@ class broccoliTest extends PHPUnit\Framework\TestCase{
 			preg_replace('/\r\n|\r|\n/', "\n", $expected),
 			preg_replace('/\r\n|\r|\n/', "\n", $outputJs)
 		);
-		$outputJsApi = $this->passthru( [
-			'php',
+		$outputJsApi = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=px2dthelper.document_modules.build_js' ,
 		] );
@@ -96,15 +94,13 @@ class broccoliTest extends PHPUnit\Framework\TestCase{
 
 
 		// build "Loader"
-		$outputLoader = $this->passthru( [
-			'php',
+		$outputLoader = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/test1_load.html' ,
 		] );
 		// var_dump($output);
 		$this->assertEquals( '<style type="text/css">'.$outputCss.'</style><script type="text/javascript">'.$outputJs.'</script>', $outputLoader );
-		$outputLoaderApi = $this->passthru( [
-			'php',
+		$outputLoaderApi = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=px2dthelper.document_modules.load' ,
 		] );
@@ -115,8 +111,7 @@ class broccoliTest extends PHPUnit\Framework\TestCase{
 
 
 		// 後始末
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=clearcache' ,
 		] );
@@ -128,8 +123,7 @@ class broccoliTest extends PHPUnit\Framework\TestCase{
 	 */
 	public function testBuildThemeCssJs(){
 		// build "CSS"
-		$outputCss = $this->passthru( [
-			'php',
+		$outputCss = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=px2dthelper.document_modules.build_css&theme_id=pickles' ,
 		] );
@@ -137,8 +131,7 @@ class broccoliTest extends PHPUnit\Framework\TestCase{
 		$this->assertTrue( strpos( $outputCss, 'module: theme_pkg:cat/mod1' ) !== false );
 
 		// build "JS"
-		$outputJs = $this->passthru( [
-			'php',
+		$outputJs = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=px2dthelper.document_modules.build_js&theme_id=pickles' ,
 		] );
@@ -147,8 +140,7 @@ class broccoliTest extends PHPUnit\Framework\TestCase{
 
 
 		// 後始末
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=clearcache' ,
 		] );
@@ -161,8 +153,7 @@ class broccoliTest extends PHPUnit\Framework\TestCase{
 	 */
 	public function testBroccoliReceiveMessage(){
 
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/broccoli/.px_execute.php' ,
 			'-u', 'Mozilla/5.0',
 			'/index.html' ,
@@ -170,8 +161,7 @@ class broccoliTest extends PHPUnit\Framework\TestCase{
 		// var_dump($output);
 		$this->assertTrue( !!preg_match('/broccoli\-receive\-message\=/s', $output) );
 
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/broccoli/.px_execute.php' ,
 			'-u', 'PicklesCrawler',
 			'/index.html' ,
@@ -182,35 +172,11 @@ class broccoliTest extends PHPUnit\Framework\TestCase{
 
 
 		// 後始末
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/broccoli/.px_execute.php' ,
 			'/?PX=clearcache' ,
 		] );
 
 	}//testBroccoliReceiveMessage()
-
-
-
-
-	/**
-	 * コマンドを実行し、標準出力値を返す
-	 * @param array $ary_command コマンドのパラメータを要素として持つ配列
-	 * @return string コマンドの標準出力値
-	 */
-	private function passthru( $ary_command ){
-		set_time_limit(60*10);
-		$cmd = array();
-		foreach( $ary_command as $row ){
-			$param = escapeshellcmd($row);
-			array_push( $cmd, $param );
-		}
-		$cmd = implode( ' ', $cmd );
-		ob_start();
-		passthru( $cmd );
-		$bin = ob_get_clean();
-		set_time_limit(30);
-		return $bin;
-	}// passthru()
 
 }

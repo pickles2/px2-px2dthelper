@@ -11,6 +11,8 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 	public function setup() : void{
 		set_time_limit(60);
 		$this->fs = new \tomk79\filesystem();
+		require_once(__DIR__.'/testHelper/pickles2query.php');
+		$this->px2query = new testHelper_pickles2query();
 	}
 
 	/**
@@ -20,7 +22,7 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 
 		// ----------------------------------------
 		// PX Command: Custom Console Extensions の一覧取得
-		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.custom_console_extensions' ] );
+		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.custom_console_extensions' ] );
 		// var_dump($output);
 		$json = json_decode( $output );
 		// var_dump($json);
@@ -33,7 +35,7 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 
 		// ----------------------------------------
 		// PX Command: Custom Console Extensions 存在しない拡張機能の情報取得
-		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.custom_console_extensions.undefinedCustomConsoleExtension' ] );
+		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.custom_console_extensions.undefinedCustomConsoleExtension' ] );
 		// var_dump($output);
 		$json = json_decode( $output );
 		// var_dump($json);
@@ -43,7 +45,7 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 
 		// ----------------------------------------
 		// PX Command: Custom Console Extensions 拡張機能0001の情報取得
-		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.custom_console_extensions.customConsoleExtensionsTest0001' ] );
+		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.custom_console_extensions.customConsoleExtensionsTest0001' ] );
 		// var_dump($output);
 		$json = json_decode( $output );
 		// var_dump($json);
@@ -56,7 +58,7 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 
 		// ----------------------------------------
 		// PX Command: Custom Console Extensions のクライアント資材一覧取得
-		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.custom_console_extensions.customConsoleExtensionsTest0001.client_resources' ] );
+		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.custom_console_extensions.customConsoleExtensionsTest0001.client_resources' ] );
 		// var_dump($output);
 		$json = json_decode( $output );
 		// var_dump($json);
@@ -70,7 +72,7 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 
 		// ----------------------------------------
 		// PX Command: Custom Console Extensions のクライアント資材一覧取得 (出力先を指定した場合)
-		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.custom_console_extensions.customConsoleExtensionsTest0001.client_resources&dist='.__DIR__.'/testData/standard/px-files/_sys/ram/caches/tmpResTest/' ] );
+		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.custom_console_extensions.customConsoleExtensionsTest0001.client_resources&dist='.__DIR__.'/testData/standard/px-files/_sys/ram/caches/tmpResTest/' ] );
 		// var_dump($output);
 		$json = json_decode( $output );
 		// var_dump($json);
@@ -86,7 +88,7 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 		// ----------------------------------------
 		// PX Command: Custom Console Extensions のGPIを呼び出す
 		$this->fs->save_file(__DIR__.'/testData/standard/px-files/_sys/ram/data/tmp_request.txt', 'PX=px2dthelper.custom_console_extensions.customConsoleExtensionsTest0001.gpi&request='.urlencode(json_encode(array('command'=>'test-command'))));
-		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '--method', 'post', '--body-file', 'tmp_request.txt', '/' ] );
+		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '--method', 'post', '--body-file', 'tmp_request.txt', '/' ] );
 		// var_dump($output);
 		$json = json_decode( $output );
 		// var_dump($json);
@@ -100,8 +102,7 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 
 
 		// 後始末
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=clearcache' ,
 		] );
@@ -123,7 +124,7 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 					'command'=>'get-app-mode',
 				)))
 		);
-		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '--method', 'post', '--body-file', 'tmp_request.txt', '/' ] );
+		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '--method', 'post', '--body-file', 'tmp_request.txt', '/' ] );
 		// var_dump($output);
 		$json = json_decode( $output );
 		// var_dump($json);
@@ -143,7 +144,7 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 					'command'=>'get-app-mode',
 				)))
 		);
-		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '--method', 'post', '--body-file', 'tmp_request.txt', '/' ] );
+		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '--method', 'post', '--body-file', 'tmp_request.txt', '/' ] );
 		// var_dump($output);
 		$json = json_decode( $output );
 		// var_dump($json);
@@ -155,8 +156,7 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 
 
 		// 後始末
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=clearcache' ,
 		] );
@@ -180,7 +180,7 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 					'command'=>'test-async',
 				)))
 		);
-		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '--method', 'post', '--body-file', 'tmp_request.txt', '/' ] );
+		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '--method', 'post', '--body-file', 'tmp_request.txt', '/' ] );
 		// var_dump($output);
 		$json = json_decode( $output );
 		// var_dump($json);
@@ -213,7 +213,7 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 				)))
 		);
 
-		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '--method', 'post', '--body-file', 'tmp_request.txt', '/' ] );
+		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '--method', 'post', '--body-file', 'tmp_request.txt', '/' ] );
 		// var_dump($output);
 		$json = json_decode( $output );
 		// var_dump($json);
@@ -236,7 +236,7 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 				.'&asyncDir='.urlencode($realpath_sync_dir)
 				.'&appMode=desktop'
 		);
-		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '--method', 'post', '--body-file', 'tmp_request.txt', '/' ] );
+		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '--method', 'post', '--body-file', 'tmp_request.txt', '/' ] );
 		// var_dump($output);
 		$json = json_decode( $output );
 		// var_dump($json);
@@ -257,8 +257,7 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 
 		// 後始末
 		$this->fs->rm($realpath_sync_dir);
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=clearcache' ,
 		] );
@@ -284,7 +283,7 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 					'command'=>'test-broadcast',
 				)))
 		);
-		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '--method', 'post', '--body-file', 'tmp_request.txt', '/' ] );
+		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '--method', 'post', '--body-file', 'tmp_request.txt', '/' ] );
 		// var_dump($output);
 		$json = json_decode( $output );
 		// var_dump($json);
@@ -304,33 +303,11 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 
 		// 後始末
 		$this->fs->rm($realpath_sync_dir);
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=clearcache' ,
 		] );
 
 	} // testBroadcast()
-
-
-
-
-	/**
-	 * コマンドを実行し、標準出力値を返す
-	 * @param array $ary_command コマンドのパラメータを要素として持つ配列
-	 * @return string コマンドの標準出力値
-	 */
-	private function passthru( $ary_command ){
-		$cmd = array();
-		foreach( $ary_command as $row ){
-			$param = '"'.addslashes($row).'"';
-			array_push( $cmd, $param );
-		}
-		$cmd = implode( ' ', $cmd );
-		ob_start();
-		passthru( $cmd );
-		$bin = ob_get_clean();
-		return $bin;
-	}// passthru()
 
 }
