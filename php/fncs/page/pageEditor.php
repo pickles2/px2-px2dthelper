@@ -195,8 +195,24 @@ class pageEditor{
 			// 別のファイルへの移動
 
 			$to_csv = $this->px->fs()->read_csv( $realpath_to_csv );
-			array_splice( $to_csv, $to_row, 0, $spliced_row );
-				// TODO: [未実装] サイトマップ定義の列が異なる場合を想定できていない。列合わせの処理が必要。
+
+			$from_description_flipped = array_flip($from_csv[0]);
+			$to_definition = $to_csv[0];
+			$new_row = array(array());
+			foreach($to_definition as $tmp_asterisk_key => $tmp_val) {
+				if( !isset($from_description_flipped[$tmp_val]) ){
+					array_push($new_row[0], '');
+					continue;
+				}
+				$tmp_index_num = $from_description_flipped[$tmp_val];
+				if( !isset($spliced_row[0][$tmp_index_num]) ){
+					array_push($new_row[0], '');
+					continue;
+				}
+				array_push($new_row[0], $spliced_row[0][$tmp_index_num]);
+			}
+
+			array_splice( $to_csv, $to_row, 0, $new_row );
 
 			$src_from_csv = $this->px->fs()->mk_csv($from_csv);
 			$result = $this->px->fs()->save_file( $realpath_from_csv, $src_from_csv );

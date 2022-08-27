@@ -213,21 +213,24 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 					'page_info' => array(
 						'path'=>'/added_page_sample/sitemap/'.$i.'.html',
 						'title'=>'Sitemap 1 - Page Title '.$i,
+						'description'=>'description - Sitemap 1 - '.$i,
 					),
 				))
 			] );
 		}
+		$tmp_sitemap = array(array(
+			'* id',
+			'* path',
+			'* title',
+		));
 		for( $i = 1; $i <= 10; $i ++ ){
-			$output = $this->px2query->query( [
-				__DIR__.'/testData/standard/.px_execute.php',
-				'/?PX=px2dthelper.page.add_page_info_raw&filefullname=create_new_sitemap_2.csv&row='.$i.'&'.http_build_query(array(
-					'page_info' => array(
-						'path'=>'/added_page_sample/sitemap_2/'.$i.'.html',
-						'title'=>'Sitemap 2 - Page Title '.$i,
-					),
-				))
-			] );
+			array_push($tmp_sitemap, array(
+				'',
+				'/added_page_sample/sitemap_2/'.$i.'.html',
+				'Sitemap 2 - Page Title '.$i,
+			));
 		}
+		$this->fs->save_file(__DIR__.'/testData/standard/px-files/sitemaps/create_new_sitemap_2.csv', $this->fs->mk_csv($tmp_sitemap));
 
 		clearstatcache();
 
@@ -248,6 +251,7 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 		$json = json_decode( $output );
 		$this->assertSame( $json->page_info[0], '/added_page_sample/sitemap/9.html' );
 		$this->assertSame( $json->page_info[3], 'Sitemap 1 - Page Title 9' );
+		$this->assertSame( $json->page_info[13], 'description - Sitemap 1 - 9' );
 
 		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php',
@@ -263,6 +267,7 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 		$json = json_decode( $output );
 		$this->assertSame( $json->page_info[0], '/added_page_sample/sitemap/9.html' );
 		$this->assertSame( $json->page_info[3], 'Sitemap 1 - Page Title 9' );
+		$this->assertSame( $json->page_info[13], 'description - Sitemap 1 - 9' );
 
 
 		// --------------------------------------
@@ -279,8 +284,9 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 		$this->assertTrue( $json->result );
 		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.page.get_page_info_raw&filefullname=create_new_sitemap_2.csv&row=5' ] );
 		$json = json_decode( $output );
-		$this->assertSame( $json->page_info[0], '/added_page_sample/sitemap/9.html' );
-		$this->assertSame( $json->page_info[3], 'Sitemap 1 - Page Title 9' );
+		$this->assertSame( count($json->page_info), 3 );
+		$this->assertSame( $json->page_info[1], '/added_page_sample/sitemap/9.html' );
+		$this->assertSame( $json->page_info[2], 'Sitemap 1 - Page Title 9' );
 
 		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php',
@@ -296,6 +302,7 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 		$json = json_decode( $output );
 		$this->assertSame( $json->page_info[0], '/added_page_sample/sitemap/9.html' );
 		$this->assertSame( $json->page_info[3], 'Sitemap 1 - Page Title 9' );
+		$this->assertSame( $json->page_info[13], '' );
 
 
 
