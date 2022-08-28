@@ -278,7 +278,71 @@ class pageEditor{
 			);
 		}
 		$sitemap_definition = $this->parse_sitemap_definition( $csv );
+		$sitemap_definition_flip = array_flip($sitemap_definition);
 
+
+		// --------------------------------------
+		// logical_path の変更を検出
+		$tmp_diff_logical_path = array(
+			'before' => null,
+			'after' => null,
+		);
+		if( isset($sitemap_definition_flip['logical_path']) && isset($csv[$row][$sitemap_definition_flip['logical_path']]) ){
+			$tmp_diff_logical_path['before'] = $csv[$row][$sitemap_definition_flip['logical_path']];
+		}
+		if( isset($page_info['logical_path']) ){
+			$tmp_diff_logical_path['after'] = $page_info['logical_path'];
+		}
+		if( is_string($tmp_diff_logical_path['before']) && is_string($tmp_diff_logical_path['after']) && $tmp_diff_logical_path['before'] !== $tmp_diff_logical_path['after'] ){
+			// TODO: logical_path の変更にあたり影響範囲にも変更を反映する処理を追加する。
+			// - このページの下層ページの logical_path の変更
+		}
+
+
+		// --------------------------------------
+		// path の変更を検出
+		$tmp_diff_path = array(
+			'before' => null,
+			'after' => null,
+		);
+		if( isset($sitemap_definition_flip['path']) && isset($csv[$row][$sitemap_definition_flip['path']]) ){
+			$tmp_diff_path['before'] = $csv[$row][$sitemap_definition_flip['path']];
+		}
+		if( isset($page_info['path']) ){
+			$tmp_diff_path['after'] = $page_info['path'];
+		}
+		if( is_string($tmp_diff_path['before']) && is_string($tmp_diff_path['after']) && $tmp_diff_path['before'] !== $tmp_diff_path['after'] ){
+			// TODO: path の変更にあたり影響範囲にも変更を反映する処理を追加する。
+			// - 他の記事に含まれるこのページへのリンクの張り替え
+		}
+
+
+
+		// --------------------------------------
+		// content の変更を検出
+		$tmp_diff_content = array(
+			'before' => null,
+			'after' => null,
+		);
+		if( isset($sitemap_definition_flip['content']) && isset($csv[$row][$sitemap_definition_flip['content']]) && strlen($csv[$row][$sitemap_definition_flip['content']]) ){
+			$tmp_diff_content['before'] = $csv[$row][$sitemap_definition_flip['content']];
+		}elseif( isset($sitemap_definition_flip['path']) && isset($csv[$row][$sitemap_definition_flip['path']]) ){
+			$tmp_diff_content['before'] = $csv[$row][$sitemap_definition_flip['path']];
+		}
+		if( isset($page_info['content']) ){
+			$tmp_diff_content['after'] = $page_info['content'];
+		}elseif( isset($page_info['path']) ){
+			$tmp_diff_content['after'] = $page_info['path'];
+		}
+		if( is_string($tmp_diff_content['before']) && is_string($tmp_diff_content['after']) && $tmp_diff_content['before'] !== $tmp_diff_content['after'] ){
+			// TODO: content の変更にあたり影響範囲にも変更を反映する処理を追加する。
+			// - もともとアサインされていたコンテンツファイルの移動
+		}
+
+
+
+		// --------------------------------------
+		// 対象ページ自身の変更を反映
 		$sitemap_row = array();
 		foreach( $sitemap_definition as $definition_col ){
 			$row_col_value = '';
