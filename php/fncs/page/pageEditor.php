@@ -3,6 +3,7 @@
  * px2-px2dthelper
  */
 namespace tomk79\pickles2\px2dthelper\fncs\page;
+use tomk79\pickles2\px2dthelper\fncs\content\contentEditor;
 
 /**
  * fncs/page/editor.php
@@ -281,6 +282,32 @@ class pageEditor{
 		$sitemap_definition_flip = array_flip($sitemap_definition);
 
 
+
+		// --------------------------------------
+		// content の変更を検出
+		$tmp_diff_content = array(
+			'before' => null,
+			'after' => null,
+		);
+		if( isset($sitemap_definition_flip['content']) && isset($csv[$row][$sitemap_definition_flip['content']]) && strlen($csv[$row][$sitemap_definition_flip['content']]) ){
+			$tmp_diff_content['before'] = $csv[$row][$sitemap_definition_flip['content']];
+		}elseif( isset($sitemap_definition_flip['path']) && isset($csv[$row][$sitemap_definition_flip['path']]) ){
+			$tmp_diff_content['before'] = $csv[$row][$sitemap_definition_flip['path']];
+		}
+		if( isset($page_info['content']) ){
+			$tmp_diff_content['after'] = $page_info['content'];
+		}elseif( isset($page_info['path']) ){
+			$tmp_diff_content['after'] = $page_info['path'];
+		}
+		if( is_string($tmp_diff_content['before']) && is_string($tmp_diff_content['after']) && $tmp_diff_content['before'] !== $tmp_diff_content['after'] ){
+
+			// もともとアサインされていたコンテンツファイルの移動
+			$contentEditor = new contentEditor($this->px2dthelper, $this->px);
+			$result = $contentEditor->move( $tmp_diff_content['before'], $tmp_diff_content['after'] );
+
+		}
+
+
 		// --------------------------------------
 		// logical_path の変更を検出
 		$tmp_diff_logical_path = array(
@@ -316,30 +343,6 @@ class pageEditor{
 			// - 他の記事に含まれるこのページへのリンクの張り替え
 			// - このページの下層ページの logical_path の変更
 		}
-
-
-
-		// --------------------------------------
-		// content の変更を検出
-		$tmp_diff_content = array(
-			'before' => null,
-			'after' => null,
-		);
-		if( isset($sitemap_definition_flip['content']) && isset($csv[$row][$sitemap_definition_flip['content']]) && strlen($csv[$row][$sitemap_definition_flip['content']]) ){
-			$tmp_diff_content['before'] = $csv[$row][$sitemap_definition_flip['content']];
-		}elseif( isset($sitemap_definition_flip['path']) && isset($csv[$row][$sitemap_definition_flip['path']]) ){
-			$tmp_diff_content['before'] = $csv[$row][$sitemap_definition_flip['path']];
-		}
-		if( isset($page_info['content']) ){
-			$tmp_diff_content['after'] = $page_info['content'];
-		}elseif( isset($page_info['path']) ){
-			$tmp_diff_content['after'] = $page_info['path'];
-		}
-		if( is_string($tmp_diff_content['before']) && is_string($tmp_diff_content['after']) && $tmp_diff_content['before'] !== $tmp_diff_content['after'] ){
-			// TODO: content の変更にあたり影響範囲にも変更を反映する処理を追加する。
-			// - もともとアサインされていたコンテンツファイルの移動
-		}
-
 
 
 		// --------------------------------------
