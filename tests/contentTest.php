@@ -243,10 +243,17 @@ class contentTest extends PHPUnit\Framework\TestCase{
 	 */
 	public function testMoveContentBroccoli(){
 		$this->fs->mkdir_r(__DIR__.'/testData/standard/move_test/test_files/guieditor.ignore/');
-		$this->fs->save_file(__DIR__.'/testData/standard/move_test/test.html', '<p>test<a href="../">link</a></p>');
+		$this->fs->save_file(__DIR__.'/testData/standard/move_test/test.html', '<p>test<a href="../">link</a></p><form action="../index.html"><img src="./test.png" /></form>');
 		$this->fs->save_file(__DIR__.'/testData/standard/move_test/test_files/guieditor.ignore/data.json', json_encode(array(
 			"main" => (object) array(
 				"href" => "../",
+			),
+		)));
+		$this->fs->mkdir_r(__DIR__.'/testData/standard/move_test/link_test_files/guieditor.ignore/');
+		$this->fs->save_file(__DIR__.'/testData/standard/move_test/link_test.html', '<p>link test<a href="./test.html">link</a></p><form action="./test.html"><img src="./test.html" /></form>');
+		$this->fs->save_file(__DIR__.'/testData/standard/move_test/link_test_files/guieditor.ignore/data.json', json_encode(array(
+			"main" => (object) array(
+				"href" => "./test.html",
 			),
 		)));
 
@@ -267,10 +274,21 @@ class contentTest extends PHPUnit\Framework\TestCase{
 		$this->assertTrue( $this->fs->is_file(__DIR__.'/testData/standard/move_test/subdir/test2.html') );
 		$this->assertTrue( $this->fs->is_file(__DIR__.'/testData/standard/move_test/subdir/test2_files/guieditor.ignore/data.json') );
 
+		// 移動されたファイルに含まれる相対パスのリンクが修正されていることを確認
 		$moved_html = file_get_contents(__DIR__.'/testData/standard/move_test/subdir/test2.html');
 		$moved_json = file_get_contents(__DIR__.'/testData/standard/move_test/subdir/test2_files/guieditor.ignore/data.json');
-		$this->assertTrue( !!preg_match('/'.preg_quote('test<a href="../../">link</a>', '/').'/', $moved_html) ); // HTML上のリンクが変換されていること
-		$this->assertTrue( !!preg_match('/'.preg_quote('"../../"', '/').'/', $moved_json) ); // JSON上のパスが変換されていること
+		$this->assertTrue( !!preg_match('/'.preg_quote('<a href="../../">link</a>', '/').'/', $moved_html) );
+		$this->assertTrue( !!preg_match('/'.preg_quote('<form action="../../index.html">', '/').'/', $moved_html) );
+		$this->assertTrue( !!preg_match('/'.preg_quote('<img src="./../test.png" />', '/').'/', $moved_html) );
+		$this->assertTrue( !!preg_match('/'.preg_quote('"../../"', '/').'/', $moved_json) );
+
+		// 移動されたファイルに対して張られたリンクが修正されていることを確認
+		$linked_html = file_get_contents(__DIR__.'/testData/standard/move_test/link_test.html');
+		$linked_json = file_get_contents(__DIR__.'/testData/standard/move_test/link_test_files/guieditor.ignore/data.json');
+		$this->assertTrue( !!preg_match('/'.preg_quote('<a href="./subdir/test2.html">link</a>', '/').'/', $linked_html) );
+		$this->assertTrue( !!preg_match('/'.preg_quote('<form action="./subdir/test2.html">', '/').'/', $linked_html) );
+		$this->assertTrue( !!preg_match('/'.preg_quote('<img src="./subdir/test2.html" />', '/').'/', $linked_html) );
+		$this->assertTrue( !!preg_match('/'.preg_quote('"./subdir/test2.html"', '/').'/', $linked_json) );
 
 		$this->assertTrue( $this->fs->rm(__DIR__.'/testData/standard/move_test/') );
 	}

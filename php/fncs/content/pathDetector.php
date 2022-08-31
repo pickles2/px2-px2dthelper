@@ -17,7 +17,9 @@ class pathDetector{
 
 	/**
 	 * constructor
-	 * @param mixed $main メインオブジェクト
+	 *
+	 * @param object $px2dthelper $px2dthelperオブジェクト
+	 * @param object $px $pxオブジェクト
 	 */
 	public function __construct( $px2dthelper, $px ){
 		$this->px2dthelper = $px2dthelper;
