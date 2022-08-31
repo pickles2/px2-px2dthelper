@@ -314,6 +314,7 @@ class pageEditor{
 		if( is_string($tmp_diff_path['before']) && is_string($tmp_diff_path['after']) && $tmp_diff_path['before'] !== $tmp_diff_path['after'] ){
 			// TODO: path の変更にあたり影響範囲にも変更を反映する処理を追加する。
 			// - 他の記事に含まれるこのページへのリンクの張り替え
+			// - このページの下層ページの logical_path の変更
 		}
 
 

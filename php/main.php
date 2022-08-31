@@ -318,7 +318,11 @@ class main{
 			$rtn = $template;
 			$data = array(
 				'dirname'=>$this->px->fs()->normalize_path(dirname($path_content)),
-				'filename'=>basename(''.$this->px->fs()->trim_extension($path_content)),
+				'filename'=>basename(
+					''.$this->px->fs()->trim_extension(
+						$this->px->fs()->trim_extension($path_content) // 二重拡張子を想定し、拡張子を2つ削除する (2022/8/31)
+					)
+				),
 				'ext'=>strtolower(''.$this->px->fs()->get_extension($path_content)),
 			);
 			$rtn = str_replace( '{$dirname}', $data['dirname'], $rtn );
@@ -842,6 +846,14 @@ class main{
 				// コンテンツ操作
 				$content_editor = new fncs\content\contentEditor( $this, $this->px );
 				switch( @$this->command[2] ){
+					case 'move':
+						$path_from = $this->px->req()->get_param('from');
+						$path_to = $this->px->req()->get_param('to');
+						$result = $content_editor->move($path_from, $path_to);
+						print $std_output->data_convert( $result );
+						exit;
+						break;
+
 					case 'delete':
 						$result = $content_editor->delete();
 						print $std_output->data_convert( $result );
