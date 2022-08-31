@@ -64,6 +64,7 @@ if(!defined('DEFAULT_TARGET_CHARSET')){ define('DEFAULT_TARGET_CHARSET', 'UTF-8'
 if(!defined('DEFAULT_BR_TEXT'))       { define('DEFAULT_BR_TEXT', "\r\n"); }
 if(!defined('DEFAULT_SPAN_TEXT'))     { define('DEFAULT_SPAN_TEXT', " "); }
 // if(!defined('MAX_FILE_SIZE'))         { define('MAX_FILE_SIZE', 600*1000*1000); }
+
 // helper functions
 // -----------------------------------------------------------------------------
 // get html dom from file
@@ -703,7 +704,7 @@ class simple_html_dom_node
             if (!empty($m[6])) {$val=$m[6];}
 
             // convert to lowercase
-            if ($this->dom->lowercase) {$tag=strtolower($tag); $key=strtolower($key);}
+            if ($this->dom->lowercase) {$tag=strtolower(''.$tag); $key=strtolower(''.$key);}
             //elements that do NOT have the specified attribute
             if (isset($key[0]) && $key[0]==='!') {$key=substr($key, 1); $no_key=true;}
 
@@ -1052,9 +1053,8 @@ class simple_html_dom
         // Per sourceforge http://sourceforge.net/tracker/?func=detail&aid=2949097&group_id=218559&atid=1044037
         // Script tags removal now preceeds style tag removal.
         // strip out <script> tags
-        // $this->remove_noise("'<\s*script[^>]*[^/]>(.*?)<\s*/\s*script\s*>'is");
-        // $this->remove_noise("'<\s*script\s*>(.*?)<\s*/\s*script\s*>'is");
-            // ↑[px2-move-contents拡張] scriptタグのsrc属性をPHPで生成している場合に正常にパースできなかったので削除
+        $this->remove_noise("'<\s*script[^>]*[^/]>(.*?)<\s*/\s*script\s*>'is");
+        $this->remove_noise("'<\s*script\s*>(.*?)<\s*/\s*script\s*>'is");
         // strip out <style> tags
         $this->remove_noise("'<\s*style[^>]*[^/]>(.*?)<\s*/\s*style\s*>'is");
         $this->remove_noise("'<\s*style\s*>(.*?)<\s*/\s*style\s*>'is");
