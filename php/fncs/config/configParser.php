@@ -2,12 +2,12 @@
 /**
  * px2-px2dthelper
  */
-namespace tomk79\pickles2\px2dthelper;
+namespace tomk79\pickles2\px2dthelper\fncs\config;
 
 /**
- * fncs/config/parser.php
+ * fncs/config/configParser.php
  */
-class fncs_config_parser{
+class configParser{
 
 	/** Picklesオブジェクト */
 	private $px;

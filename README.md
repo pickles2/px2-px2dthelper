@@ -434,6 +434,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 - `PX=px2dthelper.content.move` を追加。
 - `PX=px2dthelper.page.add_page_info_raw` のバリデーションを改善。
 - `PX=px2dthelper.page.update_page_info_raw` で、`path`、`content`、`logical_path` が変更された場合、影響範囲へ反映するようになった。
+- 内部コードの修正など。
 
 ### pickles2/px2-px2dthelper v2.1.4 (2022年7月20日)
 

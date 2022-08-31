@@ -84,7 +84,6 @@ class main{
 				$this->px2dtconfig->paths_module_template->{$key} = $this->px->fs()->normalize_path( $this->px->fs()->get_realpath( $this->px2dtconfig->paths_module_template->{$key}.'/' ) );
 			}
 		}
-
 	}
 
 	/**
@@ -281,7 +280,7 @@ class main{
 		$rtn = $this->px->fs()->normalize_path($rtn);
 		$rtn = preg_replace( '/^\/+/', '/', $rtn );
 		return $rtn;
-	}//get_path_resource_dir()
+	} // get_path_resource_dir()
 
 	/**
 	 * リソースパステンプレートに実際の値を当てはめる。
@@ -711,8 +710,7 @@ class main{
 
 			case 'sitemap':
 				// サイトマップ操作
-				require_once(__DIR__.'/fncs/sitemap/editor.php');
-				$sitemap_editor = new fncs_sitemap_editor( $this, $this->px );
+				$sitemap_editor = new fncs\sitemap\sitemapEditor( $this, $this->px );
 				switch( @$this->command[2] ){
 					case 'filelist':
 						$filename = $this->px->req()->get_param('filename');
@@ -958,10 +956,9 @@ class main{
 				break;
 
 			case 'config':
-				require_once(__DIR__.'/fncs/config/parser.php');
 				switch( @$this->command[2] ){
 					case 'parse':
-						$config_parser = new fncs_config_parser( $this, $this->px );
+						$config_parser = new fncs\config\configParser( $this, $this->px );
 						$result = $config_parser->parse();
 						print $std_output->data_convert( $result );
 						exit;
@@ -969,7 +966,7 @@ class main{
 
 					case 'update':
 						$this->route_only_post_cmd();
-						$config_parser = new fncs_config_parser( $this, $this->px );
+						$config_parser = new fncs\config\configParser( $this, $this->px );
 						$set_vars = array();
 						$base64_json = $this->px->req()->get_param('base64_json');
 						$json = $this->px->req()->get_param('json');
