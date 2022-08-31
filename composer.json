@@ -39,6 +39,9 @@
         "phpunit/phpunit": "~9.5"
     },
     "autoload": {
+        "files": [
+            "php/simple_html_dom.php"
+        ],
         "psr-4": {
             "tomk79\\pickles2\\px2dthelper\\": [
                 "php"

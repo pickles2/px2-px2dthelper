@@ -180,7 +180,7 @@ class contentTest extends PHPUnit\Framework\TestCase{
 			'/?PX=clearcache' ,
 		] );
 
-	}//testCopyExtContent()
+	} // testCopyExtContent()
 
 	/**
 	 * $from と $to が同じ場合のテスト
@@ -211,9 +211,9 @@ class contentTest extends PHPUnit\Framework\TestCase{
 	} // testCopySameContent()
 
 	/**
-	 * コンテンツを移動するテスト
+	 * Markdownコンテンツを移動するテスト
 	 */
-	public function testMoveContent(){
+	public function testMoveContentMd(){
 		$this->fs->mkdir_r(__DIR__.'/testData/standard/move_test/test_files/');
 		$this->fs->save_file(__DIR__.'/testData/standard/move_test/test.html.md', '<p>test</p>');
 		$this->fs->save_file(__DIR__.'/testData/standard/move_test/test_files/test.txt', 'test');
@@ -222,20 +222,55 @@ class contentTest extends PHPUnit\Framework\TestCase{
 		$this->assertTrue( $this->fs->is_file(__DIR__.'/testData/standard/move_test/test.html.md') );
 		$this->assertTrue( $this->fs->is_dir(__DIR__.'/testData/standard/move_test/test_files/') );
 
-		// PX=px2dthelper.content.delete
+		// PX=px2dthelper.content.move
 		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=px2dthelper.content.move&from=/move_test/test.html.md&to=/move_test/test2.html.md' ,
 		] );
-		// var_dump($output);
 		$result = json_decode($output);
-		// var_dump( $result );
 		$this->assertEquals( $result->result, true );
 		$this->assertEquals( $result->message, 'OK' );
 
 		// 移動対象ファイルが移動されたことを確認
 		$this->assertTrue( $this->fs->is_file(__DIR__.'/testData/standard/move_test/test2.html.md') );
 		$this->assertTrue( $this->fs->is_dir(__DIR__.'/testData/standard/move_test/test2_files/') );
+
+		$this->assertTrue( $this->fs->rm(__DIR__.'/testData/standard/move_test/') );
+	}
+
+	/**
+	 * Broccoliコンテンツを移動するテスト
+	 */
+	public function testMoveContentBroccoli(){
+		$this->fs->mkdir_r(__DIR__.'/testData/standard/move_test/test_files/guieditor.ignore/');
+		$this->fs->save_file(__DIR__.'/testData/standard/move_test/test.html', '<p>test<a href="../">link</a></p>');
+		$this->fs->save_file(__DIR__.'/testData/standard/move_test/test_files/guieditor.ignore/data.json', json_encode(array(
+			"main" => (object) array(
+				"href" => "../",
+			),
+		)));
+
+		// 移動対象ファイルが存在することを確認
+		$this->assertTrue( $this->fs->is_file(__DIR__.'/testData/standard/move_test/test.html') );
+		$this->assertTrue( $this->fs->is_dir(__DIR__.'/testData/standard/move_test/test_files/') );
+
+		// PX=px2dthelper.content.move
+		$output = $this->px2query->query( [
+			__DIR__.'/testData/standard/.px_execute.php' ,
+			'/?PX=px2dthelper.content.move&from=/move_test/test.html&to=/move_test/subdir/test2.html' ,
+		] );
+		$result = json_decode($output);
+		$this->assertEquals( $result->result, true );
+		$this->assertEquals( $result->message, 'OK' );
+
+		// 移動対象ファイルが移動されたことを確認
+		$this->assertTrue( $this->fs->is_file(__DIR__.'/testData/standard/move_test/subdir/test2.html') );
+		$this->assertTrue( $this->fs->is_file(__DIR__.'/testData/standard/move_test/subdir/test2_files/guieditor.ignore/data.json') );
+
+		$moved_html = file_get_contents(__DIR__.'/testData/standard/move_test/subdir/test2.html');
+		$moved_json = file_get_contents(__DIR__.'/testData/standard/move_test/subdir/test2_files/guieditor.ignore/data.json');
+		$this->assertTrue( !!preg_match('/'.preg_quote('test<a href="../../">link</a>', '/').'/', $moved_html) ); // HTML上のリンクが変換されていること
+		$this->assertTrue( !!preg_match('/'.preg_quote('"../../"', '/').'/', $moved_json) ); // JSON上のパスが変換されていること
 
 		$this->assertTrue( $this->fs->rm(__DIR__.'/testData/standard/move_test/') );
 	}
