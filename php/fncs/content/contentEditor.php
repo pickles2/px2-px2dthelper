@@ -78,6 +78,39 @@ class contentEditor{
 	}
 
 	/**
+	 * コンテンツファイルを削除する
+	 */
+	public function delete(){
+		if( !$this->px->site() ){
+			return array(false, '$px->site() is not defined.');
+		}
+
+		$contRoot = $this->px->fs()->get_realpath( $this->px->get_path_docroot().'/'.$this->px->get_path_controot() );
+		$path = $this->px->req()->get_request_file_path();
+
+		$pathContent = $this->px2dthelper->find_page_content( $path );
+		$pathFiles = $this->px2dthelper->path_files( $path );
+		$procType = $this->px->get_path_proc_type( $path );
+
+		$resMain = $this->px->fs()->rm( $contRoot.''.$pathContent );
+		$resFiles = $this->px->fs()->rm( $contRoot.''.$pathFiles );
+		if( !$resMain || !$resFiles ){
+			return array(
+				'result' => false,
+				'message' => 'Failed to remove contents.',
+			);
+		}
+
+		return array(
+			'result' => true,
+			'message' => 'OK',
+		);
+	}
+
+	// ----------------------------------------------------------------------------
+
+
+	/**
 	 * 対象コンテンツファイルのリストを作成する
 	 * @param  string $from 対象コンテンツのパス
 	 * @param  string $to   移動先のコンテンツパス
@@ -523,37 +556,6 @@ class contentEditor{
 		}
 
 		return $pre_s.$rtn.$s_end;
-	}
-
-
-	/**
-	 * コンテンツファイルを削除する
-	 */
-	public function delete(){
-		if( !$this->px->site() ){
-			return array(false, '$px->site() is not defined.');
-		}
-
-		$contRoot = $this->px->fs()->get_realpath( $this->px->get_path_docroot().'/'.$this->px->get_path_controot() );
-		$path = $this->px->req()->get_request_file_path();
-
-		$pathContent = $this->px2dthelper->find_page_content( $path );
-		$pathFiles = $this->px2dthelper->path_files( $path );
-		$procType = $this->px->get_path_proc_type( $path );
-
-		$resMain = $this->px->fs()->rm( $contRoot.''.$pathContent );
-		$resFiles = $this->px->fs()->rm( $contRoot.''.$pathFiles );
-		if( !$resMain || !$resFiles ){
-			return array(
-				'result' => false,
-				'message' => 'Failed to remove contents.',
-			);
-		}
-
-		return array(
-			'result' => true,
-			'message' => 'OK',
-		);
 	}
 
 }
