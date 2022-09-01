@@ -2,12 +2,12 @@
 /**
  * px2-px2dthelper
  */
-namespace tomk79\pickles2\px2dthelper\fncs;
+namespace tomk79\pickles2\px2dthelper;
 
 /**
- * fncs/sitemapLock.php
+ * sitemapUtils.php
  */
-class sitemapLock{
+class sitemapUtils{
 
 	/** Picklesオブジェクト */
 	private $px;

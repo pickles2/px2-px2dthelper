@@ -4,7 +4,7 @@
  */
 namespace tomk79\pickles2\px2dthelper\fncs\page;
 use tomk79\pickles2\px2dthelper\fncs\content\contentEditor;
-use tomk79\pickles2\px2dthelper\fncs\sitemapLock;
+use tomk79\pickles2\px2dthelper\sitemapUtils;
 
 /**
  * fncs/page/editor.php
@@ -18,7 +18,7 @@ class pageEditor{
 	private $px2dthelper;
 
 	/** サイトマップのロックファイル制御 */
-	private $sitemapLock;
+	private $sitemapUtils;
 
 	/** サイトマップディレクトリ */
 	private $realpath_sitemap_dir;
@@ -32,7 +32,7 @@ class pageEditor{
 	public function __construct( $px2dthelper, $px ){
 		$this->px2dthelper = $px2dthelper;
 		$this->px = $px;
-		$this->sitemapLock = new sitemapLock( $px2dthelper, $px );
+		$this->sitemapUtils = new sitemapUtils( $px2dthelper, $px );
 
 		$this->realpath_sitemap_dir = $this->px->get_realpath_homedir().'sitemaps/';
 	}
@@ -72,7 +72,7 @@ class pageEditor{
 	 * サイトマップファイルに行データを直接追加する
 	 */
 	public function add_page_info_raw( $filefullname, $row = 0, $page_info = array() ){
-		if( !$this->sitemapLock->lock() ){
+		if( !$this->sitemapUtils->lock() ){
 			$rtn = array(
 				'result'=>false,
 				'message'=>'Sitemap is locked.',
@@ -93,7 +93,7 @@ class pageEditor{
 				'message'=>'Validation Error.',
 				'errors' => $validated,
 			);
-			$this->sitemapLock->unlock();
+			$this->sitemapUtils->unlock();
 			return $rtn;
 		}
 		if( isset($page_info['id']) && strlen($page_info['id']) && $this->px->site()->get_page_info_by_id($page_info['id']) ){
@@ -103,7 +103,7 @@ class pageEditor{
 				'message'=>'ID is already exists.',
 				'errors' => $validated,
 			);
-			$this->sitemapLock->unlock();
+			$this->sitemapUtils->unlock();
 			return $rtn;
 		}
 		$tmp_page_info = $this->px->site()->get_page_info($page_info['path']);
@@ -115,7 +115,7 @@ class pageEditor{
 					'message'=>'Path is already exists.',
 					'errors' => $validated,
 				);
-				$this->sitemapLock->unlock();
+				$this->sitemapUtils->unlock();
 				return $rtn;
 			}
 		}
@@ -123,14 +123,14 @@ class pageEditor{
 		$realpath_csv = $this->realpath_sitemap_file( $filefullname );
 		$csv = $this->px->fs()->read_csv( $realpath_csv );
 		if( !is_array($csv) ){
-			$this->sitemapLock->unlock();
+			$this->sitemapUtils->unlock();
 			return array(
 				'result' => false,
 				'message' => 'Failed to load sitemap file.',
 			);
 		}
 		if( !$this->has_sitemap_definition( $csv ) && !$row){
-			$this->sitemapLock->unlock();
+			$this->sitemapUtils->unlock();
 			return array(
 				'result'=>false,
 				'message'=>'Invalid row number.',
@@ -151,7 +151,7 @@ class pageEditor{
 		$src_csv = $this->px->fs()->mk_csv($csv);
 		$result = $this->px->fs()->save_file( $realpath_csv, $src_csv );
 		if( !$result ){
-			$this->sitemapLock->unlock();
+			$this->sitemapUtils->unlock();
 			return array(
 				'result' => false,
 				'message' => 'Failed to save sitemap file.',
@@ -161,7 +161,7 @@ class pageEditor{
 		// NOTE: 暫定処理: CSVを更新したら、xlsx も更新する。
 		$this->csv2xlsx( $filefullname );
 
-		$this->sitemapLock->unlock();
+		$this->sitemapUtils->unlock();
 
 		return $rtn;
 	}
@@ -171,7 +171,7 @@ class pageEditor{
 	 * サイトマップファイルの行データを移動する
 	 */
 	public function move_page_info_raw( $from_filename, $from_row, $to_filename, $to_row ){
-		if( !$this->sitemapLock->lock() ){
+		if( !$this->sitemapUtils->lock() ){
 			return array(
 				'result' => false,
 				'message' => 'Sitemap is locked.',
@@ -182,14 +182,14 @@ class pageEditor{
 		$realpath_to_csv = $this->realpath_sitemap_file( $to_filename );
 
 		if( !is_file($realpath_from_csv) ){
-			$this->sitemapLock->unlock();
+			$this->sitemapUtils->unlock();
 			return array(
 				'result' => false,
 				'message' => 'from_filename is not exists.',
 			);
 		}
 		if( !is_file($realpath_to_csv) ){
-			$this->sitemapLock->unlock();
+			$this->sitemapUtils->unlock();
 			return array(
 				'result' => false,
 				'message' => 'to_filename is not exists.',
@@ -214,7 +214,7 @@ class pageEditor{
 			$src_from_csv = $this->px->fs()->mk_csv($from_csv);
 			$result = $this->px->fs()->save_file( $realpath_from_csv, $src_from_csv );
 			if( !$result ){
-				$this->sitemapLock->unlock();
+				$this->sitemapUtils->unlock();
 				return array(
 					'result' => false,
 					'message' => 'Failed to save sitemap file (from, to).',
@@ -250,7 +250,7 @@ class pageEditor{
 			$src_from_csv = $this->px->fs()->mk_csv($from_csv);
 			$result = $this->px->fs()->save_file( $realpath_from_csv, $src_from_csv );
 			if( !$result ){
-				$this->sitemapLock->unlock();
+				$this->sitemapUtils->unlock();
 				return array(
 					'result' => false,
 					'message' => 'Failed to save sitemap file (from).',
@@ -260,7 +260,7 @@ class pageEditor{
 			$src_to_csv = $this->px->fs()->mk_csv($to_csv);
 			$result = $this->px->fs()->save_file( $realpath_to_csv, $src_to_csv );
 			if( !$result ){
-				$this->sitemapLock->unlock();
+				$this->sitemapUtils->unlock();
 				return array(
 					'result' => false,
 					'message' => 'Failed to save sitemap file (to).',
@@ -272,7 +272,7 @@ class pageEditor{
 			$this->csv2xlsx( $to_filename );
 		}
 
-		$this->sitemapLock->unlock();
+		$this->sitemapUtils->unlock();
 
 		return array(
 			'result' => true,
@@ -285,7 +285,7 @@ class pageEditor{
 	 * サイトマップファイルの行データを直接更新する
 	 */
 	public function update_page_info_raw( $filefullname, $row = 0, $page_info = array() ){
-		if( !$this->sitemapLock->lock() ){
+		if( !$this->sitemapUtils->lock() ){
 			return array(
 				'result' => false,
 				'message' => 'Sitemap is locked.',
@@ -304,21 +304,21 @@ class pageEditor{
 				'message'=>'Validation Error.',
 				'errors' => $validated,
 			);
-			$this->sitemapLock->unlock();
+			$this->sitemapUtils->unlock();
 			return $rtn;
 		}
 
 		$realpath_csv = $this->realpath_sitemap_file( $filefullname );
 		$csv = $this->px->fs()->read_csv( $realpath_csv );
 		if( !is_array($csv) ){
-			$this->sitemapLock->unlock();
+			$this->sitemapUtils->unlock();
 			return array(
 				'result' => false,
 				'message' => 'Failed to load sitemap file.',
 			);
 		}
 		if( !$this->has_sitemap_definition( $csv ) && !$row){
-			$this->sitemapLock->unlock();
+			$this->sitemapUtils->unlock();
 			return array(
 				'result'=>false,
 				'message'=>'Invalid row number.',
@@ -406,7 +406,7 @@ class pageEditor{
 		$src_csv = $this->px->fs()->mk_csv($csv);
 		$result = $this->px->fs()->save_file( $realpath_csv, $src_csv );
 		if( !$result ){
-			$this->sitemapLock->unlock();
+			$this->sitemapUtils->unlock();
 			return array(
 				'result' => false,
 				'message' => 'Failed to save sitemap file.',
@@ -416,7 +416,7 @@ class pageEditor{
 		// NOTE: 暫定処理: CSVを更新したら、xlsx も更新する。
 		$this->csv2xlsx( $filefullname );
 
-		$this->sitemapLock->unlock();
+		$this->sitemapUtils->unlock();
 
 		return $rtn;
 	}
@@ -425,7 +425,7 @@ class pageEditor{
 	 * サイトマップファイルの行データを直接削除する
 	 */
 	public function delete_page_info_raw( $filefullname, $row = 0, $page_info = array() ){
-		if( !$this->sitemapLock->lock() ){
+		if( !$this->sitemapUtils->lock() ){
 			return array(
 				'result' => false,
 				'message' => 'Sitemap is locked.',
@@ -440,14 +440,14 @@ class pageEditor{
 		$realpath_csv = $this->realpath_sitemap_file( $filefullname );
 		$csv = $this->px->fs()->read_csv( $realpath_csv );
 		if( !is_array($csv) ){
-			$this->sitemapLock->unlock();
+			$this->sitemapUtils->unlock();
 			return array(
 				'result' => false,
 				'message' => 'Failed to load sitemap file.',
 			);
 		}
 		if( !$this->has_sitemap_definition( $csv ) && !$row){
-			$this->sitemapLock->unlock();
+			$this->sitemapUtils->unlock();
 			return array(
 				'result'=>false,
 				'message'=>'Invalid row number.',
@@ -459,7 +459,7 @@ class pageEditor{
 		$src_csv = $this->px->fs()->mk_csv($csv);
 		$result = $this->px->fs()->save_file( $realpath_csv, $src_csv );
 		if( !$result ){
-			$this->sitemapLock->unlock();
+			$this->sitemapUtils->unlock();
 			return array(
 				'result' => false,
 				'message' => 'Failed to save sitemap file.',
@@ -469,7 +469,7 @@ class pageEditor{
 		// NOTE: 暫定処理: CSVを更新したら、xlsx も更新する。
 		$this->csv2xlsx( $filefullname );
 
-		$this->sitemapLock->unlock();
+		$this->sitemapUtils->unlock();
 
 		return $rtn;
 	}
