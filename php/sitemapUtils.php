@@ -121,6 +121,26 @@ class sitemapUtils{
 	}
 
 	/**
+	 * CSVの行を削除する
+	 */
+	public function csv_remove_row( $filefullname, $row_index ){
+		$csv = $this->csv_open($filefullname);
+		if( !$csv ){
+			// 開けなければ失敗
+			return false;
+		}
+		if( !isset($csv['csv_rows'][$row_index]) ){
+			// 行がない場合
+			return false;
+		}
+
+		// 行を削除する
+		unset($csv['csv_rows'][$row_index]);
+
+		return true;
+	}
+
+	/**
 	 * 開かれているすべてのCSVファイルを保存して閉じる
 	 */
 	public function csv_save_all(){
