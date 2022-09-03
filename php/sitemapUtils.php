@@ -76,7 +76,26 @@ class sitemapUtils{
 	}
 
 	/**
-	 * 開かれているすべてのCSVファイルを保存して閉じる
+	 * CSVの行を追加する
+	 */
+	public function csv_add_row( $filefullname, $row_index, $row_assoc ){
+		$csv = $this->csv_open($filefullname);
+		if( !$csv ){
+			// 開けなければ失敗
+			return false;
+		}
+
+		// 空行を追加する
+		array_splice($csv['csv_rows'], $row_index, 0, array());
+
+		// 追加した行を更新する
+		$result =  $this->csv_update_row($filefullname, $row_index, $row_assoc);
+
+		return $result;
+	}
+
+	/**
+	 * CSVの行を更新する
 	 */
 	public function csv_update_row( $filefullname, $row_index, $row_assoc ){
 		$csv = $this->csv_open($filefullname);
