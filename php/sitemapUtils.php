@@ -27,6 +27,9 @@ class sitemapUtils{
 	/** サイトマップディレクトリ */
 	private $realpath_sitemap_dir;
 
+	/** 開かれているCSVファイルの内容 */
+	private $opened_csv = array();
+
 	/**
 	 * constructor
 	 *
@@ -40,6 +43,61 @@ class sitemapUtils{
 		$this->realpath_sitemap_dir = $this->px->get_realpath_homedir().'sitemaps/';
 		$this->lockfilepath = $this->px->get_realpath_homedir().'_sys/ram/caches/sitemaps/making_sitemap_cache.lock.txt';
 	}
+
+
+	// --------------------------------------
+	// サイトマップCSVファイル操作
+
+	/**
+	 * CSVファイルを開く
+	 */
+	public function csv_open( $filefullname ){
+		$realpath_csv = $this->realpath_sitemap_file($filefullname);
+		if( !$realpath_csv || !is_file($realpath_csv) ){
+			// Error: CSVファイルが存在しない。
+			return false;
+		}
+		if( !is_readable($realpath_csv) ){
+			// Error: CSVファイルが読み込めない。
+			return false;
+		}
+		if( isset($this->opened_csv[$realpath_csv]) ){
+			// すでに開かれている
+			return true;
+		}
+
+		// 開く
+		$this->opened_csv[$realpath_csv] = array();
+		$this->opened_csv[$realpath_csv]['filefullname'] = $filefullname;
+		$this->opened_csv[$realpath_csv]['realpath'] = $realpath_csv;
+		$this->opened_csv[$realpath_csv]['csv_rows'] = $this->px->fs()->read_csv($realpath_csv);
+
+		return true;
+	}
+
+	/**
+	 * 開かれているすべてのCSVファイルを保存して閉じる
+	 */
+	public function csv_save_all(){
+		$rtn = true;
+		foreach( $this->opened_csv as $realpath_csv => $csv_info ){
+			$src_from_csv = $this->px->fs()->mk_csv($csv_info['csv_rows']);
+			$result = $this->px->fs()->save_file( $csv_info['realpath'], $src_from_csv );
+			if( !$result ){
+				$rtn = false;
+				continue;
+			}
+
+			// 保存できたCSVは閉じる
+			unset($this->opened_csv[$realpath_csv]);
+		}
+		return $rtn;
+	}
+
+
+
+	// --------------------------------------
+	// その他
 
 	/**
 	 * 実在するサイトマップファイルの絶対パスを取得する
