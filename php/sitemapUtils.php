@@ -63,7 +63,7 @@ class sitemapUtils{
 		}
 		if( isset($this->opened_csv[$realpath_csv]) ){
 			// すでに開かれている
-			return true;
+			return $this->opened_csv[$realpath_csv];
 		}
 
 		// 開く
@@ -71,6 +71,32 @@ class sitemapUtils{
 		$this->opened_csv[$realpath_csv]['filefullname'] = $filefullname;
 		$this->opened_csv[$realpath_csv]['realpath'] = $realpath_csv;
 		$this->opened_csv[$realpath_csv]['csv_rows'] = $this->px->fs()->read_csv($realpath_csv);
+
+		return $this->opened_csv[$realpath_csv];
+	}
+
+	/**
+	 * 開かれているすべてのCSVファイルを保存して閉じる
+	 */
+	public function csv_update_row( $filefullname, $row_index, $row_assoc ){
+		$csv = $this->csv_open($filefullname);
+		if( !$csv ){
+			// 開けなければ失敗
+			return false;
+		}
+
+		$sitemap_definition = $this->sitemapUtils->parse_sitemap_definition( $csv['csv_rows'] );
+		$sitemap_definition_flip = array_flip($sitemap_definition);
+
+		$sitemap_row = array();
+		foreach( $sitemap_definition as $definition_col ){
+			$row_col_value = '';
+			if( isset($row_assoc[$definition_col]) ){
+				$row_col_value = $row_assoc[$definition_col];
+			}
+			array_push($sitemap_row, $row_col_value);
+		}
+		$csv['csv_rows'][$row_index] = $sitemap_row;
 
 		return true;
 	}
