@@ -286,26 +286,27 @@ class pageEditor{
 			return $rtn;
 		}
 
+		// --------------------------------------
 		// サイトマップCSVを開く
-		$realpath_csv = $this->sitemapUtils->realpath_sitemap_file( $filefullname );
-		$csv = $this->px->fs()->read_csv( $realpath_csv );
-		if( !is_array($csv) ){
+		$csv = &$this->sitemapUtils->csv_open($filefullname);
+		if( !$csv ){
 			$this->sitemapUtils->unlock();
 			return array(
 				'result' => false,
 				'message' => 'Failed to load sitemap file.',
 			);
 		}
-		if( !$this->sitemapUtils->has_sitemap_definition( $csv ) && !$row){
+		if( !$this->sitemapUtils->has_sitemap_definition( $csv['csv_rows'] ) && !$row){
 			$this->sitemapUtils->unlock();
 			return array(
 				'result'=>false,
 				'message'=>'Invalid row number.',
 			);
 		}
-		$sitemap_definition = $this->sitemapUtils->parse_sitemap_definition( $csv );
-		$sitemap_definition_flip = array_flip($sitemap_definition);
 
+
+		$sitemap_definition = $this->sitemapUtils->parse_sitemap_definition( $csv['csv_rows'] );
+		$sitemap_definition_flip = array_flip($sitemap_definition);
 
 
 		// --------------------------------------
@@ -314,10 +315,10 @@ class pageEditor{
 			'before' => null,
 			'after' => null,
 		);
-		if( isset($sitemap_definition_flip['content']) && isset($csv[$row][$sitemap_definition_flip['content']]) && strlen($csv[$row][$sitemap_definition_flip['content']]) ){
-			$tmp_diff_content['before'] = $csv[$row][$sitemap_definition_flip['content']];
-		}elseif( isset($sitemap_definition_flip['path']) && isset($csv[$row][$sitemap_definition_flip['path']]) ){
-			$tmp_diff_content['before'] = $csv[$row][$sitemap_definition_flip['path']];
+		if( isset($sitemap_definition_flip['content']) && isset($csv['csv_rows'][$row][$sitemap_definition_flip['content']]) && strlen($csv['csv_rows'][$row][$sitemap_definition_flip['content']]) ){
+			$tmp_diff_content['before'] = $csv['csv_rows'][$row][$sitemap_definition_flip['content']];
+		}elseif( isset($sitemap_definition_flip['path']) && isset($csv['csv_rows'][$row][$sitemap_definition_flip['path']]) ){
+			$tmp_diff_content['before'] = $csv['csv_rows'][$row][$sitemap_definition_flip['path']];
 		}
 		if( isset($page_info['content']) ){
 			$tmp_diff_content['after'] = $page_info['content'];
@@ -339,8 +340,8 @@ class pageEditor{
 			'before' => null,
 			'after' => null,
 		);
-		if( isset($sitemap_definition_flip['path']) && isset($csv[$row][$sitemap_definition_flip['path']]) ){
-			$tmp_diff_path['before'] = $csv[$row][$sitemap_definition_flip['path']];
+		if( isset($sitemap_definition_flip['path']) && isset($csv['csv_rows'][$row][$sitemap_definition_flip['path']]) ){
+			$tmp_diff_path['before'] = $csv['csv_rows'][$row][$sitemap_definition_flip['path']];
 		}
 		if( isset($page_info['path']) ){
 			$tmp_diff_path['after'] = $page_info['path'];
@@ -358,8 +359,8 @@ class pageEditor{
 			'before' => null,
 			'after' => null,
 		);
-		if( isset($sitemap_definition_flip['logical_path']) && isset($csv[$row][$sitemap_definition_flip['logical_path']]) ){
-			$tmp_diff_logical_path['before'] = $csv[$row][$sitemap_definition_flip['logical_path']];
+		if( isset($sitemap_definition_flip['logical_path']) && isset($csv['csv_rows'][$row][$sitemap_definition_flip['logical_path']]) ){
+			$tmp_diff_logical_path['before'] = $csv['csv_rows'][$row][$sitemap_definition_flip['logical_path']];
 		}
 		if( isset($page_info['logical_path']) ){
 			$tmp_diff_logical_path['after'] = $page_info['logical_path'];
@@ -372,18 +373,18 @@ class pageEditor{
 
 		// --------------------------------------
 		// 対象ページ自身の変更を反映
-		$sitemap_row = array();
-		foreach( $sitemap_definition as $definition_col ){
-			$row_col_value = '';
-			if( isset($page_info[$definition_col]) ){
-				$row_col_value = $page_info[$definition_col];
-			}
-			array_push($sitemap_row, $row_col_value);
+		if( !$this->sitemapUtils->csv_update_row($filefullname, $row, $page_info) ){
+			$this->sitemapUtils->unlock();
+			return array(
+				'result' => false,
+				'message' => 'Failed to update CSV row.',
+			);
 		}
-		$csv[$row] = $sitemap_row;
 
-		$src_csv = $this->px->fs()->mk_csv($csv);
-		$result = $this->px->fs()->save_file( $realpath_csv, $src_csv );
+
+		// --------------------------------------
+		// 変更されたCSVをすべて保存する
+		$result = $this->sitemapUtils->csv_save_all();
 		if( !$result ){
 			$this->sitemapUtils->unlock();
 			return array(
@@ -391,9 +392,6 @@ class pageEditor{
 				'message' => 'Failed to save sitemap file.',
 			);
 		}
-
-		// NOTE: 暫定処理: CSVを更新したら、xlsx も更新する。
-		$this->sitemapUtils->csv2xlsx( $filefullname );
 
 		$this->sitemapUtils->unlock();
 
