@@ -286,6 +286,7 @@ class pageEditor{
 			return $rtn;
 		}
 
+		// サイトマップCSVを開く
 		$realpath_csv = $this->sitemapUtils->realpath_sitemap_file( $filefullname );
 		$csv = $this->px->fs()->read_csv( $realpath_csv );
 		if( !is_array($csv) ){
@@ -415,16 +416,15 @@ class pageEditor{
 			'message'=>'OK',
 		);
 
-		$realpath_csv = $this->sitemapUtils->realpath_sitemap_file( $filefullname );
-		$csv = $this->px->fs()->read_csv( $realpath_csv );
-		if( !is_array($csv) ){
+		if( !$this->sitemapUtils->csv_open($filefullname) ){
 			$this->sitemapUtils->unlock();
 			return array(
 				'result' => false,
 				'message' => 'Failed to load sitemap file.',
 			);
 		}
-		if( !$this->sitemapUtils->has_sitemap_definition( $csv ) && !$row){
+
+		if( !$this->sitemapUtils->csv_has_sitemap_definition( $filefullname ) && !$row){
 			$this->sitemapUtils->unlock();
 			return array(
 				'result'=>false,
@@ -432,10 +432,15 @@ class pageEditor{
 			);
 		}
 
-		unset($csv[$row]);
+		if( !$this->sitemapUtils->csv_remove_row($filefullname, $row) ){
+			$this->sitemapUtils->unlock();
+			return array(
+				'result'=>false,
+				'message'=>'Failed to remove CSV row.',
+			);
+		}
 
-		$src_csv = $this->px->fs()->mk_csv($csv);
-		$result = $this->px->fs()->save_file( $realpath_csv, $src_csv );
+		$result = $this->sitemapUtils->csv_save_all();
 		if( !$result ){
 			$this->sitemapUtils->unlock();
 			return array(
@@ -443,9 +448,6 @@ class pageEditor{
 				'message' => 'Failed to save sitemap file.',
 			);
 		}
-
-		// NOTE: 暫定処理: CSVを更新したら、xlsx も更新する。
-		$this->sitemapUtils->csv2xlsx( $filefullname );
 
 		$this->sitemapUtils->unlock();
 
