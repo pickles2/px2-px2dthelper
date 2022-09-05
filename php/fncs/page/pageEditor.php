@@ -49,6 +49,8 @@ class pageEditor{
 			return array(
 				'result'=>false,
 				'message'=>'Invalid row number.',
+				'sitemap_definition'=>null,
+				'page_info' => null,
 			);
 		}
 		$rtn['sitemap_definition'] = $this->sitemapUtils->parse_sitemap_definition( $csv );
@@ -56,6 +58,8 @@ class pageEditor{
 			return array(
 				'result'=>false,
 				'message'=>'Invalid row number.',
+				'sitemap_definition'=>null,
+				'page_info' => null,
 			);
 		}
 		$rtn['page_info'] = $csv[$row];
@@ -115,11 +119,14 @@ class pageEditor{
 			}
 		}
 
+		// --------------------------------------
+		// サイトマップCSVを開く
 		if( !$this->sitemapUtils->csv_open($filefullname) ){
 			$this->sitemapUtils->unlock();
 			return array(
 				'result' => false,
 				'message' => 'Failed to load sitemap file.',
+				'errors' => null,
 			);
 		}
 		if( !$this->sitemapUtils->csv_has_sitemap_definition( $filefullname ) && !$row){
@@ -127,15 +134,23 @@ class pageEditor{
 			return array(
 				'result'=>false,
 				'message'=>'Invalid row number.',
+				'errors' => null,
 			);
 		}
+
+		// --------------------------------------
+		// 行を追加する
 		$this->sitemapUtils->csv_add_row( $filefullname, $row, $page_info );
+
+		// --------------------------------------
+		// 変更されたCSVをすべて保存する
 		$result = $this->sitemapUtils->csv_save_all();
 		if( !$result ){
 			$this->sitemapUtils->unlock();
 			return array(
 				'result' => false,
 				'message' => 'Failed to save sitemap file.',
+				'errors' => null,
 			);
 		}
 
@@ -156,98 +171,51 @@ class pageEditor{
 			);
 		}
 
-		$realpath_from_csv = $this->sitemapUtils->realpath_sitemap_file( $from_filename );
-		$realpath_to_csv = $this->sitemapUtils->realpath_sitemap_file( $to_filename );
-
-		if( !is_file($realpath_from_csv) ){
+		// --------------------------------------
+		// サイトマップCSVを開く
+		if( !$this->sitemapUtils->csv_open($from_filename) ){
 			$this->sitemapUtils->unlock();
 			return array(
 				'result' => false,
-				'message' => 'from_filename is not exists.',
+				'message' => 'Failed to open from_filename.',
 			);
 		}
-		if( !is_file($realpath_to_csv) ){
+		if( !$this->sitemapUtils->csv_open($to_filename) ){
 			$this->sitemapUtils->unlock();
 			return array(
 				'result' => false,
-				'message' => 'to_filename is not exists.',
+				'message' => 'Failed to open to_filename.',
 			);
 		}
 
-		$from_csv = $this->px->fs()->read_csv( $realpath_from_csv );
+		$from_row_assoc = $this->sitemapUtils->csv_get_row($from_filename, $from_row);
+		$this->sitemapUtils->csv_remove_row($from_filename, $from_row);
 
-		$spliced_row = array_splice( $from_csv, $from_row, 1, null );
 
+		if( $from_filename === $to_filename && $from_row < $to_row ){
+			// 同じファイル内での移動で、かつ、from より to のほうが行番号が大きいとき
+			// from を1行抜いた分、toを1つ小さくする。
+			$to_row --;
+		}
 
-		if( $from_filename === $to_filename ){
-			// --------------------------------------
-			// 同じファイル内での移動
+		$result = $this->sitemapUtils->csv_add_row($to_filename, $to_row, $from_row_assoc);
+		if( !$result ){
+			$this->sitemapUtils->unlock();
+			return array(
+				'result' => false,
+				'message' => 'Failed to move sitemap file (from, to).',
+			);
+		}
 
-			if( $from_row < $to_row ){
-				$to_row --;
-			}
-
-			array_splice( $from_csv, $to_row, 0, $spliced_row );
-
-			$src_from_csv = $this->px->fs()->mk_csv($from_csv);
-			$result = $this->px->fs()->save_file( $realpath_from_csv, $src_from_csv );
-			if( !$result ){
-				$this->sitemapUtils->unlock();
-				return array(
-					'result' => false,
-					'message' => 'Failed to save sitemap file (from, to).',
-				);
-			}
-
-			// NOTE: 暫定処理: CSVを更新したら、xlsx も更新する。
-			$this->sitemapUtils->csv2xlsx( $from_filename );
-		}else{
-			// --------------------------------------
-			// 別のファイルへの移動
-
-			$to_csv = $this->px->fs()->read_csv( $realpath_to_csv );
-
-			$from_description_flipped = array_flip($from_csv[0]);
-			$to_definition = $to_csv[0];
-			$new_row = array(array());
-			foreach($to_definition as $tmp_asterisk_key => $tmp_val) {
-				if( !isset($from_description_flipped[$tmp_val]) ){
-					array_push($new_row[0], '');
-					continue;
-				}
-				$tmp_index_num = $from_description_flipped[$tmp_val];
-				if( !isset($spliced_row[0][$tmp_index_num]) ){
-					array_push($new_row[0], '');
-					continue;
-				}
-				array_push($new_row[0], $spliced_row[0][$tmp_index_num]);
-			}
-
-			array_splice( $to_csv, $to_row, 0, $new_row );
-
-			$src_from_csv = $this->px->fs()->mk_csv($from_csv);
-			$result = $this->px->fs()->save_file( $realpath_from_csv, $src_from_csv );
-			if( !$result ){
-				$this->sitemapUtils->unlock();
-				return array(
-					'result' => false,
-					'message' => 'Failed to save sitemap file (from).',
-				);
-			}
-
-			$src_to_csv = $this->px->fs()->mk_csv($to_csv);
-			$result = $this->px->fs()->save_file( $realpath_to_csv, $src_to_csv );
-			if( !$result ){
-				$this->sitemapUtils->unlock();
-				return array(
-					'result' => false,
-					'message' => 'Failed to save sitemap file (to).',
-				);
-			}
-
-			// NOTE: 暫定処理: CSVを更新したら、xlsx も更新する。
-			$this->sitemapUtils->csv2xlsx( $from_filename );
-			$this->sitemapUtils->csv2xlsx( $to_filename );
+		// --------------------------------------
+		// 変更されたCSVをすべて保存する
+		$result = $this->sitemapUtils->csv_save_all();
+		if( !$result ){
+			$this->sitemapUtils->unlock();
+			return array(
+				'result' => false,
+				'message' => 'Failed to save sitemap file.',
+			);
 		}
 
 		$this->sitemapUtils->unlock();
@@ -267,6 +235,7 @@ class pageEditor{
 			return array(
 				'result' => false,
 				'message' => 'Sitemap is locked.',
+				'errors' => null,
 			);
 		}
 
@@ -294,6 +263,7 @@ class pageEditor{
 			return array(
 				'result' => false,
 				'message' => 'Failed to load sitemap file.',
+				'errors' => null,
 			);
 		}
 		if( !$this->sitemapUtils->has_sitemap_definition( $csv['csv_rows'] ) && !$row){
@@ -301,6 +271,7 @@ class pageEditor{
 			return array(
 				'result'=>false,
 				'message'=>'Invalid row number.',
+				'errors' => null,
 			);
 		}
 
@@ -378,6 +349,7 @@ class pageEditor{
 			return array(
 				'result' => false,
 				'message' => 'Failed to update CSV row.',
+				'errors' => null,
 			);
 		}
 
@@ -390,6 +362,7 @@ class pageEditor{
 			return array(
 				'result' => false,
 				'message' => 'Failed to save sitemap file.',
+				'errors' => null,
 			);
 		}
 

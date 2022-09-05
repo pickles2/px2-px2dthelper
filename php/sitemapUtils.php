@@ -55,11 +55,13 @@ class sitemapUtils{
 		$realpath_csv = $this->realpath_sitemap_file($filefullname);
 		if( !$realpath_csv || !is_file($realpath_csv) ){
 			// Error: CSVファイルが存在しない。
-			return false;
+			$rtn = false;
+			return $rtn;
 		}
 		if( !is_readable($realpath_csv) ){
 			// Error: CSVファイルが読み込めない。
-			return false;
+			$rtn = false;
+			return $rtn;
 		}
 		if( isset($this->opened_csv[$realpath_csv]) ){
 			// すでに開かれている
@@ -73,6 +75,34 @@ class sitemapUtils{
 		$this->opened_csv[$realpath_csv]['csv_rows'] = $this->px->fs()->read_csv($realpath_csv);
 
 		return $this->opened_csv[$realpath_csv];
+	}
+
+	/**
+	 * CSVの行を取得する
+	 */
+	public function csv_get_row( $filefullname, $row_index ){
+		$csv = &$this->csv_open($filefullname);
+		if( !$csv ){
+			// 開けなければ失敗
+			return false;
+		}
+		if( !isset($csv['csv_rows'][$row_index]) ){
+			// 対象の行がなければ失敗
+			return false;
+		}
+
+		// 空行を取得する
+		$row = $csv['csv_rows'][$row_index];
+
+		// 行をassocする
+		$sitemap_definition = $this->parse_sitemap_definition( $csv['csv_rows'] );
+
+		$rtn = array();
+		foreach( $row as $idx=>$col ){
+			$rtn[$sitemap_definition[$idx]] = $col;
+		}
+
+		return $rtn;
 	}
 
 	/**
