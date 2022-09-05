@@ -51,7 +51,7 @@ class sitemapUtils{
 	/**
 	 * CSVファイルを開く
 	 */
-	public function csv_open( $filefullname ){
+	public function &csv_open( $filefullname ){
 		$realpath_csv = $this->realpath_sitemap_file($filefullname);
 		if( !$realpath_csv || !is_file($realpath_csv) ){
 			// Error: CSVファイルが存在しない。
@@ -79,14 +79,14 @@ class sitemapUtils{
 	 * CSVの行を追加する
 	 */
 	public function csv_add_row( $filefullname, $row_index, $row_assoc ){
-		$csv = $this->csv_open($filefullname);
+		$csv = &$this->csv_open($filefullname);
 		if( !$csv ){
 			// 開けなければ失敗
 			return false;
 		}
 
 		// 空行を追加する
-		array_splice($csv['csv_rows'], $row_index, 0, array());
+		array_splice($csv['csv_rows'], $row_index, 0, array(array()));
 
 		// 追加した行を更新する
 		$result =  $this->csv_update_row($filefullname, $row_index, $row_assoc);
@@ -98,13 +98,14 @@ class sitemapUtils{
 	 * CSVの行を更新する
 	 */
 	public function csv_update_row( $filefullname, $row_index, $row_assoc ){
-		$csv = $this->csv_open($filefullname);
+		$csv = &$this->csv_open($filefullname);
 		if( !$csv ){
 			// 開けなければ失敗
 			return false;
 		}
+		$row_index = intval($row_index);
 
-		$sitemap_definition = $this->sitemapUtils->parse_sitemap_definition( $csv['csv_rows'] );
+		$sitemap_definition = $this->parse_sitemap_definition( $csv['csv_rows'] );
 		$sitemap_definition_flip = array_flip($sitemap_definition);
 
 		$sitemap_row = array();
@@ -124,7 +125,7 @@ class sitemapUtils{
 	 * CSVの行を削除する
 	 */
 	public function csv_remove_row( $filefullname, $row_index ){
-		$csv = $this->csv_open($filefullname);
+		$csv = &$this->csv_open($filefullname);
 		if( !$csv ){
 			// 開けなければ失敗
 			return false;
@@ -138,6 +139,18 @@ class sitemapUtils{
 		unset($csv['csv_rows'][$row_index]);
 
 		return true;
+	}
+
+	/**
+	 * サイトマップに定義行が含まれるか調べる
+	 */
+	public function csv_has_sitemap_definition( $filefullname ){
+		$csv = &$this->csv_open($filefullname);
+		if( !$csv ){
+			// 開けなければ失敗
+			return false;
+		}
+		return $this->has_sitemap_definition($csv['csv_rows']);
 	}
 
 	/**
@@ -155,6 +168,9 @@ class sitemapUtils{
 
 			// 保存できたCSVは閉じる
 			unset($this->opened_csv[$realpath_csv]);
+
+			// NOTE: 暫定処理: CSVを更新したら、xlsx も更新する。
+			$this->csv2xlsx( $csv_info['filefullname'] );
 		}
 		return $rtn;
 	}
