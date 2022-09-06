@@ -397,7 +397,7 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 		$tmp_sitemap = array(
 			array('* path', '* id', '* content', '* title', '* logical_path', ),
 			array('/add_page_test/a/c/d/', '', '', 'Test Page C-A-C-D', '/add_page_test/>/add_page_test/a/>/add_page_test/a/c/', ),
-			array('/add_page_test/a/c/e/', '', '', 'Test Page C-A-C-E', '/add_page_test/>/add_page_test/a/>/add_page_test/a/c/', ),
+			array('/add_page_test/a/c/e/', '', '', 'Test Page C-A-C-E', '/add_page_test/index.html>/add_page_test/a/index.html>/add_page_test/a/c/', ),
 		);
 		$this->fs->save_file(__DIR__.'/testData/standard/px-files/sitemaps/create_new_sitemap_4.csv', $this->fs->mk_csv($tmp_sitemap));
 		$this->assertTrue( is_file(__DIR__.'/testData/standard/px-files/sitemaps/create_new_sitemap_4.csv') );
@@ -425,10 +425,30 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 		$this->assertTrue( is_object($json) );
 		$this->assertTrue( $json->result );
 
+		// 本体
+		$json = json_decode( $this->px2query->query( [__DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.page.get_page_info_raw&filefullname=create_new_sitemap_3.csv&row=2'] ) );
+		$this->assertSame( $json->page_info[0], '/changed_new_path/a/' ); // path
+		$this->assertSame( $json->page_info[3], '*** Test Page C-A (changed)' ); // title
+		$this->assertSame( $json->page_info[4], '/update_page_test/' ); // logical_path
 
-		// TODO: 下層ページのパンくずが、あわせて変更されていることを確認する。
-		// ・・・・・・
+		// 子ページ
+		$json = json_decode( $this->px2query->query( [__DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.page.get_page_info_raw&filefullname=create_new_sitemap_3.csv&row=3'] ) );
+		$this->assertSame( $json->page_info[4], '/update_page_test/>/changed_new_path/a/' ); // logical_path
+		$json = json_decode( $this->px2query->query( [__DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.page.get_page_info_raw&filefullname=create_new_sitemap_3.csv&row=4'] ) );
+		$this->assertSame( $json->page_info[4], '/update_page_test/>/changed_new_path/a/' ); // logical_path
+		$json = json_decode( $this->px2query->query( [__DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.page.get_page_info_raw&filefullname=create_new_sitemap_3.csv&row=5'] ) );
+		$this->assertSame( $json->page_info[4], '/update_page_test/>/changed_new_path/a/' ); // logical_path
+		$json = json_decode( $this->px2query->query( [__DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.page.get_page_info_raw&filefullname=create_new_sitemap_3.csv&row=6'] ) );
+		$this->assertSame( $json->page_info[4], '/update_page_test/>/changed_new_path/a/>/add_page_test/a/c/' ); // logical_path
+		$json = json_decode( $this->px2query->query( [__DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.page.get_page_info_raw&filefullname=create_new_sitemap_3.csv&row=7'] ) );
+		$this->assertSame( $json->page_info[4], '/update_page_test/>/changed_new_path/a/>add_page_test_a_c' ); // logical_path
+		$json = json_decode( $this->px2query->query( [__DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.page.get_page_info_raw&filefullname=create_new_sitemap_3.csv&row=8'] ) );
+		$this->assertSame( $json->page_info[4], '/update_page_test/>/changed_new_path/a/>/add_page_test/a/c/index.html' ); // logical_path
 
+		$json = json_decode( $this->px2query->query( [__DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.page.get_page_info_raw&filefullname=create_new_sitemap_4.csv&row=1'] ) );
+		$this->assertSame( $json->page_info[4], '/update_page_test/>/changed_new_path/a/>/add_page_test/a/c/' ); // logical_path
+		$json = json_decode( $this->px2query->query( [__DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.page.get_page_info_raw&filefullname=create_new_sitemap_4.csv&row=2'] ) );
+		$this->assertSame( $json->page_info[4], '/update_page_test/>/changed_new_path/a/>/add_page_test/a/c/' ); // logical_path
 
 	} // testPageUpdatePageInfoRaw_ChangeLogicalPath()
 
