@@ -244,6 +244,7 @@ class pageEditor{
 			'message'=>'OK',
 			'errors' => null,
 		);
+		$is_impact_to_children = false; // 子ページへの影響
 		$validated = $this->sitemapUtils->validate_page_info( $page_info );
 		if( count($validated) ){
 			$rtn = array(
@@ -320,7 +321,8 @@ class pageEditor{
 		if( is_string($tmp_diff_path['before']) && is_string($tmp_diff_path['after']) && $tmp_diff_path['before'] !== $tmp_diff_path['after'] ){
 			// TODO: path の変更にあたり影響範囲にも変更を反映する処理を追加する。
 			// - 他の記事に含まれるこのページへのリンクの張り替え
-			// - このページの下層ページの logical_path の変更
+
+			$is_impact_to_children = true;
 		}
 
 
@@ -337,8 +339,17 @@ class pageEditor{
 			$tmp_diff_logical_path['after'] = $page_info['logical_path'];
 		}
 		if( is_string($tmp_diff_logical_path['before']) && is_string($tmp_diff_logical_path['after']) && $tmp_diff_logical_path['before'] !== $tmp_diff_logical_path['after'] ){
-			// TODO: logical_path の変更にあたり影響範囲にも変更を反映する処理を追加する。
-			// - このページの下層ページの logical_path の変更
+			$is_impact_to_children = true;
+		}
+
+
+		// --------------------------------------
+		// 影響下にある子ページを抽出
+		$impact_children = array();
+		if( $is_impact_to_children ){
+			$current_path = $csv['csv_rows'][$row][$sitemap_definition_flip['path']];
+			$current_page_info = $this->px->site()->get_page_info($current_path);
+			$impact_children = $this->sitemapUtils->get_under_children_row( $current_page_info['path'] );
 		}
 
 
@@ -353,6 +364,13 @@ class pageEditor{
 			);
 		}
 
+		// --------------------------------------
+		// 子ページへの影響を反映
+		if( $is_impact_to_children && count($impact_children) ){
+			foreach($impact_children as $row_info){
+				// TODO: パンくず情報を修正
+			}
+		}
 
 		// --------------------------------------
 		// 変更されたCSVをすべて保存する

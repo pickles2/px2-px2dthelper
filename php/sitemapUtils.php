@@ -318,6 +318,28 @@ class sitemapUtils{
 
 
 	/**
+	 * すべての下層ページの行番号を得る
+	 *
+	 * ページ情報を更新する際に、パンくずを修正する必要のある影響範囲を返します。
+	 */
+	public function get_under_children_row( $path, &$all_list = array() ){
+		$children = $this->px->site()->get_children( $path, array('filter'=>false) );
+		foreach( $children as $child_pid ){
+			$page_info = $this->px->site()->get_page_info($child_pid);
+
+			$page_originated_csv = $this->px->site()->get_page_originated_csv($child_pid);
+			$page_originated_csv['id'] = $page_info['id'];
+			$page_originated_csv['path'] = $page_info['path'];
+			$page_originated_csv['logical_path'] = $page_info['logical_path'];
+			array_push($all_list, $page_originated_csv);
+
+			$this->get_under_children_row( $page_info['path'], $all_list );
+		}
+		return $all_list;
+	}
+
+
+	/**
 	 * CSV を xlsx に変換する
 	 *
 	 * NOTE: これは暫定的な処理です。サイトマップのページ数が多くなると、この処理は重くなります。

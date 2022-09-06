@@ -402,13 +402,11 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 		$this->fs->save_file(__DIR__.'/testData/standard/px-files/sitemaps/create_new_sitemap_4.csv', $this->fs->mk_csv($tmp_sitemap));
 		$this->assertTrue( is_file(__DIR__.'/testData/standard/px-files/sitemaps/create_new_sitemap_4.csv') );
 
+		// キャッシュを削除
+		$output = $this->px2query->query( [__DIR__.'/testData/standard/.px_execute.php', '/?PX=clearcache' ] );
 
 		// --------------------------------------
 		// ページ "Test Page C-A" のパスとパンくずを変更する
-		$output = $this->px2query->query( [
-			__DIR__.'/testData/standard/.px_execute.php',
-			'/?PX=clearcache'
-		] );
 		$page_info = array(
 			'page_info' => array(
 				'path'=>'/changed_new_path/a/',
