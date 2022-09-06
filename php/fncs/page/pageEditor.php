@@ -346,10 +346,26 @@ class pageEditor{
 		// --------------------------------------
 		// 影響下にある子ページを抽出
 		$impact_children = array();
+		$logical_path_depth_before = 0;
+		$logical_path_array_before = array();
+		$logical_path_depth_after = 0;
+		$logical_path_array_after = array();
 		if( $is_impact_to_children ){
 			$current_path = $csv['csv_rows'][$row][$sitemap_definition_flip['path']];
 			$current_page_info = $this->px->site()->get_page_info($current_path);
 			$impact_children = $this->sitemapUtils->get_under_children_row( $current_page_info['path'] );
+
+			if( strlen(trim($current_page_info['logical_path'])) ){
+				$logical_path_array_before = preg_split('/\s*\>\s*/', $current_page_info['logical_path']);
+			}
+			array_push( $logical_path_array_before, $current_page_info['path'] );
+			$logical_path_depth_before = count($logical_path_array_before);
+
+			if( isset($tmp_diff_logical_path['after']) && is_string($tmp_diff_logical_path['after']) && strlen($tmp_diff_logical_path['after']) ){
+				$logical_path_array_after = preg_split('/\s*\>\s*/', $tmp_diff_logical_path['after']);
+			}
+			array_push( $logical_path_array_after, $tmp_diff_path['after'] );
+			$logical_path_depth_after = count($logical_path_array_after);
 		}
 
 
@@ -368,7 +384,14 @@ class pageEditor{
 		// 子ページへの影響を反映
 		if( $is_impact_to_children && count($impact_children) ){
 			foreach($impact_children as $row_info){
-				// TODO: パンくず情報を修正
+
+				$logical_path_array = preg_split('/\s*\>\s*/', $row_info['logical_path']);
+
+				array_splice($logical_path_array, 0, $logical_path_depth_before, $logical_path_array_after);
+
+				$new_logical_path = implode('>', $logical_path_array);
+
+				$this->sitemapUtils->csv_update_row($row_info['basename'], $row_info['row'], array('logical_path'=>$new_logical_path));
 			}
 		}
 
