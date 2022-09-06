@@ -372,6 +372,67 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 	} // testPageUpdatePageInfoRaw()
 
 	/**
+	 * PX=px2dthelper.page.update_page_info_raw のテスト - パンくずの変化をともなう変更
+	 */
+	public function testPageUpdatePageInfoRaw_ChangeLogicalPath(){
+
+		// 事前準備
+		$tmp_sitemap = array(
+			array('* path', '* id', '* content', '* title', '* logical_path', ),
+			array('/add_page_test/index.html', '', '', 'Test Page 1', '', ),
+			array('/add_page_test/a/', '', '', 'Test Page C-A (before change)', '/add_page_test/', ),
+			array('/add_page_test/a/a/', '', '', 'Test Page C-A-A', '/add_page_test/>/add_page_test/a/', ),
+			array('/add_page_test/a/b/', '', '', 'Test Page C-A-B', '/add_page_test/>/add_page_test/a/', ),
+			array('/add_page_test/a/c/', 'add_page_test_a_c', '', 'Test Page C-A-C', '/add_page_test/>/add_page_test/a/', ),
+			array('/add_page_test/a/c/a/', '', '', 'Test Page C-A-C-A', '/add_page_test/>/add_page_test/a/>/add_page_test/a/c/', ),
+			array('/add_page_test/a/c/b/', '', '', 'Test Page C-A-C-B', '/add_page_test/>/add_page_test/a/>add_page_test_a_c', ),
+			array('/add_page_test/a/c/c/', '', '', 'Test Page C-A-C-C', '/add_page_test/index.html>/add_page_test/a/index.html>/add_page_test/a/c/index.html', ),
+			array('/add_page_test/b/', '', '', 'Test Page C-B', '/add_page_test/index.html', ),
+			array('/add_page_test/c/', '', '', 'Test Page C-C', '/add_page_test/', ),
+			array('/update_page_test/index.html', '', '', 'Test Page 2', '', ),
+		);
+		$this->fs->save_file(__DIR__.'/testData/standard/px-files/sitemaps/create_new_sitemap_3.csv', $this->fs->mk_csv($tmp_sitemap));
+		$this->assertTrue( is_file(__DIR__.'/testData/standard/px-files/sitemaps/create_new_sitemap_3.csv') );
+
+		$tmp_sitemap = array(
+			array('* path', '* id', '* content', '* title', '* logical_path', ),
+			array('/add_page_test/a/c/d/', '', '', 'Test Page C-A-C-D', '/add_page_test/>/add_page_test/a/>/add_page_test/a/c/', ),
+			array('/add_page_test/a/c/e/', '', '', 'Test Page C-A-C-E', '/add_page_test/>/add_page_test/a/>/add_page_test/a/c/', ),
+		);
+		$this->fs->save_file(__DIR__.'/testData/standard/px-files/sitemaps/create_new_sitemap_4.csv', $this->fs->mk_csv($tmp_sitemap));
+		$this->assertTrue( is_file(__DIR__.'/testData/standard/px-files/sitemaps/create_new_sitemap_4.csv') );
+
+
+		// --------------------------------------
+		// ページ "Test Page C-A" のパスとパンくずを変更する
+		$output = $this->px2query->query( [
+			__DIR__.'/testData/standard/.px_execute.php',
+			'/?PX=clearcache'
+		] );
+		$page_info = array(
+			'page_info' => array(
+				'path'=>'/changed_new_path/a/',
+				'title'=>'*** Test Page C-A (changed)',
+				'logical_path'=>'/update_page_test/',
+			),
+		);
+		$output = $this->px2query->query( [
+			__DIR__.'/testData/standard/.px_execute.php',
+			'/?PX=px2dthelper.page.update_page_info_raw&filefullname=create_new_sitemap_3.csv&row=2&'.http_build_query($page_info)
+		] );
+		clearstatcache();
+		$json = json_decode( $output );
+		$this->assertTrue( is_object($json) );
+		$this->assertTrue( $json->result );
+
+
+		// TODO: 下層ページのパンくずが、あわせて変更されていることを確認する。
+		// ・・・・・・
+
+
+	} // testPageUpdatePageInfoRaw_ChangeLogicalPath()
+
+	/**
 	 * PX=px2dthelper.page.delete_page_info_raw のテスト
 	 */
 	public function testPageDeletePageInfoRaw(){
@@ -431,6 +492,20 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 		] );
 		$this->assertFalse( $this->fs->is_file( __DIR__.'/testData/standard/px-files/sitemaps/create_new_sitemap_2.csv' ) );
 		$this->assertFalse( $this->fs->is_file( __DIR__.'/testData/standard/px-files/sitemaps/create_new_sitemap_2.xlsx' ) );
+
+		$output = $this->px2query->query( [
+			__DIR__.'/testData/standard/.px_execute.php',
+			'/?PX=px2dthelper.sitemap.delete&filename=create_new_sitemap_3'
+		] );
+		$this->assertFalse( $this->fs->is_file( __DIR__.'/testData/standard/px-files/sitemaps/create_new_sitemap_3.csv' ) );
+		$this->assertFalse( $this->fs->is_file( __DIR__.'/testData/standard/px-files/sitemaps/create_new_sitemap_3.xlsx' ) );
+
+		$output = $this->px2query->query( [
+			__DIR__.'/testData/standard/.px_execute.php',
+			'/?PX=px2dthelper.sitemap.delete&filename=create_new_sitemap_4'
+		] );
+		$this->assertFalse( $this->fs->is_file( __DIR__.'/testData/standard/px-files/sitemaps/create_new_sitemap_4.csv' ) );
+		$this->assertFalse( $this->fs->is_file( __DIR__.'/testData/standard/px-files/sitemaps/create_new_sitemap_4.xlsx' ) );
 
 		// 後始末
 		$output = $this->px2query->query( [
