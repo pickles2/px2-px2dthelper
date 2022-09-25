@@ -243,4 +243,11 @@ class mainTest extends PHPUnit\Framework\TestCase{
 
 	} // testCheckEditorMode()
 
+	/**
+	 * Utils: get_server_origin()
+	 */
+	public function testUtilsGetServerOrigin(){
+		$http_origin = tomk79\pickles2\px2dthelper\utils::get_server_origin();
+		$this->assertNull( $http_origin );
+	}
 }

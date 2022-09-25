@@ -75,13 +75,16 @@ return function f(event) {
 if(!event.data.scriptUrl){return;}
 <?php
 if( count($enabled_origin) ){
-	print 'if(';
 	$tmp_origin = array();
 	foreach($enabled_origin as $origin){
+		if( !is_string($origin) || !strlen($origin) ){ continue; }
 		array_push( $tmp_origin, 'event.origin!=\''.$origin.'\'' );
 	}
-	print implode(' && ', $tmp_origin);
-	print '){ console.error(\'Unauthorized access.\');return;}';
+	if( count($tmp_origin) ){
+		print 'if(';
+		print implode(' && ', $tmp_origin);
+		print '){ console.error(\'Unauthorized access.\');return;}';
+	}
 }
 ?>
 
