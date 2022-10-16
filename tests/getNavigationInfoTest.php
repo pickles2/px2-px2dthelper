@@ -11,7 +11,8 @@ class getNavigationInfo extends PHPUnit\Framework\TestCase{
 	public function setup() : void{
 		set_time_limit(60);
 		$this->fs = new \tomk79\filesystem();
-		require_once(__DIR__.'/../php/simple_html_dom.php');
+		require_once(__DIR__.'/testHelper/pickles2query.php');
+		$this->px2query = new testHelper_pickles2query();
 	}
 
 	/**
@@ -20,7 +21,7 @@ class getNavigationInfo extends PHPUnit\Framework\TestCase{
 	public function testNavigationInfo(){
 
 		// トップページ取得
-		$output_toppage = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.get.navigation_info' ] );
+		$output_toppage = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.get.navigation_info' ] );
 		// var_dump($output_toppage);
 		$json_toppage = json_decode( $output_toppage );
 		// var_dump($json_toppage);
@@ -44,7 +45,7 @@ class getNavigationInfo extends PHPUnit\Framework\TestCase{
 
 
 		// 下層ページ取得
-		$output_test1_load = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/test1_load.html?PX=px2dthelper.get.navigation_info' ] );
+		$output_test1_load = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/test1_load.html?PX=px2dthelper.get.navigation_info' ] );
 		// var_dump($output_test1_load);
 		$json_test1_load = json_decode( $output_test1_load );
 		// var_dump($json_test1_load);
@@ -59,7 +60,7 @@ class getNavigationInfo extends PHPUnit\Framework\TestCase{
 
 
 		// 下層ページ取得(filter: false)
-		$output_test1_load = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/test1_load.html?PX=px2dthelper.get.navigation_info&filter=false' ] );
+		$output_test1_load = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/test1_load.html?PX=px2dthelper.get.navigation_info&filter=false' ] );
 		// var_dump($output_test1_load);
 		$json_test1_load = json_decode( $output_test1_load );
 		// var_dump($json_test1_load);
@@ -74,8 +75,7 @@ class getNavigationInfo extends PHPUnit\Framework\TestCase{
 
 
 		// 後始末
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=clearcache' ,
 		] );
@@ -88,7 +88,7 @@ class getNavigationInfo extends PHPUnit\Framework\TestCase{
 	public function testNavigationInfoBeforeSitemap(){
 
 		// Pickles 2 実行
-		$output = $this->passthru( ['php', __DIR__.'/testData/before_sitemap/.px_execute.php', '/?PX=px2dthelper.get.navigation_info' ] );
+		$output = $this->px2query->query( [ __DIR__.'/testData/before_sitemap/.px_execute.php', '/?PX=px2dthelper.get.navigation_info' ] );
 		// var_dump($output);
 		$json = json_decode( $output );
 		// var_dump($json);
@@ -96,32 +96,11 @@ class getNavigationInfo extends PHPUnit\Framework\TestCase{
 
 
 		// 後始末
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/before_sitemap/.px_execute.php' ,
 			'/?PX=clearcache' ,
 		] );
 
-	}//testNavigationInfoBeforeSitemap()
-
-
-
-	/**
-	 * コマンドを実行し、標準出力値を返す
-	 * @param array $ary_command コマンドのパラメータを要素として持つ配列
-	 * @return string コマンドの標準出力値
-	 */
-	private function passthru( $ary_command ){
-		$cmd = array();
-		foreach( $ary_command as $row ){
-			$param = '"'.addslashes($row).'"';
-			array_push( $cmd, $param );
-		}
-		$cmd = implode( ' ', $cmd );
-		ob_start();
-		passthru( $cmd );
-		$bin = ob_get_clean();
-		return $bin;
-	}// passthru()
+	} // testNavigationInfoBeforeSitemap()
 
 }

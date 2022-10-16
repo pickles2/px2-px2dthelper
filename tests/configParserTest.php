@@ -11,7 +11,8 @@ class configParserTest extends PHPUnit\Framework\TestCase{
 	public function setup() : void{
 		set_time_limit(60);
 		$this->fs = new \tomk79\filesystem();
-		require_once(__DIR__.'/../php/simple_html_dom.php');
+		require_once(__DIR__.'/testHelper/pickles2query.php');
+		$this->px2query = new testHelper_pickles2query();
 	}
 
 	/**
@@ -21,7 +22,7 @@ class configParserTest extends PHPUnit\Framework\TestCase{
 
 		// ---------------------------
 		// 設定値を取得
-		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.config.parse' ] );
+		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.config.parse' ] );
 		// var_dump($output);
 		$json = json_decode( $output );
 		// var_dump($json);
@@ -43,7 +44,7 @@ class configParserTest extends PHPUnit\Framework\TestCase{
 				'theme_id' => 'update_test',
 			),
 		));
-		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.config.update&base64_json='.urlencode(base64_encode($json)) ] );
+		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.config.update&base64_json='.urlencode(base64_encode($json)) ] );
 		// var_dump($output);
 		$json = json_decode( $output );
 		// var_dump($json);
@@ -66,7 +67,7 @@ class configParserTest extends PHPUnit\Framework\TestCase{
 				'theme_id' => 'pickles',
 			),
 		));
-		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.config.update&base64_json='.urlencode(base64_encode($json)) ] );
+		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.config.update&base64_json='.urlencode(base64_encode($json)) ] );
 		// var_dump($output);
 		$json = json_decode( $output );
 		// var_dump($json);
@@ -80,7 +81,7 @@ class configParserTest extends PHPUnit\Framework\TestCase{
 
 		// ---------------------------
 		// 設定値を再び取得
-		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.config.parse' ] );
+		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.config.parse' ] );
 		// var_dump($output);
 		$json = json_decode( $output );
 		// var_dump($json);
@@ -93,33 +94,11 @@ class configParserTest extends PHPUnit\Framework\TestCase{
 
 
 		// 後始末
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=clearcache' ,
 		] );
 
-	}//testConfigParser()
-
-
-
-
-	/**
-	 * コマンドを実行し、標準出力値を返す
-	 * @param array $ary_command コマンドのパラメータを要素として持つ配列
-	 * @return string コマンドの標準出力値
-	 */
-	private function passthru( $ary_command ){
-		$cmd = array();
-		foreach( $ary_command as $row ){
-			$param = '"'.addslashes($row).'"';
-			array_push( $cmd, $param );
-		}
-		$cmd = implode( ' ', $cmd );
-		ob_start();
-		passthru( $cmd );
-		$bin = ob_get_clean();
-		return $bin;
-	}// passthru()
+	} // testConfigParser()
 
 }

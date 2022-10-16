@@ -1510,8 +1510,10 @@ class simple_html_dom
                 $node->attr[$name] = $this->restore_noise($this->copy_until($this->token_attr));
         }
         // PaperG: Attributes should not have \r or \n in them, that counts as html whitespace.
-        $node->attr[$name] = str_replace("\r", "", $node->attr[$name]);
-        $node->attr[$name] = str_replace("\n", "", $node->attr[$name]);
+        //     NOTE: 2 lines below were commented out. (by @tomk79)
+        // $node->attr[$name] = str_replace("\r", "", $node->attr[$name]);
+        // $node->attr[$name] = str_replace("\n", "", $node->attr[$name]);
+
         // PaperG: If this is a "class" selector, lets get rid of the preceeding and trailing space since some people leave it in the multi class case.
         if ($name == "class") {
             $node->attr[$name] = trim($node->attr[$name]);

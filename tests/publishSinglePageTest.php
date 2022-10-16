@@ -14,8 +14,10 @@ class publishSinglePageTest extends PHPUnit\Framework\TestCase{
 	public function setup() : void{
 		set_time_limit(60);
 		$this->fs = new \tomk79\filesystem();
+		require_once(__DIR__.'/testHelper/pickles2query.php');
+		$this->px2query = new testHelper_pickles2query();
+
 		$this->path_dist = __DIR__.'/testData/publish/px-files/dist/';
-		require_once(__DIR__.'/../php/simple_html_dom.php');
 	}
 
 	/**
@@ -27,8 +29,7 @@ class publishSinglePageTest extends PHPUnit\Framework\TestCase{
 		$this->assertFalse( $this->fs->is_file( $this->path_dist.'index.html' ) );
 
 		// publish /index.html
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/publish/.px_execute.php',
 			'/?PX=px2dthelper.publish_single_page'
 		] );
@@ -39,8 +40,7 @@ class publishSinglePageTest extends PHPUnit\Framework\TestCase{
 		$this->assertFalse( $this->fs->is_dir( $this->path_dist.'sub_dir_1/index_files/' ) );
 
 		// publish /sub_dir_1/1-1.html
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/publish/.px_execute.php',
 			'/sub_dir_1/1-1.html?PX=px2dthelper.publish_single_page'
 		] );
@@ -56,8 +56,7 @@ class publishSinglePageTest extends PHPUnit\Framework\TestCase{
 
 
 		// 後始末
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/publish/.px_execute.php' ,
 			'/?PX=clearcache' ,
 		] );
@@ -76,23 +75,5 @@ class publishSinglePageTest extends PHPUnit\Framework\TestCase{
 		$this->fs->mkdir($this->path_dist);
 		return true;
 	}// clear_dist_dir()
-
-	/**
-	 * コマンドを実行し、標準出力値を返す
-	 * @param array $ary_command コマンドのパラメータを要素として持つ配列
-	 * @return string コマンドの標準出力値
-	 */
-	private function passthru( $ary_command ){
-		$cmd = array();
-		foreach( $ary_command as $row ){
-			$param = '"'.addslashes($row).'"';
-			array_push( $cmd, $param );
-		}
-		$cmd = implode( ' ', $cmd );
-		ob_start();
-		passthru( $cmd );
-		$bin = ob_get_clean();
-		return $bin;
-	}// passthru()
 
 }

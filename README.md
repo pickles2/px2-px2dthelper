@@ -300,7 +300,7 @@ $base64_json = base64_encode( json_encode( array(
 		'name' => 'New Site Name',
 	),
 
-	// config の物理構造に合致しない設定項目は、`symbols` の中に分類されます。
+	// config の構造に合致しない設定項目は、`symbols` の中に分類されます。
 	'symbols' => array(
 		'theme_id' => 'new_theme_id', 
 	),
@@ -401,8 +401,60 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 `$conf->plugins->px2dt->customConsoleExtensions` に登録された拡張機能へアクセスするAPIを提供します。
 第3引数の `XXXX` には、 Custom Console Extensions に登録したID(添字)を指定します。省略時には、登録されている拡張機能の一覧を返します。
 
+#### PX=px2dthelper.get.path_theme_collection_dir
+
+#### PX=px2dthelper.page.add_page_info_raw
+
+#### PX=px2dthelper.page.get_page_info_raw
+
+#### PX=px2dthelper.page.update_page_info_raw
+
+#### PX=px2dthelper.page.move_page_info_raw
+
+#### PX=px2dthelper.page.delete_page_info_raw
+
+#### PX=px2dthelper.content.delete
+
+#### PX=px2dthelper.sitemap.filelist
+
+#### PX=px2dthelper.sitemap.download
+
+#### PX=px2dthelper.sitemap.upload
+
+#### PX=px2dthelper.sitemap.csv2xlsx
+
+#### PX=px2dthelper.sitemap.xlsx2csv
+
 
 ## 更新履歴 - Change log
+
+### pickles2/px2-px2dthelper v2.1.5 (リリース日未定)
+
+- `PX=px2dthelper.page.move_page_info_raw` を追加。
+- `PX=px2dthelper.content.move` を追加。
+- `PX=px2dthelper.page.add_page_info_raw` のバリデーションを改善。
+- `PX=px2dthelper.page.update_page_info_raw` で、`path`、`content`、`logical_path` が変更された場合、影響範囲へ反映するようになった。
+- `tomk79\pickles2\px2dthelper\utils::get_server_origin()` を追加。
+- 内部コードの修正など。
+
+### pickles2/px2-px2dthelper v2.1.4 (2022年7月20日)
+
+- `module.js` の安定性に関する修正。
+- 内部コードの修正、ファイルの整理など。
+
+### pickles2/px2-px2dthelper v2.1.3 (2022年6月5日)
+
+- サイトマップ変換に関する不具合の修正。
+
+### pickles2/px2-px2dthelper v2.1.2 (2022年5月6日)
+
+- `PX=px2dthelper.sitemap.upload` が、ファイルの保存に失敗する場合がある不具合を修正。
+- `PX=px2dthelper.page.add_page_info_raw` を追加。
+- `PX=px2dthelper.page.get_page_info_raw` を追加。
+- `PX=px2dthelper.page.update_page_info_raw` を追加。
+- `PX=px2dthelper.page.delete_page_info_raw` を追加。
+- `PX=px2dthelper.content.delete` を追加。
+- その他いくつかの細かい修正。
 
 ### pickles2/px2-px2dthelper v2.1.1 (2022年5月2日)
 

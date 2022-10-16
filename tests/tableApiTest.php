@@ -11,7 +11,10 @@ class tableApiTest extends PHPUnit\Framework\TestCase{
 	public function setup() : void{
 		set_time_limit(60);
 		$this->fs = new \tomk79\filesystem();
-		require_once(__DIR__.'/../php/simple_html_dom.php');
+		require_once(__DIR__.'/testHelper/pickles2query.php');
+		$this->px2query = new testHelper_pickles2query();
+
+		require_once(__DIR__.'/testHelper/simple_html_dom.php');
 	}
 
 	/**
@@ -20,12 +23,12 @@ class tableApiTest extends PHPUnit\Framework\TestCase{
 	public function testTableApi(){
 
 		// Excelをtableに変換させる
-		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.convert_table_excel2html&path='.urlencode(__DIR__.'/testData/xlsx/default.xlsx') ] );
+		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.convert_table_excel2html&path='.urlencode(__DIR__.'/testData/xlsx/default.xlsx') ] );
 		$output = json_decode($output);
 		// var_dump($output);
 		$this->assertEquals( gettype(''), gettype($output) );
 
-		$html = \tomk79\pickles2\px2dthelper\str_get_html(
+		$html = str_get_html(
 			$output ,
 			true, // $lowercase
 			true, // $forceTagsClosed
@@ -44,40 +47,18 @@ class tableApiTest extends PHPUnit\Framework\TestCase{
 
 		// Excelをtableに変換させる
 		// 存在しないファイルパスを渡したら、falseが返る。
-		$output = $this->passthru( ['php', __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.convert_table_excel2html&path=' ] );
+		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.convert_table_excel2html&path=' ] );
 		// var_dump($output);
 		$output = json_decode($output);
 		$this->assertFalse( $output );
 
 
 		// 後始末
-		$output = $this->passthru( [
-			'php',
+		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=clearcache' ,
 		] );
 
 	} // testTableApi()
-
-
-
-
-	/**
-	 * コマンドを実行し、標準出力値を返す
-	 * @param array $ary_command コマンドのパラメータを要素として持つ配列
-	 * @return string コマンドの標準出力値
-	 */
-	private function passthru( $ary_command ){
-		$cmd = array();
-		foreach( $ary_command as $row ){
-			$param = '"'.addslashes($row).'"';
-			array_push( $cmd, $param );
-		}
-		$cmd = implode( ' ', $cmd );
-		ob_start();
-		passthru( $cmd );
-		$bin = ob_get_clean();
-		return $bin;
-	}// passthru()
 
 }
