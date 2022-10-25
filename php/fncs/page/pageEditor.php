@@ -278,7 +278,7 @@ class pageEditor{
 
 
 		$sitemap_definition = $this->sitemapUtils->parse_sitemap_definition( $csv['csv_rows'] );
-		$sitemap_definition_flip = array_flip($sitemap_definition);
+		$sitemap_definition_flip = array_flip($sitemap_definition); // 配列のキーと値を反転する
 
 
 		// --------------------------------------

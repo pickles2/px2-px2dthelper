@@ -138,13 +138,15 @@ class sitemapUtils{
 		$sitemap_definition = $this->parse_sitemap_definition( $csv['csv_rows'] );
 		$sitemap_definition_flip = array_flip($sitemap_definition);
 
-		$sitemap_row = array();
+		$sitemap_row = $csv['csv_rows'][$row_index];
 		foreach( $sitemap_definition as $definition_col ){
-			$row_col_value = '';
-			if( isset($row_assoc[$definition_col]) ){
-				$row_col_value = $row_assoc[$definition_col];
+			$colidx = $sitemap_definition_flip[$definition_col];
+			if( !isset($sitemap_row[$colidx]) ){
+				$sitemap_row[$colidx] = '';
 			}
-			array_push($sitemap_row, $row_col_value);
+			if( isset($row_assoc[$definition_col]) ){
+				$sitemap_row[$colidx] = $row_assoc[$definition_col];
+			}
 		}
 		$csv['csv_rows'][$row_index] = $sitemap_row;
 
