@@ -455,10 +455,37 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 	 */
 	public function testPageDeletePageInfoRaw(){
 
+		// 子ページを作成
+		$output = $this->px2query->query( [
+			__DIR__.'/testData/standard/.px_execute.php',
+			'/?PX=px2dthelper.page.update_page_info_raw&filefullname=create_new_sitemap.csv&row=2&'.http_build_query(array(
+				'page_info' => array(
+					'path'=>'/added_page_sample/sitemap/2.html',
+					'title'=>'Sitemap 1 - Page Title 2',
+					'description'=>'description - Sitemap 1 - 2',
+					'logical_path'=>'/added_page_sample/2.html',
+				),
+			))
+		] );
+		// 孫ページを作成
+		$output = $this->px2query->query( [
+			__DIR__.'/testData/standard/.px_execute.php',
+			'/?PX=px2dthelper.page.update_page_info_raw&filefullname=create_new_sitemap.csv&row=3&'.http_build_query(array(
+				'page_info' => array(
+					'path'=>'/added_page_sample/sitemap/3.html',
+					'title'=>'Sitemap 1 - Page Title 3',
+					'description'=>'description - Sitemap 1 - 3',
+					'logical_path'=>'/added_page_sample/2.html>/added_page_sample/sitemap/2.html',
+				),
+			))
+		] );
+
 		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php',
 			'/?PX=clearcache'
 		] );
+
+		// ページを削除する
 		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php',
 			'/?PX=px2dthelper.page.delete_page_info_raw&filefullname=create_new_sitemap.csv&row=1'
@@ -467,6 +494,33 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 		$json = json_decode( $output );
 		$this->assertTrue( is_object($json) );
 		$this->assertTrue( $json->result );
+
+
+		// 子ページ
+		// 削除後に、次のページが詰まって 1 になる。
+		// パンくずが1つ上の階層に繰り上がる。
+		$output = $this->px2query->query( [
+			__DIR__.'/testData/standard/.px_execute.php',
+			'/?PX=px2dthelper.page.get_page_info_raw&filefullname=create_new_sitemap.csv&row=1'
+		] );
+		clearstatcache();
+		$json = json_decode( $output );
+		$this->assertTrue( is_object($json) );
+		$this->assertTrue( $json->result );
+		$this->assertSame( $json->page_info[8], "" );
+
+		// 孫ページ
+		// その次のページ 2。
+		// パンくずが1つ上の階層に繰り上がる。
+		$output = $this->px2query->query( [
+			__DIR__.'/testData/standard/.px_execute.php',
+			'/?PX=px2dthelper.page.get_page_info_raw&filefullname=create_new_sitemap.csv&row=2'
+		] );
+		clearstatcache();
+		$json = json_decode( $output );
+		$this->assertTrue( is_object($json) );
+		$this->assertTrue( $json->result );
+		$this->assertSame( $json->page_info[8], "/added_page_sample/sitemap/2.html" );
 
 		// --------------------------------------
 		// 存在しない行を削除する (エラー)
