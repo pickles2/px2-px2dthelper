@@ -428,11 +428,15 @@ class pageEditor{
 			'message'=>'OK',
 		);
 
-		if( !$this->sitemapUtils->csv_open($filefullname) ){
+		// --------------------------------------
+		// サイトマップCSVを開く
+		$csv = &$this->sitemapUtils->csv_open($filefullname);
+		if( !$csv ){
 			$this->sitemapUtils->unlock();
 			return array(
 				'result' => false,
 				'message' => 'Failed to load sitemap file.',
+				'errors' => null,
 			);
 		}
 
@@ -441,9 +445,50 @@ class pageEditor{
 			return array(
 				'result'=>false,
 				'message'=>'Invalid row number.',
+				'errors' => null,
 			);
 		}
 
+		$sitemap_definition = $this->sitemapUtils->parse_sitemap_definition( $csv['csv_rows'] );
+		$sitemap_definition_flip = array_flip($sitemap_definition); // 配列のキーと値を反転する
+
+
+		// --------------------------------------
+		// 影響下にある子ページを抽出
+		$impact_children = array();
+		$logical_path_depth_before = 0;
+		$logical_path_array_before = array();
+
+		$current_path = $csv['csv_rows'][$row][$sitemap_definition_flip['path']];
+		$current_page_info = $this->px->site()->get_page_info($current_path);
+		$impact_children = $this->sitemapUtils->get_under_children_row( $current_page_info['path'] );
+
+		if( isset($current_page_info['logical_path']) && strlen($current_page_info['logical_path']) ){
+			$logical_path_array_before = preg_split('/\s*\>\s*/', $current_page_info['logical_path']);
+		}
+		$logical_path_depth_before = count($logical_path_array_before);
+
+
+
+		// --------------------------------------
+		// 子ページへの影響を反映
+		// ターゲットページが削除されると行番号が変わるので、
+		// 削除より前に実行されている必要がある
+		if( count($impact_children) ){
+			foreach($impact_children as $row_info){
+
+				$logical_path_array = preg_split('/\s*\>\s*/', $row_info['logical_path']);
+
+				array_splice($logical_path_array, $logical_path_depth_before, 1);
+
+				$new_logical_path = implode('>', $logical_path_array);
+
+				$this->sitemapUtils->csv_update_row($row_info['basename'], $row_info['row'], array('logical_path'=>$new_logical_path));
+			}
+		}
+
+		// --------------------------------------
+		// ターゲットの行を削除
 		if( !$this->sitemapUtils->csv_remove_row($filefullname, $row) ){
 			$this->sitemapUtils->unlock();
 			return array(
@@ -452,6 +497,8 @@ class pageEditor{
 			);
 		}
 
+		// --------------------------------------
+		// 編集後のCSVをすべて保存する
 		$result = $this->sitemapUtils->csv_save_all();
 		if( !$result ){
 			$this->sitemapUtils->unlock();
