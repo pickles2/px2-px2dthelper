@@ -3,7 +3,6 @@
  * px2-px2dthelper
  */
 namespace tomk79\pickles2\px2dthelper\fncs\page;
-use tomk79\pickles2\px2dthelper\fncs\content\contentEditor;
 use tomk79\pickles2\px2dthelper\sitemapUtils;
 
 /**
@@ -282,31 +281,6 @@ class pageEditor{
 
 
 		// --------------------------------------
-		// content の変更を検出
-		$tmp_diff_content = array(
-			'before' => null,
-			'after' => null,
-		);
-		if( isset($sitemap_definition_flip['content']) && isset($csv['csv_rows'][$row][$sitemap_definition_flip['content']]) && strlen($csv['csv_rows'][$row][$sitemap_definition_flip['content']]) ){
-			$tmp_diff_content['before'] = $csv['csv_rows'][$row][$sitemap_definition_flip['content']];
-		}elseif( isset($sitemap_definition_flip['path']) && isset($csv['csv_rows'][$row][$sitemap_definition_flip['path']]) ){
-			$tmp_diff_content['before'] = $csv['csv_rows'][$row][$sitemap_definition_flip['path']];
-		}
-		if( isset($page_info['content']) ){
-			$tmp_diff_content['after'] = $page_info['content'];
-		}elseif( isset($page_info['path']) ){
-			$tmp_diff_content['after'] = $page_info['path'];
-		}
-		if( is_string($tmp_diff_content['before']) && is_string($tmp_diff_content['after']) && $tmp_diff_content['before'] !== $tmp_diff_content['after'] ){
-
-			// もともとアサインされていたコンテンツファイルの移動
-			$contentEditor = new contentEditor($this->px2dthelper, $this->px);
-			$result = $contentEditor->move( $tmp_diff_content['before'], $tmp_diff_content['after'] );
-
-		}
-
-
-		// --------------------------------------
 		// path の変更を検出
 		$tmp_diff_path = array(
 			'before' => null,
@@ -319,9 +293,6 @@ class pageEditor{
 			$tmp_diff_path['after'] = $page_info['path'];
 		}
 		if( is_string($tmp_diff_path['before']) && is_string($tmp_diff_path['after']) && $tmp_diff_path['before'] !== $tmp_diff_path['after'] ){
-			// TODO: path の変更にあたり影響範囲にも変更を反映する処理を追加する。
-			// - 他の記事に含まれるこのページへのリンクの張り替え
-
 			$is_impact_to_children = true;
 		}
 
