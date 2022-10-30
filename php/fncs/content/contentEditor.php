@@ -92,8 +92,18 @@ class contentEditor{
 		$pathFiles = $this->px2dthelper->path_files( $path );
 		$procType = $this->px->get_path_proc_type( $path );
 
-		$resMain = $this->px->fs()->rm( $contRoot.''.$pathContent );
-		$resFiles = $this->px->fs()->rm( $contRoot.''.$pathFiles );
+
+		$existsMain = $this->px->fs()->is_file( $contRoot.''.$pathContent );
+		$existsFiles = $this->px->fs()->is_dir( $contRoot.''.$pathFiles );
+		if( !$existsMain && !$existsFiles ){
+			return array(
+				'result' => true,
+				'message' => 'Contents not exists.',
+			);
+		}
+
+		$resMain = ($existsMain ? $this->px->fs()->rm( $contRoot.''.$pathContent ) : true);
+		$resFiles = ($existsFiles ? $this->px->fs()->rm( $contRoot.''.$pathFiles ) : true);
 		if( !$resMain || !$resFiles ){
 			return array(
 				'result' => false,
