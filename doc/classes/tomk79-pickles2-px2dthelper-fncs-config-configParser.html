@@ -102,11 +102,13 @@
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/tomk79.html">tomk79</a></li>
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/tomk79-pickles2.html">pickles2</a></li>
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/tomk79-pickles2-px2dthelper.html">px2dthelper</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/tomk79-pickles2-px2dthelper-fncs.html">fncs</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/tomk79-pickles2-px2dthelper-fncs-config.html">config</a></li>
     </ul>
 
     <article class="phpdocumentor-element -class">
         <h2 class="phpdocumentor-content__title">
-    plugins
+    configParser
 
     
             <div class="phpdocumentor-element__package">
@@ -120,13 +122,13 @@
     </h2>
 
         <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/plugins.php"><a href="files/php-fncs-plugins.html"><abbr title="php/fncs/plugins.php">plugins.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/config/configParser.php"><a href="files/php-fncs-config-configparser.html"><abbr title="php/fncs/config/configParser.php">configParser.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">10</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">plugins.php</p>
+            <p class="phpdocumentor-summary">fncs/config/configParser.php</p>
 
 
 
@@ -143,39 +145,60 @@
 
 <dl class="phpdocumentor-table-of-contents">
                     <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/tomk79-pickles2-px2dthelper-plugins.html#property_main">$main</a>
-    <span>
-                        &nbsp;: mixed            </span>
-</dt>
-<dd>px2dthelper main</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/tomk79-pickles2-px2dthelper-plugins.html#property_px">$px</a>
+    <a href="classes/tomk79-pickles2-px2dthelper-fncs-config-configParser.html#property_px">$px</a>
     <span>
                         &nbsp;: mixed            </span>
 </dt>
 <dd>Picklesオブジェクト</dd>
 
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/tomk79-pickles2-px2dthelper-fncs-config-configParser.html#property_px2dthelper">$px2dthelper</a>
+    <span>
+                        &nbsp;: mixed            </span>
+</dt>
+<dd>px2dthelperオブジェクト</dd>
+
                 <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/tomk79-pickles2-px2dthelper-plugins.html#method___construct">__construct()</a>
+    <a href="classes/tomk79-pickles2-px2dthelper-fncs-config-configParser.html#method___construct">__construct()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
 <dd>constructor</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/tomk79-pickles2-px2dthelper-plugins.html#method_get_plugin_options">get_plugin_options()</a>
+    <a href="classes/tomk79-pickles2-px2dthelper-fncs-config-configParser.html#method_parse">parse()</a>
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
-<dd>プラグインオプションを得る</dd>
+<dd>configファイルを解析する</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/tomk79-pickles2-px2dthelper-fncs-config-configParser.html#method_update">update()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+<dd>configファイルを更新する</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/tomk79-pickles2-px2dthelper-plugins.html#method_get_plugin_list">get_plugin_list()</a>
+    <a href="classes/tomk79-pickles2-px2dthelper-fncs-config-configParser.html#method_generate_config_php_parser_patterns">generate_config_php_parser_patterns()</a>
+    <span>
+                                &nbsp;: mixed    </span>
+</dt>
+<dd>config.php の解析ロジックを生成する</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/tomk79-pickles2-px2dthelper-fncs-config-configParser.html#method_parse_json">parse_json()</a>
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
-<dd>プラグインの一覧を取得する</dd>
+<dd>config.json を解析する</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/tomk79-pickles2-px2dthelper-fncs-config-configParser.html#method_parse_php">parse_php()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+<dd>config.php を解析する</dd>
 
         </dl>
 
@@ -187,42 +210,8 @@
     <section class="phpdocumentor-properties">
         <h3 class="phpdocumentor-elements__header" id="properties">
             Properties
-            <a href="classes/tomk79-pickles2-px2dthelper-plugins.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/tomk79-pickles2-px2dthelper-fncs-config-configParser.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
         </h3>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -private
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="property_main">
-        $main
-        <a href="classes/tomk79-pickles2-px2dthelper-plugins.html#property_main" class="headerlink"><i class="fas fa-link"></i></a>
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/plugins.php"><a href="files/php-fncs-plugins.html"><abbr title="php/fncs/plugins.php">plugins.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">20</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">px2dthelper main</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-    <span class="phpdocumentor-signature__name">$main</span>
-    </code>
-
-    
-        <section class="phpdocumentor-description"></section>
-
-    
-
-</article>
                     <article
         class="
             phpdocumentor-element
@@ -232,14 +221,14 @@
 >
     <h4 class="phpdocumentor-element__name" id="property_px">
         $px
-        <a href="classes/tomk79-pickles2-px2dthelper-plugins.html#property_px" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-config-configParser.html#property_px" class="headerlink"><i class="fas fa-link"></i></a>
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/plugins.php"><a href="files/php-fncs-plugins.html"><abbr title="php/fncs/plugins.php">plugins.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/config/configParser.php"><a href="files/php-fncs-config-configparser.html"><abbr title="php/fncs/config/configParser.php">configParser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">15</span>
+    <span class="phpdocumentor-element-found-in__line">13</span>
 
     </aside>
 
@@ -257,12 +246,46 @@
     
 
 </article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_px2dthelper">
+        $px2dthelper
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-config-configParser.html#property_px2dthelper" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/config/configParser.php"><a href="files/php-fncs-config-configparser.html"><abbr title="php/fncs/config/configParser.php">configParser.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">16</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">px2dthelperオブジェクト</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">$px2dthelper</span>
+    </code>
+
+    
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
             </section>
 
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
             Methods
-            <a href="classes/tomk79-pickles2-px2dthelper-plugins.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/tomk79-pickles2-px2dthelper-fncs-config-configParser.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
         </h3>
                     <article
         class="phpdocumentor-element
@@ -272,12 +295,12 @@
 >
     <h4 class="phpdocumentor-element__name" id="method___construct">
         __construct()
-        <a href="classes/tomk79-pickles2-px2dthelper-plugins.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-config-configParser.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/plugins.php"><a href="files/php-fncs-plugins.html"><abbr title="php/fncs/plugins.php">plugins.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/config/configParser.php"><a href="files/php-fncs-config-configparser.html"><abbr title="php/fncs/config/configParser.php">configParser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">28</span>
+    <span class="phpdocumentor-element-found-in__line">24</span>
 
     </aside>
 
@@ -285,26 +308,26 @@
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$px</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$main</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$px2dthelper</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$px</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$px2dthelper</span>
+                : <span class="phpdocumentor-signature__argument__return-type">object</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>$px2dthelperオブジェクト</p>
+</section>
+
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$px</span>
                 : <span class="phpdocumentor-signature__argument__return-type">object</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>$pxオブジェクト</p>
-</section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$main</span>
-                : <span class="phpdocumentor-signature__argument__return-type">object</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>main.php のインスタンス</p>
 </section>
 
             </dd>
@@ -324,41 +347,67 @@
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_get_plugin_options">
-        get_plugin_options()
-        <a href="classes/tomk79-pickles2-px2dthelper-plugins.html#method_get_plugin_options" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_parse">
+        parse()
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-config-configParser.html#method_parse" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/plugins.php"><a href="files/php-fncs-plugins.html"><abbr title="php/fncs/plugins.php">plugins.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/config/configParser.php"><a href="files/php-fncs-config-configparser.html"><abbr title="php/fncs/config/configParser.php">configParser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">39</span>
+    <span class="phpdocumentor-element-found-in__line">34</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">プラグインオプションを得る</p>
+        <p class="phpdocumentor-summary">configファイルを解析する</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">get_plugin_options</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$plugin_name</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$func</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">parse</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>解析結果</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_update">
+        update()
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-config-configParser.html#method_update" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/config/configParser.php"><a href="files/php-fncs-config-configparser.html"><abbr title="php/fncs/config/configParser.php">configParser.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">64</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">configファイルを更新する</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">update</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$set_data</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$plugin_name</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
+                <span class="phpdocumentor-signature__argument__name">$set_data</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Plugins Function Name</p>
-</section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$func</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Function division</p>
+                    <section class="phpdocumentor-description"><p>更新するデータのリスト(連想配列)</p>
 </section>
 
             </dd>
@@ -369,7 +418,7 @@
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
             &mdash;
-            <section class="phpdocumentor-description"><p>Plugin Options</p>
+            <section class="phpdocumentor-description"><p>実行結果</p>
 </section>
 
     
@@ -380,41 +429,74 @@
             -private
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_get_plugin_list">
-        get_plugin_list()
-        <a href="classes/tomk79-pickles2-px2dthelper-plugins.html#method_get_plugin_list" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_generate_config_php_parser_patterns">
+        generate_config_php_parser_patterns()
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-config-configParser.html#method_generate_config_php_parser_patterns" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/plugins.php"><a href="files/php-fncs-plugins.html"><abbr title="php/fncs/plugins.php">plugins.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/config/configParser.php"><a href="files/php-fncs-config-configparser.html"><abbr title="php/fncs/config/configParser.php">configParser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">83</span>
+    <span class="phpdocumentor-element-found-in__line">165</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">プラグインの一覧を取得する</p>
+        <p class="phpdocumentor-summary">config.php の解析ロジックを生成する</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">get_plugin_list</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">object|array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$target</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$parent</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">generate_config_php_parser_patterns</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_parse_json">
+        parse_json()
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-config-configParser.html#method_parse_json" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/config/configParser.php"><a href="files/php-fncs-config-configparser.html"><abbr title="php/fncs/config/configParser.php">configParser.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">104</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">config.json を解析する</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">parse_json</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$path_json</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$set_data</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$target</span>
-                : <span class="phpdocumentor-signature__argument__return-type">object|array&lt;string|int, mixed&gt;</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+                <span class="phpdocumentor-signature__argument__name">$path_json</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>検索対象 (省略時、 <code class="prettyprint">$px-&gt;conf()-&gt;funcs</code> を対象とする)</p>
+                    <section class="phpdocumentor-description"><p><code class="prettyprint">config.json</code> のパス</p>
 </section>
 
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$parent</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                <span class="phpdocumentor-signature__argument__name">$set_data</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>親階層名</p>
+                    <section class="phpdocumentor-description"><p>更新するデータのリスト(連想配列)</p>
 </section>
 
             </dd>
@@ -425,7 +507,63 @@
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
             &mdash;
-            <section class="phpdocumentor-description"><p>プラグインの一覧</p>
+            <section class="phpdocumentor-description"><p>解析結果</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_parse_php">
+        parse_php()
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-config-configParser.html#method_parse_php" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/config/configParser.php"><a href="files/php-fncs-config-configparser.html"><abbr title="php/fncs/config/configParser.php">configParser.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">122</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">config.php を解析する</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">parse_php</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$path_php</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$set_data</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$path_php</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p><code class="prettyprint">config.php</code> のパス</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$set_data</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>更新するデータのリスト(連想配列)</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>解析結果</p>
 </section>
 
     
@@ -508,7 +646,7 @@
 </section>
             </div>
         </div>
-        <a href="classes/tomk79-pickles2-px2dthelper-plugins.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-config-configParser.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
     </main>
 
