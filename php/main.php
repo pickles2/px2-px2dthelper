@@ -348,6 +348,11 @@ class main{
 		}
 
 		foreach( $rtn as $field ){
+			if( is_string($field) ){
+				// $field 情報が、フィールドIDを文字列でエイリアスとして指定されている場合
+				continue;
+			}
+
 			$field->backend->require = $this->px->fs()->normalize_path( $this->px->fs()->get_realpath( './'.$field->backend->require ) );
 
 			if( is_string($field->frontend->file) ){

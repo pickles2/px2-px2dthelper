@@ -436,7 +436,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 - `PX=px2dthelper.page.update_page_info_raw` で、`path`、`content`、`logical_path` が変更された場合、影響範囲へ反映するようになった。
 - `PX=px2dthelper.page.delete_page_info_raw` で、削除対象のページに子ページがある場合に、パンくずを繰り上げるようになった。
 - `tomk79\pickles2\px2dthelper\utils::get_server_origin()` を追加。
-- 内部コードの修正など。
+- 細かい不具合の修正、内部コードの修正など。
 
 ### pickles2/px2-px2dthelper v2.1.4 (2022年7月20日)
 
