@@ -691,9 +691,10 @@ class main{
 
 					case 'list_unassigned_contents':
 						// NOTE: px2-px2dthelper v2.1.5 で追加
+						$listUnassignedContents = new fncs\get\listUnassignedContents( $this, $this->px );
 						$rtn = (object) array();
 						$rtn->result = true;
-						$rtn->unassigned_contents = array();
+						$rtn->unassigned_contents = $listUnassignedContents->get_unassigned_contents();
 						print $std_output->data_convert( $rtn );
 						exit;
 						break;
