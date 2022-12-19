@@ -593,28 +593,34 @@ class main{
 						print $std_output->data_convert( $this->get_path_theme_collection_dir() );
 						exit;
 						break;
+
 					case 'realpath_theme_collection_dir':
 						$request_path = $this->px->req()->get_request_file_path();
 						print $std_output->data_convert( $this->get_realpath_theme_collection_dir() );
 						exit;
 						break;
+
 					case 'realpath_data_dir':
 						print $std_output->data_convert( $this->get_realpath_data_dir() );
 						exit;
 						break;
+
 					case 'path_resource_dir':
 						print $std_output->data_convert( $this->get_path_resource_dir() );
 						exit;
 						break;
+
 					case 'custom_fields':
 						print $std_output->data_convert( $this->get_custom_fields() );
 						exit;
 						break;
+
 					case 'navigation_info':
 						$request_path = $this->px->req()->get_request_file_path();
 						print $std_output->data_convert( $this->get_navigation_info( $request_path, $sitemap_filter_options($this->px, $this->command[2]) ) );
 						exit;
 						break;
+
 					case 'all':
 						$rtn = (object) array();
 						$request_path = $this->px->req()->get_param('path');
@@ -679,6 +685,15 @@ class main{
 						$ccExtMgr = new customConsoleExtensions_pxcmdOperator($this->px, $this);
 						$rtn->custom_console_extensions = $ccExtMgr->get_list();
 
+						print $std_output->data_convert( $rtn );
+						exit;
+						break;
+
+					case 'list_unassigned_contents':
+						// NOTE: px2-px2dthelper v2.1.5 で追加
+						$rtn = (object) array();
+						$rtn->result = true;
+						$rtn->unassigned_contents = array();
 						print $std_output->data_convert( $rtn );
 						exit;
 						break;

@@ -403,6 +403,8 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 #### PX=px2dthelper.get.path_theme_collection_dir
 
+#### PX=px2dthelper.get.list_unassigned_contents
+
 #### PX=px2dthelper.page.add_page_info_raw
 
 #### PX=px2dthelper.page.get_page_info_raw
@@ -435,6 +437,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 - `PX=px2dthelper.page.add_page_info_raw` のバリデーションを改善。
 - `PX=px2dthelper.page.update_page_info_raw` で、`path`、`content`、`logical_path` が変更された場合、影響範囲へ反映するようになった。
 - `PX=px2dthelper.page.delete_page_info_raw` で、削除対象のページに子ページがある場合に、パンくずを繰り上げるようになった。
+- `PX=px2dthelper.get.list_unassigned_contents` を追加。
 - `tomk79\pickles2\px2dthelper\utils::get_server_origin()` を追加。
 - 細かい不具合の修正、内部コードの修正など。
 
