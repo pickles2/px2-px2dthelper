@@ -21,6 +21,9 @@ class listUnassignedContents{
 	/** スキャン対象から除外するパスの一覧 */
 	private $ignored_path_list;
 
+	/** 定義された拡張子の一覧 */
+	private $conf_funcs_processors;
+
 	/**
 	 * constructor
 	 *
@@ -45,7 +48,7 @@ class listUnassignedContents{
 
 		$this->ignored_path_list = array();
 
-		$conf_funcs_processors = array_keys((array) $this->px->conf()->funcs->processor);
+		$this->conf_funcs_processors = array_keys((array) $this->px->conf()->funcs->processor);
 
 		// homedir を除外リストに登録する
 		$realpath_homedir = $this->px->get_realpath_homedir();
@@ -61,7 +64,7 @@ class listUnassignedContents{
 				continue;
 			}
 			$this->ignored_path_list[$page_info['content']] = true;
-			foreach( $conf_funcs_processors as $proc_ext ){
+			foreach( $this->conf_funcs_processors as $proc_ext ){
 				$this->ignored_path_list[$page_info['content'].'.'.$proc_ext] = true;
 			}
 		}
@@ -76,6 +79,7 @@ class listUnassignedContents{
 	private function scan_dir( $local_path = '' ){
 		$rtn = array();
 		$filelist = $this->px->fs()->ls($this->realpath_docroot.$local_path);
+		$imploded_conf_funcs_processors = implode('|', $this->conf_funcs_processors);
 
 		// 先にファイルを処理する
 		// 除外するディレクトリ `*_files` は、ファイル名から評価するため、
@@ -87,6 +91,9 @@ class listUnassignedContents{
 				$this->ignored_path_list[$path_files] = true;
 				if( isset($this->ignored_path_list['/'.$local_path.$basename]) ){
 					// サイトマップに定義済みのコンテンツなので除外
+					continue;
+				}
+				if( !preg_match( '/\.html?$/', $basename ) && !preg_match( "/\.html\.(?:$imploded_conf_funcs_processors)?$/", $basename ) ){
 					continue;
 				}
 				array_push($rtn, '/'.$local_path.$basename);
