@@ -15,11 +15,11 @@ class listUnassignedContents{
 	/** px2dthelperオブジェクト */
 	private $px2dthelper;
 
-	/** サイトマップに登録されたコンテンツファイルのパス */
-	private $content_file_paths_via_sitemap;
-
 	/** docroot のパス */
 	private $realpath_docroot;
+
+	/** スキャン対象から除外するパスの一覧 */
+	private $ignored_path_list;
 
 	/**
 	 * constructor
@@ -31,7 +31,7 @@ class listUnassignedContents{
 		$this->px2dthelper = $px2dthelper;
 		$this->px = $px;
 
-		$this->content_file_paths_via_sitemap = array();
+		$this->ignored_path_list = array();
 		$this->realpath_docroot = $this->px->get_realpath_docroot();
 	}
 
@@ -43,17 +43,30 @@ class listUnassignedContents{
 		$rtn->result = true;
 		$rtn->unassigned_contents = array();
 
-		$this->content_file_paths_via_sitemap = array();
+		$this->ignored_path_list = array();
+
+		$conf_funcs_processors = array_keys((array) $this->px->conf()->funcs->processor);
+
+		// homedir を除外リストに登録する
+		$realpath_homedir = $this->px->get_realpath_homedir();
+		$relatedpath_homedir = $this->px->fs()->normalize_path($this->px->fs()->get_relatedpath($realpath_homedir));
+		if( preg_match('/^\.\//', $relatedpath_homedir) ){
+			$this->ignored_path_list[ preg_replace('/^\.\//', '/', $relatedpath_homedir) ] = true;
+		}
+
+		// サイトマップに登録されているファイルを除外する
 		$sitemap = $this->px->site()->get_sitemap();
 		foreach($sitemap as $page_info){
 			if( !isset($page_info['content']) || !is_string($page_info['content']) ){
 				continue;
 			}
-			$this->content_file_paths_via_sitemap[$page_info['content']] = $page_info;
+			$this->ignored_path_list[$page_info['content']] = true;
+			foreach( $conf_funcs_processors as $proc_ext ){
+				$this->ignored_path_list[$page_info['content'].'.'.$proc_ext] = true;
+			}
 		}
 
 		$filelist = $this->scan_dir();
-
         return $rtn;
     }
 
@@ -63,14 +76,29 @@ class listUnassignedContents{
 	private function scan_dir( $local_path = '' ){
 		$rtn = array();
 		$filelist = $this->px->fs()->ls($this->realpath_docroot.$local_path);
+
+		// 先にファイルを処理する
+		// 除外するディレクトリ `*_files` は、ファイル名から評価するため、
+		// ディレクトリを評価する前にすべてのファイルの評価が完了している必要がある。
 		foreach($filelist as $basename){
+
 			if( is_file($this->realpath_docroot.$local_path.$basename) ){
-				if( isset($this->content_file_paths_via_sitemap['/'.$local_path.$basename]) ){
-					// サイトマップに定義済みのコンテンツなのでスキップ
+				$path_files = $this->px2dthelper->path_files('/'.$local_path.$basename);
+				$this->ignored_path_list[$path_files] = true;
+				if( isset($this->ignored_path_list['/'.$local_path.$basename]) ){
+					// サイトマップに定義済みのコンテンツなので除外
 					continue;
 				}
-				array_push($rtn, $local_path.$basename);
-			}elseif( is_dir($this->realpath_docroot.$local_path.$basename) ){
+				array_push($rtn, '/'.$local_path.$basename);
+			}
+		}
+
+		// 続いて、ディレクトリを処理する
+		foreach($filelist as $basename){
+			if( isset($this->ignored_path_list['/'.$local_path.$basename.'/']) && $this->ignored_path_list['/'.$local_path.$basename.'/'] ){
+				continue;
+			}
+			if( is_dir($this->realpath_docroot.$local_path.$basename) ){
 				$tmp_filelist = $this->scan_dir($local_path.$basename.'/');
 				$rtn = array_merge($rtn, $tmp_filelist);
 			}
