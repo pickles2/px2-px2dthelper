@@ -69,7 +69,7 @@ class listUnassignedContents{
 			}
 		}
 
-		$filelist = $this->scan_dir();
+		$rtn->unassigned_contents = $this->scan_dir();
         return $rtn;
     }
 
