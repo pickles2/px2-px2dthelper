@@ -2,12 +2,12 @@
 /**
  * px2-px2dthelper
  */
-namespace tomk79\pickles2\px2dthelper;
+namespace tomk79\pickles2\px2dthelper\fncs;
 
 /**
  * fncs/search_sitemap.php
  */
-class fncs_search_sitemap{
+class search_sitemap{
 
 	/** Picklesオブジェクト */
 	private $px;

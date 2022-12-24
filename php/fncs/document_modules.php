@@ -2,7 +2,7 @@
 /**
  * px2-px2dthelper
  */
-namespace tomk79\pickles2\px2dthelper;
+namespace tomk79\pickles2\px2dthelper\fncs;
 
 /**
  * document_modules.php

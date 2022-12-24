@@ -2,7 +2,7 @@
 /**
  * px2-px2dthelper
  */
-namespace tomk79\pickles2\px2dthelper;
+namespace tomk79\pickles2\px2dthelper\fncs\customConsoleExtensions;
 
 /**
  * async.php
@@ -12,7 +12,7 @@ namespace tomk79\pickles2\px2dthelper;
  * このため、非同期処理の実際の実行は、呼び出し元アプリが別で呼び出すプロセスに委ねられることになります。
  * このオブジェクトは、命令をファイル等に保存し、呼び出し元へ伝達します。
  */
-class customConsoleExtensions_async{
+class async{
 
 	/**
 	 * Custom Console Extension ID

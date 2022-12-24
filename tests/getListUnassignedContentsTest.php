@@ -26,7 +26,10 @@ class getListUnassignedContentsTest extends PHPUnit\Framework\TestCase{
 		$this->assertTrue( is_object($json) );
 		$this->assertTrue( $json->result );
 		$this->assertTrue( is_array($json->unassigned_contents) );
-		$this->assertSame( count($json->unassigned_contents), 6 );
+		$this->assertSame( count($json->unassigned_contents), 7 );
+		$this->assertTrue( array_search('/copy/from.html', $json->unassigned_contents) !== false );
+		$this->assertTrue( array_search('/editor_modes/md.html.md', $json->unassigned_contents) !== false );
+		$this->assertTrue( array_search('/unassigned/content.html.md', $json->unassigned_contents) !== false );
 
 		// 後始末
 		$output = $this->px2query->query( [

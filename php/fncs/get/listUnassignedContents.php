@@ -3,6 +3,7 @@
  * px2-px2dthelper
  */
 namespace tomk79\pickles2\px2dthelper\fncs\get;
+use tomk79\pickles2\px2dthelper\fncs\packages;
 
 /**
  * fncs/get/listUnassignedContents.php
@@ -52,9 +53,27 @@ class listUnassignedContents{
 
 		// homedir を除外リストに登録する
 		$realpath_homedir = $this->px->get_realpath_homedir();
-		$relatedpath_homedir = $this->px->fs()->normalize_path($this->px->fs()->get_relatedpath($realpath_homedir));
-		if( preg_match('/^\.\//', $relatedpath_homedir) ){
-			$this->ignored_path_list[ preg_replace('/^\.\//', '/', $relatedpath_homedir) ] = true;
+		$this->add_path_to_ignored_path_list($realpath_homedir);
+
+		// パブリッシュ先ディレクトリを除外リストに登録する
+		if( isset($this->px->conf()->path_publish_dir) && is_string($this->px->conf()->path_publish_dir) ){
+			$this->add_path_to_ignored_path_list($this->px->conf()->path_publish_dir);
+		}
+
+		// 公開キャッシュディレクトリを除外リストに登録する
+		if( isset($this->px->conf()->public_cache_dir) && is_string($this->px->conf()->public_cache_dir) ){
+			$this->add_path_to_ignored_path_list($this->px->conf()->public_cache_dir);
+		}
+
+		// vendor, node_modules, を除外リストに登録する
+		$packages = new packages($this->px, $this->px2dthelper);
+		$composer_root = $packages->get_path_composer_root_dir();
+		if( is_string($composer_root) ){
+			$this->add_path_to_ignored_path_list($composer_root.'/vendor/');
+		}
+		$npm_root = $packages->get_path_npm_root_dir();
+		if( is_string($npm_root) ){
+			$this->add_path_to_ignored_path_list($npm_root.'/node_modules/');
 		}
 
 		// サイトマップに登録されているファイルを除外する
@@ -63,15 +82,30 @@ class listUnassignedContents{
 			if( !isset($page_info['content']) || !is_string($page_info['content']) ){
 				continue;
 			}
-			$this->ignored_path_list[$page_info['content']] = true;
+			$relatedpath_content = $this->px->fs()->get_relatedpath($page_info['content'], '/');
+			$this->add_path_to_ignored_path_list($relatedpath_content);
 			foreach( $this->conf_funcs_processors as $proc_ext ){
-				$this->ignored_path_list[$page_info['content'].'.'.$proc_ext] = true;
+				$this->add_path_to_ignored_path_list($relatedpath_content.'.'.$proc_ext);
 			}
 		}
 
 		$rtn->unassigned_contents = $this->scan_dir();
         return $rtn;
     }
+
+	/**
+	 * 対象外ディレクトリに加える
+	 */
+	private function add_path_to_ignored_path_list( $path_target ){
+		if( !is_string($path_target) ){
+			return;
+		}
+		$path_target = $this->px->fs()->normalize_path( $this->px->fs()->get_relatedpath( $path_target ) );
+		if( preg_match('/^\.\//', $path_target) ){
+			$this->ignored_path_list[ preg_replace('/^\.\//', '/', $path_target) ] = true;
+		}
+		return;
+	}
 
 	/**
 	 * ディレクトリをスキャンする

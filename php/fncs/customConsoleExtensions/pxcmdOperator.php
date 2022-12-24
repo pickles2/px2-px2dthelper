@@ -2,14 +2,14 @@
 /**
  * px2-px2dthelper
  */
-namespace tomk79\pickles2\px2dthelper;
+namespace tomk79\pickles2\px2dthelper\fncs\customConsoleExtensions;
 
 /**
  * pxcmdOperator.php
  *
  * PX Command `PX=px2dthelper.custom_console_extensions.*` を処理します。
  */
-class customConsoleExtensions_pxcmdOperator{
+class pxcmdOperator{
 
 	/**
 	 * Picklesオブジェクト
@@ -136,8 +136,7 @@ class customConsoleExtensions_pxcmdOperator{
 
 
 		// $cceAgent
-		require_once(__DIR__.'/cceAgent.php');
-		$cceAgent = new customConsoleExtensions_cceAgent($cce_id, $this->px, $this->main);
+		$cceAgent = new cceAgent($cce_id, $this->px, $this->main);
 
 		$rtn = new $className( $this->px, $option_value, $cceAgent );
 

@@ -2,7 +2,7 @@
 /**
  * px2-px2dthelper
  */
-namespace tomk79\pickles2\px2dthelper;
+namespace tomk79\pickles2\px2dthelper\fncs\customConsoleExtensions;
 
 /**
  * broadcast.php
@@ -11,7 +11,7 @@ namespace tomk79\pickles2\px2dthelper;
  * ブロードキャストは、WebSocketのような実装が期待され、呼び出し元アプリに依存します。
  * このオブジェクトは、メッセージをファイル等に保存し、呼び出し元へ伝達します。
  */
-class customConsoleExtensions_broadcast{
+class broadcast{
 
 	/**
 	 * Custom Console Extension ID

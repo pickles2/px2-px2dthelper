@@ -2,12 +2,12 @@
 /**
  * px2-px2dthelper
  */
-namespace tomk79\pickles2\px2dthelper;
+namespace tomk79\pickles2\px2dthelper\fncs;
 
 /**
  * fncs/init_content.php
  */
-class fncs_init_content{
+class init_content{
 
 	/** Picklesオブジェクト */
 	private $px;

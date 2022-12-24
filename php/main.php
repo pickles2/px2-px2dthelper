@@ -469,8 +469,7 @@ class main{
 	 * @return array 検出されたページの一覧
 	 */
 	public function search_sitemap( $keyword, $options = array() ){
-		require_once(__DIR__.'/fncs/search_sitemap.php');
-		$obj = new fncs_search_sitemap( $this, $this->px );
+		$obj = new fncs\search_sitemap( $this, $this->px );
 		$result = $obj->find( $keyword, $options );
 		return $result;
 	}
@@ -481,8 +480,7 @@ class main{
 	 * @param  array  $options   オプション (詳しくは `fncs_init_content::init_content()` の説明を参照)
 	 */
 	public function init_content( $editor_mode, $options = array() ){
-		require_once(__DIR__.'/fncs/init_content.php');
-		$obj = new fncs_init_content( $this, $this->px );
+		$obj = new fncs\init_content( $this, $this->px );
 		$result = $obj->init_content( $editor_mode, $options );
 		return $result;
 	}
@@ -495,8 +493,7 @@ class main{
 	 * @return array 実行結果
 	 */
 	public function copy_content( $path_from, $path_to, $options = array() ){
-		require_once(__DIR__.'/fncs/copy_content.php');
-		$copyCont = new fncs_copy_content($this, $this->px);
+		$copyCont = new fncs\copy_content($this, $this->px);
 		$result = $copyCont->copy( $path_from, $path_to, $options );
 		return $result;
 	}
@@ -506,8 +503,7 @@ class main{
 	 * @param string $editor_mode 変更後の編集モード名
 	 */
 	public function change_content_editor_mode( $editor_mode ){
-		require_once(__DIR__.'/fncs/change_content_editor_mode.php');
-		$obj = new fncs_change_content_editor_mode( $this, $this->px );
+		$obj = new fncs\change_content_editor_mode( $this, $this->px );
 		$page_path = $this->px->req()->get_request_file_path();
 		$result = $obj->change_content_editor_mode( $editor_mode, $page_path );
 		return $result;
@@ -517,8 +513,7 @@ class main{
 	 * ドキュメントモジュール定義をロードする
 	 */
 	public function document_modules(){
-		require_once( __DIR__.'/fncs/document_modules.php' );
-		$rtn = new document_modules($this->px, $this);
+		$rtn = new fncs\document_modules($this->px, $this);
 		return $rtn;
 	}
 
@@ -526,8 +521,7 @@ class main{
 	 * プラグイン操作オブジェクトをロードする
 	 */
 	public function plugins(){
-		require_once( __DIR__.'/fncs/plugins.php' );
-		$rtn = new plugins($this->px, $this);
+		$rtn = new fncs\plugins($this->px, $this);
 		return $rtn;
 	}
 
@@ -535,8 +529,7 @@ class main{
 	 * パッケージ操作オブジェクトをロードする
 	 */
 	public function packages(){
-		require_once( __DIR__.'/fncs/packages.php' );
-		$rtn = new packages($this->px, $this);
+		$rtn = new fncs\packages($this->px, $this);
 		return $rtn;
 	}
 
@@ -681,8 +674,7 @@ class main{
 						$rtn->packages->path_npm_root_dir = $this->packages()->get_path_npm_root_dir();
 						$rtn->packages->package_list = $this->packages()->get_package_list();
 
-						require_once(__DIR__.'/fncs/customConsoleExtensions/pxcmdOperator.php');
-						$ccExtMgr = new customConsoleExtensions_pxcmdOperator($this->px, $this);
+						$ccExtMgr = new fncs\customConsoleExtensions\pxcmdOperator($this->px, $this);
 						$rtn->custom_console_extensions = $ccExtMgr->get_list();
 
 						print $std_output->data_convert( $rtn );
@@ -1087,8 +1079,7 @@ class main{
 			case 'custom_console_extensions':
 				// Custom Console Extensions
 				// 管理画面を拡張するインターフェイス
-				require_once(__DIR__.'/fncs/customConsoleExtensions/pxcmdOperator.php');
-				$ccExtMgr = new customConsoleExtensions_pxcmdOperator($this->px, $this);
+				$ccExtMgr = new fncs\customConsoleExtensions\pxcmdOperator($this->px, $this);
 				$ary_px_command = $this->command;
 				array_shift($ary_px_command); // <- `px2dthelper` をトル
 				array_shift($ary_px_command); // <- `custom_console_extensions` をトル
@@ -1099,8 +1090,7 @@ class main{
 
 			case 'custom_console_extensions_async_run':
 				$this->route_only_post_cmd();
-				require_once(__DIR__.'/fncs/customConsoleExtensions/async.php');
-				$tmpAsync = new customConsoleExtensions_async(null, $this->px, $this);
+				$tmpAsync = new fncs\customConsoleExtensions\async(null, $this->px, $this);
 				$config = $tmpAsync->get_config();
 				$rtn = array(
 					'result' => true,
@@ -1125,7 +1115,7 @@ class main{
 								unlink($realpath_dir.$filename);
 							}catch(Exception $e){
 							}
-							$async = new customConsoleExtensions_async($command->cce_id, $this->px, $this);
+							$async = new fncs\customConsoleExtensions\async($command->cce_id, $this->px, $this);
 							$result = $async->run( $command->command );
 							array_push($rtn['responses'], $result);
 						}
