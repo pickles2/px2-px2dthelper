@@ -62,7 +62,7 @@ class listUnassignedContents{
 
 		// 公開キャッシュディレクトリを除外リストに登録する
 		if( isset($this->px->conf()->public_cache_dir) && is_string($this->px->conf()->public_cache_dir) ){
-			$this->add_path_to_ignored_path_list($this->px->conf()->public_cache_dir);
+			$this->add_path_to_ignored_path_list('./'.$this->px->conf()->public_cache_dir);
 		}
 
 		// vendor, node_modules, を除外リストに登録する
