@@ -62,6 +62,7 @@ class px2te_apis{
 					}
 				}else{
 					$realpath_dist = $this->px->fs()->normalize_path($this->px->fs()->get_realpath( $this->px->realpath_plugin_files('/').'../__console_resources/px2te/' ));
+					$this->px->fs()->mkdir_r($realpath_dist);
 				}
 
 				$rtn = $px2te->get_client_resources( $realpath_dist );

@@ -62,6 +62,7 @@ class px2me_apis{
 					}
 				}else{
 					$realpath_dist = $this->px->fs()->normalize_path($this->px->fs()->get_realpath( $this->px->realpath_plugin_files('/').'../__console_resources/px2me/' ));
+					$this->px->fs()->mkdir_r($realpath_dist);
 				}
 
 				$rtn = $px2me->get_client_resources( $realpath_dist );
