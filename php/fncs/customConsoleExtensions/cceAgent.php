@@ -44,12 +44,14 @@ class cceAgent{
      * @return string `web` または `desktop`
      */
     public function get_app_mode(){
-		$rtn = 'desktop';
-		$appMode = $this->px->req()->get_param('appMode');
-		if( strlen(''.$appMode) ){
-			$rtn = $appMode;
+		$rtn = 'web';
+		if( $this->px->req()->is_cmd() ){
+			// CLI
+			$appMode = $this->px->req()->get_param('appMode');
+			if( strlen(''.$appMode) ){
+				$rtn = $appMode;
+			}
 		}
-
         return $rtn;
     }
 

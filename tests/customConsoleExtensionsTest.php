@@ -23,9 +23,7 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 		// ----------------------------------------
 		// PX Command: Custom Console Extensions の一覧取得
 		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.custom_console_extensions' ] );
-		// var_dump($output);
 		$json = json_decode( $output );
-		// var_dump($json);
 		$this->assertTrue( is_object($json) );
 		$this->assertSame( $json->result, true );
 		$this->assertSame( $json->message, 'OK' );
@@ -36,9 +34,7 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 		// ----------------------------------------
 		// PX Command: Custom Console Extensions 存在しない拡張機能の情報取得
 		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.custom_console_extensions.undefinedCustomConsoleExtension' ] );
-		// var_dump($output);
 		$json = json_decode( $output );
-		// var_dump($json);
 		$this->assertTrue( is_object($json) );
 		$this->assertFalse( $json->result );
 		$this->assertSame( $json->message, 'Custom Console Extension "undefinedCustomConsoleExtension" is NOT available.' );
@@ -46,9 +42,7 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 		// ----------------------------------------
 		// PX Command: Custom Console Extensions 拡張機能0001の情報取得
 		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.custom_console_extensions.customConsoleExtensionsTest0001' ] );
-		// var_dump($output);
 		$json = json_decode( $output );
-		// var_dump($json);
 		$this->assertTrue( is_object($json) );
 		$this->assertSame( $json->result, true );
 		$this->assertSame( $json->message, 'OK' );
@@ -59,9 +53,7 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 		// ----------------------------------------
 		// PX Command: Custom Console Extensions のクライアント資材一覧取得
 		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.custom_console_extensions.customConsoleExtensionsTest0001.client_resources' ] );
-		// var_dump($output);
 		$json = json_decode( $output );
-		// var_dump($json);
 		$this->assertTrue( is_object($json) );
 		$this->assertSame( $json->result, true );
 		$this->assertSame( $json->message, 'OK' );
@@ -73,9 +65,7 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 		// ----------------------------------------
 		// PX Command: Custom Console Extensions のクライアント資材一覧取得 (出力先を指定した場合)
 		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.custom_console_extensions.customConsoleExtensionsTest0001.client_resources&dist='.__DIR__.'/testData/standard/px-files/_sys/ram/caches/tmpResTest/' ] );
-		// var_dump($output);
 		$json = json_decode( $output );
-		// var_dump($json);
 		$this->assertTrue( is_object($json) );
 		$this->assertSame( $json->result, true );
 		$this->assertSame( $json->message, 'OK' );
@@ -89,9 +79,7 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 		// PX Command: Custom Console Extensions のGPIを呼び出す
 		$this->fs->save_file(__DIR__.'/testData/standard/px-files/_sys/ram/data/tmp_request.txt', 'PX=px2dthelper.custom_console_extensions.customConsoleExtensionsTest0001.gpi&request='.urlencode(json_encode(array('command'=>'test-command'))));
 		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '--method', 'post', '--body-file', 'tmp_request.txt', '/' ] );
-		// var_dump($output);
 		$json = json_decode( $output );
-		// var_dump($json);
 		$this->assertTrue( is_object($json) );
 		$this->assertSame( true, $json->result );
 		$this->assertSame( 'OK', $json->message );
@@ -125,9 +113,7 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 				)))
 		);
 		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '--method', 'post', '--body-file', 'tmp_request.txt', '/' ] );
-		// var_dump($output);
 		$json = json_decode( $output );
-		// var_dump($json);
 		$this->assertTrue( is_object($json) );
 		$this->assertSame( true, $json->result );
 		$this->assertSame( 'OK', $json->message );
@@ -145,9 +131,7 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 				)))
 		);
 		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '--method', 'post', '--body-file', 'tmp_request.txt', '/' ] );
-		// var_dump($output);
 		$json = json_decode( $output );
-		// var_dump($json);
 		$this->assertTrue( is_object($json) );
 		$this->assertSame( true, $json->result );
 		$this->assertSame( 'OK', $json->message );
@@ -181,9 +165,7 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 				)))
 		);
 		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '--method', 'post', '--body-file', 'tmp_request.txt', '/' ] );
-		// var_dump($output);
 		$json = json_decode( $output );
-		// var_dump($json);
 		$this->assertTrue( is_object($json) );
 		$this->assertSame( true, $json->result );
 		$this->assertSame( 'OK', $json->message );
@@ -214,9 +196,7 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 		);
 
 		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '--method', 'post', '--body-file', 'tmp_request.txt', '/' ] );
-		// var_dump($output);
 		$json = json_decode( $output );
-		// var_dump($json);
 		$this->assertTrue( is_object($json) );
 		$this->assertSame( true, $json->result );
 		$this->assertSame( 'OK', $json->message );
@@ -224,7 +204,6 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 
 		clearstatcache();
 		$files = $this->fs->ls( $realpath_sync_dir );
-		// var_dump($files);
 		$this->assertSame( 1, count($files) );
 		$json = json_decode( file_get_contents( $realpath_sync_dir.$files[0] ) );
 		$this->assertSame( 'customConsoleExtensionsTest0001', $json->cce_id );
@@ -237,9 +216,7 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 				.'&appMode=desktop'
 		);
 		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '--method', 'post', '--body-file', 'tmp_request.txt', '/' ] );
-		// var_dump($output);
 		$json = json_decode( $output );
-		// var_dump($json);
 		$this->assertTrue( is_object($json) );
 		$this->assertSame( true, $json->result );
 		$this->assertSame( 'OK', $json->message );
@@ -247,7 +224,6 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 
 		clearstatcache();
 		$files = $this->fs->ls( $realpath_sync_dir );
-		// var_dump($files);
 		$this->assertSame( 0, count($files) );
 
 		$this->assertTrue( is_file( $realpath_output_file ) );
@@ -284,9 +260,7 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 				)))
 		);
 		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '--method', 'post', '--body-file', 'tmp_request.txt', '/' ] );
-		// var_dump($output);
 		$json = json_decode( $output );
-		// var_dump($json);
 		$this->assertTrue( is_object($json) );
 		$this->assertSame( true, $json->result );
 		$this->assertSame( 'OK', $json->message );
@@ -294,11 +268,9 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 
 		clearstatcache();
 		$files = $this->fs->ls( $realpath_sync_dir );
-		// var_dump($files);
 		$this->assertSame( 1, count($files) );
 		$json = json_decode( file_get_contents( $realpath_sync_dir.$files[0] ) );
 		$this->assertSame( 'This is a boroadcast message.', $json->message );
-
 
 
 		// 後始末

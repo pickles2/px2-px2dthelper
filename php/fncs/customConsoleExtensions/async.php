@@ -47,10 +47,18 @@ class async{
 	 */
 	public function get_config(){
 		$config = new \stdClass();
+		$config->method = null;
+		$config->dir = null;
 
-		$realpath_config = trim(''.$this->px->req()->get_param('asyncConfFile'));
-		$param_asyncMethod = trim(''.$this->px->req()->get_param('asyncMethod'));
-		$param_asyncDir = trim(''.$this->px->req()->get_param('asyncDir'));
+		$realpath_config = null;
+		$param_asyncMethod = null;
+		$param_asyncDir = null;
+		if( $this->px->req()->is_cmd() ){
+			// CLI
+			$realpath_config = trim(''.$this->px->req()->get_param('asyncConfFile'));
+			$param_asyncMethod = trim(''.$this->px->req()->get_param('asyncMethod'));
+			$param_asyncDir = trim(''.$this->px->req()->get_param('asyncDir'));
+		}
 
 		// JSONファイルに与えられている場合
 		// 読み込んでデコードする
@@ -62,7 +70,7 @@ class async{
 		// 連携方法
 		// `file` => 指定されたディレクトリに、命令をファイルとして保存する。
 		// `sync` => 非同期せず、直接同期実行する。 (default)
-		if( !property_exists($config, 'method') || !strlen(''.$config->method) ){
+		if( !isset($config->method) || !strlen(''.$config->method) ){
 			$config->method = 'sync';
 		}
 		if( strlen(''.$param_asyncMethod) ){
@@ -72,7 +80,7 @@ class async{
 		// --------------------
 		// 出力先ファイル
 		// `method`=`file` の場合に、命令ファイルを出力する先のディレクトリパス。
-		if( !property_exists($config, 'dir') || !strlen(''.$config->dir) ){
+		if( !isset($config->dir) || !strlen(''.$config->dir) ){
 			$config->dir = null;
 		}
 		if( strlen(''.$param_asyncDir) ){
@@ -193,8 +201,6 @@ class async{
 			case 'cmd':
 				break;
 		}
-
 		return true;
 	}
-
 }
