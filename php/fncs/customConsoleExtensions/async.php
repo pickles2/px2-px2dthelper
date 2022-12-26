@@ -81,7 +81,10 @@ class async{
 		// 出力先ファイル
 		// `method`=`file` の場合に、命令ファイルを出力する先のディレクトリパス。
 		if( !isset($config->dir) || !strlen(''.$config->dir) ){
-			$config->dir = null;
+			if( $config->method == 'file' ){
+				$config->dir = $this->px->get_realpath_homedir().'_sys/ram/data/px2-px2dthelper/__cce/async/';
+				$this->px->fs()->mkdir_r($config->dir);
+			}
 		}
 		if( strlen(''.$param_asyncDir) ){
 			$config->dir = $param_asyncDir;
@@ -108,6 +111,7 @@ class async{
 					return false;
 				}
 				$realpath_dir = $this->px->fs()->get_realpath($realpath_dir.'/');
+				$this->px->fs()->mkdir_r($realpath_dir);
 
 				$filename = '__async_command_'.date('Y-m-d-His').'_'.microtime(true).'_'.rand().'.json';
 				$bin_command = json_encode( array(
@@ -161,11 +165,14 @@ class async{
 				$params = 'PX=px2dthelper.custom_console_extensions.'.urlencode(''.$cce_id).'.gpi';
 				$params .= '&request='.urlencode( json_encode( $command['request'] ) );
 				$params .= (strlen(''.$str_param) ? '&'.$str_param : '');
-				$params .= '&appMode='.urlencode( ''.$this->px->req()->get_param('appMode') );
-				$params .= '&asyncMethod='.urlencode( ''.$this->px->req()->get_param('asyncMethod') );
-				$params .= '&asyncDir='.urlencode( ''.$this->px->req()->get_param('asyncDir') );
-				$params .= '&broadcastMethod='.urlencode( ''.$this->px->req()->get_param('broadcastMethod') );
-				$params .= '&broadcastDir='.urlencode( ''.$this->px->req()->get_param('broadcastDir') );
+				if( $this->px->req()->is_cmd() ){
+					// CLI
+					$params .= '&appMode='.urlencode( ''.$this->px->req()->get_param('appMode') );
+					$params .= '&asyncMethod='.urlencode( ''.$this->px->req()->get_param('asyncMethod') );
+					$params .= '&asyncDir='.urlencode( ''.$this->px->req()->get_param('asyncDir') );
+					$params .= '&broadcastMethod='.urlencode( ''.$this->px->req()->get_param('broadcastMethod') );
+					$params .= '&broadcastDir='.urlencode( ''.$this->px->req()->get_param('broadcastDir') );
+				}
 
 				$src_out = $this->px->internal_sub_request(
 					'/?'.$params,

@@ -79,7 +79,10 @@ class broadcast{
 		// 出力先ファイル
 		// `method`=`file` の場合に、命令ファイルを出力する先のディレクトリパス。
 		if( !isset($config->dir) || !strlen(''.$config->dir) ){
-			$config->dir = null;
+			if( $config->method == 'file' ){
+				$config->dir = $this->px->get_realpath_homedir().'_sys/ram/data/px2-px2dthelper/__cce/broadcast/';
+				$this->px->fs()->mkdir_r($config->dir);
+			}
 		}
 		if( strlen(''.$param_broadcastDir) ){
 			$config->dir = $param_broadcastDir;
@@ -107,6 +110,7 @@ class broadcast{
 					return false;
 				}
 				$realpath_dir = $this->px->fs()->get_realpath($realpath_dir.'/');
+				$this->px->fs()->mkdir_r($realpath_dir);
 
 				$filename = '__broadcast_message_'.date('Y-m-d-His').'_'.microtime(true).'_'.rand().'.json';
 				$bin_command = json_encode( $message );
