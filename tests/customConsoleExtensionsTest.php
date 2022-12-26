@@ -57,6 +57,7 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 		$this->assertTrue( is_object($json) );
 		$this->assertSame( $json->result, true );
 		$this->assertSame( $json->message, 'OK' );
+		$this->assertSame( $json->path_base, null );
 		$this->assertSame( $json->resources->css[0], realpath(__DIR__.'/testData/standard/px-files/customConsoleExtensions/customConsoleExtensionsTest0001/resources/styles/cce0001.css') );
 		$this->assertSame( $json->resources->js[1], realpath(__DIR__.'/testData/standard/px-files/customConsoleExtensions/customConsoleExtensionsTest0001/resources/scripts/cce0001.js') );
 		$this->assertSame( false, is_file(__DIR__.'/testData/standard/px-files/_sys/ram/caches/tmpResTest/'.$json->resources->css[0]) );
@@ -69,6 +70,7 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 		$this->assertTrue( is_object($json) );
 		$this->assertSame( $json->result, true );
 		$this->assertSame( $json->message, 'OK' );
+		$this->assertSame( $json->path_base, null );
 		$this->assertSame( $json->resources->css[0], 'styles/cce0001.css' );
 		$this->assertSame( $json->resources->js[1], 'scripts/cce0001.js' );
 		$this->assertSame( true, is_file(__DIR__.'/testData/standard/px-files/_sys/ram/caches/tmpResTest/'.$json->resources->css[0]) );

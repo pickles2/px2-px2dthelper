@@ -205,10 +205,14 @@ class pxcmdOperator{
 					$realpath_base_dir = $ccExt->get_client_resource_base_dir();
 					$client_resources = $ccExt->get_client_resource_list();
 
-					$realpath_dist = $this->px->fs()->normalize_path($this->px->fs()->get_realpath( $this->px->realpath_plugin_files('/').'../px2-px2dthelper/cce/'.urlencode($cce_id).'/' ));
-					if( $this->px->req()->is_cmd() && $this->px->req()->get_param('dist') ){
+					$realpath_dist = null;
+					if( $this->px->req()->is_cmd() ){
 						// CLI
-						$realpath_dist = $this->px->req()->get_param('dist');
+						if( $this->px->req()->get_param('dist') ){
+							$realpath_dist = $this->px->req()->get_param('dist');
+						}
+					}else{
+						$realpath_dist = $this->px->fs()->normalize_path($this->px->fs()->get_realpath( $this->px->realpath_plugin_files('/').'../px2-px2dthelper/cce/'.urlencode($cce_id).'/' ));
 					}
 					if( strlen(''.$realpath_dist) ){
 						$realpath_dist = $this->px->fs()->get_realpath($realpath_dist.'/');
@@ -237,8 +241,10 @@ class pxcmdOperator{
 					$rtn['resources'] = $resources;
 
 					$rtn['path_base'] = null;
-					if( !$this->px->req()->is_cmd() || !$this->px->req()->get_param('dist') ){
-						$rtn['path_base'] = $this->px->fs()->normalize_path( $this->px->fs()->get_realpath( $this->px->path_plugin_files('/').'../px2-px2dthelper/cce/'.urlencode($cce_id).'/', '/' ) );
+					if( !$this->px->req()->is_cmd() ){
+						if( !$this->px->req()->get_param('dist') ){
+							$rtn['path_base'] = $this->px->fs()->normalize_path( $this->px->fs()->get_realpath( $this->px->path_plugin_files('/').'../px2-px2dthelper/cce/'.urlencode($cce_id).'/', '/' ) );
+						}
 					}
 
 					return $rtn;
