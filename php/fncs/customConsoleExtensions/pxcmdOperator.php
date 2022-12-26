@@ -212,7 +212,7 @@ class pxcmdOperator{
 							$realpath_dist = $this->px->req()->get_param('dist');
 						}
 					}else{
-						$realpath_dist = $this->px->fs()->normalize_path($this->px->fs()->get_realpath( $this->px->realpath_plugin_files('/').'../px2-px2dthelper/cce/'.urlencode($cce_id).'/' ));
+						$realpath_dist = $this->px->fs()->normalize_path($this->px->fs()->get_realpath( $this->px->realpath_plugin_files('/').'../__console_resources/cce/'.urlencode($cce_id).'/' ));
 					}
 					if( strlen(''.$realpath_dist) ){
 						$realpath_dist = $this->px->fs()->get_realpath($realpath_dist.'/');
@@ -242,9 +242,7 @@ class pxcmdOperator{
 
 					$rtn['path_base'] = null;
 					if( !$this->px->req()->is_cmd() ){
-						if( !$this->px->req()->get_param('dist') ){
-							$rtn['path_base'] = $this->px->fs()->normalize_path( $this->px->fs()->get_realpath( $this->px->path_plugin_files('/').'../px2-px2dthelper/cce/'.urlencode($cce_id).'/', '/' ) );
-						}
+						$rtn['path_base'] = $this->px->fs()->normalize_path( $this->px->fs()->get_realpath( $this->px->path_plugin_files('/').'../__console_resources/cce/'.urlencode($cce_id).'/', '/' ) );
 					}
 
 					return $rtn;

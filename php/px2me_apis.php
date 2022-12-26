@@ -54,7 +54,23 @@ class px2me_apis{
 				return $rtn;
 				break;
 			case 'client_resources':
-				$rtn = $px2me->get_client_resources( $this->px->req()->get_param('dist') );
+				$realpath_dist = null;
+				if( $this->px->req()->is_cmd() ){
+					// CLI
+					if( $this->px->req()->get_param('dist') ){
+						$realpath_dist = $this->px->req()->get_param('dist');
+					}
+				}else{
+					$realpath_dist = $this->px->fs()->normalize_path($this->px->fs()->get_realpath( $this->px->realpath_plugin_files('/').'../__console_resources/px2me/' ));
+				}
+
+				$rtn = $px2me->get_client_resources( $realpath_dist );
+
+				$rtn->path_base = null;
+				if( !$this->px->req()->is_cmd() ){
+					$rtn->path_base = $this->px->fs()->normalize_path( $this->px->fs()->get_realpath( $this->px->path_plugin_files('/').'../__console_resources/px2me/', '/' ) );
+				}
+
 				return $rtn;
 				break;
 		}
