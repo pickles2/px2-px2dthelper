@@ -20,6 +20,8 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 	 */
 	public function testSitemapCreate(){
 
+		clearstatcache();
+
 		// ---------------------------
 		// 新しいサイトマップファイルを作成
 		$output = $this->px2query->query( [
@@ -269,6 +271,7 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 		$this->assertSame( $json->page_info[3], 'Sitemap 1 - Page Title 9' );
 		$this->assertSame( $json->page_info[13], 'description - Sitemap 1 - 9' );
 
+		clearstatcache();
 
 		// --------------------------------------
 		// ページの行を移動させる (別のファイル内)
@@ -282,6 +285,9 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 		] );
 		$json = json_decode( $output );
 		$this->assertTrue( $json->result );
+
+		clearstatcache();
+
 		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.page.get_page_info_raw&filefullname=create_new_sitemap_2.csv&row=5' ] );
 		$json = json_decode( $output );
 		$this->assertSame( count($json->page_info), 3 );
