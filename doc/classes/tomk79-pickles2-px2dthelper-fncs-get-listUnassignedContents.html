@@ -103,11 +103,12 @@
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/tomk79-pickles2.html">pickles2</a></li>
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/tomk79-pickles2-px2dthelper.html">px2dthelper</a></li>
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/tomk79-pickles2-px2dthelper-fncs.html">fncs</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/tomk79-pickles2-px2dthelper-fncs-get.html">get</a></li>
     </ul>
 
     <article class="phpdocumentor-element -class">
         <h2 class="phpdocumentor-content__title">
-    copy_content
+    listUnassignedContents
 
     
             <div class="phpdocumentor-element__package">
@@ -121,13 +122,13 @@
     </h2>
 
         <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/copy_content.php"><a href="files/php-fncs-copy-content.html"><abbr title="php/fncs/copy_content.php">copy_content.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/get/listUnassignedContents.php"><a href="files/php-fncs-get-listunassignedcontents.html"><abbr title="php/fncs/get/listUnassignedContents.php">listUnassignedContents.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">10</span>
+    <span class="phpdocumentor-element-found-in__line">11</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">fncs/copy_content.php</p>
+            <p class="phpdocumentor-summary">fncs/get/listUnassignedContents.php</p>
 
 
 
@@ -144,32 +145,67 @@
 
 <dl class="phpdocumentor-table-of-contents">
                     <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/tomk79-pickles2-px2dthelper-fncs-copy-content.html#property_px">$px</a>
+    <a href="classes/tomk79-pickles2-px2dthelper-fncs-get-listUnassignedContents.html#property_conf_funcs_processors">$conf_funcs_processors</a>
+    <span>
+                        &nbsp;: mixed            </span>
+</dt>
+<dd>定義された拡張子の一覧</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/tomk79-pickles2-px2dthelper-fncs-get-listUnassignedContents.html#property_ignored_path_list">$ignored_path_list</a>
+    <span>
+                        &nbsp;: mixed            </span>
+</dt>
+<dd>スキャン対象から除外するパスの一覧</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/tomk79-pickles2-px2dthelper-fncs-get-listUnassignedContents.html#property_px">$px</a>
     <span>
                         &nbsp;: mixed            </span>
 </dt>
 <dd>Picklesオブジェクト</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/tomk79-pickles2-px2dthelper-fncs-copy-content.html#property_px2dthelper">$px2dthelper</a>
+    <a href="classes/tomk79-pickles2-px2dthelper-fncs-get-listUnassignedContents.html#property_px2dthelper">$px2dthelper</a>
     <span>
                         &nbsp;: mixed            </span>
 </dt>
 <dd>px2dthelperオブジェクト</dd>
 
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/tomk79-pickles2-px2dthelper-fncs-get-listUnassignedContents.html#property_realpath_docroot">$realpath_docroot</a>
+    <span>
+                        &nbsp;: mixed            </span>
+</dt>
+<dd>docroot のパス</dd>
+
                 <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/tomk79-pickles2-px2dthelper-fncs-copy-content.html#method___construct">__construct()</a>
+    <a href="classes/tomk79-pickles2-px2dthelper-fncs-get-listUnassignedContents.html#method___construct">__construct()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
 <dd>constructor</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/tomk79-pickles2-px2dthelper-fncs-copy-content.html#method_copy">copy()</a>
+    <a href="classes/tomk79-pickles2-px2dthelper-fncs-get-listUnassignedContents.html#method_get_unassigned_contents">get_unassigned_contents()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: mixed    </span>
 </dt>
-<dd>コンテンツを複製する</dd>
+<dd>未割当のコンテンツファイルの一覧を取得する</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/tomk79-pickles2-px2dthelper-fncs-get-listUnassignedContents.html#method_add_path_to_ignored_path_list">add_path_to_ignored_path_list()</a>
+    <span>
+                                &nbsp;: mixed    </span>
+</dt>
+<dd>対象外ディレクトリに加える</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/tomk79-pickles2-px2dthelper-fncs-get-listUnassignedContents.html#method_scan_dir">scan_dir()</a>
+    <span>
+                                &nbsp;: mixed    </span>
+</dt>
+<dd>ディレクトリをスキャンする</dd>
 
         </dl>
 
@@ -181,8 +217,76 @@
     <section class="phpdocumentor-properties">
         <h3 class="phpdocumentor-elements__header" id="properties">
             Properties
-            <a href="classes/tomk79-pickles2-px2dthelper-fncs-copy-content.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/tomk79-pickles2-px2dthelper-fncs-get-listUnassignedContents.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
         </h3>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_conf_funcs_processors">
+        $conf_funcs_processors
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-get-listUnassignedContents.html#property_conf_funcs_processors" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/get/listUnassignedContents.php"><a href="files/php-fncs-get-listunassignedcontents.html"><abbr title="php/fncs/get/listUnassignedContents.php">listUnassignedContents.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">26</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">定義された拡張子の一覧</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">$conf_funcs_processors</span>
+    </code>
+
+    
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_ignored_path_list">
+        $ignored_path_list
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-get-listUnassignedContents.html#property_ignored_path_list" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/get/listUnassignedContents.php"><a href="files/php-fncs-get-listunassignedcontents.html"><abbr title="php/fncs/get/listUnassignedContents.php">listUnassignedContents.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">23</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">スキャン対象から除外するパスの一覧</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">$ignored_path_list</span>
+    </code>
+
+    
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
                     <article
         class="
             phpdocumentor-element
@@ -192,14 +296,14 @@
 >
     <h4 class="phpdocumentor-element__name" id="property_px">
         $px
-        <a href="classes/tomk79-pickles2-px2dthelper-fncs-copy-content.html#property_px" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-get-listUnassignedContents.html#property_px" class="headerlink"><i class="fas fa-link"></i></a>
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/copy_content.php"><a href="files/php-fncs-copy-content.html"><abbr title="php/fncs/copy_content.php">copy_content.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/get/listUnassignedContents.php"><a href="files/php-fncs-get-listunassignedcontents.html"><abbr title="php/fncs/get/listUnassignedContents.php">listUnassignedContents.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">13</span>
+    <span class="phpdocumentor-element-found-in__line">14</span>
 
     </aside>
 
@@ -226,14 +330,14 @@
 >
     <h4 class="phpdocumentor-element__name" id="property_px2dthelper">
         $px2dthelper
-        <a href="classes/tomk79-pickles2-px2dthelper-fncs-copy-content.html#property_px2dthelper" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-get-listUnassignedContents.html#property_px2dthelper" class="headerlink"><i class="fas fa-link"></i></a>
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/copy_content.php"><a href="files/php-fncs-copy-content.html"><abbr title="php/fncs/copy_content.php">copy_content.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/get/listUnassignedContents.php"><a href="files/php-fncs-get-listunassignedcontents.html"><abbr title="php/fncs/get/listUnassignedContents.php">listUnassignedContents.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">16</span>
+    <span class="phpdocumentor-element-found-in__line">17</span>
 
     </aside>
 
@@ -251,12 +355,46 @@
     
 
 </article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_realpath_docroot">
+        $realpath_docroot
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-get-listUnassignedContents.html#property_realpath_docroot" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/get/listUnassignedContents.php"><a href="files/php-fncs-get-listunassignedcontents.html"><abbr title="php/fncs/get/listUnassignedContents.php">listUnassignedContents.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">20</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">docroot のパス</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">$realpath_docroot</span>
+    </code>
+
+    
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
             </section>
 
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
             Methods
-            <a href="classes/tomk79-pickles2-px2dthelper-fncs-copy-content.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/tomk79-pickles2-px2dthelper-fncs-get-listUnassignedContents.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
         </h3>
                     <article
         class="phpdocumentor-element
@@ -266,12 +404,12 @@
 >
     <h4 class="phpdocumentor-element__name" id="method___construct">
         __construct()
-        <a href="classes/tomk79-pickles2-px2dthelper-fncs-copy-content.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-get-listUnassignedContents.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/copy_content.php"><a href="files/php-fncs-copy-content.html"><abbr title="php/fncs/copy_content.php">copy_content.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/get/listUnassignedContents.php"><a href="files/php-fncs-get-listunassignedcontents.html"><abbr title="php/fncs/get/listUnassignedContents.php">listUnassignedContents.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">24</span>
+    <span class="phpdocumentor-element-found-in__line">34</span>
 
     </aside>
 
@@ -318,55 +456,65 @@
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_copy">
-        copy()
-        <a href="classes/tomk79-pickles2-px2dthelper-fncs-copy-content.html#method_copy" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_get_unassigned_contents">
+        get_unassigned_contents()
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-get-listUnassignedContents.html#method_get_unassigned_contents" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/copy_content.php"><a href="files/php-fncs-copy-content.html"><abbr title="php/fncs/copy_content.php">copy_content.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/get/listUnassignedContents.php"><a href="files/php-fncs-get-listunassignedcontents.html"><abbr title="php/fncs/get/listUnassignedContents.php">listUnassignedContents.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">38</span>
+    <span class="phpdocumentor-element-found-in__line">45</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">コンテンツを複製する</p>
+        <p class="phpdocumentor-summary">未割当のコンテンツファイルの一覧を取得する</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">copy</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$path_from</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$path_to</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$options</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">array()</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">get_unassigned_contents</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_add_path_to_ignored_path_list">
+        add_path_to_ignored_path_list()
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-get-listUnassignedContents.html#method_add_path_to_ignored_path_list" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/get/listUnassignedContents.php"><a href="files/php-fncs-get-listunassignedcontents.html"><abbr title="php/fncs/get/listUnassignedContents.php">listUnassignedContents.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">99</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">対象外ディレクトリに加える</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">add_path_to_ignored_path_list</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$path_target</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$path_from</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                <span class="phpdocumentor-signature__argument__name">$path_target</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>コピー元のページパス (サイトマップの path 値)</p>
-</section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$path_to</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>コピー先のページパス (サイトマップの path 値)</p>
-</section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$options</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">array()</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>オプション</p>
-<ul>
-<li>
-<code class="prettyprint">force</code> : <code class="prettyprint">true</code> を指定すると、すでにコンテンツが存在した場合にも強制的に上書きします。</li>
-</ul>
-</section>
+                    <section class="phpdocumentor-description"></section>
 
             </dd>
             </dl>
@@ -374,11 +522,53 @@
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
             &mdash;
-            <section class="phpdocumentor-description"><p><code class="prettyprint">array(boolean $result, string $error_msg)</code></p>
-</section>
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_scan_dir">
+        scan_dir()
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-get-listUnassignedContents.html#method_scan_dir" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/get/listUnassignedContents.php"><a href="files/php-fncs-get-listunassignedcontents.html"><abbr title="php/fncs/get/listUnassignedContents.php">listUnassignedContents.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">113</span>
 
+    </aside>
+
+        <p class="phpdocumentor-summary">ディレクトリをスキャンする</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">scan_dir</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$local_path</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$local_path</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+        
     
 </article>
             </section>
@@ -459,7 +649,7 @@
 </section>
             </div>
         </div>
-        <a href="classes/tomk79-pickles2-px2dthelper-fncs-copy-content.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-get-listUnassignedContents.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
     </main>
 

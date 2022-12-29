@@ -430,6 +430,12 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ## 更新履歴 - Change log
 
+### pickles2/px2-px2dthelper v2.1.6 (2022年12月29日)
+
+- `PX=px2dthelper.get.list_unassigned_contents` を追加。
+- px2ce, px2me, px2te, CCE で、Web SAPI からクライアント資材のパスの指定をできないようにした。
+- その他、内部コードの修正など。
+
 ### pickles2/px2-px2dthelper v2.1.5 (2022年11月3日)
 
 - `PX=px2dthelper.page.move_page_info_raw` を追加。
@@ -437,9 +443,8 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 - `PX=px2dthelper.page.add_page_info_raw` のバリデーションを改善。
 - `PX=px2dthelper.page.update_page_info_raw` で、`path`、`content`、`logical_path` が変更された場合、影響範囲へ反映するようになった。
 - `PX=px2dthelper.page.delete_page_info_raw` で、削除対象のページに子ページがある場合に、パンくずを繰り上げるようになった。
-- `PX=px2dthelper.get.list_unassigned_contents` を追加。
 - `tomk79\pickles2\px2dthelper\utils::get_server_origin()` を追加。
-- 細かい不具合の修正、内部コードの修正など。
+- 内部コードの修正など。
 
 ### pickles2/px2-px2dthelper v2.1.4 (2022年7月20日)
 

@@ -103,11 +103,12 @@
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/tomk79-pickles2.html">pickles2</a></li>
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/tomk79-pickles2-px2dthelper.html">px2dthelper</a></li>
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/tomk79-pickles2-px2dthelper-fncs.html">fncs</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/tomk79-pickles2-px2dthelper-fncs-customconsoleextensions.html">customConsoleExtensions</a></li>
     </ul>
 
     <article class="phpdocumentor-element -class">
         <h2 class="phpdocumentor-content__title">
-    copy_content
+    broadcast
 
     
             <div class="phpdocumentor-element__package">
@@ -121,14 +122,18 @@
     </h2>
 
         <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/copy_content.php"><a href="files/php-fncs-copy-content.html"><abbr title="php/fncs/copy_content.php">copy_content.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/customConsoleExtensions/broadcast.php"><a href="files/php-fncs-customconsoleextensions-broadcast.html"><abbr title="php/fncs/customConsoleExtensions/broadcast.php">broadcast.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">10</span>
+    <span class="phpdocumentor-element-found-in__line">14</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">fncs/copy_content.php</p>
+            <p class="phpdocumentor-summary">broadcast.php</p>
 
+    <section class="phpdocumentor-description"><p><code class="prettyprint">$cceAgent</code> の機能の一部として呼び出され、非同期のブロードキャストを仲介します。
+ブロードキャストは、WebSocketのような実装が期待され、呼び出し元アプリに依存します。
+このオブジェクトは、メッセージをファイル等に保存し、呼び出し元へ伝達します。</p>
+</section>
 
 
 
@@ -144,32 +149,46 @@
 
 <dl class="phpdocumentor-table-of-contents">
                     <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/tomk79-pickles2-px2dthelper-fncs-copy-content.html#property_px">$px</a>
+    <a href="classes/tomk79-pickles2-px2dthelper-fncs-customConsoleExtensions-broadcast.html#property_cce_id">$cce_id</a>
+    <span>
+                        &nbsp;: mixed            </span>
+</dt>
+<dd>Custom Console Extension ID</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/tomk79-pickles2-px2dthelper-fncs-customConsoleExtensions-broadcast.html#property_main">$main</a>
+    <span>
+                        &nbsp;: mixed            </span>
+</dt>
+<dd>px2dthelper main</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/tomk79-pickles2-px2dthelper-fncs-customConsoleExtensions-broadcast.html#property_px">$px</a>
     <span>
                         &nbsp;: mixed            </span>
 </dt>
 <dd>Picklesオブジェクト</dd>
 
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/tomk79-pickles2-px2dthelper-fncs-copy-content.html#property_px2dthelper">$px2dthelper</a>
-    <span>
-                        &nbsp;: mixed            </span>
-</dt>
-<dd>px2dthelperオブジェクト</dd>
-
                 <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/tomk79-pickles2-px2dthelper-fncs-copy-content.html#method___construct">__construct()</a>
+    <a href="classes/tomk79-pickles2-px2dthelper-fncs-customConsoleExtensions-broadcast.html#method___construct">__construct()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
 <dd>constructor</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/tomk79-pickles2-px2dthelper-fncs-copy-content.html#method_copy">copy()</a>
+    <a href="classes/tomk79-pickles2-px2dthelper-fncs-customConsoleExtensions-broadcast.html#method_call">call()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: mixed    </span>
 </dt>
-<dd>コンテンツを複製する</dd>
+<dd>メッセージの配信処理を要求する</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/tomk79-pickles2-px2dthelper-fncs-customConsoleExtensions-broadcast.html#method_get_config">get_config()</a>
+    <span>
+                                &nbsp;: object    </span>
+</dt>
+<dd>配信方法の設定を取得する</dd>
 
         </dl>
 
@@ -181,8 +200,76 @@
     <section class="phpdocumentor-properties">
         <h3 class="phpdocumentor-elements__header" id="properties">
             Properties
-            <a href="classes/tomk79-pickles2-px2dthelper-fncs-copy-content.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/tomk79-pickles2-px2dthelper-fncs-customConsoleExtensions-broadcast.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
         </h3>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_cce_id">
+        $cce_id
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-customConsoleExtensions-broadcast.html#property_cce_id" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/customConsoleExtensions/broadcast.php"><a href="files/php-fncs-customconsoleextensions-broadcast.html"><abbr title="php/fncs/customConsoleExtensions/broadcast.php">broadcast.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">19</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Custom Console Extension ID</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">$cce_id</span>
+    </code>
+
+    
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_main">
+        $main
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-customConsoleExtensions-broadcast.html#property_main" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/customConsoleExtensions/broadcast.php"><a href="files/php-fncs-customconsoleextensions-broadcast.html"><abbr title="php/fncs/customConsoleExtensions/broadcast.php">broadcast.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">29</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">px2dthelper main</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">$main</span>
+    </code>
+
+    
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
                     <article
         class="
             phpdocumentor-element
@@ -192,14 +279,14 @@
 >
     <h4 class="phpdocumentor-element__name" id="property_px">
         $px
-        <a href="classes/tomk79-pickles2-px2dthelper-fncs-copy-content.html#property_px" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-customConsoleExtensions-broadcast.html#property_px" class="headerlink"><i class="fas fa-link"></i></a>
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/copy_content.php"><a href="files/php-fncs-copy-content.html"><abbr title="php/fncs/copy_content.php">copy_content.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/customConsoleExtensions/broadcast.php"><a href="files/php-fncs-customconsoleextensions-broadcast.html"><abbr title="php/fncs/customConsoleExtensions/broadcast.php">broadcast.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">13</span>
+    <span class="phpdocumentor-element-found-in__line">24</span>
 
     </aside>
 
@@ -217,46 +304,12 @@
     
 
 </article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -private
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="property_px2dthelper">
-        $px2dthelper
-        <a href="classes/tomk79-pickles2-px2dthelper-fncs-copy-content.html#property_px2dthelper" class="headerlink"><i class="fas fa-link"></i></a>
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/copy_content.php"><a href="files/php-fncs-copy-content.html"><abbr title="php/fncs/copy_content.php">copy_content.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">16</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">px2dthelperオブジェクト</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-    <span class="phpdocumentor-signature__name">$px2dthelper</span>
-    </code>
-
-    
-        <section class="phpdocumentor-description"></section>
-
-    
-
-</article>
             </section>
 
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
             Methods
-            <a href="classes/tomk79-pickles2-px2dthelper-fncs-copy-content.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/tomk79-pickles2-px2dthelper-fncs-customConsoleExtensions-broadcast.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
         </h3>
                     <article
         class="phpdocumentor-element
@@ -266,12 +319,12 @@
 >
     <h4 class="phpdocumentor-element__name" id="method___construct">
         __construct()
-        <a href="classes/tomk79-pickles2-px2dthelper-fncs-copy-content.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-customConsoleExtensions-broadcast.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/copy_content.php"><a href="files/php-fncs-copy-content.html"><abbr title="php/fncs/copy_content.php">copy_content.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/customConsoleExtensions/broadcast.php"><a href="files/php-fncs-customconsoleextensions-broadcast.html"><abbr title="php/fncs/customConsoleExtensions/broadcast.php">broadcast.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">24</span>
+    <span class="phpdocumentor-element-found-in__line">37</span>
 
     </aside>
 
@@ -279,18 +332,17 @@
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$px2dthelper</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$px</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cce_id</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$px</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$main</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$px2dthelper</span>
-                : <span class="phpdocumentor-signature__argument__return-type">object</span>
+                <span class="phpdocumentor-signature__argument__name">$cce_id</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>$px2dthelperオブジェクト</p>
-</section>
+                    <section class="phpdocumentor-description"></section>
 
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
@@ -299,6 +351,15 @@
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>$pxオブジェクト</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$main</span>
+                : <span class="phpdocumentor-signature__argument__return-type">object</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>main.php のインスタンス</p>
 </section>
 
             </dd>
@@ -318,55 +379,32 @@
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_copy">
-        copy()
-        <a href="classes/tomk79-pickles2-px2dthelper-fncs-copy-content.html#method_copy" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_call">
+        call()
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-customConsoleExtensions-broadcast.html#method_call" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/copy_content.php"><a href="files/php-fncs-copy-content.html"><abbr title="php/fncs/copy_content.php">copy_content.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/customConsoleExtensions/broadcast.php"><a href="files/php-fncs-customconsoleextensions-broadcast.html"><abbr title="php/fncs/customConsoleExtensions/broadcast.php">broadcast.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">38</span>
+    <span class="phpdocumentor-element-found-in__line">97</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">コンテンツを複製する</p>
+        <p class="phpdocumentor-summary">メッセージの配信処理を要求する</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">copy</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$path_from</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$path_to</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$options</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">array()</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">call</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$message</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$path_from</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                <span class="phpdocumentor-signature__argument__name">$message</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>コピー元のページパス (サイトマップの path 値)</p>
-</section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$path_to</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>コピー先のページパス (サイトマップの path 値)</p>
-</section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$options</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">array()</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>オプション</p>
-<ul>
-<li>
-<code class="prettyprint">force</code> : <code class="prettyprint">true</code> を指定すると、すでにコンテンツが存在した場合にも強制的に上書きします。</li>
-</ul>
-</section>
+                    <section class="phpdocumentor-description"></section>
 
             </dd>
             </dl>
@@ -374,9 +412,42 @@
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
             &mdash;
-            <section class="phpdocumentor-description"><p><code class="prettyprint">array(boolean $result, string $error_msg)</code></p>
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_get_config">
+        get_config()
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-customConsoleExtensions-broadcast.html#method_get_config" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/customConsoleExtensions/broadcast.php"><a href="files/php-fncs-customconsoleextensions-broadcast.html"><abbr title="php/fncs/customConsoleExtensions/broadcast.php">broadcast.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">47</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">配信方法の設定を取得する</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">get_config</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">object</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">object</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>設定オブジェクト</p>
 </section>
 
     
@@ -459,7 +530,7 @@
 </section>
             </div>
         </div>
-        <a href="classes/tomk79-pickles2-px2dthelper-fncs-copy-content.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+        <a href="classes/tomk79-pickles2-px2dthelper-fncs-customConsoleExtensions-broadcast.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
     </main>
 
