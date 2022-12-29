@@ -18,6 +18,9 @@
             "php ./phpDocumentor.phar --title \"pickles2/px2-px2dthelper v2.1.5 API Document\" -d \"./php/\" -t \"./doc/\""
         ]
     } ,
+    "config": {
+        "process-timeout": 0
+    },
     "repositories": [
     ],
     "require": {

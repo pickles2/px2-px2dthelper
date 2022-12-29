@@ -48,7 +48,12 @@ class findContents{
 	 */
 	private function read_dir_r($path_current_dir, $callback){
 
-		if( preg_match('/^'.preg_quote($this->env->realpath_homedir, '/').'/s', $this->px->fs()->get_realpath($this->env->realpath_controot.$path_current_dir)) ){
+		$realpath_current_dir = $this->px->fs()->normalize_path(
+			$this->px->fs()->get_realpath(
+				$this->env->realpath_controot.$path_current_dir
+			)
+		);
+		if( preg_match('/^'.preg_quote($this->env->realpath_homedir, '/').'/s', $realpath_current_dir) ){
 			// homedir 内は検索しない
 			return true;
 		}
