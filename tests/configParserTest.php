@@ -23,13 +23,12 @@ class configParserTest extends PHPUnit\Framework\TestCase{
 		// ---------------------------
 		// 設定値を取得
 		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.config.parse' ] );
-		// var_dump($output);
 		$json = json_decode( $output );
-		// var_dump($json);
 		$this->assertTrue( is_object($json) );
 		$this->assertTrue( $json->result );
 		$this->assertSame( $json->values->name, 'px2-px2dthelper-test' );
 		$this->assertSame( $json->values->domain, null );
+		$this->assertSame( $json->values->copyright, 'Pickles Project' );
 		$this->assertSame( $json->symbols->theme_id, 'pickles' );
 
 		// ---------------------------
@@ -39,20 +38,20 @@ class configParserTest extends PHPUnit\Framework\TestCase{
 				'name' => 'new site name',
 				'scheme' => 'http',
 				'domain' => 'example.com',
+				'copyright' => 'new copyright',
 			),
 			'symbols'=>array(
 				'theme_id' => 'update_test',
 			),
 		));
 		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.config.update&base64_json='.urlencode(base64_encode($json)) ] );
-		// var_dump($output);
 		$json = json_decode( $output );
-		// var_dump($json);
 		$this->assertTrue( is_object($json) );
 		$this->assertTrue( $json->result );
 		$this->assertSame( $json->values->name, 'new site name' );
 		$this->assertSame( $json->values->scheme, 'http' );
 		$this->assertSame( $json->values->domain, 'example.com' );
+		$this->assertSame( $json->values->copyright, 'new copyright' );
 		$this->assertSame( $json->symbols->theme_id, 'update_test' );
 
 		// ---------------------------
@@ -62,6 +61,7 @@ class configParserTest extends PHPUnit\Framework\TestCase{
 				'name' => 'px2-px2dthelper-test',
 				'scheme' => 'https',
 				'domain' => null,
+				'copyright' => 'Pickles Project',
 			),
 			'symbols'=>array(
 				'theme_id' => 'pickles',
@@ -76,6 +76,7 @@ class configParserTest extends PHPUnit\Framework\TestCase{
 		$this->assertSame( $json->values->name, 'px2-px2dthelper-test' );
 		$this->assertSame( $json->values->scheme, 'https' );
 		$this->assertSame( $json->values->domain, null );
+		$this->assertSame( $json->values->copyright, 'Pickles Project' );
 		$this->assertSame( $json->symbols->theme_id, 'pickles' );
 
 
@@ -90,6 +91,7 @@ class configParserTest extends PHPUnit\Framework\TestCase{
 		$this->assertSame( $json->values->name, 'px2-px2dthelper-test' );
 		$this->assertSame( $json->values->scheme, 'https' );
 		$this->assertSame( $json->values->domain, null );
+		$this->assertSame( $json->values->copyright, 'Pickles Project' );
 		$this->assertSame( $json->symbols->theme_id, 'pickles' );
 
 

@@ -62,7 +62,7 @@ class configParser{
 	 * @return array 実行結果
 	 */
 	public function update($set_data = null){
-		$set_data = json_decode( json_encode($set_data), true );
+		$set_data = json_decode( json_encode($set_data ?? '{}'), true );
 		if( is_array($set_data) ){
 			if( !array_key_exists('values', $set_data) ){
 				$set_data['values'] = array();
@@ -192,6 +192,9 @@ class configParser{
 					return $src_config_php;
 				},
 				'validator' => function( $val ){
+					if( is_null($val) ){
+						return false; // not nullable
+					}
 					if(!preg_match('/^[a-zA-Z0-9\-\_\.\:\;\@\#\$\%\^\&\*\+\=\s]+$/s', $val)){
 						return false;
 					}
@@ -267,6 +270,43 @@ class configParser{
 						return true; // nullable
 					}
 					if(!preg_match('/^[a-zA-Z0-9\-\_\.]+(?:\:[1-9][0-9]*)?$/s', $val)){
+						return false;
+					}
+					return true;
+				},
+			),
+			'copyright' => array(
+				'value_div' => 'values',
+				'preg_pattern' => '/\$conf\-\>copyright\s*\=\s*(?:(\'|\")([^\1]+?)\1|(null|NULL))\s*\;/s',
+				'parse' => function( $pattern, $src_config_php ){
+					$rtn = array(
+						'matched' => true,
+						'value' => null,
+					);
+					if( preg_match($pattern['preg_pattern'], $src_config_php, $matched) ){
+						if( strlen(''.$matched[1]) ){
+							$rtn['value'] = $matched[2];
+							return $rtn;
+						}
+						return $rtn;
+					}
+					return array(
+						'matched' => false,
+					);
+				},
+				'replace' => function( $pattern, $src_config_php, $val ){
+					$src_config_php = preg_replace(
+						$pattern['preg_pattern'],
+						'$conf->copyright = '.var_export($val,true).';',
+						$src_config_php
+					);
+					return $src_config_php;
+				},
+				'validator' => function( $val ){
+					if( is_null($val) ){
+						return true; // nullable
+					}
+					if(!is_string($val)){
 						return false;
 					}
 					return true;

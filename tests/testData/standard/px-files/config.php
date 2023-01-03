@@ -8,6 +8,7 @@ return call_user_func( function(){
 	$conf->name = 'px2-px2dthelper-test'; // サイト名
 	$conf->scheme = 'https'; // スキーマ
 	$conf->domain = NULL; // ドメイン
+	$conf->copyright = 'Pickles Project'; // 著作権表示
 	$conf->path_controot = '/'; // コンテンツルートディレクトリ
 
 	// paths
