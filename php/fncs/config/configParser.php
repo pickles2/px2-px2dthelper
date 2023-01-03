@@ -166,7 +166,7 @@ class configParser{
 		$patterns = array(
 			'name' => array(
 				'value_div' => 'values',
-				'preg_pattern' => '/\$conf\-\>name\s*\=\s*(?:(\'|\")([a-zA-Z0-9\-\_\.\:\;\@\#\$\%\^\&\*\+\=\s]+)\1|null|NULL)\s*\;/s',
+				'preg_pattern' => '/\$conf\-\>name\s*\=\s*(?:(\'|\")([a-zA-Z0-9\-\_\.\:\;\@\#\$\%\^\&\*\+\=\s]*)\1|null|NULL)\s*\;/s',
 				'parse' => function( $pattern, $src_config_php ){
 					$rtn = array(
 						'matched' => true,
@@ -203,7 +203,7 @@ class configParser{
 			),
 			'scheme' => array(
 				'value_div' => 'values',
-				'preg_pattern' => '/\$conf\-\>scheme\s*\=\s*(?:(\'|\")([a-zA-Z0-9\-\_\.\:]+)\1|(null|NULL))\s*\;/s',
+				'preg_pattern' => '/\$conf\-\>scheme\s*\=\s*(?:(\'|\")([a-zA-Z0-9\-\_\.\:]*)\1|(null|NULL))\s*\;/s',
 				'parse' => function( $pattern, $src_config_php ){
 					$rtn = array(
 						'matched' => true,
@@ -240,7 +240,7 @@ class configParser{
 			),
 			'domain' => array(
 				'value_div' => 'values',
-				'preg_pattern' => '/\$conf\-\>domain\s*\=\s*(?:(\'|\")([a-zA-Z0-9\-\_\.\:]+)\1|(null|NULL))\s*\;/s',
+				'preg_pattern' => '/\$conf\-\>domain\s*\=\s*(?:(\'|\")([a-zA-Z0-9\-\_\.\:]*)\1|(null|NULL))\s*\;/s',
 				'parse' => function( $pattern, $src_config_php ){
 					$rtn = array(
 						'matched' => true,
@@ -277,7 +277,7 @@ class configParser{
 			),
 			'copyright' => array(
 				'value_div' => 'values',
-				'preg_pattern' => '/\$conf\-\>copyright\s*\=\s*(?:(\'|\")([^\1]+?)\1|(null|NULL))\s*\;/s',
+				'preg_pattern' => '/\$conf\-\>copyright\s*\=\s*(?:(\'|\")([^\1]*?)\1|(null|NULL))\s*\;/s',
 				'parse' => function( $pattern, $src_config_php ){
 					$rtn = array(
 						'matched' => true,
