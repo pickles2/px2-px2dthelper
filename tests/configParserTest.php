@@ -5,6 +5,9 @@
 
 class configParserTest extends PHPUnit\Framework\TestCase{
 
+	private $fs;
+	private $px2query;
+
 	/**
 	 * setup
 	 */

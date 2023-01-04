@@ -5,6 +5,9 @@
 
 class px2teTest extends PHPUnit\Framework\TestCase{
 
+	private $fs;
+	private $px2query;
+
 	/**
 	 * setup
 	 */
