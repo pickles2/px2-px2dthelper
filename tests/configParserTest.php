@@ -68,9 +68,7 @@ class configParserTest extends PHPUnit\Framework\TestCase{
 			),
 		));
 		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.config.update&base64_json='.urlencode(base64_encode($json)) ] );
-		// var_dump($output);
 		$json = json_decode( $output );
-		// var_dump($json);
 		$this->assertTrue( is_object($json) );
 		$this->assertTrue( $json->result );
 		$this->assertSame( $json->values->name, 'px2-px2dthelper-test' );
@@ -83,9 +81,7 @@ class configParserTest extends PHPUnit\Framework\TestCase{
 		// ---------------------------
 		// 設定値を再び取得
 		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.config.parse' ] );
-		// var_dump($output);
 		$json = json_decode( $output );
-		// var_dump($json);
 		$this->assertTrue( is_object($json) );
 		$this->assertTrue( $json->result );
 		$this->assertSame( $json->values->name, 'px2-px2dthelper-test' );
@@ -95,6 +91,55 @@ class configParserTest extends PHPUnit\Framework\TestCase{
 		$this->assertSame( $json->symbols->theme_id, 'pickles' );
 
 
+		// ---------------------------
+		// エラーパターン
+		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.config.update&base64_json='.urlencode(base64_encode(json_encode(array(
+			'values'=>array(
+				'name' => '"',
+			),
+		)))) ] );
+		$json = json_decode( $output );
+		$this->assertTrue( is_object($json) );
+		$this->assertFalse( $json->result );
+
+		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.config.update&base64_json='.urlencode(base64_encode(json_encode(array(
+			'values'=>array(
+				'name' => '\'',
+			),
+		)))) ] );
+		$json = json_decode( $output );
+		$this->assertTrue( is_object($json) );
+		$this->assertFalse( $json->result );
+
+		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.config.update&base64_json='.urlencode(base64_encode(json_encode(array(
+			'values'=>array(
+				'name' => '\\',
+			),
+		)))) ] );
+		$json = json_decode( $output );
+		$this->assertTrue( is_object($json) );
+		$this->assertFalse( $json->result );
+
+		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.config.update&base64_json='.urlencode(base64_encode(json_encode(array(
+			'values'=>array(
+				'copyright' => '"',
+			),
+		)))) ] );
+		$json = json_decode( $output );
+		$this->assertTrue( is_object($json) );
+		$this->assertFalse( $json->result );
+
+		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.config.update&base64_json='.urlencode(base64_encode(json_encode(array(
+			'values'=>array(
+				'scheme' => 'ftp',
+			),
+		)))) ] );
+		$json = json_decode( $output );
+		$this->assertTrue( is_object($json) );
+		$this->assertFalse( $json->result );
+
+
+		// ---------------------------
 		// 後始末
 		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,

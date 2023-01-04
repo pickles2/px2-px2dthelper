@@ -198,6 +198,12 @@ class configParser{
 					if(!preg_match('/^[a-zA-Z0-9\-\_\.\:\;\@\#\$\%\^\&\*\+\=\s]+$/s', $val)){
 						return false;
 					}
+					if(!preg_match('/^[^\r\n\"\'\\\\]*$/s', $val)){
+						// 禁止文字
+						// NOTE: PHPコードのパースが配慮が足りないため、使えない文字を定義した。
+						// TODO: パーサーを改善し、使えるようにしたい。
+						return false;
+					}
 					return true;
 				},
 			),
@@ -307,6 +313,12 @@ class configParser{
 						return true; // nullable
 					}
 					if(!is_string($val)){
+						return false;
+					}
+					if(!preg_match('/^[^\r\n\"\'\\\\]*$/s', $val)){
+						// 禁止文字
+						// NOTE: PHPコードのパースが配慮が足りないため、使えない文字を定義した。
+						// TODO: パーサーを改善し、使えるようにしたい。
 						return false;
 					}
 					return true;
