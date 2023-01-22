@@ -444,10 +444,10 @@ class main{
 
 		if( $path_proc_type == 'html' ){
 			$rtn = 'html';
-			if( @is_string( $matched[2] ) ){
-				switch( $matched[2] ){
+			if( is_string( $matched[2] ?? '') ){
+				switch( $matched[2] ?? '' ){
 					case 'md':
-						$rtn = $matched[2];
+						$rtn = $matched[2] ?? null;
 						break;
 				}
 			}else{
@@ -560,7 +560,7 @@ class main{
 			return $options;
 		};
 
-		switch( @$this->command[1] ){
+		switch( $this->command[1] ?? '' ){
 			case 'ping':
 				// 疎通確認応答
 				print $std_output->data_convert( 'ok' );
@@ -580,7 +580,7 @@ class main{
 				break;
 
 			case 'get':
-				switch( @$this->command[2] ){
+				switch( $this->command[2] ?? '' ){
 					case 'path_theme_collection_dir':
 						$request_path = $this->px->req()->get_request_file_path();
 						print $std_output->data_convert( $this->get_path_theme_collection_dir() );
@@ -722,7 +722,7 @@ class main{
 			case 'sitemap':
 				// サイトマップ操作
 				$sitemap_editor = new fncs\sitemap\sitemapEditor( $this, $this->px );
-				switch( @$this->command[2] ){
+				switch( $this->command[2] ?? '' ){
 					case 'filelist':
 						$filename = $this->px->req()->get_param('filename');
 						$result = $sitemap_editor->filelist($filename);
@@ -799,7 +799,7 @@ class main{
 			case 'page':
 				// サイトマップ/ページ操作
 				$sitemap_editor = new fncs\page\pageEditor( $this, $this->px );
-				switch( @$this->command[2] ){
+				switch( $this->command[2] ?? '' ){
 					case 'get_page_info_raw':
 						$filename = $this->px->req()->get_param('filefullname');
 						$row = $this->px->req()->get_param('row');
@@ -854,7 +854,7 @@ class main{
 			case 'content':
 				// コンテンツ操作
 				$content_editor = new fncs\content\contentEditor( $this, $this->px );
-				switch( @$this->command[2] ){
+				switch( $this->command[2] ?? '' ){
 					case 'move':
 						$path_from = $this->px->req()->get_param('from');
 						$path_to = $this->px->req()->get_param('to');
@@ -931,7 +931,7 @@ class main{
 				$data_type = $this->px->req()->get_param('type');
 				$theme_id = $this->px->req()->get_param('theme_id');
 				$val = null;
-				switch( @$this->command[2] ){
+				switch( $this->command[2] ?? '' ){
 					case 'build_css':
 						if( !is_string($data_type) || !strlen($data_type) ){
 							header('Content-type: text/css; charset=UTF-8');
@@ -967,7 +967,7 @@ class main{
 				break;
 
 			case 'config':
-				switch( @$this->command[2] ){
+				switch( $this->command[2] ?? '' ){
 					case 'parse':
 						$config_parser = new fncs\config\configParser( $this, $this->px );
 						$result = $config_parser->parse();
@@ -997,7 +997,7 @@ class main{
 			case 'plugins':
 				// プラグインの操作
 				$val = null;
-				switch( @$this->command[2] ){
+				switch( $this->command[2] ?? '' ){
 					case 'get_plugin_options':
 						// プラグインのオプション情報を取得する
 						$plugin_name = $this->px->req()->get_param('plugin_name');
@@ -1012,7 +1012,7 @@ class main{
 			case 'packages':
 				// composer パッケージの操作
 				$val = null;
-				switch( @$this->command[2] ){
+				switch( $this->command[2] ?? '' ){
 					case 'get_path_composer_root_dir':
 						$val = $this->packages()->get_path_composer_root_dir();
 						break;
@@ -1037,7 +1037,7 @@ class main{
 					break;
 				}
 				$excel2html = new \tomk79\excel2html\main($path_xlsx);
-				$val = @$excel2html->get_html(array(
+				$val = $excel2html->get_html(array(
 					'header_row' => $this->px->req()->get_param('header_row') ,
 					'header_col' => $this->px->req()->get_param('header_col') ,
 					'renderer' => $this->px->req()->get_param('renderer') ,
