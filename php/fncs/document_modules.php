@@ -81,15 +81,15 @@ class document_modules{
 		}
 
 		// ディレクトリからモジュールを検索
-		$realpath_module_dir = @$conf->path_module_templates_dir;
-		if( strlen(''.$realpath_module_dir) && is_dir($realpath_module_dir) ){
+		$realpath_module_dir = $conf->path_module_templates_dir ?? null;
+		if( strlen($realpath_module_dir ?? '') && is_dir($realpath_module_dir) ){
 			$ls = $this->px->fs()->ls($realpath_module_dir);
 			sort($ls);
 			foreach( $ls as $key ){
 				if( !is_dir( $realpath_module_dir.'/'.$key.'/' ) ){
 					continue;
 				}
-				if( @is_array( $array_files[$key] ) ){
+				if( is_array( $array_files[$key] ?? null ) ){
 					// 既に定義済みのモジュールパッケージIDは上書きしない。
 					continue;
 				}
@@ -138,7 +138,7 @@ class document_modules{
 		}
 
 		// ディレクトリからモジュールを検索
-		$realpath_module_dir = @$realpath_theme_collection_dir.'/'.$theme_id.'/broccoli_module_packages/';
+		$realpath_module_dir = $realpath_theme_collection_dir.'/'.$theme_id.'/broccoli_module_packages/';
 		if( strlen(''.$realpath_module_dir) && is_dir($realpath_module_dir) ){
 			$ls = $this->px->fs()->ls($realpath_module_dir);
 			sort($ls);
@@ -146,7 +146,7 @@ class document_modules{
 				if( !is_dir( $realpath_module_dir.'/'.$key.'/' ) ){
 					continue;
 				}
-				if( @is_array( $array_files[$key] ) ){
+				if( is_array( $array_files[$key] ?? null ) ){
 					// 既に定義済みのモジュールパッケージIDは上書きしない。
 					continue;
 				}
@@ -296,7 +296,7 @@ class document_modules{
 			$array_files[$packageId] = glob($row.'**/**/module.js');
 		}
 		// ディレクトリからモジュールを検索
-		$realpath_module_dir = @$conf->path_module_templates_dir;
+		$realpath_module_dir = $conf->path_module_templates_dir ?? null;
 		if( strlen(''.$realpath_module_dir) && is_dir($realpath_module_dir) ){
 			$ls = $this->px->fs()->ls($realpath_module_dir);
 			sort($ls);
@@ -304,7 +304,7 @@ class document_modules{
 				if( !is_dir( $realpath_module_dir.'/'.$packageId.'/' ) ){
 					continue;
 				}
-				if( @is_array( $array_files[$packageId] ) ){
+				if( is_array( $array_files[$packageId] ?? null ) ){
 					// 既に定義済みのモジュールパッケージIDは上書きしない。
 					continue;
 				}
@@ -351,7 +351,7 @@ class document_modules{
 		}
 
 		// ディレクトリからモジュールを検索
-		$realpath_module_dir = @$realpath_theme_collection_dir.'/'.$theme_id.'/broccoli_module_packages/';
+		$realpath_module_dir = $realpath_theme_collection_dir.'/'.$theme_id.'/broccoli_module_packages/';
 		if( strlen(''.$realpath_module_dir) && is_dir($realpath_module_dir) ){
 			$ls = $this->px->fs()->ls($realpath_module_dir);
 			sort($ls);
@@ -359,7 +359,7 @@ class document_modules{
 				if( !is_dir( $realpath_module_dir.'/'.$packageId.'/' ) ){
 					continue;
 				}
-				if( @is_array( $array_files[$packageId] ) ){
+				if( is_array( $array_files[$packageId] ?? null ) ){
 					// 既に定義済みのモジュールパッケージIDは上書きしない。
 					continue;
 				}

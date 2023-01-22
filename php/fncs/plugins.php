@@ -64,7 +64,7 @@ class plugins{
 			$row = array();
 			$row['funcs_div'] = $fnc_info['funcs_div'];
 			$row['function'] = $preg_match[1];
-			$row['options'] = @json_decode( $preg_match[2] );
+			$row['options'] = json_decode( $preg_match[2] ?? 'null' );
 			$row['function'] = preg_replace('/^\\\\+/', '', $row['function']); // 先頭のバックスラッシュを削除
 			$row['function'] = preg_replace('/\\\\+/', '\\', $row['function']); // 重複するバックスラッシュを1つにまとめる
 			if( $row['function'] == $plugin_name ){

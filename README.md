@@ -433,6 +433,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 ### pickles2/px2-px2dthelper v2.1.7 (リリース日)
 
 - `PX=px2dthelper.config.parse`, `PX=px2dthelper.config.update` で、 `$conf->copyright` を扱えるようになった。
+- その他、内部コードの修正など。
 
 ### pickles2/px2-px2dthelper v2.1.6 (2022年12月29日)
 
