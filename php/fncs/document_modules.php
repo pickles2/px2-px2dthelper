@@ -198,7 +198,12 @@ class document_modules{
 						trigger_error('SCSS Proccessor is NOT available.');
 						continue;
 					}
-					$tmp_bin = $scss->compile( $tmp_bin );
+					if( is_callable( array( $scss, 'compileString' ) ) ){
+						$tmp_bin = $scss->compileString( $tmp_bin )->getCss();
+					}else{
+						$tmp_bin = $scss->compile( $tmp_bin ); // 古い $scss への配慮
+					}
+
 					chdir( $tmp_current_dir );
 				}
 
