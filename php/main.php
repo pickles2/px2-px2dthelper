@@ -418,7 +418,7 @@ class main{
 	 * @param string $page_path 対象のページのパス
 	 */
 	public function check_editor_mode( $page_path = null ){
-		if(!strlen(''.$page_path)){
+		if( !strlen($page_path ?? '') ){
 			$page_path = $this->px->req()->get_request_file_path();
 		}
 		$page_info = null;
@@ -440,11 +440,11 @@ class main{
 			return '.not_exists';
 		}
 
-		@preg_match( '/\\.('.$preg_exts.')\\.('.$preg_exts.')$/', $path_content, $matched );
+		preg_match( '/\\.('.$preg_exts.')\\.('.$preg_exts.')$/', $path_content ?? '', $matched );
 
 		if( $path_proc_type == 'html' ){
 			$rtn = 'html';
-			if( is_string( $matched[2] ?? '') ){
+			if( is_string( $matched[2] ?? null) ){
 				switch( $matched[2] ?? '' ){
 					case 'md':
 						$rtn = $matched[2] ?? null;
