@@ -89,11 +89,11 @@ class packages{
 		// composer
 		if( is_file($path_dir.'/composer.json') ){
 			$json = @json_decode($this->px->fs()->read_file($path_dir.'/composer.json'));
-			if( @is_object($json->extra->px2package) ){
+			if( is_object($json->extra->px2package ?? null) ){
 				// var_dump($path_dir);
 				// var_dump($json->extra->px2package);
 				$package_list = $this->parse_px2package_in_composer_json_row($json->extra->px2package, null, $path_dir, $package_list);
-			}elseif( @is_array($json->extra->px2package) ){
+			}elseif( is_array($json->extra->px2package ?? null) ){
 				// var_dump($path_dir);
 				foreach( $json->extra->px2package as $number=>$px2package ){
 					// var_dump($package);
