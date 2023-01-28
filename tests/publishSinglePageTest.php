@@ -6,6 +6,7 @@
 class publishSinglePageTest extends PHPUnit\Framework\TestCase{
 
 	private $fs;
+	private $px2query;
 	private $path_dist;
 
 	/**
