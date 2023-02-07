@@ -68,7 +68,7 @@ class main{
 	public function __construct( $px ){
 		$this->px = $px;
 		$this->px2dtconfig = json_decode('{}');
-		if( @is_object($this->px->conf()->plugins->px2dt) ){
+		if( is_object($this->px->conf()->plugins->px2dt ?? null) ){
 			$this->px2dtconfig = $this->px->conf()->plugins->px2dt;
 		}elseif( is_file( $this->px->get_realpath_homedir().'px2dtconfig.json' ) ){
 			$this->px2dtconfig = json_decode( $this->px->fs()->read_file( $this->px->get_realpath_homedir().'px2dtconfig.json' ) );
@@ -76,7 +76,7 @@ class main{
 		$this->px2dtconfig = json_decode( json_encode($this->px2dtconfig) ); // 連想配列で設定されている場合を考慮して、オブジェクト形式に変換する
 
 		// broccoliモジュールパッケージのパスを整形
-		@$this->px2dtconfig->paths_module_template = @$this->px2dtconfig->paths_module_template;
+		$this->px2dtconfig->paths_module_template = $this->px2dtconfig->paths_module_template ?? null;
 		if( is_object($this->px2dtconfig->paths_module_template) ){
 			foreach( $this->px2dtconfig->paths_module_template as $key=>$val ){
 				// ↓ スラッシュで始まり スラッシュで終わる 絶対パスに置き換える。
@@ -119,7 +119,7 @@ class main{
 		if($ext !== 'direct' && $ext !== 'pass'){
 			if( $this->px->site() ){
 				$current_page_info = $this->px->site()->get_page_info($page_path);
-				$tmp_path_content = @$current_page_info['content'];
+				$tmp_path_content = $current_page_info['content'] ?? null;
 				if( strlen( ''.$tmp_path_content ) ){
 					$path_content = $tmp_path_content;
 				}
@@ -203,7 +203,7 @@ class main{
 			&& property_exists($val[0], 'options')
 			&& is_object($val[0]->options)
 			&& property_exists($val[0]->options, 'path_theme_collection')
-			&& @$val[0]->options->path_theme_collection ){
+			&& ($val[0]->options->path_theme_collection ?? null) ){
 			$relatedpath = $this->px->fs()->get_relatedpath($val[0]->options->path_theme_collection);
 			$relatedpath = $this->px->fs()->normalize_path($relatedpath);
 			return $relatedpath;
@@ -342,7 +342,7 @@ class main{
 	 * Get custom_fields
 	 */
 	public function get_custom_fields(){
-		$rtn = @$this->get_px2dtconfig()->guieditor->custom_fields;
+		$rtn = $this->get_px2dtconfig()->guieditor->custom_fields ?? null;
 		if( gettype($rtn) != gettype(new \stdClass) ){
 			$rtn = new \stdClass;
 		}
