@@ -1771,6 +1771,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/tomk79-pickles2-px2dthelper-simple-html-dom.html#property_optional_closing_tags"
         },                {
+            "fqsen": "\\tomk79\\pickles2\\px2dthelper\\simple_html_dom\u003A\u003A\u0024optional_closing_array",
+            "name": "optional_closing_array",
+            "summary": "",
+            "url": "classes/tomk79-pickles2-px2dthelper-simple-html-dom.html#property_optional_closing_array"
+        },                {
             "fqsen": "\\tomk79\\pickles2\\px2dthelper\\sitemapUtils",
             "name": "sitemapUtils",
             "summary": "sitemapUtils.php",
