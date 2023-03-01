@@ -77,22 +77,25 @@ return call_user_func( function(){
 	// funcs: Before sitemap
 	$conf->funcs->before_sitemap = [
 		// PX=clearcache
-		'picklesFramework2\commands\clearcache::register' ,
+		'picklesFramework2\commands\clearcache::register',
 
-		 // PX=config
-		'picklesFramework2\commands\config::register' ,
+		// PX=config
+		'picklesFramework2\commands\config::register',
 
-		 // PX=phpinfo
-		'picklesFramework2\commands\phpinfo::register' ,
+		// PX=phpinfo
+		'picklesFramework2\commands\phpinfo::register',
+
+		// px2-serve
+		\tomk79\pickles2\px2serve\serve::register(),
 	];
 
 	// funcs: Before content
 	$conf->funcs->before_content = [
 		// PX=api
-		'picklesFramework2\commands\api::register' ,
+		'picklesFramework2\commands\api::register',
 
 		// PX=publish
-		'picklesFramework2\commands\publish::register' ,
+		'picklesFramework2\commands\publish::register',
 
 		// PX=px2dthelper
 		'tomk79\pickles2\px2dthelper\main::register'
@@ -103,7 +106,7 @@ return call_user_func( function(){
 	// processor
 	$conf->funcs->processor = new stdClass;
 
-	@require_once( __DIR__.'/themes/pickles/php/theme.php' );
+	require_once( __DIR__.'/themes/pickles/php/theme.php' );
 	$conf->funcs->processor->html = [
 		// ページ内目次を自動生成する
 		'picklesFramework2\processors\autoindex\autoindex::exec' ,

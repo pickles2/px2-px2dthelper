@@ -159,20 +159,16 @@ class broccoliTest extends PHPUnit\Framework\TestCase{
 		$output = $this->px2query->query( [
 			__DIR__.'/testData/broccoli/.px_execute.php' ,
 			'-u', 'Mozilla/5.0',
-			'/index.html' ,
+			'/index.html?PICKLES2_CONTENTS_EDITOR=broccoli' ,
 		] );
-		// var_dump($output);
 		$this->assertTrue( !!preg_match('/broccoli\-receive\-message\=/s', $output) );
 
 		$output = $this->px2query->query( [
 			__DIR__.'/testData/broccoli/.px_execute.php' ,
 			'-u', 'PicklesCrawler',
-			'/index.html' ,
+			'/index.html?PICKLES2_CONTENTS_EDITOR=broccoli' ,
 		] );
-		// var_dump($output);
 		$this->assertFalse( !!preg_match('/broccoli\-receive\-message\=/s', $output) );
-
-
 
 		// 後始末
 		$output = $this->px2query->query( [
@@ -180,6 +176,6 @@ class broccoliTest extends PHPUnit\Framework\TestCase{
 			'/?PX=clearcache' ,
 		] );
 
-	}//testBroccoliReceiveMessage()
+	}
 
 }

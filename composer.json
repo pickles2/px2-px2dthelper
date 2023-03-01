@@ -11,6 +11,12 @@
     ],
     "minimum-stability": "dev",
     "scripts":{
+		"start": [
+			"@php ./tests/testData/broccoli/.px_execute.php \"/?PX=serve&S=localhost:8080\""
+		],
+		"start-pub": [
+			"@php ./tests/testData/broccoli/.px_execute.php \"/?PX=serve.pub&S=localhost:8081\""
+		],
         "test": [
             "php ./vendor/phpunit/phpunit/phpunit"
         ],
@@ -39,6 +45,7 @@
         "pickles2/px2-sitemapexcel": "~2.2",
         "pickles2/px2-multitheme": "~2.1",
         "tomk79/filesystem": "~1.1",
+        "tomk79/px2-serve": "~0.1.3",
         "phpunit/phpunit": "~9.5"
     },
     "autoload": {

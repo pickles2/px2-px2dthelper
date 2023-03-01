@@ -433,6 +433,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 ### pickles2/px2-px2dthelper v2.1.8 (リリース日未定)
 
 - 重複するエラー表示をまとめるようになった。
+- その他、内部コードの修正など。
 
 ### pickles2/px2-px2dthelper v2.1.7 (2023年2月11日)
 

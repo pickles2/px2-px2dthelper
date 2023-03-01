@@ -148,7 +148,7 @@ class theme{
 		foreach( $breadcrumb as $pid ){
 			$rtn .= '<li>'.$this->px->mk_link( $pid, array('label'=>$this->px->site()->get_page_info($pid, 'title_breadcrumb'), 'current'=>false) ).'</li>';
 		}
-		$rtn .= '<li><span>'.htmlspecialchars( $this->px->site()->get_current_page_info('title_breadcrumb') ).'</span></li>';
+		$rtn .= '<li><span>'.htmlspecialchars( $this->px->site()->get_current_page_info('title_breadcrumb') ?? '' ).'</span></li>';
 		$rtn .= '</ul>';
 		return $rtn;
 	}
