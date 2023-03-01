@@ -430,6 +430,10 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ## 更新履歴 - Change log
 
+### pickles2/px2-px2dthelper v2.1.8 (リリース日未定)
+
+- 重複するエラー表示をまとめるようになった。
+
 ### pickles2/px2-px2dthelper v2.1.7 (2023年2月11日)
 
 - `PX=px2dthelper.config.parse`, `PX=px2dthelper.config.update` で、 `$conf->copyright` を扱えるようになった。

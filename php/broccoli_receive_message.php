@@ -98,7 +98,7 @@ window.removeEventListener('message', f, false);
 		$receive_message_script = ob_get_clean();
 
 		return $receive_message_script;
-	} // generate_receive_message_script()
+	}
 
 	/**
 	 * エラーメッセージを生成する
@@ -117,19 +117,25 @@ window.removeEventListener('message', f, false);
 		$errors = $px->get_errors();
 		if( count($errors) ){
 			$errorHtml .= '<ul style="background-color: #fee; border: 3px solid #f33; padding: 10px; margin: 0.5em; border-radius: 5px;">';
+			$printed = array();
 			foreach( $errors as $idx=>$error ){
+				if( isset($printed[$error]) ){
+					// 重複したエラーは、出力を省略する。
+					continue;
+				}
 				$errorHtml .= '<li style="color: #f00; list-style-type: none;">'.htmlspecialchars($error).'</li>';
+				$printed[$error] = true;
 			}
 			$errorHtml .= '</ul>';
 		}
 
 		$rtn = '';
-		if( @strlen(''.$errorHtml) ){
+		if( strlen( $errorHtml ) ){
 			$rtn .= '<div style="position: fixed; top: 10px; left: 5%; width: 90%; font-size: 14px; opacity: 0.8; z-index: 2147483000;" onclick="this.style.display=\'none\';">';
 			$rtn .= $errorHtml;
 			$rtn .= '</div>';
 		}
 		return $rtn;
-	} // generate_receive_message_script()
+	}
 
 }
