@@ -36,7 +36,15 @@ class broccoli_receive_message{
 
 		$px2ce_edit_mode = $px->req()->get_param('PICKLES2_CONTENTS_EDITOR');
 		if( strlen( $px2ce_edit_mode ?? '' ) ){
+			// Broccoli編集画面の実行を妨げるスクリプトを無害化
 			$main_src = self::detoxify_sabotage_script($px, $main_src);
+
+			// レイアウト編集への対応のための変換処理
+			if($px2ce_edit_mode == 'broccoli.layout'){
+				$main_src = self::remake_for_edit_theme_layout($px, $main_src);
+			}
+
+			// RecieveMessageScriptの生成と挿入
 			$main_src .= self::generate_receive_message_script($plugin_conf);
 		}
 
@@ -57,6 +65,19 @@ class broccoli_receive_message{
 		// 無効化したら動くようになった。 (2019/4/22)
 		$src = preg_replace( '/'.preg_quote('//platform.twitter.com/','/').'/', '//platform.twitter.com__/', $src );
 		$src = preg_replace( '/'.preg_quote('//connect.facebook.net/','/').'/', '//connect.facebook.net__/', $src );
+		return $src;
+	}
+
+	/**
+	 * レイアウト編集への対応のための変換処理
+	 *
+	 * @param object $px Pickles Object
+	 * @param string $src HTMLソース
+	 * @return string 変換されたHTMLソース
+	 */
+	private function remake_for_edit_theme_layout($px, $src){
+		// TODO: 仮の実装↓
+		$src = preg_replace('/(\<body.*?\>)/', '$1<div data-pickles2-theme-editor-contents-area="main"></div>', $src);
 		return $src;
 	}
 
@@ -140,5 +161,4 @@ window.removeEventListener('message', f, false);
 		}
 		return $rtn;
 	}
-
 }
