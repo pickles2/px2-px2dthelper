@@ -76,8 +76,9 @@ class broccoli_receive_message{
 	 * @return string 変換されたHTMLソース
 	 */
 	private function remake_for_edit_theme_layout($px, $src){
-		// TODO: 仮の実装↓
-		$src = preg_replace('/(\<body.*?\>)/', '$1<div data-pickles2-theme-editor-contents-area="main"></div>', $src);
+		// bodyセクション全体を bowl で囲む
+		$src = preg_replace('/(\<body.*?\>)/', '$1<div data-pickles2-theme-editor-contents-area="main">', $src);
+		$src = preg_replace('/(\<\/body.*?\>)/', '</div>$1', $src);
 		return $src;
 	}
 
