@@ -21,6 +21,11 @@ Search.appendIndex(
             "summary": "Broccoli\u7DE8\u96C6\u753B\u9762\u306E\u5B9F\u884C\u3092\u59A8\u3052\u308B\u30B9\u30AF\u30EA\u30D7\u30C8\u3092\u7121\u5BB3\u5316\u3059\u308B",
             "url": "classes/tomk79-pickles2-px2dthelper-broccoli-receive-message.html#method_detoxify_sabotage_script"
         },                {
+            "fqsen": "\\tomk79\\pickles2\\px2dthelper\\broccoli_receive_message\u003A\u003Aremake_for_edit_theme_layout\u0028\u0029",
+            "name": "remake_for_edit_theme_layout",
+            "summary": "\u30EC\u30A4\u30A2\u30A6\u30C8\u7DE8\u96C6\u3078\u306E\u5BFE\u5FDC\u306E\u305F\u3081\u306E\u5909\u63DB\u51E6\u7406",
+            "url": "classes/tomk79-pickles2-px2dthelper-broccoli-receive-message.html#method_remake_for_edit_theme_layout"
+        },                {
             "fqsen": "\\tomk79\\pickles2\\px2dthelper\\broccoli_receive_message\u003A\u003Agenerate_receive_message_script\u0028\u0029",
             "name": "generate_receive_message_script",
             "summary": "RecieveMessageScript\u0020\u3092\u751F\u6210\u3059\u308B",

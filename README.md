@@ -430,9 +430,11 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ## 更新履歴 - Change log
 
-### pickles2/px2-px2dthelper v2.1.8 (リリース日未定)
+### pickles2/px2-px2dthelper v2.1.8 (2023年3月11日)
 
 - 重複するエラー表示をまとめるようになった。
+- `data-broccoli-receive-message` は、broccoli編集時にのみ挿入されるようになった。
+- Broccoli でのテーマ編集モードへの対応処理を改善した。
 - その他、内部コードの修正など。
 
 ### pickles2/px2-px2dthelper v2.1.7 (2023年2月11日)
