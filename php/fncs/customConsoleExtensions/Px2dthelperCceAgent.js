@@ -3,7 +3,9 @@ window.Px2dthelperCceAgent = function(options){
 	options = options || {};
 	options.elm = options.elm || false;
 	options.lang = options.lang || 'ja';
-	options.gpiBridge = options.gpiBridge || function(request, callback){};
+	options.gpiBridge = options.gpiBridge || function(){};
+	options.onEditContents = options.onEditContents || function(){};
+	options.onEditThemeLayout = options.onEditThemeLayout || function(){};
 	this.elm = function(){return options.elm;}
 	this.lang = function(){return options.lang;}
 	this.gpi = function(request, callback){
@@ -23,5 +25,11 @@ window.Px2dthelperCceAgent = function(options){
 	};
 	this.onBroadcast = function(callback){
 		onBroadcast = callback;
-	}
+	};
+	this.editContents = function(target){
+		options.onEditContents(target);
+	};
+	this.editThemeLayout = function(target){
+		options.onEditThemeLayout(target);
+	};
 }
