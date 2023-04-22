@@ -430,7 +430,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ## 更新履歴 - Change log
 
-### pickles2/px2-px2dthelper v2.1.9 (リリース日未定)
+### pickles2/px2-px2dthelper v2.1.9 (2023年4月22日)
 
 - クライアントサイド `cceAgent` に `editContent()`、 `editThemeLayout()`、 `openInBrowser()` を追加。
 
