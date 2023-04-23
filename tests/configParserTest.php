@@ -98,7 +98,7 @@ class configParserTest extends PHPUnit\Framework\TestCase{
 		// エラーパターン
 		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.config.update&base64_json='.urlencode(base64_encode(json_encode(array(
 			'values'=>array(
-				'name' => '"',
+				'name' => "\r\n",
 			),
 		)))) ] );
 		$json = json_decode( $output );
@@ -107,25 +107,7 @@ class configParserTest extends PHPUnit\Framework\TestCase{
 
 		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.config.update&base64_json='.urlencode(base64_encode(json_encode(array(
 			'values'=>array(
-				'name' => '\'',
-			),
-		)))) ] );
-		$json = json_decode( $output );
-		$this->assertTrue( is_object($json) );
-		$this->assertFalse( $json->result );
-
-		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.config.update&base64_json='.urlencode(base64_encode(json_encode(array(
-			'values'=>array(
-				'name' => '\\',
-			),
-		)))) ] );
-		$json = json_decode( $output );
-		$this->assertTrue( is_object($json) );
-		$this->assertFalse( $json->result );
-
-		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.config.update&base64_json='.urlencode(base64_encode(json_encode(array(
-			'values'=>array(
-				'copyright' => '"',
+				'copyright' => "\r\n",
 			),
 		)))) ] );
 		$json = json_decode( $output );

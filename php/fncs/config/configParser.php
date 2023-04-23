@@ -166,42 +166,31 @@ class configParser{
 		$patterns = array(
 			'name' => array(
 				'value_div' => 'values',
-				'preg_pattern' => '/\$conf\-\>name\s*\=\s*(?:(\'|\")([a-zA-Z0-9\-\_\.\:\;\@\#\$\%\^\&\*\+\=\s]*)\1|null|NULL)\s*\;/s',
+				'preg_pattern' => '/\$conf\-\>name\s*\=\s*(?:(\'|\")([^\r\n\"\'\\\\]*)\1|null|NULL)\s*\;/s',
 				'parse' => function( $pattern, $src_config_php ){
 					$rtn = array(
 						'matched' => true,
 						'value' => null,
 					);
-					if( preg_match($pattern['preg_pattern'], $src_config_php, $matched) ){
-						if( strlen(''.$matched[1]) ){
-							$rtn['value'] = $matched[2];
-							return $rtn;
-						}
-						return $rtn;
+					$rtn['value'] = $this->get_escaped_string_value('$conf->name', $src_config_php);
+					if( $rtn['value'] === false ){
+						return array(
+							'matched' => false,
+							'value' => null,
+						);
 					}
-					return array(
-						'matched' => false,
-					);
+					return $rtn;
 				},
 				'replace' => function( $pattern, $src_config_php, $val ){
-					$src_config_php = preg_replace(
-						$pattern['preg_pattern'],
-						'$conf->name = '.var_export($val,true).';',
-						$src_config_php
-					);
-					return $src_config_php;
+					$src_updated = $this->replace_escaped_string_value('$conf->name', $val, $src_config_php);
+					return $src_updated;
 				},
 				'validator' => function( $val ){
 					if( is_null($val) ){
 						return false; // not nullable
 					}
-					if(!preg_match('/^[a-zA-Z0-9\-\_\.\:\;\@\#\$\%\^\&\*\+\=\s]+$/s', $val)){
-						return false;
-					}
-					if(!preg_match('/^[^\r\n\"\'\\\\]*$/s', $val)){
+					if(!preg_match('/^[^\r\n]*$/s', $val)){
 						// 禁止文字
-						// NOTE: PHPコードのパースが配慮が足りないため、使えない文字を定義した。
-						// TODO: パーサーを改善し、使えるようにしたい。
 						return false;
 					}
 					return true;
@@ -289,24 +278,18 @@ class configParser{
 						'matched' => true,
 						'value' => null,
 					);
-					if( preg_match($pattern['preg_pattern'], $src_config_php, $matched) ){
-						if( strlen(''.$matched[1]) ){
-							$rtn['value'] = $matched[2];
-							return $rtn;
-						}
-						return $rtn;
+					$rtn['value'] = $this->get_escaped_string_value('$conf->copyright', $src_config_php);
+					if( $rtn['value'] === false ){
+						return array(
+							'matched' => false,
+							'value' => null,
+						);
 					}
-					return array(
-						'matched' => false,
-					);
+					return $rtn;
 				},
 				'replace' => function( $pattern, $src_config_php, $val ){
-					$src_config_php = preg_replace(
-						$pattern['preg_pattern'],
-						'$conf->copyright = '.var_export($val,true).';',
-						$src_config_php
-					);
-					return $src_config_php;
+					$src_updated = $this->replace_escaped_string_value('$conf->copyright', $val, $src_config_php);
+					return $src_updated;
 				},
 				'validator' => function( $val ){
 					if( is_null($val) ){
@@ -315,10 +298,8 @@ class configParser{
 					if(!is_string($val)){
 						return false;
 					}
-					if(!preg_match('/^[^\r\n\"\'\\\\]*$/s', $val)){
+					if(!preg_match('/^[^\r\n]*$/s', $val)){
 						// 禁止文字
-						// NOTE: PHPコードのパースが配慮が足りないため、使えない文字を定義した。
-						// TODO: パーサーを改善し、使えるようにしたい。
 						return false;
 					}
 					return true;
@@ -360,4 +341,86 @@ class configParser{
 		return $patterns;
 	}
 
+
+	/**
+	 * ソース内から文字列データを読み取る
+	 */
+	private function get_escaped_string_value( $key, $src_config_php ){
+		$rtn = false;
+
+		$pattern_initial = '/('.preg_quote($key, '/').'\s*\=\s*)(\'|\")(.*)$/s';
+		if( preg_match($pattern_initial, $src_config_php, $matched) ){
+			if( strlen($matched[2] ?? '') ){
+				$delimiter = $matched[2];
+				$src_config_php_right = $matched[3];
+				$tmp_extract_value = '';
+
+				while( 1 ){
+					if( $delimiter == "'" && preg_match('/^(.*?)(\\\\\\\\|\\\\\'|\')(.*)$/s', $src_config_php_right, $matched2) ){
+						$tmp_extract_value .= $matched2[1];
+						$src_config_php_right = $matched2[3];
+						if( $matched2[2] == "'" ){
+							break;
+						}
+						$tmp_extract_value .= preg_replace('/^\\\\/', '', $matched2[2]);
+						continue;
+					}elseif( $delimiter == '"' && preg_match('/^(.*?)(\\\\\\\\|\\\\\$|\\\\\"|\\\\\'|\")(.*)$/', $src_config_php_right, $matched2) ){
+						$tmp_extract_value .= $matched2[1];
+						$src_config_php_right = $matched2[3];
+						if( $matched2[2] == '"' ){
+							break;
+						}
+						$tmp_extract_value .= preg_replace('/^\\\\/', '', $matched2[2]);
+						continue;
+					}
+					break;
+				}
+				$rtn = $tmp_extract_value;
+			}
+		}
+
+		return $rtn;
+	}
+
+	/**
+	 * ソース内の文字列データを置換する
+	 */
+	private function replace_escaped_string_value( $key, $newvalue, $src_config_php ){
+		$rtn = $src_config_php;
+
+		$pattern_initial = '/^(.*'.preg_quote($key, '/').'\s*\=\s*)(\'|\")(.*)$/s';
+		if( preg_match($pattern_initial, $src_config_php, $matched) ){
+			if( strlen($matched[2] ?? '') ){
+				$src_config_php_left = $matched[1];
+				$delimiter = $matched[2];
+				$src_config_php_right = $matched[3];
+				$tmp_extract_value = '';
+
+				while( 1 ){
+					if( $delimiter == "'" && preg_match('/^(.*?)(\\\\\\\\|\\\\\'|\')(.*)$/s', $src_config_php_right, $matched2) ){
+						$tmp_extract_value .= $matched2[1];
+						$src_config_php_right = $matched2[3];
+						if( $matched2[2] == "'" ){
+							break;
+						}
+						$tmp_extract_value .= preg_replace('/^\\\\/', '', $matched2[2]);
+						continue;
+					}elseif( $delimiter == '"' && preg_match('/^(.*?)(\\\\\\\\|\\\\\$|\\\\\"|\\\\\'|\")(.*)$/', $src_config_php_right, $matched2) ){
+						$tmp_extract_value .= $matched2[1];
+						$src_config_php_right = $matched2[3];
+						if( $matched2[2] == '"' ){
+							break;
+						}
+						$tmp_extract_value .= preg_replace('/^\\\\/', '', $matched2[2]);
+						continue;
+					}
+					break;
+				}
+
+				$rtn = $src_config_php_left.var_export($newvalue,true).$src_config_php_right;
+			}
+		}
+
+		return $rtn;
+	}
 }
