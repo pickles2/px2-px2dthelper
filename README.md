@@ -432,7 +432,8 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ### pickles2/px2-px2dthelper v2.1.10 (リリース日未定)
 
-- `configParser` で、 `$conf->name` と `$conf->copyright` の解析、置換で、エスケープ処理を改善し、使える文字が増えた。
+- `configParser` の解析と置換で、エスケープ処理を改善し、使える文字が増えた。
+- `configParser` で、 `$conf->tagline` の解析と置換ができるようになった。
 
 ### pickles2/px2-px2dthelper v2.1.9 (2023年4月22日)
 

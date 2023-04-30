@@ -6,6 +6,7 @@ return call_user_func( function(){
 
 	// project
 	$conf->name = 'px2-px2dthelper-test'; // サイト名
+	$conf->tagline = 'Pickles 2 desktop tool helper'; // キャッチフレーズ
 	$conf->scheme = 'https'; // スキーマ
 	$conf->domain = null; // ドメイン
 	$conf->copyright = 'Pickles Project'; // 著作権表示

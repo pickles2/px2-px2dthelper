@@ -39,6 +39,7 @@ class configParserTest extends PHPUnit\Framework\TestCase{
 		$json = json_encode(array(
 			'values'=>array(
 				'name' => 'new site name',
+				'tagline' => 'new tagline',
 				'scheme' => 'http',
 				'domain' => 'example.com',
 				'copyright' => 'new copyright',
@@ -52,6 +53,7 @@ class configParserTest extends PHPUnit\Framework\TestCase{
 		$this->assertTrue( is_object($json) );
 		$this->assertTrue( $json->result );
 		$this->assertSame( $json->values->name, 'new site name' );
+		$this->assertSame( $json->values->tagline, 'new tagline' );
 		$this->assertSame( $json->values->scheme, 'http' );
 		$this->assertSame( $json->values->domain, 'example.com' );
 		$this->assertSame( $json->values->copyright, 'new copyright' );
@@ -62,6 +64,7 @@ class configParserTest extends PHPUnit\Framework\TestCase{
 		$json = json_encode(array(
 			'values'=>array(
 				'name' => 'px2-px2dthelper-test',
+				'tagline' => 'Pickles 2 desktop tool helper',
 				'scheme' => 'https',
 				'domain' => null,
 				'copyright' => 'Pickles Project',
@@ -75,6 +78,7 @@ class configParserTest extends PHPUnit\Framework\TestCase{
 		$this->assertTrue( is_object($json) );
 		$this->assertTrue( $json->result );
 		$this->assertSame( $json->values->name, 'px2-px2dthelper-test' );
+		$this->assertSame( $json->values->tagline, 'Pickles 2 desktop tool helper' );
 		$this->assertSame( $json->values->scheme, 'https' );
 		$this->assertSame( $json->values->domain, null );
 		$this->assertSame( $json->values->copyright, 'Pickles Project' );
@@ -130,7 +134,6 @@ class configParserTest extends PHPUnit\Framework\TestCase{
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=clearcache' ,
 		] );
-
-	} // testConfigParser()
+	}
 
 }

@@ -981,10 +981,10 @@ class main{
 						$set_vars = array();
 						$base64_json = $this->px->req()->get_param('base64_json');
 						$json = $this->px->req()->get_param('json');
-						if( strlen(''.$base64_json) ){
+						if( strlen($base64_json ?? '') ){
 							$json = base64_decode($base64_json);
 						}
-						if( strlen(''.$json) ){
+						if( strlen($json ?? '') ){
 							$set_vars = json_decode($json, true);
 						}
 						$result = $config_parser->update($set_vars);
