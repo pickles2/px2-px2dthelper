@@ -430,7 +430,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ## 更新履歴 - Change log
 
-### pickles2/px2-px2dthelper v2.1.10 (リリース日未定)
+### pickles2/px2-px2dthelper v2.1.10 (2023年5月1日)
 
 - `configParser` の解析と置換で、エスケープ処理を改善し、使える文字が増えた。
 - `configParser` で、 `$conf->tagline` の解析と置換ができるようになった。

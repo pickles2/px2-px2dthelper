@@ -926,6 +926,16 @@ Search.appendIndex(
             "summary": "config.php\u0020\u306E\u89E3\u6790\u30ED\u30B8\u30C3\u30AF\u3092\u751F\u6210\u3059\u308B",
             "url": "classes/tomk79-pickles2-px2dthelper-fncs-config-configParser.html#method_generate_config_php_parser_patterns"
         },                {
+            "fqsen": "\\tomk79\\pickles2\\px2dthelper\\fncs\\config\\configParser\u003A\u003Aget_escaped_string_value\u0028\u0029",
+            "name": "get_escaped_string_value",
+            "summary": "\u30BD\u30FC\u30B9\u5185\u304B\u3089\u6587\u5B57\u5217\u30C7\u30FC\u30BF\u3092\u8AAD\u307F\u53D6\u308B",
+            "url": "classes/tomk79-pickles2-px2dthelper-fncs-config-configParser.html#method_get_escaped_string_value"
+        },                {
+            "fqsen": "\\tomk79\\pickles2\\px2dthelper\\fncs\\config\\configParser\u003A\u003Areplace_escaped_string_value\u0028\u0029",
+            "name": "replace_escaped_string_value",
+            "summary": "\u30BD\u30FC\u30B9\u5185\u306E\u6587\u5B57\u5217\u30C7\u30FC\u30BF\u3092\u7F6E\u63DB\u3059\u308B",
+            "url": "classes/tomk79-pickles2-px2dthelper-fncs-config-configParser.html#method_replace_escaped_string_value"
+        },                {
             "fqsen": "\\tomk79\\pickles2\\px2dthelper\\fncs\\config\\configParser\u003A\u003A\u0024px",
             "name": "px",
             "summary": "Pickles\u30AA\u30D6\u30B8\u30A7\u30AF\u30C8",
