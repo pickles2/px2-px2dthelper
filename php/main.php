@@ -293,7 +293,7 @@ class main{
 		$path_content = null;
 		if( $this->px->site() ){
 			$tmp_page_info = $this->px->site()->get_page_info($page_path);
-			if( is_array($tmp_page_info) ){
+			if( is_array($tmp_page_info) && ($tmp_page_info['path'] == $page_path || $tmp_page_info['id'] == $page_path) ){
 				$path_content = $tmp_page_info['content'];
 			}
 			unset($tmp_page_info);
@@ -617,7 +617,7 @@ class main{
 					case 'all':
 						$rtn = (object) array();
 						$request_path = $this->px->req()->get_param('path');
-						if( !strlen( ''.$request_path ) ){
+						if( !strlen( $request_path ?? '' ) ){
 							$request_path = $this->px->req()->get_request_file_path();
 						}
 

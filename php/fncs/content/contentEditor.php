@@ -167,6 +167,11 @@ class contentEditor{
 			}
 		}
 
+		if( !count($pathsFromTo) ){
+			// 対象ファイルは見つからなかった
+			return false;
+		}
+
 		// コンテンツの専用リソースパス
 		array_push(
 			$pathsFromTo,

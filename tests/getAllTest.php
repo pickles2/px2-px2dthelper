@@ -129,7 +129,7 @@ class getAllTest extends PHPUnit\Framework\TestCase{
 			'/?PX=clearcache' ,
 		] );
 
-	}//testGetAll()
+	}
 
 	/**
 	 * PX=px2dthelper.get.all でページIDをキーに情報を得るテスト
@@ -138,20 +138,13 @@ class getAllTest extends PHPUnit\Framework\TestCase{
 
 		// Pickles 2 実行
 		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/test1_load.html?PX=px2dthelper.get.all' ] );
-		// var_dump($output);
 		$json1 = json_decode( $output );
-		// var_dump($json1);
 
 		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.get.all&path=/test1_load.html' ] );
-		// var_dump($output);
 		$json2 = json_decode( $output );
-		// var_dump($json2);
 
 		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.get.all&path=test1_load' ] );
-		// var_dump($output);
 		$json3 = json_decode( $output );
-		// var_dump($json3);
-		// var_dump($json3->page_info);
 
 		$this->assertEquals( $json1, $json2 );
 		$this->assertEquals( $json2, $json3 );
@@ -159,11 +152,11 @@ class getAllTest extends PHPUnit\Framework\TestCase{
 
 		// 後始末
 		$output = $this->px2query->query( [
-			__DIR__.'/testData/standard/.px_execute.php' ,
-			'/?PX=clearcache' ,
+			__DIR__.'/testData/standard/.px_execute.php',
+			'/?PX=clearcache',
 		] );
 
-	}//testGetAllByPageId()
+	}
 
 	/**
 	 * PX=px2dthelper.get.all でページIDをキーにaliasページの情報を得るテスト
@@ -172,9 +165,7 @@ class getAllTest extends PHPUnit\Framework\TestCase{
 
 		// Pickles 2 実行
 		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.get.all&path=alias_test' ] );
-		// var_dump($output);
 		$json = json_decode( $output );
-		// var_dump($json);
 
 		$this->assertEquals( $json->page_info->id, 'alias_test' );
 		$this->assertEquals( $json->page_info->title, 'Alias Test' );
@@ -195,7 +186,7 @@ class getAllTest extends PHPUnit\Framework\TestCase{
 			'/?PX=clearcache' ,
 		] );
 
-	}//testGetAllOfAliasPageByPageId()
+	}
 
 	/**
 	 * PX=px2dthelper.get.all で深いページの情報を得るテスト
@@ -204,9 +195,7 @@ class getAllTest extends PHPUnit\Framework\TestCase{
 
 		// Pickles 2 実行
 		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/editsample/?PX=px2dthelper.get.all' ] );
-		// var_dump($output);
 		$json = json_decode( $output );
-		// var_dump($json);
 		$this->assertTrue( is_object($json) );
 
 		// Pickles 2 のバージョン番号
@@ -260,7 +249,7 @@ class getAllTest extends PHPUnit\Framework\TestCase{
 			'/?PX=clearcache' ,
 		] );
 
-	}//testGetAllDeepPage()
+	}
 
 	/**
 	 * PX=px2dthelper.get.all を、before_sitemap の環境で実行するテスト
@@ -269,9 +258,7 @@ class getAllTest extends PHPUnit\Framework\TestCase{
 
 		// Pickles 2 実行
 		$output = $this->px2query->query( [ __DIR__.'/testData/before_sitemap/.px_execute.php', '/?PX=px2dthelper.get.all' ] );
-		// var_dump($output);
 		$json = json_decode( $output );
-		// var_dump($json);
 		$this->assertTrue( is_object($json) );
 
 		// Pickles 2 のバージョン番号
@@ -345,7 +332,7 @@ class getAllTest extends PHPUnit\Framework\TestCase{
 			'/?PX=clearcache' ,
 		] );
 
-	}//testGetAllBeforeSitemap()
+	}
 
 
 	/**
@@ -364,9 +351,7 @@ class getAllTest extends PHPUnit\Framework\TestCase{
 
 		// Pickles 2 実行
 		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.get.all' ] );
-		// var_dump($output);
 		$json = json_decode( $output );
-		// var_dump($json);
 		$this->assertTrue( is_object($json) );
 
 		// Pickles 2 のバージョン番号
@@ -396,12 +381,10 @@ class getAllTest extends PHPUnit\Framework\TestCase{
 
 		// realpath_data_dir
 		$output = json_decode($this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.get.realpath_data_dir' ] ));
-		// var_dump($output);
 		$this->assertEquals( $json->realpath_data_dir, $output );
 
 		// path_resource_dir
 		$output = json_decode($this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.get.path_resource_dir' ] ));
-		// var_dump($output);
 		$this->assertEquals( $json->path_resource_dir, $output );
 		$this->assertEquals( '/index_files/resources/', $output );
 
@@ -427,7 +410,6 @@ class getAllTest extends PHPUnit\Framework\TestCase{
 
 		// path_files
 		$output = json_decode($this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=api.get.path_files&path=/' ] ));
-		// var_dump($output);
 		$this->assertEquals( $json->path_files, $output );
 		$this->assertEquals( '/index_files/', $output );
 
@@ -453,7 +435,7 @@ class getAllTest extends PHPUnit\Framework\TestCase{
 			'/?PX=clearcache' ,
 		] );
 
-	}//testGetAllCallablePathFiles()
+	}
 
 	/**
 	 * $conf->path_files が function な場合
@@ -471,9 +453,7 @@ class getAllTest extends PHPUnit\Framework\TestCase{
 
 		// Pickles 2 実行
 		$output = $this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.get.all' ] );
-		// var_dump($output);
 		$json = json_decode( $output );
-		// var_dump($json);
 		$this->assertTrue( is_object($json) );
 
 		// Pickles 2 のバージョン番号
@@ -504,12 +484,10 @@ class getAllTest extends PHPUnit\Framework\TestCase{
 
 		// realpath_data_dir
 		$output = json_decode($this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.get.realpath_data_dir' ] ));
-		// var_dump($output);
 		$this->assertEquals( $json->realpath_data_dir, $output );
 
 		// path_resource_dir
 		$output = json_decode($this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.get.path_resource_dir' ] ));
-		// var_dump($output);
 		$this->assertEquals( $json->path_resource_dir, $output );
 		$this->assertEquals( '/index_files/resources/', $output );
 
@@ -542,7 +520,6 @@ class getAllTest extends PHPUnit\Framework\TestCase{
 
 		// path_files
 		$output = json_decode($this->px2query->query( [ __DIR__.'/testData/standard/.px_execute.php', '/?PX=api.get.path_files&path=/' ] ));
-		// var_dump($output);
 		$this->assertEquals( $json->path_files, $output );
 		$this->assertEquals( '/index_files/', $output );
 
@@ -568,6 +545,6 @@ class getAllTest extends PHPUnit\Framework\TestCase{
 			'/?PX=clearcache' ,
 		] );
 
-	} // testGetAllPathFilesIsFunction()
+	}
 
 }
