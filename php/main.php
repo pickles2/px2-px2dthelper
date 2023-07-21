@@ -148,13 +148,13 @@ class main{
 		if( !is_string( $page_path ) ){
 			$page_path = $this->px->req()->get_request_file_path();
 		}
-		$rtn = $this->px->conf()->path_files;
+		$rtn = $this->px->conf()->path_files ?? '';
 		$rtn = $this->bind_path_files($rtn, $page_path);
 		$rtn = $this->px->href( $rtn );
 		$rtn = $this->px->fs()->normalize_path($rtn);
 		$rtn = preg_replace( '/^\/+/', '/', $rtn );
 		return $rtn;
-	} // path_files()
+	}
 
 
 	/**
@@ -251,7 +251,7 @@ class main{
 		$rtn = $this->px->fs()->normalize_path($rtn);
 		$rtn = preg_replace( '/^\/+/', '/', $rtn );
 		return $rtn;
-	} // get_realpath_data_dir()
+	}
 
 	/**
 	 * Get path_resource_dir
@@ -280,18 +280,18 @@ class main{
 		$rtn = $this->px->fs()->normalize_path($rtn);
 		$rtn = preg_replace( '/^\/+/', '/', $rtn );
 		return $rtn;
-	} // get_path_resource_dir()
+	}
 
 	/**
 	 * リソースパステンプレートに実際の値を当てはめる。
 	 *
 	 * @param string $template テンプレート
-	 * @param string $page_path ページのパス
+	 * @param string $page_path ページのパス または ページID
 	 * @return string バインド後のパス文字列
 	 */
 	private function bind_path_files( $template, $page_path = null ){
 		$path_content = null;
-		if( $this->px->site() ){
+		if( $this->px->site() && is_string($page_path) ){
 			$tmp_page_info = $this->px->site()->get_page_info($page_path);
 			if( is_array($tmp_page_info) && ($tmp_page_info['path'] == $page_path || $tmp_page_info['id'] == $page_path) ){
 				$path_content = $tmp_page_info['content'];
@@ -336,7 +336,7 @@ class main{
 			$rtn .= '/';
 		}
 		return $rtn;
-	} // bind_path_files()
+	}
 
 	/**
 	 * Get custom_fields
