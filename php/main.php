@@ -292,6 +292,10 @@ class main{
 	private function bind_path_files( $template, $page_path = null ){
 		$path_content = null;
 		if( $this->px->site() && is_string($page_path) ){
+			// $page_path に、ページIDを受け取る場合がある。
+			// $page_path をキーにサイトマップを参照して、`content` 値を採用する。
+			// $page_path が直接示すページが存在しない場合(ダイナミックパスがヒットする場合など)は、
+			// $page_path をそのまま処理する。
 			$tmp_page_info = $this->px->site()->get_page_info($page_path);
 			if( is_array($tmp_page_info) && ($tmp_page_info['path'] == $page_path || $tmp_page_info['id'] == $page_path) ){
 				$path_content = $tmp_page_info['content'];
