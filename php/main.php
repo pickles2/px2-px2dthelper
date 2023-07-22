@@ -160,8 +160,7 @@ class main{
 			$path_content = $this->px->req()->get_request_file_path();
 		}
 
-		$rtn = $this->px->conf()->path_files ?? '';
-		$rtn = $this->bind_path_files($rtn, $path_content);
+		$rtn = $this->bind_path_files($this->px->conf()->path_files ?? '', $path_content);
 		$rtn = $this->px->href( $rtn );
 		$rtn = $this->px->fs()->normalize_path($rtn);
 		$rtn = preg_replace( '/^\/+/', '/', $rtn );
@@ -332,7 +331,7 @@ class main{
 	 * @param string $path_content コンテンツのパス
 	 * @return string バインド後のパス文字列
 	 */
-	private function bind_path_files( $template, $path_content = null ){
+	public function bind_path_files( $template, $path_content = null ){
 		if( is_null($path_content) ){
 			$path_content = $this->px->req()->get_request_file_path();
 		}

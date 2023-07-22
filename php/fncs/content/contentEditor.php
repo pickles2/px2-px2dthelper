@@ -40,6 +40,8 @@ class contentEditor{
 
 	/**
 	 * コンテンツファイルを移動する
+	 * @param String $from 移動元の content
+	 * @param String $to   移動先の content
 	 */
 	public function move( $from, $to ){
 
@@ -176,8 +178,8 @@ class contentEditor{
 		array_push(
 			$pathsFromTo,
 			array(
-				$this->px->fs()->normalize_path($this->px->fs()->get_realpath($this->px2dthelper->path_files($from))),
-				$this->px->fs()->normalize_path($this->px->fs()->get_realpath($this->px2dthelper->path_files($to)))
+				$this->px->fs()->normalize_path($this->px->fs()->get_realpath($this->px2dthelper->bind_path_files($this->px->conf()->path_files ?? '', $from))),
+				$this->px->fs()->normalize_path($this->px->fs()->get_realpath($this->px2dthelper->bind_path_files($this->px->conf()->path_files ?? '', $to)))
 			)
 		);
 		return $pathsFromTo;
