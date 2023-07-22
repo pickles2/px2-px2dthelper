@@ -433,6 +433,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 ### pickles2/px2-px2dthelper v2.1.11 (リリース日未定)
 
 - `PX=px2dthelper.content.move` が失敗することがある不具合を修正。
+- `PX=px2dthelper.content.move` によるコンテンツ移動時、被リンクの張替え処理を、除外されたディレクトリで実行しないようになった。
 
 ### pickles2/px2-px2dthelper v2.1.10 (2023年5月1日)
 

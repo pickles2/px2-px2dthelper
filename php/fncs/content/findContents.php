@@ -68,6 +68,11 @@ class findContents{
 					continue;
 				}
 
+				if( $this->px->get_path_proc_type('/'.$path_current_dir.$basename) == 'ignore' ){
+					// 管理外のパスは検出させない
+					continue;
+				}
+
 				$callback('/'.$path_current_dir.$basename);
 			}
 		}

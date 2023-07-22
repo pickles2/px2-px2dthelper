@@ -68,29 +68,31 @@ return call_user_func( function(){
 		//     - その他 = extension 名
 		// パターンは先頭から検索され、はじめにマッチした設定を採用する。
 		// ワイルドカードとして "*"(アスタリスク) を使用可。
-		'/.htaccess' => 'ignore' ,
-		'/.px_execute.php' => 'ignore' ,
-		'/px-files/*' => 'ignore' ,
-		'*.ignore/*' => 'ignore' ,
-		'*.ignore.*' => 'ignore' ,
-		'/composer.json' => 'ignore' ,
-		'/composer.lock' => 'ignore' ,
-		'/README.md' => 'ignore' ,
-		'/vendor/*' => 'ignore' ,
-		'*/.DS_Store' => 'ignore' ,
-		'*/Thumbs.db' => 'ignore' ,
-		'*/.svn/*' => 'ignore' ,
-		'*/.git/*' => 'ignore' ,
-		'*/.gitignore' => 'ignore' ,
+		'/.htaccess' => 'ignore',
+		'/.px_execute.php' => 'ignore',
+		'/px-files/*' => 'ignore',
+		'*.ignore/*' => 'ignore',
+		'*.ignore.*' => 'ignore',
+		'/composer.json' => 'ignore',
+		'/composer.lock' => 'ignore',
+		'/README.md' => 'ignore',
+		'/vendor/*' => 'ignore',
+		'*/.DS_Store' => 'ignore',
+		'*/Thumbs.db' => 'ignore',
+		'*/.svn/*' => 'ignore',
+		'*/.git/*' => 'ignore',
+		'*/.gitignore' => 'ignore',
 
-		'*.html' => 'html' ,
-		'*.htm' => 'html' ,
-		'*.css' => 'css' ,
-		'*.js' => 'js' ,
-		'*.png' => 'direct' ,
-		'*.jpg' => 'direct' ,
-		'*.gif' => 'direct' ,
-		'*.svg' => 'direct' ,
+		'/move_test/ignored_path_test/*' => 'ignore', // 除外パスへの影響をテストするための設定
+
+		'*.html' => 'html',
+		'*.htm' => 'html',
+		'*.css' => 'css',
+		'*.js' => 'js',
+		'*.png' => 'direct',
+		'*.jpg' => 'direct',
+		'*.gif' => 'direct',
+		'*.svg' => 'direct',
 	);
 
 

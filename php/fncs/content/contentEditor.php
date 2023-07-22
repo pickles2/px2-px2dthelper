@@ -320,6 +320,7 @@ class contentEditor{
 
 	/**
 	 * コンテンツの被リンクを解決する
+	 * @param  string $pathsFromTo
 	 * @param  string $from 対象コンテンツのパス
 	 * @param  string $to   移動先のコンテンツパス
 	 * @return boolean      実行結果

@@ -33,9 +33,8 @@ class contentTest extends PHPUnit\Framework\TestCase{
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=px2dthelper.copy_content&from='.urlencode('/copy/from.html').'&to='.urlencode('/copy/to.html') ,
 		] );
-		// var_dump($output);
 		$result = json_decode($output);
-		// var_dump( $result );
+
 		$this->assertEquals( $result[0], true );
 		$this->assertEquals( $result[1], 'ok' );
 		clearstatcache();
@@ -62,9 +61,8 @@ class contentTest extends PHPUnit\Framework\TestCase{
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/copy/from.html?PX=px2dthelper.copy_content&from='.urlencode('/copy/to.html') ,
 		] );
-		// var_dump($output);
 		$result = json_decode($output);
-		// var_dump( $result );
+
 		$this->assertEquals( $result[0], true );
 		$this->assertEquals( $result[1], 'ok' );
 		clearstatcache();
@@ -90,8 +88,7 @@ class contentTest extends PHPUnit\Framework\TestCase{
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=clearcache' ,
 		] );
-
-	}//testCopyContent()
+	}
 
 
 	/**
@@ -111,9 +108,8 @@ class contentTest extends PHPUnit\Framework\TestCase{
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=px2dthelper.copy_content&from='.urlencode('/copy/from.html').'&to='.urlencode('/copy/to.html') ,
 		] );
-		// var_dump($output);
 		$result = json_decode($output);
-		// var_dump( $result );
+
 		$this->assertEquals( $result[0], false );
 		$this->assertEquals( $result[1], 'Contents already exists.' );
 
@@ -122,9 +118,8 @@ class contentTest extends PHPUnit\Framework\TestCase{
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=px2dthelper.copy_content&from='.urlencode('/copy/from.html').'&to='.urlencode('/copy/to.html').'&force=1' ,
 		] );
-		// var_dump($output);
 		$result = json_decode($output);
-		// var_dump( $result );
+
 		$this->assertEquals( $result[0], true );
 		$this->assertEquals( $result[1], 'ok' );
 		clearstatcache();
@@ -153,9 +148,8 @@ class contentTest extends PHPUnit\Framework\TestCase{
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/copy/from.html?PX=px2dthelper.copy_content&from='.urlencode('/copy/to.html') ,
 		] );
-		// var_dump($output);
 		$result = json_decode($output);
-		// var_dump( $result );
+
 		$this->assertEquals( $result[0], true );
 		$this->assertEquals( $result[1], 'ok' );
 		clearstatcache();
@@ -182,11 +176,10 @@ class contentTest extends PHPUnit\Framework\TestCase{
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=clearcache' ,
 		] );
-
-	} // testCopyExtContent()
+	}
 
 	/**
-	 * $from と $to が同じ場合のテスト
+	 * コンテンツ複製: $from と $to が同じ場合のテスト
 	 */
 	public function testCopySameContent(){
 
@@ -195,23 +188,20 @@ class contentTest extends PHPUnit\Framework\TestCase{
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=px2dthelper.copy_content&from='.urlencode('/copy/from.html').'&to='.urlencode('/copy/from.html') ,
 		] );
-		// var_dump($output);
 		$result = json_decode($output);
-		// var_dump( $result );
+
 		$this->assertEquals( $result[0], false );
 		$this->assertEquals( $result[1], 'Same paths was given to `$from` and `$to`.' );
 		clearstatcache();
 		$this->assertTrue( $this->fs->is_file(__DIR__.'/testData/standard/copy/from.html') );
 		$this->assertTrue( $this->fs->is_dir(__DIR__.'/testData/standard/copy/from_files/') );
 
-
 		// 後始末
 		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=clearcache' ,
 		] );
-
-	} // testCopySameContent()
+	}
 
 	/**
 	 * Markdownコンテンツを移動するテスト
@@ -260,6 +250,9 @@ class contentTest extends PHPUnit\Framework\TestCase{
 			),
 		)));
 
+		$this->fs->mkdir_r(__DIR__.'/testData/standard/move_test/ignored_path_test/');
+		$this->fs->save_file(__DIR__.'/testData/standard/move_test/ignored_path_test/link_test.html', '<p>link test<a href="../test.html">link</a></p><form action="../test.html"><img src="../test.html" /></form>');
+
 		// 移動対象ファイルが存在することを確認
 		$this->assertTrue( $this->fs->is_file(__DIR__.'/testData/standard/move_test/test.html') );
 		$this->assertTrue( $this->fs->is_dir(__DIR__.'/testData/standard/move_test/test_files/') );
@@ -293,6 +286,12 @@ class contentTest extends PHPUnit\Framework\TestCase{
 		$this->assertTrue( !!preg_match('/'.preg_quote('<img src="./subdir/test2.html" />', '/').'/', $linked_html) );
 		$this->assertTrue( !!preg_match('/'.preg_quote('"./subdir/test2.html"', '/').'/', $linked_json) );
 
+		// 除外されたパスでは、移動されたファイルに対して張られたリンクが修正されていないことを確認
+		$linked_html = file_get_contents(__DIR__.'/testData/standard/move_test/ignored_path_test/link_test.html');
+		$this->assertTrue( !!preg_match('/'.preg_quote('<a href="../test.html">link</a>', '/').'/', $linked_html) );
+		$this->assertTrue( !!preg_match('/'.preg_quote('<form action="../test.html">', '/').'/', $linked_html) );
+		$this->assertTrue( !!preg_match('/'.preg_quote('<img src="../test.html" />', '/').'/', $linked_html) );
+
 		$this->assertTrue( $this->fs->rm(__DIR__.'/testData/standard/move_test/') );
 	}
 
@@ -314,9 +313,7 @@ class contentTest extends PHPUnit\Framework\TestCase{
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/delete/test.html?PX=px2dthelper.content.delete' ,
 		] );
-		// var_dump($output);
 		$result = json_decode($output);
-		// var_dump( $result );
 		$this->assertEquals( $result->result, true );
 		$this->assertEquals( $result->message, 'OK' );
 
@@ -332,6 +329,6 @@ class contentTest extends PHPUnit\Framework\TestCase{
 			'/?PX=clearcache' ,
 		] );
 
-	} // testDeleteContent()
+	}
 
 }
