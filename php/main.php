@@ -141,15 +141,27 @@ class main{
 	/**
 	 * ローカルリソースディレクトリのパスを得る。
 	 *
-	 * @param string $page_path 対象のページのパス
+	 * @param string $page_path 対象のページのパス または ページID
 	 * @return string ローカルリソースの実際の絶対パス
 	 */
 	public function path_files( $page_path = null ){
-		if( !is_string( $page_path ) ){
-			$page_path = $this->px->req()->get_request_file_path();
+		$path_content = null;
+		if( $this->px->site() && is_string($page_path) ){
+			$tmp_page_info = $this->px->site()->get_page_info($page_path);
+			if( is_array($tmp_page_info) && ($tmp_page_info['path'] == $page_path || $tmp_page_info['id'] == $page_path) ){
+				$path_content = $tmp_page_info['content'];
+			}
+			unset($tmp_page_info);
 		}
+		if( is_null($path_content) ){
+			$path_content = $page_path;
+		}
+		if( is_null($path_content) ){
+			$path_content = $this->px->req()->get_request_file_path();
+		}
+
 		$rtn = $this->px->conf()->path_files ?? '';
-		$rtn = $this->bind_path_files($rtn, $page_path);
+		$rtn = $this->bind_path_files($rtn, $path_content);
 		$rtn = $this->px->href( $rtn );
 		$rtn = $this->px->fs()->normalize_path($rtn);
 		$rtn = preg_replace( '/^\/+/', '/', $rtn );
@@ -231,6 +243,21 @@ class main{
 	 * @return string ローカルリソースの実際の絶対パス
 	 */
 	public function get_realpath_data_dir($page_path = null){
+		$path_content = null;
+		if( $this->px->site() && is_string($page_path) ){
+			$tmp_page_info = $this->px->site()->get_page_info($page_path);
+			if( is_array($tmp_page_info) && ($tmp_page_info['path'] == $page_path || $tmp_page_info['id'] == $page_path) ){
+				$path_content = $tmp_page_info['content'];
+			}
+			unset($tmp_page_info);
+		}
+		if( is_null($path_content) ){
+			$path_content = $page_path;
+		}
+		if( is_null($path_content) ){
+			$path_content = $this->px->req()->get_request_file_path();
+		}
+
 		$path_template = false;
 		if( property_exists( $this->get_px2dtconfig(), 'guieditor' ) ){
 			if( property_exists( $this->get_px2dtconfig()->guieditor, 'path_data_dir' ) ){
@@ -240,9 +267,9 @@ class main{
 			}
 		}
 		if( $path_template ){
-			$rtn = $this->bind_path_files($path_template, $page_path);
+			$rtn = $this->bind_path_files($path_template, $path_content);
 		}else{
-			$rtn = $this->bind_path_files($this->px->conf()->path_files, $page_path);
+			$rtn = $this->bind_path_files($this->px->conf()->path_files, $path_content);
 			$rtn = preg_replace( '/[\/\\\\]*$/s', '/', $rtn );
 			$rtn .= 'guieditor.ignore/';
 		}
@@ -261,6 +288,22 @@ class main{
 		if( !is_object($this->px->site()) ){
 			return false;
 		}
+
+		$path_content = null;
+		if( $this->px->site() && is_string($page_path) ){
+			$tmp_page_info = $this->px->site()->get_page_info($page_path);
+			if( is_array($tmp_page_info) && ($tmp_page_info['path'] == $page_path || $tmp_page_info['id'] == $page_path) ){
+				$path_content = $tmp_page_info['content'];
+			}
+			unset($tmp_page_info);
+		}
+		if( is_null($path_content) ){
+			$path_content = $page_path;
+		}
+		if( is_null($path_content) ){
+			$path_content = $this->px->req()->get_request_file_path();
+		}
+
 		$path_template = false;
 		if( property_exists( $this->get_px2dtconfig(), 'guieditor' ) ){
 			if( property_exists( $this->get_px2dtconfig()->guieditor, 'path_resource_dir' ) ){
@@ -270,9 +313,9 @@ class main{
 			}
 		}
 		if( $path_template ){
-			$rtn = $this->bind_path_files($path_template, $page_path);
+			$rtn = $this->bind_path_files($path_template, $path_content);
 		}else{
-			$rtn = $this->bind_path_files($this->px->conf()->path_files, $page_path);
+			$rtn = $this->bind_path_files($this->px->conf()->path_files, $path_content);
 			$rtn = preg_replace( '/[\/\\\\]*$/s', '/', $rtn );
 			$rtn .= 'resources/';
 		}
@@ -286,25 +329,10 @@ class main{
 	 * リソースパステンプレートに実際の値を当てはめる。
 	 *
 	 * @param string $template テンプレート
-	 * @param string $page_path ページのパス または ページID
+	 * @param string $path_content コンテンツのパス
 	 * @return string バインド後のパス文字列
 	 */
-	private function bind_path_files( $template, $page_path = null ){
-		$path_content = null;
-		if( $this->px->site() && is_string($page_path) ){
-			// $page_path に、ページIDを受け取る場合がある。
-			// $page_path をキーにサイトマップを参照して、`content` 値を採用する。
-			// $page_path が直接示すページが存在しない場合(ダイナミックパスがヒットする場合など)は、
-			// $page_path をそのまま処理する。
-			$tmp_page_info = $this->px->site()->get_page_info($page_path);
-			if( is_array($tmp_page_info) && ($tmp_page_info['path'] == $page_path || $tmp_page_info['id'] == $page_path) ){
-				$path_content = $tmp_page_info['content'];
-			}
-			unset($tmp_page_info);
-		}
-		if( is_null($path_content) ){
-			$path_content = $page_path;
-		}
+	private function bind_path_files( $template, $path_content = null ){
 		if( is_null($path_content) ){
 			$path_content = $this->px->req()->get_request_file_path();
 		}
