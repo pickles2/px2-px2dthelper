@@ -239,16 +239,18 @@ class sitemapUtils{
 		$rtn = array();
 		foreach( $page_info as $key=>$val ){
 			switch( $key ){
-				case 'path':
-					if( !strlen( $val ) ){
-						$rtn[$key] = 'path は必須項目です。';
-					}elseif( !preg_match( '/^\//', $val ) ){
-						$rtn[$key] = 'path は "/" (スラッシュ) から始まる値である必要があります。';
+				case 'title':
+					if( !strlen( trim($val ?? '') ) ){
+						$rtn[$key] = 'title は必須項目です。';
 					}
 					break;
-				case 'title':
-					if( !strlen( $val ) ){
-						$rtn[$key] = 'title は必須項目です。';
+				case 'path':
+					if( !strlen( $val ?? '' ) ){
+						$rtn[$key] = 'path は必須項目です。';
+					}elseif( !preg_match( '/^\//', $val ?? '' ) ){
+						$rtn[$key] = 'path は "/" (スラッシュ) から始まる値である必要があります。';
+					}elseif( !preg_match( '/(?:\/|\.html?)$/', $val ?? '' ) ){
+						$rtn[$key] = 'path は "/" (スラッシュ) または .html で終わる値である必要があります。';
 					}
 					break;
 			}
