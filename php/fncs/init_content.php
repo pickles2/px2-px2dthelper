@@ -35,7 +35,9 @@ class init_content{
 	 * @return array `array(boolean $result, string $error_msg)`
 	 */
 	public function init_content( $editor_mode = 'html', $options = array() ){
-		if(!@strlen(''.$editor_mode)){ $editor_mode = 'html'; }
+		if(!strlen($editor_mode ?? '')){
+			$editor_mode = 'html';
+		}
 		$flg_force = false;
 		if( is_array($options) && array_key_exists('force', $options) ){
 			$flg_force = !!$options['force'];
@@ -71,8 +73,6 @@ class init_content{
 			$realpath_content .= '.'.$editor_mode;
 		}
 		$this->px->fs()->save_file( $realpath_content, '' );
-		// var_dump($realpath_content);
-		// var_dump(is_file($realpath_content));
 
 		if( $editor_mode == 'html.gui' ){
 			// broccoli-html-editor の data.json を作成

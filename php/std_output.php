@@ -50,7 +50,6 @@ class std_output{
 				return $this->data2xml($val);
 				break;
 		}
-		// return self::data2jssrc($val);
 		return $val;
 	}
 
@@ -71,7 +70,6 @@ class std_output{
 	 * @return string 加工されたテキストデータ
 	 */
 	private function data2json($val){
-		// return self::data2jssrc($val);
 		return json_encode($val);
 	}
 
@@ -82,12 +80,11 @@ class std_output{
 	 * @return string 加工されたテキストデータ
 	 */
 	private function data2jsonp($val){
-		//JSONPのコールバック関数名は、パラメータ callback に受け取る。
+		// JSONPのコールバック関数名は、パラメータ callback に受け取る。
 		$cb = trim( ''.$this->px->req()->get_param('callback') );
 		if( !strlen($cb) ){
 			$cb = 'callback';
 		}
-		// return $cb.'('.self::data2jssrc($val).');';
 		return $cb.'('.json_encode($val).');';
 	}
 
@@ -108,17 +105,17 @@ class std_output{
 	private static function xml_encode( $value = null , $options = array() ){
 
 		if( is_array( $value ) ){
-			#	配列
+			// 配列
 			$is_hash = false;
 			$i = 0;
 			foreach( $value as $key=>$val ){
-				#	ArrayかHashか見極める
+				// ArrayかHashか見極める
 				if( !is_int( $key ) ){
 					$is_hash = true;
 					break;
 				}
 				if( $key != $i ){
-					#	順番通りに並んでなかったらHash とする。
+					// 順番通りに並んでなかったらHash とする。
 					$is_hash = true;
 					break;
 				}
@@ -133,7 +130,7 @@ class std_output{
 			if( $options['array_break'] ){ $RTN .= "\n"; }
 			foreach( $value as $key=>$val ){
 				if( $options['delete_arrayelm_if_null'] && is_null( $value[$key] ) ){
-					#	配列のnull要素を削除するオプションが有効だった場合
+					// 配列のnull要素を削除するオプションが有効だった場合
 					continue;
 				}
 				$RTN .= '<element';
@@ -155,7 +152,7 @@ class std_output{
 		}
 
 		if( is_object( $value ) ){
-			#	オブジェクト型
+			// オブジェクト型
 			$RTN = '';
 			$RTN .= '<object>';
 			$proparray = get_object_vars( $value );
@@ -171,35 +168,35 @@ class std_output{
 		}
 
 		if( is_int( $value ) ){
-			#	数値
+			// 数値
 			$RTN = '<value type="int">'.htmlspecialchars( $value ).'</value>';
 			return	$RTN;
 		}
 
 		if( is_float( $value ) ){
-			#	浮動小数点
+			// 浮動小数点
 			$RTN = '<value type="float">'.htmlspecialchars( $value ).'</value>';
 			return	$RTN;
 		}
 
 		if( is_string( $value ) ){
-			#	文字列型
+			// 文字列型
 			$RTN = '<value type="string">'.htmlspecialchars( $value ).'</value>';
 			return	$RTN;
 		}
 
 		if( is_null( $value ) ){
-			#	ヌル
+			// ヌル
 			return	'<value type="null"></value>';
 		}
 
 		if( is_resource( $value ) ){
-			#	リソース型
+			// リソース型
 			return	'<value type="undefined"></value>';
 		}
 
 		if( is_bool( $value ) ){
-			#	ブール型
+			// ブール型
 			if( $value ){
 				return	'<value type="bool">true</value>';
 			}else{
