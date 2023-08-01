@@ -225,6 +225,9 @@ return call_user_func( function(){
 		),
 	);
 
+	// コンテンツテンプレートの格納先ディレクトリ
+	$conf->plugins->px2dt->path_contents_templates_dir = __DIR__.'/cont_tpls/';
+
 
 
 	// -------- PHP Setting --------
