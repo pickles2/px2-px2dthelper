@@ -417,6 +417,8 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 #### PX=px2dthelper.content.delete
 
+#### PX=px2dthelper.contents_template.get_list
+
 #### PX=px2dthelper.sitemap.filelist
 
 #### PX=px2dthelper.sitemap.download
@@ -435,6 +437,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 - `PX=px2dthelper.content.move` が失敗することがある不具合を修正。
 - `PX=px2dthelper.content.move` によるコンテンツ移動時、被リンクの張替え処理を、除外されたディレクトリで実行しないようになった。
 - ページ情報編集のバリデーション機能を改善した。
+- `PX=px2dthelper.contents_template.get_list` を追加。
 - その他、内部コードの修正など。
 
 ### pickles2/px2-px2dthelper v2.1.10 (2023年5月1日)

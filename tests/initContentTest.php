@@ -23,14 +23,11 @@ class initContentTest extends PHPUnit\Framework\TestCase{
 	 */
 	public function testInitializeContent(){
 
-		// PX=px2dthelper.init_content
 		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php',
 			'/init_content/html/test.html?PX=px2dthelper.init_content'
 		] );
-		// var_dump($output);
 		$output = json_decode($output);
-		// var_dump($output);
 		$this->assertEquals( gettype(array()), gettype($output) );
 		$this->assertEquals( $output[0], true );
 		$this->assertTrue( $this->fs->is_file( __DIR__.'/testData/standard/init_content/html/test.html' ) );
@@ -39,9 +36,7 @@ class initContentTest extends PHPUnit\Framework\TestCase{
 			__DIR__.'/testData/standard/.px_execute.php',
 			'/init_content/html/?PX=px2dthelper.init_content'
 		] );
-		// var_dump($output);
 		$output = json_decode($output);
-		// var_dump($output);
 		$this->assertEquals( gettype(array()), gettype($output) );
 		$this->assertEquals( $output[0], true );
 		$this->assertTrue( $this->fs->is_file( __DIR__.'/testData/standard/init_content/html/index.html' ) );
@@ -50,9 +45,7 @@ class initContentTest extends PHPUnit\Framework\TestCase{
 			__DIR__.'/testData/standard/.px_execute.php',
 			'/init_content/html.gui/?PX=px2dthelper.init_content&editor_mode=html.gui'
 		] );
-		// var_dump($output);
 		$output = json_decode($output);
-		// var_dump($output);
 		$this->assertEquals( gettype(array()), gettype($output) );
 		$this->assertEquals( $output[0], true );
 		$this->assertTrue( $this->fs->is_file( __DIR__.'/testData/standard/init_content/html.gui/index.html' ) );
@@ -62,9 +55,7 @@ class initContentTest extends PHPUnit\Framework\TestCase{
 			__DIR__.'/testData/standard/.px_execute.php',
 			'/init_content/md/?PX=px2dthelper.init_content&editor_mode=md'
 		] );
-		// var_dump($output);
 		$output = json_decode($output);
-		// var_dump($output);
 		$this->assertEquals( gettype(array()), gettype($output) );
 		$this->assertEquals( $output[0], true );
 		$this->assertEquals( $output[1], 'ok' );
@@ -83,9 +74,7 @@ class initContentTest extends PHPUnit\Framework\TestCase{
 			__DIR__.'/testData/standard/.px_execute.php',
 			'/init_content/md/?PX=px2dthelper.init_content&editor_mode=html'
 		] );
-		// var_dump($output);
 		$output = json_decode($output);
-		// var_dump($output);
 		$this->assertEquals( gettype(array()), gettype($output) );
 		$this->assertEquals( $output[0], false );
 		$this->assertEquals( $output[1], 'Contents already exists.' );
@@ -96,9 +85,7 @@ class initContentTest extends PHPUnit\Framework\TestCase{
 			__DIR__.'/testData/standard/.px_execute.php',
 			'/init_content/md/?PX=px2dthelper.init_content&editor_mode=html&force=1'
 		] );
-		// var_dump($output);
 		$output = json_decode($output);
-		// var_dump($output);
 		$this->assertEquals( gettype(array()), gettype($output) );
 		$this->assertEquals( $output[0], true );
 		$this->assertEquals( $output[1], 'ok' );
@@ -114,6 +101,23 @@ class initContentTest extends PHPUnit\Framework\TestCase{
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=clearcache' ,
 		] );
-	} // testInitializeContent()
+	}
+
+	/**
+	 * コンテンツテンプレートのテスト
+	 */
+	public function testContentsTemplate(){
+		$output = $this->px2query->query( [
+			__DIR__.'/testData/standard/.px_execute.php',
+			'/?PX=px2dthelper.contents_template.get_list'
+		] );
+		$output = json_decode($output);
+		$this->assertTrue( is_object($output) );
+		$this->assertEquals( $output->default, 'html.gui' );
+		$this->assertEquals( count($output->list), 3 );
+		$this->assertEquals( $output->list[0]->id, 'html.gui' );
+		$this->assertEquals( $output->list[1]->id, 'html' );
+		$this->assertEquals( $output->list[2]->id, 'md' );
+	}
 
 }

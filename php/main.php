@@ -12,6 +12,9 @@ class main{
 	/** Picklesオブジェクト */
 	private $px;
 
+	/** langbank */
+	private $lb;
+
 	/** PXコマンド名 */
 	private $command = array();
 
@@ -84,6 +87,16 @@ class main{
 				$this->px2dtconfig->paths_module_template->{$key} = $this->px->fs()->normalize_path( $this->px->fs()->get_realpath( $this->px2dtconfig->paths_module_template->{$key}.'/' ) );
 			}
 		}
+
+		$this->lb = new \tomk79\LangBank(__DIR__.'/../data/language.csv');
+		$this->lb->setLang( 'ja' );
+	}
+
+	/**
+	 * $lb
+	 */
+	public function lb(){
+		return $this->lb;
 	}
 
 	/**
@@ -901,6 +914,18 @@ class main{
 						break;
 				}
 
+				break;
+
+			case 'contents_template':
+				$contents_template = new \tomk79\pickles2\px2dthelper\fncs\contentsTemplate\contentsTemplate($this, $this->px);
+				switch( $this->command[2] ?? '' ){
+					case 'get_list':
+						$result = $contents_template->get_list();
+						print $std_output->data_convert( $result );
+						exit;
+						break;
+
+				}
 				break;
 
 			case 'init_content':

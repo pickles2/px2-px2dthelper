@@ -36,7 +36,8 @@
         "pickles2/lib-px2-contents-editor": "~2.0",
         "pickles2/lib-px2-module-editor": "~0.2",
         "pickles2/lib-px2-theme-editor": "~0.0",
-        "broccoli-html-editor/broccoli-html-editor": "~1.0||~0.4"
+        "broccoli-html-editor/broccoli-html-editor": "~1.0||~0.4",
+        "tomk79/langbank": "~0.3"
     },
     "require-dev": {
         "broccoli-html-editor/broccoli-module-fess": "*",
