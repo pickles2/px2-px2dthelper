@@ -131,6 +131,26 @@ class initContentTest extends PHPUnit\Framework\TestCase{
 		$this->assertEquals( $output->list[1]->id, 'html' );
 		$this->assertEquals( $output->list[2]->id, 'md' );
 		$this->assertEquals( $output->list[3]->id, 'md_article' );
+
+		// テンプレートからコンテンツを初期化する
+		$output = $this->px2query->query( [
+			__DIR__.'/testData/px2dt_config/.px_execute.php',
+			'/init_content/html/test.html?PX=px2dthelper.init_content&editor_mode=broccoli'
+		] );
+		$output = json_decode($output);
+		$this->assertEquals( $output[0], true );
+		$this->assertTrue( $this->fs->is_file( __DIR__.'/testData/px2dt_config/init_content/html/test.html' ) );
+		$this->assertTrue( $this->fs->is_dir( __DIR__.'/testData/px2dt_config/init_content/html/test_files/' ) );
+		$this->assertTrue( $this->fs->is_file( __DIR__.'/testData/px2dt_config/init_content/html/test_files/guieditor.ignore/data.json' ) );
+
+
+
+		// 後始末
+		$this->fs->rm(__DIR__.'/testData/px2dt_config/init_content/');
+		$output = $this->px2query->query( [
+			__DIR__.'/testData/px2dt_config/.px_execute.php' ,
+			'/?PX=clearcache' ,
+		] );
 	}
 
 }

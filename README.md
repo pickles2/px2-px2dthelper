@@ -438,6 +438,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 - `PX=px2dthelper.content.move` によるコンテンツ移動時、被リンクの張替え処理を、除外されたディレクトリで実行しないようになった。
 - ページ情報編集のバリデーション機能を改善した。
 - `PX=px2dthelper.contents_template.get_list` を追加。
+- `PX=px2dthelper.init_content` が、コンテンツテンプレートからの初期化に対応した。
 - その他、内部コードの修正など。
 
 ### pickles2/px2-px2dthelper v2.1.10 (2023年5月1日)

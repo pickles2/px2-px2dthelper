@@ -67,6 +67,15 @@ class init_content{
 		// ディレクトリを作成
 		$this->px->fs()->mkdir_r( dirname($realpath_content) );
 
+		// コンテンツテンプレートが利用可能な場合
+		// テンプレートからコンテンツを生成する
+		$contents_template = new contentsTemplate\contentsTemplate($this->px2dthelper, $this->px);
+        $is_available = $contents_template->is_available();
+		if( $is_available ){
+			$result = $contents_template->init_content( $path_content, $editor_mode );
+			return $result;
+		}
+
 		// コンテンツ本体を作成
 		$extension = $this->px->fs()->get_extension( $realpath_content );
 		if( $editor_mode != 'html.gui' && $editor_mode != $extension ){
@@ -77,7 +86,6 @@ class init_content{
 		if( $editor_mode == 'html.gui' ){
 			// broccoli-html-editor の data.json を作成
 			$realpath_data_dir = $this->px2dthelper->get_realpath_data_dir();
-			// var_dump($realpath_data_dir);
 			$this->px->fs()->mkdir_r( $realpath_data_dir );
 			$this->px->fs()->save_file( $realpath_data_dir.'/data.json', '{}' );
 

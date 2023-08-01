@@ -165,23 +165,16 @@ class contentsTemplate {
 
     /**
      * コンテンツを初期化する
-     * TODO: このメソッドは廃止し、init_content に統合する。
      */
-    private function init_content($page_path, $editor_mode){
+    public function init_content($page_path, $editor_mode){
         $is_available = $this->is_available();
         if( !$is_available ){
-            $data = $this->px2ce->px2query(
-                $page_path.'?PX=px2dthelper.init_content&editor_mode='.urlencode($editor_mode),
-                array(
-                    "output" => "json",
-                )
-            );
-            return $data;
+            return array(false, 'not available');
         }
 
 
         // px2dthelper を直接呼び出す
-        $px2dthelper = new \tomk79\pickles2\px2dthelper\main( $this->px );
+        $px2dthelper = $this->px2dthelper;
 
         $template_id = $editor_mode;
 		if(!strlen($template_id ?? '')){
