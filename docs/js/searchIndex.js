@@ -466,6 +466,11 @@ Search.appendIndex(
             "summary": "Constructor",
             "url": "classes/tomk79-pickles2-px2dthelper-main.html#method___construct"
         },                {
+            "fqsen": "\\tomk79\\pickles2\\px2dthelper\\main\u003A\u003A\u0024lb",
+            "name": "lb",
+            "summary": "langbank",
+            "url": "classes/tomk79-pickles2-px2dthelper-main.html#property_lb"
+        },                {
             "fqsen": "\\tomk79\\pickles2\\px2dthelper\\main\u003A\u003Acheck_status\u0028\u0029",
             "name": "check_status",
             "summary": "\u30BB\u30C3\u30C8\u30A2\u30C3\u30D7\u72B6\u614B\u3092\u30C1\u30A7\u30C3\u30AF\u3059\u308B\u3002",
@@ -1986,6 +1991,56 @@ Search.appendIndex(
             "summary": "\u5B9A\u7FA9\u3055\u308C\u305F\u62E1\u5F35\u5B50\u306E\u4E00\u89A7",
             "url": "classes/tomk79-pickles2-px2dthelper-fncs-get-listUnassignedContents.html#property_conf_funcs_processors"
         },                {
+            "fqsen": "\\tomk79\\pickles2\\px2dthelper\\fncs\\contentsTemplate\\contentsTemplate",
+            "name": "contentsTemplate",
+            "summary": "Contents\u0020Templates",
+            "url": "classes/tomk79-pickles2-px2dthelper-fncs-contentsTemplate-contentsTemplate.html"
+        },                {
+            "fqsen": "\\tomk79\\pickles2\\px2dthelper\\fncs\\contentsTemplate\\contentsTemplate\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Constructor",
+            "url": "classes/tomk79-pickles2-px2dthelper-fncs-contentsTemplate-contentsTemplate.html#method___construct"
+        },                {
+            "fqsen": "\\tomk79\\pickles2\\px2dthelper\\fncs\\contentsTemplate\\contentsTemplate\u003A\u003Ais_available\u0028\u0029",
+            "name": "is_available",
+            "summary": "\u30B3\u30F3\u30C6\u30F3\u30C4\u30C6\u30F3\u30D7\u30EC\u30FC\u30C8\u304C\u5229\u7528\u53EF\u80FD\u304B\u5224\u5B9A\u3059\u308B",
+            "url": "classes/tomk79-pickles2-px2dthelper-fncs-contentsTemplate-contentsTemplate.html#method_is_available"
+        },                {
+            "fqsen": "\\tomk79\\pickles2\\px2dthelper\\fncs\\contentsTemplate\\contentsTemplate\u003A\u003Aget_list\u0028\u0029",
+            "name": "get_list",
+            "summary": "\u30B3\u30F3\u30C6\u30F3\u30C4\u30C6\u30F3\u30D7\u30EC\u30FC\u30C8\u306E\u30EA\u30B9\u30C8\u3092\u53D6\u5F97\u3059\u308B",
+            "url": "classes/tomk79-pickles2-px2dthelper-fncs-contentsTemplate-contentsTemplate.html#method_get_list"
+        },                {
+            "fqsen": "\\tomk79\\pickles2\\px2dthelper\\fncs\\contentsTemplate\\contentsTemplate\u003A\u003Adefault_list\u0028\u0029",
+            "name": "default_list",
+            "summary": "\u30C7\u30D5\u30A9\u30EB\u30C8\u306E\u30EA\u30B9\u30C8\u3092\u53D6\u5F97\u3059\u308B",
+            "url": "classes/tomk79-pickles2-px2dthelper-fncs-contentsTemplate-contentsTemplate.html#method_default_list"
+        },                {
+            "fqsen": "\\tomk79\\pickles2\\px2dthelper\\fncs\\contentsTemplate\\contentsTemplate\u003A\u003Aget_template_info\u0028\u0029",
+            "name": "get_template_info",
+            "summary": "\u30B3\u30F3\u30C6\u30F3\u30C4\u30C6\u30F3\u30D7\u30EC\u30FC\u30C8\u306E\u60C5\u5831\u3092\u53D6\u5F97\u3059\u308B",
+            "url": "classes/tomk79-pickles2-px2dthelper-fncs-contentsTemplate-contentsTemplate.html#method_get_template_info"
+        },                {
+            "fqsen": "\\tomk79\\pickles2\\px2dthelper\\fncs\\contentsTemplate\\contentsTemplate\u003A\u003Ainit_content\u0028\u0029",
+            "name": "init_content",
+            "summary": "\u30B3\u30F3\u30C6\u30F3\u30C4\u3092\u521D\u671F\u5316\u3059\u308B",
+            "url": "classes/tomk79-pickles2-px2dthelper-fncs-contentsTemplate-contentsTemplate.html#method_init_content"
+        },                {
+            "fqsen": "\\tomk79\\pickles2\\px2dthelper\\fncs\\contentsTemplate\\contentsTemplate\u003A\u003A\u0024px2dthelper",
+            "name": "px2dthelper",
+            "summary": "\u0024px2dthelper",
+            "url": "classes/tomk79-pickles2-px2dthelper-fncs-contentsTemplate-contentsTemplate.html#property_px2dthelper"
+        },                {
+            "fqsen": "\\tomk79\\pickles2\\px2dthelper\\fncs\\contentsTemplate\\contentsTemplate\u003A\u003A\u0024px",
+            "name": "px",
+            "summary": "\u0024px",
+            "url": "classes/tomk79-pickles2-px2dthelper-fncs-contentsTemplate-contentsTemplate.html#property_px"
+        },                {
+            "fqsen": "\\tomk79\\pickles2\\px2dthelper\\fncs\\contentsTemplate\\contentsTemplate\u003A\u003A\u0024path_contents_templates_dir",
+            "name": "path_contents_templates_dir",
+            "summary": "\u30B3\u30F3\u30C6\u30F3\u30C4\u30C6\u30F3\u30D7\u30EC\u30FC\u30C8\u306E\u683C\u7D0D\u30C7\u30A3\u30EC\u30AF\u30C8\u30EA",
+            "url": "classes/tomk79-pickles2-px2dthelper-fncs-contentsTemplate-contentsTemplate.html#property_path_contents_templates_dir"
+        },                {
             "fqsen": "\\",
             "name": "\\",
             "summary": "",
@@ -2020,6 +2075,11 @@ Search.appendIndex(
             "name": "content",
             "summary": "",
             "url": "namespaces/tomk79-pickles2-px2dthelper-fncs-content.html"
+        },                {
+            "fqsen": "\\tomk79\\pickles2\\px2dthelper\\fncs\\contentsTemplate",
+            "name": "contentsTemplate",
+            "summary": "",
+            "url": "namespaces/tomk79-pickles2-px2dthelper-fncs-contentstemplate.html"
         },                {
             "fqsen": "\\tomk79\\pickles2\\px2dthelper\\fncs\\customConsoleExtensions",
             "name": "customConsoleExtensions",
