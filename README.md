@@ -1,38 +1,8 @@
 pickles2/px2-px2dthelper
 ======================
 
-<table class="def">
-  <thead>
-	<tr>
-	  <th></th>
-	  <th>Linux</th>
-	  <th>Windows</th>
-	</tr>
-  </thead>
-  <tbody>
-	<tr>
-	  <th>master</th>
-	  <td align="center">
-		<a href="https://travis-ci.org/pickles2/px2-px2dthelper"><img src="https://secure.travis-ci.org/pickles2/px2-px2dthelper.svg?branch=master"></a>
-	  </td>
-	  <td align="center">
-		<a href="https://ci.appveyor.com/project/tomk79/px2-px2dthelper"><img src="https://ci.appveyor.com/api/projects/status/70winlbbg8sway58/branch/master?svg=true"></a>
-	  </td>
-	</tr>
-	<tr>
-	  <th>develop</th>
-	  <td align="center">
-		<a href="https://travis-ci.org/pickles2/px2-px2dthelper"><img src="https://secure.travis-ci.org/pickles2/px2-px2dthelper.svg?branch=develop"></a>
-	  </td>
-	  <td align="center">
-		<a href="https://ci.appveyor.com/project/tomk79/px2-px2dthelper"><img src="https://ci.appveyor.com/api/projects/status/70winlbbg8sway58/branch/develop?svg=true"></a>
-	  </td>
-	</tr>
-  </tbody>
-</table>
+Pickles 2 のプラグインです。Pickles 2 babycorn(Desktop Tool) やその他のCMSと連携させるためのAPIを提供します。
 
-
-Pickles 2 用のプラグインです。Pickles 2 Desktop Tool と連携させるためのAPIを提供します。
 
 ## インストール - Install
 
@@ -123,6 +93,13 @@ print (new \tomk79\pickles2\px2dthelper\main($px))->document_modules()->load();
 </body>
 </html>
 ```
+
+### Authorizer `$px->authorizer` の初期化
+
+```php
+\tomk79\pickles2\px2dthelper\authorizer::initialize($px, 'member');
+```
+
 
 ### PXコマンド
 
@@ -430,6 +407,12 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 #### PX=px2dthelper.sitemap.xlsx2csv
 
 #### PX=px2dthelper.authorizer.is_authorized.XXXX
+
+### コマンドラインオプション
+
+#### --role
+
+ロール名。
 
 
 ## 更新履歴 - Change log

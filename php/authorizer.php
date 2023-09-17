@@ -21,12 +21,33 @@ class authorizer {
 	/**
 	 * $px->authorizer を生成する
 	 *
+	 * Clover型のCMSでは、このメソッドは外部から `$role` を伴ってコールされます。
+	 * 通常は、パラメータ `$role` は省略されます。
+	 * babycorn や Burdock のような、コマンドラインで呼び出す種類のCMSでは、
+	 * 引数の代わりに、コマンドラインオプション `--role` でロール名を受け取ります。
+	 *
+	 * この関数は、結果として `$px->authorizer` を生成します。
+	 * 一度生成された `$px->authorizer` は、上書きできず、あとから状態を変更することはできません。
+	 *
 	 * @param object $px Picklesオブジェクト
 	 * @param string $role ロール名
+	 * @return boolean 成功時に true, 失敗時に false
 	 */
 	static public function initialize( $px, $role = null ){
-		if( $px->authorizer ){
+		if( !is_null($px->authorizer) ){
 			return false;
+		}
+
+		if( $px->req()->is_cmd() ){
+			$cli_param_role = $px->req()->get_cli_option('--role');
+			if( strlen($cli_param_role ?? '') ){
+				$role = $cli_param_role;
+			}
+		}
+
+		if( !strlen($role ?? '') ){
+			$px->authorizer = false;
+			return true;
 		}
 
 		$px->authorizer = new self($px, $role);
@@ -40,7 +61,7 @@ class authorizer {
 	 * @param string $role ロール名
 	 */
 	private function __construct($px, $role = null){
-		if( $px->authorizer ){
+		if( !is_null($px->authorizer) ){
 			return false;
 		}
 
@@ -54,12 +75,21 @@ class authorizer {
 	}
 
 	/**
+	 * ロール名を取得する
+	 *
+	 * @return string ロール名
+	 */
+	public function get_role(){
+		return $this->role;
+	}
+
+	/**
 	 * カレントユーザーに権限があるか確認する
 	 *
-	 * @param string $division 権限区分名
+	 * @param string $authorize_division 権限区分名
 	 * @return boolean 許可される場合に true, 許可されない場合 false
 	 */
-	public function is_authorized( $division ){
+	public function is_authorized( $authorize_division ){
 		if( !strlen($this->role ?? '') ){
 			return false;
 		}
@@ -71,7 +101,7 @@ class authorizer {
 			default:
 				return false;
 		}
-		$permission = $this->authorization_table->get($division);
+		$permission = $this->authorization_table->get($authorize_division);
 		if( $permission === 1 || $permission === "1" || $permission === 'true' || $permission === 'yes' ){
 			return true;
 		}

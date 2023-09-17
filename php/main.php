@@ -7,7 +7,7 @@ namespace tomk79\pickles2\px2dthelper;
 /**
  * main.php
  */
-class main{
+class main {
 
 	/** Picklesオブジェクト */
 	private $px;
@@ -1092,11 +1092,16 @@ class main{
 					case 'is_authorized':
 						$result = (object) array(
 							"result" => false,
-							"message" => "OK",
+							"message" => "Authorizer is not ready.",
 							"available" => false,
+							"role" => null,
+							"is_authorized" => null,
 						);
-						if( isset($this->px->authorizer) ){
+						if( is_object($this->px->authorizer) ){
+							$result->result = true;
+							$result->message = 'OK';
 							$result->available = true;
+							$result->role = $this->px->authorizer->get_role();
 							$result->is_authorized = $this->px->authorizer->is_authorized($this->command[3] ?? '');
 						}
 						print $std_output->data_convert( $result );
