@@ -86,10 +86,10 @@ class authorizer {
 	/**
 	 * カレントユーザーに権限があるか確認する
 	 *
-	 * @param string $authorize_division 権限区分名
+	 * @param string $authority_name 権限名
 	 * @return boolean 許可される場合に true, 許可されない場合 false
 	 */
-	public function is_authorized( $authorize_division ){
+	public function is_authorized( $authority_name ){
 		if( !strlen($this->role ?? '') ){
 			return false;
 		}
@@ -101,7 +101,7 @@ class authorizer {
 			default:
 				return false;
 		}
-		$permission = $this->authorization_table->get($authorize_division);
+		$permission = $this->authorization_table->get($authority_name);
 		if( $permission === 1 || $permission === "1" || $permission === 'true' || $permission === 'yes' ){
 			return true;
 		}
