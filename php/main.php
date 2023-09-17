@@ -88,8 +88,12 @@ class main{
 			}
 		}
 
+		// LangBank
 		$this->lb = new \tomk79\LangBank(__DIR__.'/../data/language.csv');
 		$this->lb->setLang( 'ja' );
+
+		// $px->authorizer を初期化する
+		authorizer::initialize($px);
 	}
 
 	/**
@@ -1081,6 +1085,24 @@ class main{
 				}
 				print $std_output->data_convert( $val );
 				exit;
+				break;
+
+			case 'authorizer':
+				switch( $this->command[2] ?? '' ){
+					case 'is_authorized':
+						$result = (object) array(
+							"result" => false,
+							"message" => "OK",
+							"available" => false,
+						);
+						if( isset($this->px->authorizer) ){
+							$result->available = true;
+							$result->is_authorized = $this->px->authorizer->is_authorized($this->command[3] ?? '');
+						}
+						print $std_output->data_convert( $result );
+						exit;
+						break;
+				}
 				break;
 
 			case 'convert_table_excel2html':

@@ -2,6 +2,7 @@
 	<testsuites>
 		<testsuite name="default">
 			<file>./tests/mainTest.php</file>
+			<file>./tests/authorizerTest.php</file>
 			<file>./tests/themeCollectionTest.php</file>
 			<file>./tests/packagesTest.php</file>
 			<file>./tests/pluginsTest.php</file>

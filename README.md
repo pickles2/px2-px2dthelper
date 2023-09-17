@@ -429,8 +429,15 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 #### PX=px2dthelper.sitemap.xlsx2csv
 
+#### PX=px2dthelper.authorizer.is_authorized.XXXX
+
 
 ## 更新履歴 - Change log
+
+### pickles2/px2-px2dthelper v2.2.0 (リリース日未定)
+
+- 認可機能 `$px->authorizer` を追加。
+- `PX=px2dthelper.authorizer.is_authorized.XXXX` を追加。
 
 ### pickles2/px2-px2dthelper v2.1.11 (2023年8月29日)
 
