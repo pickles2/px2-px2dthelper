@@ -779,7 +779,7 @@ class main {
 						break;
 
 					case 'create':
-						$this->route_only_post_cmd();
+						$this->route_only_post_and_cli();
 						$filename = $this->px->req()->get_param('filename');
 						$result = $sitemap_editor->create($filename);
 						print $std_output->data_convert( $result );
@@ -801,7 +801,7 @@ class main {
 						break;
 
 					case 'upload':
-						$this->route_only_post_cmd();
+						$this->route_only_post_and_cli();
 						$filefullname = $this->px->req()->get_param('filefullname');
 						$file = $this->px->req()->get_param('file');
 						if( !$this->px->req()->is_cmd() ){
@@ -818,7 +818,7 @@ class main {
 						break;
 
 					case 'xlsx2csv':
-						$this->route_only_post_cmd();
+						$this->route_only_post_and_cli();
 						$filename = $this->px->req()->get_param('filename');
 						$result = $sitemap_editor->xlsx2csv($filename);
 						print $std_output->data_convert( $result );
@@ -826,7 +826,7 @@ class main {
 						break;
 
 					case 'csv2xlsx':
-						$this->route_only_post_cmd();
+						$this->route_only_post_and_cli();
 						$filename = $this->px->req()->get_param('filename');
 						$result = $sitemap_editor->csv2xlsx($filename);
 						print $std_output->data_convert( $result );
@@ -834,7 +834,7 @@ class main {
 						break;
 
 					case 'delete':
-						$this->route_only_post_cmd();
+						$this->route_only_post_and_cli();
 						$filename = $this->px->req()->get_param('filename');
 						$result = $sitemap_editor->delete($filename);
 						print $std_output->data_convert( $result );
@@ -857,7 +857,7 @@ class main {
 						break;
 
 					case 'add_page_info_raw':
-						$this->route_only_post_cmd();
+						$this->route_only_post_and_cli();
 						$filename = $this->px->req()->get_param('filefullname');
 						$row = $this->px->req()->get_param('row');
 						$page_info = $this->px->req()->get_param('page_info');
@@ -867,7 +867,7 @@ class main {
 						break;
 
 					case 'move_page_info_raw':
-						$this->route_only_post_cmd();
+						$this->route_only_post_and_cli();
 						$from_filename = $this->px->req()->get_param('from_filefullname');
 						$from_row = $this->px->req()->get_param('from_row');
 						$to_filename = $this->px->req()->get_param('to_filefullname');
@@ -878,7 +878,7 @@ class main {
 						break;
 
 					case 'update_page_info_raw':
-						$this->route_only_post_cmd();
+						$this->route_only_post_and_cli();
 						$filename = $this->px->req()->get_param('filefullname');
 						$row = $this->px->req()->get_param('row');
 						$page_info = $this->px->req()->get_param('page_info');
@@ -888,7 +888,7 @@ class main {
 						break;
 
 					case 'delete_page_info_raw':
-						$this->route_only_post_cmd();
+						$this->route_only_post_and_cli();
 						$filename = $this->px->req()->get_param('filefullname');
 						$row = $this->px->req()->get_param('row');
 						$result = $sitemap_editor->delete_page_info_raw($filename, $row);
@@ -934,7 +934,7 @@ class main {
 
 			case 'init_content':
 				// コンテンツを初期化する
-				$this->route_only_post_cmd();
+				$this->route_only_post_and_cli();
 				$flg_force = $this->px->req()->get_param('force');
 				$result = $this->init_content(
 					$this->px->req()->get_param('editor_mode'),
@@ -948,7 +948,7 @@ class main {
 
 			case 'copy_content':
 				// コンテンツを複製する
-				$this->route_only_post_cmd();
+				$this->route_only_post_and_cli();
 				$flg_force = $this->px->req()->get_param('force');
 				$path_to = $this->px->req()->get_request_file_path();
 				$param_to = $this->px->req()->get_param('to');
@@ -968,7 +968,7 @@ class main {
 
 			case 'change_content_editor_mode':
 				// コンテンツを初期化する
-				$this->route_only_post_cmd();
+				$this->route_only_post_and_cli();
 				$result = $this->change_content_editor_mode( $this->px->req()->get_param('editor_mode') );
 				print $std_output->data_convert( $result );
 				exit;
@@ -976,7 +976,7 @@ class main {
 
 			case 'publish_single_page':
 				// 指定ページを単体でパブリッシュする
-				$this->route_only_post_cmd();
+				$this->route_only_post_and_cli();
 				$path_target_page = $this->px->req()->get_request_file_path();
 				$path_files = $this->px->path_files();
 				$result = $this->px->internal_sub_request(
@@ -1036,7 +1036,8 @@ class main {
 						break;
 
 					case 'update':
-						$this->route_only_post_cmd();
+						$this->route_only_post_and_cli();
+						$this->authorize_required('config');
 						$config_parser = new fncs\config\configParser( $this, $this->px );
 						$set_vars = array();
 						$base64_json = $this->px->req()->get_param('base64_json');
@@ -1112,7 +1113,7 @@ class main {
 
 			case 'convert_table_excel2html':
 				// Excelで書かれた表をHTMLに変換する
-				$this->route_only_post_cmd();
+				$this->route_only_post_and_cli();
 				$path_xlsx = $this->px->req()->get_param('path');
 				if( !is_file($path_xlsx) || !is_readable($path_xlsx) ){
 					print $std_output->data_convert( false );
@@ -1134,7 +1135,7 @@ class main {
 
 			case 'px2ce':
 				// Pickles 2 Contents Editor
-				$this->route_only_post_cmd();
+				$this->route_only_post_and_cli();
 				$apis = new px2ce_apis($this->px, $this);
 				$result = $apis->execute_px_command($this->command[2]);
 				print $std_output->data_convert( $result );
@@ -1143,7 +1144,7 @@ class main {
 
 			case 'px2me':
 				// Pickles 2 Module Editor
-				$this->route_only_post_cmd();
+				$this->route_only_post_and_cli();
 				$apis = new px2me_apis($this->px, $this);
 				$result = $apis->execute_px_command($this->command[2]);
 				print $std_output->data_convert( $result );
@@ -1152,7 +1153,7 @@ class main {
 
 			case 'px2te':
 				// Pickles 2 Theme Editor
-				$this->route_only_post_cmd();
+				$this->route_only_post_and_cli();
 				$apis = new px2te_apis($this->px, $this);
 				$result = $apis->execute_px_command($this->command[2]);
 				print $std_output->data_convert( $result );
@@ -1172,7 +1173,7 @@ class main {
 				break;
 
 			case 'custom_console_extensions_async_run':
-				$this->route_only_post_cmd();
+				$this->route_only_post_and_cli();
 				$tmpAsync = new fncs\customConsoleExtensions\async(null, $this->px, $this);
 				$config = $tmpAsync->get_config();
 				$rtn = array(
@@ -1229,7 +1230,7 @@ class main {
 	/**
 	 * POSTメソッド、CLIのみ許容
 	 */
-	private function route_only_post_cmd(){
+	private function route_only_post_and_cli(){
 		$method = $this->px->req()->get_method();
 		switch( $method ){
 			case 'command':
@@ -1246,5 +1247,26 @@ class main {
 				break;
 		}
 		return;
+	}
+
+	/**
+	 * Authorizeが必要
+	 */
+	private function authorize_required( $authority_name ){
+		$is_authorized = true;
+		if( is_object($this->px->authorizer) ){
+			$is_authorized = $this->px->authorizer->is_authorized($authority_name);
+		}
+		if($is_authorized){
+			return;
+		}
+
+		$std_output = new std_output($this->px);
+		$this->px->set_status(401);
+		print $std_output->data_convert( array(
+			'result' => false,
+			'message' => "401 Unauthorized.",
+		) );
+		exit;
 	}
 }
