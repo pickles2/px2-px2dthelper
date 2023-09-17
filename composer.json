@@ -18,10 +18,10 @@
 			"@php ./tests/testData/broccoli/.px_execute.php \"/?PX=serve.pub&S=localhost:8081\""
 		],
         "test": [
-            "php ./vendor/phpunit/phpunit/phpunit"
+            "@php ./vendor/phpunit/phpunit/phpunit"
         ],
         "documentation": [
-            "php ./phpDocumentor.phar --title \"pickles2/px2-px2dthelper v2.1.11 API Document\" -d \"./php/\" -t \"./docs/\""
+            "@php ./phpDocumentor.phar --title \"pickles2/px2-px2dthelper v2.1.11 API Document\" -d \"./php/\" -t \"./docs/\""
         ]
     } ,
     "config": {
