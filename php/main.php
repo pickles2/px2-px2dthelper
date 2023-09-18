@@ -969,6 +969,8 @@ class main {
 			case 'change_content_editor_mode':
 				// コンテンツを初期化する
 				$this->route_only_post_and_cli();
+				$this->authorize_required('server_side_scripting');
+					// TODO: HTML中に動的コードを含まないコンテンツならば、'server_side_scripting' 権限は要らないかもしれない。
 				$result = $this->change_content_editor_mode( $this->px->req()->get_param('editor_mode') );
 				print $std_output->data_convert( $result );
 				exit;
