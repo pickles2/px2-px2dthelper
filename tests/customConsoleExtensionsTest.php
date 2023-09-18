@@ -34,6 +34,10 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 		$this->assertSame( $json->list->customConsoleExtensionsTest0001->label, '拡張機能0001' );
 		$this->assertSame( $json->list->customConsoleExtensionsTest0001->capability, array() );
 		$this->assertSame( $json->list->customConsoleExtensionsTest0001->client_initialize_function, 'window.customConsoleExtensionsTest0001' );
+		$this->assertSame( $json->list->customConsoleExtensionsTest0003->id, 'customConsoleExtensionsTest0003' );
+		$this->assertSame( $json->list->customConsoleExtensionsTest0003->label, '拡張機能0003' );
+		$this->assertSame( $json->list->customConsoleExtensionsTest0003->capability, array("manage") );
+		$this->assertSame( $json->list->customConsoleExtensionsTest0003->client_initialize_function, 'window.customConsoleExtensionsTest0001' );
 
 		// ----------------------------------------
 		// PX Command: Custom Console Extensions 存在しない拡張機能の情報取得
@@ -101,7 +105,41 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=clearcache' ,
 		] );
+	}
 
+	/**
+	 * PX=px2dthelper.custom_console_extensions の認可のテスト
+	 */
+	public function testAuthorizeCustomConsoleExtensions(){
+
+		// ----------------------------------------
+		// PX Command: Custom Console Extensions の一覧取得
+		$output = $this->px2query->query( [
+			__DIR__.'/testData/standard/.px_execute.php',
+			'--role', 'member',
+			'/?PX=px2dthelper.custom_console_extensions',
+		] );
+		$json = json_decode( $output );
+		$this->assertTrue( is_object($json) );
+		$this->assertSame( $json->result, true );
+		$this->assertSame( $json->message, 'OK' );
+		$this->assertSame( $json->list->customConsoleExtensionsTest0001->id, 'customConsoleExtensionsTest0001' );
+		$this->assertSame( $json->list->customConsoleExtensionsTest0001->label, '拡張機能0001' );
+		$this->assertSame( $json->list->customConsoleExtensionsTest0001->capability, array() );
+		$this->assertSame( $json->list->customConsoleExtensionsTest0001->client_initialize_function, 'window.customConsoleExtensionsTest0001' );
+
+		$this->assertSame( $json->list->customConsoleExtensionsTest0002->id, 'customConsoleExtensionsTest0002' );
+		$this->assertSame( $json->list->customConsoleExtensionsTest0002->label, '拡張機能0002' );
+		$this->assertSame( $json->list->customConsoleExtensionsTest0002->capability, array() );
+		$this->assertSame( $json->list->customConsoleExtensionsTest0002->client_initialize_function, 'window.customConsoleExtensionsTest0001' );
+
+		$this->assertFalse( property_exists($json->list, 'customConsoleExtensionsTest0003') );
+
+		// 後始末
+		$output = $this->px2query->query( [
+			__DIR__.'/testData/standard/.px_execute.php' ,
+			'/?PX=clearcache' ,
+		] );
 	}
 
 	/**

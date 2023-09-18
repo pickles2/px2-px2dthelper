@@ -58,34 +58,36 @@ class pxcmdOperator{
 
 		$rtn = array();
 		foreach($ccEConf as $cce_id=>$ccEInfo){
-			$rtn[$cce_id] = array();
-			$rtn[$cce_id]['id'] = $cce_id;
-			$rtn[$cce_id]['label'] = $cce_id;
-			$rtn[$cce_id]['class_name'] = null;
-			$rtn[$cce_id]['capability'] = array();
+			$tmp_cce_info = array();
+			$tmp_cce_info['id'] = $cce_id;
+			$tmp_cce_info['label'] = $cce_id;
+			$tmp_cce_info['class_name'] = null;
+			$tmp_cce_info['capability'] = array();
 			if( is_string($ccEInfo) ){
-				$rtn[$cce_id]['class_name'] = $ccEInfo;
+				$tmp_cce_info['class_name'] = $ccEInfo;
 			}elseif( is_array($ccEInfo) || is_object($ccEInfo) ){
 				$objCcEInfo = json_decode( json_encode($ccEInfo) );
-				$rtn[$cce_id]['class_name'] = $ccEInfo->class_name ?? '';
+				$tmp_cce_info['class_name'] = $ccEInfo->class_name ?? '';
 				if( is_string( $ccEInfo->capability ?? null ) ){
-					array_push($rtn[$cce_id]['capability'], $ccEInfo->capability);
+					array_push($tmp_cce_info['capability'], $ccEInfo->capability);
 				}elseif( is_array( $ccEInfo->capability ?? null ) ){
-					$rtn[$cce_id]['capability'] = array_merge($rtn[$cce_id]['capability'], $ccEInfo->capability);
+					$tmp_cce_info['capability'] = array_merge($tmp_cce_info['capability'], $ccEInfo->capability);
 				}
 			}
-			$rtn[$cce_id]['client_initialize_function'] = null;
+			$tmp_cce_info['client_initialize_function'] = null;
 
 			$cceObj = $this->get($cce_id);
 			if( !$cceObj ){
 				continue;
 			}
 			if( is_callable( array($cceObj, 'get_label') ) ){
-				$rtn[$cce_id]['label'] = $cceObj->get_label();
+				$tmp_cce_info['label'] = $cceObj->get_label();
 			}
 			if( is_callable( array($cceObj, 'get_client_initialize_function') ) ){
-				$rtn[$cce_id]['client_initialize_function'] = $cceObj->get_client_initialize_function();
+				$tmp_cce_info['client_initialize_function'] = $cceObj->get_client_initialize_function();
 			}
+
+			$rtn[$cce_id] = $tmp_cce_info;
 		}
 
 		return $rtn;
@@ -115,11 +117,29 @@ class pxcmdOperator{
 		}
 
 		$className = null;
+		$capability = array();
 		if( is_string($ccEInfo) ){
 			$className = $ccEInfo;
+		}elseif( is_array($ccEInfo) || is_object($ccEInfo) ){
+			$objCcEInfo = json_decode( json_encode($ccEInfo) );
+			$className = $objCcEInfo->class_name;
+			if( is_string( $ccEInfo->capability ?? null ) ){
+				array_push($capability, $ccEInfo->capability);
+			}elseif( is_array( $ccEInfo->capability ?? null ) ){
+				$capability = array_merge($capability, $ccEInfo->capability);
+			}
 		}
-		if( !strlen(''.$className) ){
+		if( !strlen($className ?? '') ){
 			return false;
+		}
+
+		// 権限をチェック
+		if( is_object($this->px->authorizer) && count($capability) ){
+			foreach($capability as $capability_row){
+				if (!$this->px->authorizer->is_authorized($capability_row)) {
+					return false;
+				}
+			}
 		}
 
 		// オプションがあるなら、取り出す
