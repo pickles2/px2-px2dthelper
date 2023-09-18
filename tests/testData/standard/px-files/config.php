@@ -130,6 +130,9 @@ return call_user_func( function(){
 
 	// funcs: Before content
 	$conf->funcs->before_content = [
+		// BlogKit
+		\pickles2\px2BlogKit\register::blog(),
+
 		// PX=api
 		'picklesFramework2\commands\api::register' ,
 

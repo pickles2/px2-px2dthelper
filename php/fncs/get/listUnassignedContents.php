@@ -82,10 +82,28 @@ class listUnassignedContents{
 			if( !isset($page_info['content']) || !is_string($page_info['content']) ){
 				continue;
 			}
-			$relatedpath_content = $this->px->fs()->get_relatedpath($page_info['content'], '/');
+			$relatedpath_content = $this->px->fs()->normalize_path($this->px->fs()->get_relatedpath($page_info['content'], '/'));
 			$this->add_path_to_ignored_path_list($relatedpath_content);
 			foreach( $this->conf_funcs_processors as $proc_ext ){
 				$this->add_path_to_ignored_path_list($relatedpath_content.'.'.$proc_ext);
+			}
+		}
+
+		// ブログマップに登録されているファイルを除外する
+		if( is_object($this->px->blog) ){
+			$blogs = $this->px->blog->get_blog_list();
+			foreach($blogs as $blog){
+				$articles = $this->px->blog->get_article_list($blog['blog_id']);
+				foreach($articles as $page_info){
+					if( !isset($page_info['content']) || !is_string($page_info['content']) ){
+						continue;
+					}
+					$relatedpath_content = $this->px->fs()->normalize_path($this->px->fs()->get_relatedpath($page_info['content'], '/'));
+					$this->add_path_to_ignored_path_list($relatedpath_content);
+					foreach( $this->conf_funcs_processors as $proc_ext ){
+						$this->add_path_to_ignored_path_list($relatedpath_content.'.'.$proc_ext);
+					}
+				}
 			}
 		}
 
@@ -128,11 +146,13 @@ class listUnassignedContents{
 					continue;
 				}
 				if( !preg_match( '/\.html?$/', $basename ) && !preg_match( "/\.html\.(?:$imploded_conf_funcs_processors)?$/", $basename ) ){
+					// 拡張子がHTMLではないので除外
 					continue;
 				}
 
 				$path_proc_type = $this->px->get_path_proc_type('/'.$local_path.$basename);
 				if( $path_proc_type == "ignore" ){
+					// 管理外のコンテンツなので除外
 					continue;
 				}
 

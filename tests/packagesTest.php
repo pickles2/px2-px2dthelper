@@ -27,7 +27,6 @@ class packagesTest extends PHPUnit\Framework\TestCase{
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=px2dthelper.packages.get_path_composer_root_dir' ,
 		] );
-		// var_dump($output);
 		$output = json_decode($output);
 		$this->assertTrue( is_dir($output) );
 
@@ -47,7 +46,6 @@ class packagesTest extends PHPUnit\Framework\TestCase{
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=px2dthelper.packages.get_path_npm_root_dir' ,
 		] );
-		// var_dump($output);
 		$output = json_decode($output);
 		$this->assertFalse( $output );
 
@@ -68,12 +66,10 @@ class packagesTest extends PHPUnit\Framework\TestCase{
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=px2dthelper.packages.get_package_list' ,
 		] );
-		// var_dump($result);
 		$result = json_decode($result);
-		// var_dump($result);
 		$this->assertTrue( is_object( $result ) );
 		$this->assertEquals( count( $result->themes ), 0 );
-		$this->assertEquals( count( $result->broccoliModules ), 2 );
+		$this->assertEquals( count( $result->broccoliModules ), 3 );
 		$this->assertEquals( count( $result->broccoliFields ), 1 );
 		$this->assertEquals( count( $result->processors ), 2 );
 		$this->assertEquals( count( $result->plugin ), 0 );

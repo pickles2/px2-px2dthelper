@@ -421,6 +421,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 - 認可機能 `$px->authorizer` を追加。
 - `PX=px2dthelper.authorizer.is_authorized.XXXX` を追加。
+- `PX=px2dthelper.get.list_unassigned_contents` が、ブログマップに対応した。
 - `PX=px2dthelper.get.list_unassigned_contents` が、除外(ignore)されたパスをリストしないようになった。
 
 ### pickles2/px2-px2dthelper v2.1.11 (2023年8月29日)
