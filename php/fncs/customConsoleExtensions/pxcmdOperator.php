@@ -62,8 +62,17 @@ class pxcmdOperator{
 			$rtn[$cce_id]['id'] = $cce_id;
 			$rtn[$cce_id]['label'] = $cce_id;
 			$rtn[$cce_id]['class_name'] = null;
+			$rtn[$cce_id]['capability'] = array();
 			if( is_string($ccEInfo) ){
 				$rtn[$cce_id]['class_name'] = $ccEInfo;
+			}elseif( is_array($ccEInfo) || is_object($ccEInfo) ){
+				$objCcEInfo = json_decode( json_encode($ccEInfo) );
+				$rtn[$cce_id]['class_name'] = $ccEInfo->class_name ?? '';
+				if( is_string( $ccEInfo->capability ?? null ) ){
+					array_push($rtn[$cce_id]['capability'], $ccEInfo->capability);
+				}elseif( is_array( $ccEInfo->capability ?? null ) ){
+					$rtn[$cce_id]['capability'] = array_merge($rtn[$cce_id]['capability'], $ccEInfo->capability);
+				}
 			}
 			$rtn[$cce_id]['client_initialize_function'] = null;
 
@@ -160,10 +169,10 @@ class pxcmdOperator{
 			$rtn['list'] = $this->get_list();
 			return $rtn;
 		}
-		if( array_key_exists(0, $ary_px_command) && strlen(''.$ary_px_command[0]) ){
+		if( array_key_exists(0, $ary_px_command) && strlen($ary_px_command[0] ?? '') ){
 			$cce_id = $ary_px_command[0];
 		}
-		if( array_key_exists(1, $ary_px_command) && strlen(''.$ary_px_command[1]) ){
+		if( array_key_exists(1, $ary_px_command) && strlen($ary_px_command[1] ?? '') ){
 			$subcommand = $ary_px_command[1];
 		}
 
@@ -174,7 +183,7 @@ class pxcmdOperator{
 				'message' => 'Custom Console Extension "'.$cce_id.'" is NOT available.',
 			);
 		}
-		if( strlen(''.$subcommand) ){
+		if( strlen($subcommand ?? '') ){
 			switch( $subcommand ){
 				case 'gpi':
 					if( !is_callable( array($ccExt, 'gpi') ) ){

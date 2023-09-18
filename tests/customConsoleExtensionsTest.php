@@ -32,6 +32,7 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 		$this->assertSame( $json->message, 'OK' );
 		$this->assertSame( $json->list->customConsoleExtensionsTest0001->id, 'customConsoleExtensionsTest0001' );
 		$this->assertSame( $json->list->customConsoleExtensionsTest0001->label, '拡張機能0001' );
+		$this->assertSame( $json->list->customConsoleExtensionsTest0001->capability, array() );
 		$this->assertSame( $json->list->customConsoleExtensionsTest0001->client_initialize_function, 'window.customConsoleExtensionsTest0001' );
 
 		// ----------------------------------------
@@ -51,6 +52,7 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 		$this->assertSame( $json->message, 'OK' );
 		$this->assertSame( $json->info->id, 'customConsoleExtensionsTest0001' );
 		$this->assertSame( $json->info->label, '拡張機能0001' );
+		$this->assertSame( $json->info->capability, array() );
 		$this->assertSame( $json->info->client_initialize_function, 'window.customConsoleExtensionsTest0001' );
 
 		// ----------------------------------------
@@ -100,7 +102,7 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 			'/?PX=clearcache' ,
 		] );
 
-	} // testCustomConsoleExtensions()
+	}
 
 	/**
 	 * サーバーサイドでappModeを取り扱うテスト
@@ -150,7 +152,7 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 			'/?PX=clearcache' ,
 		] );
 
-	} // testAppMode()
+	}
 
 
 	/**
@@ -243,7 +245,7 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 			'/?PX=clearcache' ,
 		] );
 
-	} // testAsync()
+	}
 
 	/**
 	 * broadcast() を実行するテスト
@@ -285,6 +287,6 @@ class customConsoleExtensionsTest extends PHPUnit\Framework\TestCase{
 			'/?PX=clearcache' ,
 		] );
 
-	} // testBroadcast()
+	}
 
 }

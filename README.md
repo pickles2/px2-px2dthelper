@@ -423,6 +423,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 - `PX=px2dthelper.authorizer.is_authorized.XXXX` を追加。
 - `PX=px2dthelper.get.list_unassigned_contents` が、ブログマップに対応した。
 - `PX=px2dthelper.get.list_unassigned_contents` が、除外(ignore)されたパスをリストしないようになった。
+- カスタムコンソール機能拡張に `capability` の設定を追加。
 
 ### pickles2/px2-px2dthelper v2.1.11 (2023年8月29日)
 
