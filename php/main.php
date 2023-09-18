@@ -1147,6 +1147,7 @@ class main {
 			case 'px2me':
 				// Pickles 2 Module Editor
 				$this->route_only_post_and_cli();
+				$this->authorize_required('server_side_scripting');
 				$apis = new px2me_apis($this->px, $this);
 				$result = $apis->execute_px_command($this->command[2]);
 				print $std_output->data_convert( $result );
