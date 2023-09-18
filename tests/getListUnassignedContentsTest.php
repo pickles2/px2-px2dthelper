@@ -33,6 +33,10 @@ class getListUnassignedContentsTest extends PHPUnit\Framework\TestCase{
 		$this->assertTrue( array_search('/copy/from.html', $json->unassigned_contents) !== false );
 		$this->assertTrue( array_search('/editor_modes/md.html.md', $json->unassigned_contents) !== false );
 		$this->assertTrue( array_search('/unassigned/content.html.md', $json->unassigned_contents) !== false );
+		$this->assertFalse( array_search('/unassigned/content_files/test.html', $json->unassigned_contents) );
+		$this->assertFalse( array_search('/unassigned/ignored_test/ignore/ignoretest.html', $json->unassigned_contents) );
+		$this->assertFalse( array_search('/unassigned/ignored_test/test2.ignore/ignoredcontents.html', $json->unassigned_contents) );
+		$this->assertFalse( array_search('/unassigned/ignored_test/test.ignore.html.md', $json->unassigned_contents) );
 
 		// 後始末
 		$output = $this->px2query->query( [

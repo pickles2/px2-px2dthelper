@@ -6,7 +6,7 @@ namespace tomk79\pickles2\px2dthelper\fncs\get;
 use tomk79\pickles2\px2dthelper\fncs\packages;
 
 /**
- * fncs/get/listUnassignedContents.php
+ * `PX=px2dthelper.get.list_unassigned_contents`
  */
 class listUnassignedContents{
 
@@ -130,6 +130,12 @@ class listUnassignedContents{
 				if( !preg_match( '/\.html?$/', $basename ) && !preg_match( "/\.html\.(?:$imploded_conf_funcs_processors)?$/", $basename ) ){
 					continue;
 				}
+
+				$path_proc_type = $this->px->get_path_proc_type('/'.$local_path.$basename);
+				if( $path_proc_type == "ignore" ){
+					continue;
+				}
+
 				array_push($rtn, '/'.$local_path.$basename);
 			}
 		}

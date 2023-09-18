@@ -84,6 +84,7 @@ return call_user_func( function(){
 		'*/.gitignore' => 'ignore',
 
 		'/move_test/ignored_path_test/*' => 'ignore', // 除外パスへの影響をテストするための設定
+		'/unassigned/ignored_test/ignore/*' => 'ignore', // 除外パスへの影響をテストするための設定
 
 		'*.html' => 'html',
 		'*.htm' => 'html',
