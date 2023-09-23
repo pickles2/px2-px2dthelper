@@ -581,10 +581,15 @@ Search.appendIndex(
             "summary": "route\u0020as\u0020PX\u0020Command",
             "url": "classes/tomk79-pickles2-px2dthelper-main.html#method_route"
         },                {
-            "fqsen": "\\tomk79\\pickles2\\px2dthelper\\main\u003A\u003Aroute_only_post_cmd\u0028\u0029",
-            "name": "route_only_post_cmd",
+            "fqsen": "\\tomk79\\pickles2\\px2dthelper\\main\u003A\u003Aroute_only_post_and_cli\u0028\u0029",
+            "name": "route_only_post_and_cli",
             "summary": "POST\u30E1\u30BD\u30C3\u30C9\u3001CLI\u306E\u307F\u8A31\u5BB9",
-            "url": "classes/tomk79-pickles2-px2dthelper-main.html#method_route_only_post_cmd"
+            "url": "classes/tomk79-pickles2-px2dthelper-main.html#method_route_only_post_and_cli"
+        },                {
+            "fqsen": "\\tomk79\\pickles2\\px2dthelper\\main\u003A\u003Aauthorize_required\u0028\u0029",
+            "name": "authorize_required",
+            "summary": "Authorize\u304C\u5FC5\u8981",
+            "url": "classes/tomk79-pickles2-px2dthelper-main.html#method_authorize_required"
         },                {
             "fqsen": "\\tomk79\\pickles2\\px2dthelper\\main\u003A\u003A\u0024px",
             "name": "px",
@@ -1943,7 +1948,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\tomk79\\pickles2\\px2dthelper\\fncs\\get\\listUnassignedContents",
             "name": "listUnassignedContents",
-            "summary": "fncs\/get\/listUnassignedContents.php",
+            "summary": "\u0060PX\u003Dpx2dthelper.get.list_unassigned_contents\u0060",
             "url": "classes/tomk79-pickles2-px2dthelper-fncs-get-listUnassignedContents.html"
         },                {
             "fqsen": "\\tomk79\\pickles2\\px2dthelper\\fncs\\get\\listUnassignedContents\u003A\u003A__construct\u0028\u0029",
@@ -2040,6 +2045,46 @@ Search.appendIndex(
             "name": "path_contents_templates_dir",
             "summary": "\u30B3\u30F3\u30C6\u30F3\u30C4\u30C6\u30F3\u30D7\u30EC\u30FC\u30C8\u306E\u683C\u7D0D\u30C7\u30A3\u30EC\u30AF\u30C8\u30EA",
             "url": "classes/tomk79-pickles2-px2dthelper-fncs-contentsTemplate-contentsTemplate.html#property_path_contents_templates_dir"
+        },                {
+            "fqsen": "\\tomk79\\pickles2\\px2dthelper\\authorizer",
+            "name": "authorizer",
+            "summary": "authorizer.php",
+            "url": "classes/tomk79-pickles2-px2dthelper-authorizer.html"
+        },                {
+            "fqsen": "\\tomk79\\pickles2\\px2dthelper\\authorizer\u003A\u003Ainitialize\u0028\u0029",
+            "name": "initialize",
+            "summary": "\u0024px\u002D\u003Eauthorizer\u0020\u3092\u751F\u6210\u3059\u308B",
+            "url": "classes/tomk79-pickles2-px2dthelper-authorizer.html#method_initialize"
+        },                {
+            "fqsen": "\\tomk79\\pickles2\\px2dthelper\\authorizer\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Constructor",
+            "url": "classes/tomk79-pickles2-px2dthelper-authorizer.html#method___construct"
+        },                {
+            "fqsen": "\\tomk79\\pickles2\\px2dthelper\\authorizer\u003A\u003Aget_role\u0028\u0029",
+            "name": "get_role",
+            "summary": "\u30ED\u30FC\u30EB\u540D\u3092\u53D6\u5F97\u3059\u308B",
+            "url": "classes/tomk79-pickles2-px2dthelper-authorizer.html#method_get_role"
+        },                {
+            "fqsen": "\\tomk79\\pickles2\\px2dthelper\\authorizer\u003A\u003Ais_authorized\u0028\u0029",
+            "name": "is_authorized",
+            "summary": "\u30AB\u30EC\u30F3\u30C8\u30E6\u30FC\u30B6\u30FC\u306B\u6A29\u9650\u304C\u3042\u308B\u304B\u78BA\u8A8D\u3059\u308B",
+            "url": "classes/tomk79-pickles2-px2dthelper-authorizer.html#method_is_authorized"
+        },                {
+            "fqsen": "\\tomk79\\pickles2\\px2dthelper\\authorizer\u003A\u003A\u0024px",
+            "name": "px",
+            "summary": "Pickles\u30AA\u30D6\u30B8\u30A7\u30AF\u30C8",
+            "url": "classes/tomk79-pickles2-px2dthelper-authorizer.html#property_px"
+        },                {
+            "fqsen": "\\tomk79\\pickles2\\px2dthelper\\authorizer\u003A\u003A\u0024authorization_table",
+            "name": "authorization_table",
+            "summary": "\u8A8D\u53EF\u30C6\u30FC\u30D6\u30EB",
+            "url": "classes/tomk79-pickles2-px2dthelper-authorizer.html#property_authorization_table"
+        },                {
+            "fqsen": "\\tomk79\\pickles2\\px2dthelper\\authorizer\u003A\u003A\u0024role",
+            "name": "role",
+            "summary": "\u30ED\u30FC\u30EB\u540D",
+            "url": "classes/tomk79-pickles2-px2dthelper-authorizer.html#property_role"
         },                {
             "fqsen": "\\",
             "name": "\\",

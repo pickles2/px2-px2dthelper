@@ -102,12 +102,11 @@
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/tomk79.html">tomk79</a></li>
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/tomk79-pickles2.html">pickles2</a></li>
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/tomk79-pickles2-px2dthelper.html">px2dthelper</a></li>
-            <li class="phpdocumentor-breadcrumb"><a href="namespaces/tomk79-pickles2-px2dthelper-fncs.html">fncs</a></li>
     </ul>
 
     <article class="phpdocumentor-element -class">
         <h2 class="phpdocumentor-content__title">
-    change_content_editor_mode
+    authorizer
 
     
             <div class="phpdocumentor-element__package">
@@ -121,13 +120,13 @@
     </h2>
 
         <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/change_content_editor_mode.php"><a href="files/php-fncs-change-content-editor-mode.html"><abbr title="php/fncs/change_content_editor_mode.php">change_content_editor_mode.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="php/authorizer.php"><a href="files/php-authorizer.html"><abbr title="php/authorizer.php">authorizer.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">10</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">fncs/change_content_editor_mode.php</p>
+            <p class="phpdocumentor-summary">authorizer.php</p>
 
 
 
@@ -144,39 +143,53 @@
 
 <dl class="phpdocumentor-table-of-contents">
                     <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/tomk79-pickles2-px2dthelper-fncs-change-content-editor-mode.html#property_px">$px</a>
+    <a href="classes/tomk79-pickles2-px2dthelper-authorizer.html#property_authorization_table">$authorization_table</a>
+    <span>
+                        &nbsp;: mixed            </span>
+</dt>
+<dd>認可テーブル</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/tomk79-pickles2-px2dthelper-authorizer.html#property_px">$px</a>
     <span>
                         &nbsp;: mixed            </span>
 </dt>
 <dd>Picklesオブジェクト</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/tomk79-pickles2-px2dthelper-fncs-change-content-editor-mode.html#property_px2dthelper">$px2dthelper</a>
+    <a href="classes/tomk79-pickles2-px2dthelper-authorizer.html#property_role">$role</a>
     <span>
                         &nbsp;: mixed            </span>
 </dt>
-<dd>px2dthelperオブジェクト</dd>
+<dd>ロール名</dd>
 
                 <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/tomk79-pickles2-px2dthelper-fncs-change-content-editor-mode.html#method___construct">__construct()</a>
+    <a href="classes/tomk79-pickles2-px2dthelper-authorizer.html#method_get_role">get_role()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: string    </span>
 </dt>
-<dd>constructor</dd>
+<dd>ロール名を取得する</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/tomk79-pickles2-px2dthelper-fncs-change-content-editor-mode.html#method_change_content_editor_mode">change_content_editor_mode()</a>
+    <a href="classes/tomk79-pickles2-px2dthelper-authorizer.html#method_initialize">initialize()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>$px-&gt;authorizer を生成する</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/tomk79-pickles2-px2dthelper-authorizer.html#method_is_authorized">is_authorized()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>カレントユーザーに権限があるか確認する</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/tomk79-pickles2-px2dthelper-authorizer.html#method___construct">__construct()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>コンテンツの種類(編集モード)を変更する</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/tomk79-pickles2-px2dthelper-fncs-change-content-editor-mode.html#method_create_gui_data">create_gui_data()</a>
-    <span>
-                                &nbsp;: null    </span>
-</dt>
-<dd>GUI編集のデータを生成する</dd>
+<dd>Constructor</dd>
 
         </dl>
 
@@ -188,8 +201,42 @@
     <section class="phpdocumentor-properties">
         <h3 class="phpdocumentor-elements__header" id="properties">
             Properties
-            <a href="classes/tomk79-pickles2-px2dthelper-fncs-change-content-editor-mode.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/tomk79-pickles2-px2dthelper-authorizer.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
         </h3>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_authorization_table">
+        $authorization_table
+        <a href="classes/tomk79-pickles2-px2dthelper-authorizer.html#property_authorization_table" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="php/authorizer.php"><a href="files/php-authorizer.html"><abbr title="php/authorizer.php">authorizer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">16</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">認可テーブル</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">$authorization_table</span>
+    </code>
+
+    
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
                     <article
         class="
             phpdocumentor-element
@@ -199,12 +246,12 @@
 >
     <h4 class="phpdocumentor-element__name" id="property_px">
         $px
-        <a href="classes/tomk79-pickles2-px2dthelper-fncs-change-content-editor-mode.html#property_px" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/tomk79-pickles2-px2dthelper-authorizer.html#property_px" class="headerlink"><i class="fas fa-link"></i></a>
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/change_content_editor_mode.php"><a href="files/php-fncs-change-content-editor-mode.html"><abbr title="php/fncs/change_content_editor_mode.php">change_content_editor_mode.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="php/authorizer.php"><a href="files/php-authorizer.html"><abbr title="php/authorizer.php">authorizer.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">13</span>
 
@@ -231,26 +278,26 @@
             -private
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="property_px2dthelper">
-        $px2dthelper
-        <a href="classes/tomk79-pickles2-px2dthelper-fncs-change-content-editor-mode.html#property_px2dthelper" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="property_role">
+        $role
+        <a href="classes/tomk79-pickles2-px2dthelper-authorizer.html#property_role" class="headerlink"><i class="fas fa-link"></i></a>
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/change_content_editor_mode.php"><a href="files/php-fncs-change-content-editor-mode.html"><abbr title="php/fncs/change_content_editor_mode.php">change_content_editor_mode.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="php/authorizer.php"><a href="files/php-authorizer.html"><abbr title="php/authorizer.php">authorizer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">16</span>
+    <span class="phpdocumentor-element-found-in__line">19</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">px2dthelperオブジェクト</p>
+        <p class="phpdocumentor-summary">ロール名</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
         <span class="phpdocumentor-signature__type">mixed</span>
-    <span class="phpdocumentor-signature__name">$px2dthelper</span>
-    </code>
+    <span class="phpdocumentor-signature__name">$role</span>
+     = <span class="phpdocumentor-signature__default-value">null</span></code>
 
     
         <section class="phpdocumentor-description"></section>
@@ -263,7 +310,7 @@
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
             Methods
-            <a href="classes/tomk79-pickles2-px2dthelper-fncs-change-content-editor-mode.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/tomk79-pickles2-px2dthelper-authorizer.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
         </h3>
                     <article
         class="phpdocumentor-element
@@ -271,35 +318,171 @@
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method___construct">
-        __construct()
-        <a href="classes/tomk79-pickles2-px2dthelper-fncs-change-content-editor-mode.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_get_role">
+        get_role()
+        <a href="classes/tomk79-pickles2-px2dthelper-authorizer.html#method_get_role" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/change_content_editor_mode.php"><a href="files/php-fncs-change-content-editor-mode.html"><abbr title="php/fncs/change_content_editor_mode.php">change_content_editor_mode.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="php/authorizer.php"><a href="files/php-authorizer.html"><abbr title="php/authorizer.php">authorizer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">24</span>
+    <span class="phpdocumentor-element-found-in__line">82</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">constructor</p>
+        <p class="phpdocumentor-summary">ロール名を取得する</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$px2dthelper</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$px</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">get_role</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>ロール名</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_initialize">
+        initialize()
+        <a href="classes/tomk79-pickles2-px2dthelper-authorizer.html#method_initialize" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="php/authorizer.php"><a href="files/php-authorizer.html"><abbr title="php/authorizer.php">authorizer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">36</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">$px-&gt;authorizer を生成する</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">initialize</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$px</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$role</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+        <section class="phpdocumentor-description"><p>Clover型のCMSでは、このメソッドは外部から <code class="prettyprint">$role</code> を伴ってコールされます。
+通常は、パラメータ <code class="prettyprint">$role</code> は省略されます。
+babycorn や Burdock のような、コマンドラインで呼び出す種類のCMSでは、
+引数の代わりに、コマンドラインオプション <code class="prettyprint">--role</code> でロール名を受け取ります。</p>
+<p>この関数は、結果として <code class="prettyprint">$px-&gt;authorizer</code> を生成します。
+一度生成された <code class="prettyprint">$px-&gt;authorizer</code> は、上書きできず、あとから状態を変更することはできません。</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$px</span>
+                : <span class="phpdocumentor-signature__argument__return-type">object</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Picklesオブジェクト</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$role</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>ロール名</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>成功時に true, 失敗時に false</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_is_authorized">
+        is_authorized()
+        <a href="classes/tomk79-pickles2-px2dthelper-authorizer.html#method_is_authorized" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="php/authorizer.php"><a href="files/php-authorizer.html"><abbr title="php/authorizer.php">authorizer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">92</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">カレントユーザーに権限があるか確認する</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">is_authorized</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$authority_name</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$px2dthelper</span>
-                : <span class="phpdocumentor-signature__argument__return-type">object</span>
+                <span class="phpdocumentor-signature__argument__name">$authority_name</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>$px2dthelperオブジェクト</p>
+                    <section class="phpdocumentor-description"><p>権限名</p>
 </section>
 
             </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>許可される場合に true, 許可されない場合 false</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method___construct">
+        __construct()
+        <a href="classes/tomk79-pickles2-px2dthelper-authorizer.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="php/authorizer.php"><a href="files/php-authorizer.html"><abbr title="php/authorizer.php">authorizer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">63</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Constructor</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$px</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$role</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$px</span>
                 : <span class="phpdocumentor-signature__argument__return-type">object</span>
@@ -309,57 +492,12 @@
 </section>
 
             </dd>
-            </dl>
-
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
-            &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_change_content_editor_mode">
-        change_content_editor_mode()
-        <a href="classes/tomk79-pickles2-px2dthelper-fncs-change-content-editor-mode.html#method_change_content_editor_mode" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/change_content_editor_mode.php"><a href="files/php-fncs-change-content-editor-mode.html"><abbr title="php/fncs/change_content_editor_mode.php">change_content_editor_mode.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">34</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">コンテンツの種類(編集モード)を変更する</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">change_content_editor_mode</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$editor_mode_to</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$page_path</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
-
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$editor_mode_to</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>変換後の編集モード名</p>
-</section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$page_path</span>
+                <span class="phpdocumentor-signature__argument__name">$role</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>ページのパス。</p>
+                    <section class="phpdocumentor-description"><p>ロール名</p>
 </section>
 
             </dd>
@@ -371,71 +509,6 @@
     <span class="phpdocumentor-signature__response_type">mixed</span>
             &mdash;
         
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_create_gui_data">
-        create_gui_data()
-        <a href="classes/tomk79-pickles2-px2dthelper-fncs-change-content-editor-mode.html#method_create_gui_data" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="php/fncs/change_content_editor_mode.php"><a href="files/php-fncs-change-content-editor-mode.html"><abbr title="php/fncs/change_content_editor_mode.php">change_content_editor_mode.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">120</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">GUI編集のデータを生成する</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">create_gui_data</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$realpath_controot</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$realpath_data_dir</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$code_before</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">null</span></code>
-
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$realpath_controot</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>コンテンツルートのサーバー内部絶対パス</p>
-</section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$realpath_data_dir</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>GUI編集データディレクトリのサーバー内部絶対パス</p>
-</section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$code_before</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>変換前のコンテンツのソースコード</p>
-</section>
-
-            </dd>
-            </dl>
-
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">null</span>
-            &mdash;
-            <section class="phpdocumentor-description"><p>null</p>
-</section>
-
     
 </article>
             </section>
@@ -516,7 +589,7 @@
 </section>
             </div>
         </div>
-        <a href="classes/tomk79-pickles2-px2dthelper-fncs-change-content-editor-mode.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+        <a href="classes/tomk79-pickles2-px2dthelper-authorizer.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
     </main>
 
