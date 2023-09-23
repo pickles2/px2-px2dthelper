@@ -32,21 +32,21 @@ class authorizerTest extends PHPUnit\Framework\TestCase{
 		$this->assertTrue( is_object($px) );
 		$this->assertNull( $px->authorizer );
 
-		$result = \tomk79\pickles2\px2dthelper\authorizer::initialize($px, 'specialist');
+		$result = \tomk79\pickles2\px2dthelper\authorizer::initialize($px, 'admin');
 
 		$this->assertTrue( $result );
 		$this->assertTrue( is_object($px) );
 		$this->assertTrue( is_object($px->authorizer) );
-		$this->assertSame( $px->authorizer->get_role(), 'specialist' );
-		$this->assertFalse( $px->authorizer->is_authorized('members') );
+		$this->assertSame( $px->authorizer->get_role(), 'admin' );
+		$this->assertTrue( $px->authorizer->is_authorized('members') );
 
 		$result = \tomk79\pickles2\px2dthelper\authorizer::initialize($px, 'member'); // 2度目は実行されない
 
 		$this->assertFalse( $result );
 		$this->assertTrue( is_object($px) );
 		$this->assertTrue( is_object($px->authorizer) );
-		$this->assertSame( $px->authorizer->get_role(), 'specialist' );
-		$this->assertFalse( $px->authorizer->is_authorized('members') );
+		$this->assertSame( $px->authorizer->get_role(), 'admin' );
+		$this->assertTrue( $px->authorizer->is_authorized('members') );
 
 		chdir($cd);
 

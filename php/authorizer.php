@@ -95,7 +95,6 @@ class authorizer {
 		}
 		switch($this->role){
 			case "admin":
-			case "specialist":
 			case "member":
 				break;
 			default:
