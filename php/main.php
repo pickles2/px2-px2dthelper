@@ -214,7 +214,7 @@ class main {
 		$path_homedir = $this->px->fs()->get_relatedpath($realpath_homedir);
 		$path_homedir = $this->px->fs()->normalize_path($path_homedir);
 		return $path_homedir;
-	} // get_path_homedir()
+	}
 
 	/**
 	 * テーマコレクションディレクトリのパスを得る。

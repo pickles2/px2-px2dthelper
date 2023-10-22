@@ -65,7 +65,15 @@ class px2te_apis{
 					$this->px->fs()->mkdir_r($realpath_dist);
 				}
 
-				$rtn = $px2te->get_client_resources( $realpath_dist );
+				$appearance = "auto";
+				switch($this->px->req()->get_param('appearance')){
+					case "auto":
+					case "light":
+					case "dark":
+						$appearance = $this->px->req()->get_param('appearance');
+						break;
+				}
+				$rtn = $px2te->get_client_resources( $realpath_dist, array('appearance' => $appearance,) );
 
 				$rtn->path_base = null;
 				if( !$this->px->req()->is_cmd() ){
