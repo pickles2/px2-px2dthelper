@@ -88,9 +88,10 @@ class contentsTemplate {
 			}
 
 			foreach( array('png', 'gif', 'jpg', 'webp') as $ext_candidate ){
-				if( is_file( $this->path_contents_templates_dir.'/'.urlencode($template_info->id).'/thumb.'.$ext_candidate ) ){
+				$tmp_realpath =  $this->path_contents_templates_dir.'/'.urlencode($template_info->id).'/thumb.'.$ext_candidate;
+				if( is_file( $tmp_realpath ) ){
 					$thumb_mime = $this->main->mime_content_type( '/thumb.'.$ext_candidate );
-					$thumb_bin = file_get_contents();
+					$thumb_bin = file_get_contents( $tmp_realpath );
 					$template_info->thumb = 'data:'.$thumb_mime.';base64,'.base64_encode($this->px->fs()->read_file( $this->path_contents_templates_dir.'/'.urlencode($template_info->id).'/thumb.'.$ext_candidate ));
 					break;
 				}

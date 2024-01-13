@@ -135,7 +135,7 @@ class initContentTest extends PHPUnit\Framework\TestCase{
 		$this->assertEquals( $output->list[1]->id, 'html' );
 		$this->assertEquals( $output->list[1]->thumb, null );
 		$this->assertEquals( $output->list[2]->id, 'md' );
-		$this->assertEquals( $output->list[2]->thumb, null );
+		$this->assertEquals( preg_match('/^data\:image\/gif\;base64\,/', $output->list[2]->thumb), 1 );
 		$this->assertEquals( $output->list[3]->id, 'md_article' );
 		$this->assertEquals( $output->list[3]->thumb, null );
 
