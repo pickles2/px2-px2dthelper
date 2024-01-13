@@ -79,12 +79,19 @@ class contentsTemplate {
 			$template_info = (object) array();
 			$template_info->id = $template_id;
 			$template_info->name = $template_id;
+			$template_info->type = 'html';
 			$template_info->thumb = null;
 
 			if( is_file( $this->path_contents_templates_dir.'/'.urlencode($template_info->id).'/info.json' ) ){
 				$str_json = file_get_contents( $this->path_contents_templates_dir.'/'.urlencode($template_info->id).'/info.json' );
 				$json = json_decode($str_json);
 				$template_info->name = $json->name ?? $template_info->name;
+			}
+
+			if( is_file( $this->path_contents_templates_dir.'/'.urlencode($template_info->id).'/template.html.md' ) ){
+				$template_info->type = 'md';
+			}elseif( is_file( $this->path_contents_templates_dir.'/'.urlencode($template_info->id).'/template.html' ) && is_file( $this->path_contents_templates_dir.'/'.urlencode($template_info->id).'/template_files/guieditor.ignore/data.json' ) ){
+				$template_info->type = 'html.gui';
 			}
 
 			foreach( array('png', 'gif', 'jpg', 'webp') as $ext_candidate ){
@@ -115,16 +122,19 @@ class contentsTemplate {
 				(object) array(
 					"id" => 'html.gui',
 					"name" => $this->main->lb()->get('ui_label.blockeditor'),
+					"type" => 'html.gui',
 					"thumb" => null,
 				),
 				(object) array(
 					"id" => 'html',
 					"name" => $this->main->lb()->get('ui_label.html'),
+					"type" => 'html',
 					"thumb" => null,
 				),
 				(object) array(
 					"id" => 'md',
 					"name" => $this->main->lb()->get('ui_label.markdown'),
+					"type" => 'md',
 					"thumb" => null,
 				),
 			),
