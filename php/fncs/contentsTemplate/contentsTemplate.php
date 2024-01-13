@@ -30,7 +30,7 @@ class contentsTemplate {
 	public function __construct( $px2dthelper, $px ){
 		$this->px2dthelper = $px2dthelper;
 		$this->px = $px;
-        $this->path_contents_templates_dir = $this->px->conf()->plugins->px2dt->path_contents_templates_dir ?? false;
+        $this->path_contents_templates_dir = $this->px->conf()->plugins->px2dt->path_contents_templates_dir ?? $this->px->get_realpath_homedir().'contents_templates/';
 	}
 
     /**

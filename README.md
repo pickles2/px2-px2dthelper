@@ -417,6 +417,10 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ## 更新履歴 - Change log
 
+### pickles2/px2-px2dthelper v2.2.2 (リリース日未定)
+
+- コンテンツテンプレートのデフォルトのパスを `px-files/contents_templates/` とした。
+
 ### pickles2/px2-px2dthelper v2.2.1 (2023年11月13日)
 
 - px2ce, px2me, px2te の `appearance` オプションに対応した。
