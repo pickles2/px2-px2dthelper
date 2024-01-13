@@ -420,6 +420,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 ### pickles2/px2-px2dthelper v2.2.2 (リリース日未定)
 
 - コンテンツテンプレートのデフォルトのパスを `px-files/contents_templates/` とした。
+- コンテンツテンプレートにサムネイルを含められるようになった。
 
 ### pickles2/px2-px2dthelper v2.2.1 (2023年11月13日)
 

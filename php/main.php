@@ -582,6 +582,35 @@ class main {
 	}
 
 	/**
+	 * ファイルの MIME Content-type を検出する
+	 */
+	public function mime_content_type($filename){
+		$ext = $this->px->fs()->get_extension($filename ?? '');
+		$ext = strtolower($ext ?? '');
+
+		switch( $ext ){
+			// texts
+			case 'html': case 'htm': return 'text/html';
+			case 'css': return 'text/css';
+			case 'js': return 'text/javascript';
+
+			// images
+			case 'png': return 'image/png';
+			case 'gif': return 'image/gif';
+			case 'jpg': case 'jpeg': case 'jpe': return 'image/jpeg';
+			case 'webp': return 'image/webp';
+			case 'svg': return 'image/svg+xml';
+
+			// fonts
+			case 'eot': return 'application/vnd.ms-fontobject';
+			case 'woff': return 'application/x-woff';
+			case 'otf': return 'application/x-font-opentype';
+			case 'ttf': return 'application/x-font-truetype';
+		}
+		return mime_content_type($filename);
+	}
+
+	/**
 	 * route as PX Command
 	 *
 	 * @return void

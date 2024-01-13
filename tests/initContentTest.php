@@ -116,8 +116,11 @@ class initContentTest extends PHPUnit\Framework\TestCase{
 		$this->assertEquals( $output->default, 'html.gui' );
 		$this->assertEquals( count($output->list), 3 );
 		$this->assertEquals( $output->list[0]->id, 'html.gui' );
+		$this->assertEquals( $output->list[0]->thumb, null );
 		$this->assertEquals( $output->list[1]->id, 'html' );
+		$this->assertEquals( $output->list[1]->thumb, null );
 		$this->assertEquals( $output->list[2]->id, 'md' );
+		$this->assertEquals( $output->list[2]->thumb, null );
 
 		$output = $this->px2query->query( [
 			__DIR__.'/testData/px2dt_config/.px_execute.php',
@@ -128,9 +131,13 @@ class initContentTest extends PHPUnit\Framework\TestCase{
 		$this->assertEquals( $output->default, 'broccoli' );
 		$this->assertEquals( count($output->list), 4 );
 		$this->assertEquals( $output->list[0]->id, 'broccoli' );
+		$this->assertEquals( $output->list[0]->thumb, null );
 		$this->assertEquals( $output->list[1]->id, 'html' );
+		$this->assertEquals( $output->list[1]->thumb, null );
 		$this->assertEquals( $output->list[2]->id, 'md' );
+		$this->assertEquals( $output->list[2]->thumb, null );
 		$this->assertEquals( $output->list[3]->id, 'md_article' );
+		$this->assertEquals( $output->list[3]->thumb, null );
 
 		// テンプレートからコンテンツを初期化する
 		$output = $this->px2query->query( [

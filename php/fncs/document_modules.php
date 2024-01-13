@@ -248,23 +248,7 @@ class document_modules{
 			$res = preg_replace('/#.*$/si', '', $res);
 			$res = preg_replace('/\\?.*$/si', '', $res);
 			if( is_file( dirname($path).'/'.$res ) ){
-				$ext = $this->px->fs()->get_extension( dirname($path).'/'.$res );
-				$ext = strtolower( $ext );
-				$mime = 'image/png';
-				switch( $ext ){
-					// styles
-					case 'css': $mime = 'text/css'; break;
-					// images
-					case 'png': $mime = 'image/png'; break;
-					case 'gif': $mime = 'image/gif'; break;
-					case 'jpg': case 'jpeg': case 'jpe': $mime = 'image/jpeg'; break;
-					case 'svg': $mime = 'image/svg+xml'; break;
-					// fonts
-					case 'eot': $mime = 'application/vnd.ms-fontobject'; break;
-					case 'woff': $mime = 'application/x-woff'; break;
-					case 'otf': $mime = 'application/x-font-opentype'; break;
-					case 'ttf': $mime = 'application/x-font-truetype'; break;
-				}
+				$mime = $this->main->mime_content_type( dirname($path).'/'.$res );
 				$res = 'data:'.$mime.';base64,'.base64_encode($this->px->fs()->read_file(dirname($path).'/'.$res));
 			}
 			$rtn .= $res;
