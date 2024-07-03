@@ -765,6 +765,14 @@ class main {
 						print $std_output->data_convert( $rtn );
 						exit;
 						break;
+
+					case 'list_gui_editor_contents':
+						// NOTE: px2-px2dthelper v2.2.3 で追加
+						$listGuiEditorContents = new fncs\get\listGuiEditorContents( $this, $this->px );
+						$rtn = $listGuiEditorContents->get_gui_editor_contents();
+						print $std_output->data_convert( $rtn );
+						exit;
+						break;
 				}
 				break;
 
