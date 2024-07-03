@@ -28,13 +28,12 @@ class getListGuiEditorContentsTest extends PHPUnit\Framework\TestCase{
 
 		$this->assertTrue( is_object($json) );
 		$this->assertTrue( $json->result );
+		$this->assertSame( count($json->gui_editor_contents), 2 );
 
 		// 後始末
 		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=clearcache' ,
 		] );
-
 	}
-
 }

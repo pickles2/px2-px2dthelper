@@ -33,8 +33,15 @@ class listGuiEditorContents{
     public function get_gui_editor_contents(){
 		$rtn = (object) array();
 		$rtn->result = true;
+		$rtn->gui_editor_contents = array();
 
-		// TODO: 実装する
+		$sitemap = $this->px->site()->get_sitemap();
+		foreach($sitemap as $page_info){
+			$editor_mode = $this->px2dthelper->check_editor_mode( $page_info['path'] );
+			if( $editor_mode == 'html.gui' ){
+				array_push($rtn->gui_editor_contents, $page_info['path']);
+			}
+		}
 
         return $rtn;
     }
