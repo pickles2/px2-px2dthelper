@@ -382,6 +382,8 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 #### PX=px2dthelper.get.list_unassigned_contents
 
+#### PX=px2dthelper.get.list_gui_editor_contents
+
 #### PX=px2dthelper.page.add_page_info_raw
 
 #### PX=px2dthelper.page.get_page_info_raw
