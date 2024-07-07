@@ -35,11 +35,26 @@ class listGuiEditorContents{
 		$rtn->result = true;
 		$rtn->gui_editor_contents = array();
 
+		// サイトマップを検索
 		$sitemap = $this->px->site()->get_sitemap();
 		foreach($sitemap as $page_info){
 			$editor_mode = $this->px2dthelper->check_editor_mode( $page_info['path'] );
 			if( $editor_mode == 'html.gui' ){
 				array_push($rtn->gui_editor_contents, $page_info['path']);
+			}
+		}
+
+		// 未アサインコンテンツを検索
+		$listUnassignedContents = new listUnassignedContents($this->px2dthelper, $this->px);
+		$unassignedContents = $listUnassignedContents->get_unassigned_contents();
+		foreach( $unassignedContents->unassigned_contents as $unassignedContent ){
+			$content_path = $unassignedContent;
+			// 拡張子 .html, .htm の2重拡張子以外の場合は、最後の拡張子を削除する
+			$content_path = preg_replace('/^(.*\.html?)(?:\.[a-zA-Z0-9]+)$/s', '$1', $content_path);
+
+			$editor_mode = $this->px2dthelper->check_editor_mode( $content_path );
+			if( $editor_mode == 'html.gui' ){
+				array_push($rtn->gui_editor_contents, $unassignedContent);
 			}
 		}
 
