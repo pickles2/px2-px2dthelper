@@ -44,6 +44,20 @@ class listGuiEditorContents{
 			}
 		}
 
+		// ブログマップを検索
+		if( is_object($this->px->blog) ){
+			$blogs = $this->px->blog->get_blog_list();
+			foreach($blogs as $blog){
+				$articles = $this->px->blog->get_article_list($blog['blog_id']);
+				foreach($articles as $page_info){
+					$editor_mode = $this->px2dthelper->check_editor_mode( $page_info['path'] );
+					if( $editor_mode == 'html.gui' ){
+						array_push($rtn->gui_editor_contents, $page_info['path']);
+					}
+				}
+			}
+		}
+
 		// 未アサインコンテンツを検索
 		$listUnassignedContents = new listUnassignedContents($this->px2dthelper, $this->px);
 		$unassignedContents = $listUnassignedContents->get_unassigned_contents();
