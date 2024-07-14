@@ -758,6 +758,14 @@ class main {
 						exit;
 						break;
 
+					case 'list_all_contents':
+						// NOTE: px2-px2dthelper v2.2.3 で追加
+						$listAllContents = new fncs\get\listAllContents( $this, $this->px );
+						$rtn = $listAllContents->get_all_contents();
+						print $std_output->data_convert( $rtn );
+						exit;
+						break;
+
 					case 'list_unassigned_contents':
 						// NOTE: px2-px2dthelper v2.1.5 で追加
 						$listUnassignedContents = new fncs\get\listUnassignedContents( $this, $this->px );

@@ -11,6 +11,7 @@
 			<file>./tests/contentTest.php</file>
 			<file>./tests/sitemapTest.php</file>
 			<file>./tests/getNavigationInfoTest.php</file>
+			<file>./tests/getListAllContentsTest.php</file>
 			<file>./tests/getListUnassignedContentsTest.php</file>
 			<file>./tests/getListGuiEditorContentsTest.php</file>
 			<file>./tests/getAllTest.php</file>
