@@ -417,6 +417,10 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ## 更新履歴 - Change log
 
+### pickles2/px2-px2dthelper v2.2.3 (リリース日未定)
+
+- クライアントサイド `cceAgent` に `pxCmd()` を追加。
+
 ### pickles2/px2-px2dthelper v2.2.2 (2024年2月18日)
 
 - コンテンツテンプレートのデフォルトのパスを `px-files/contents_templates/` とした。
