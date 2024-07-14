@@ -33,8 +33,8 @@ window.Px2dthelperCceAgent = function(options){
 			callback(res.response);
 		});
 	}
-	this.pxCmd = function(path, params, _options, callback){
-		options.onPxCmd(path, params, _options, callback);
+	this.pxCmd = function(path, _options, callback){
+		options.onPxCmd(path, _options, callback);
 	}
 	this.putBroadcastMessage = function(message){
 		onBroadcast(message);
