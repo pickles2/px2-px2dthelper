@@ -421,7 +421,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ## 更新履歴 - Change log
 
-### pickles2/px2-px2dthelper v2.2.3 (リリース日未定)
+### pickles2/px2-px2dthelper v2.2.3 (2024年7月21日)
 
 - `PX=px2dthelper.get.list_gui_editor_contents` を追加。
 - `PX=px2dthelper.get.list_all_contents` を追加。
