@@ -39,8 +39,15 @@ class broccoli_receive_message{
 			// Broccoli編集画面の実行を妨げるスクリプトを無害化
 			$main_src = self::detoxify_sabotage_script($px, $main_src);
 
+			// HTMLからコンテンツエリアを除去する
+			if( $px2ce_edit_mode == 'broccoli' || $px2ce_edit_mode == 'broccoli.layout' ){
+				if( strlen($px->conf()->plugins->px2dt->contents_area_selector ?? '') ){
+					$main_src = self::remove_contents_area( $main_src, $px->conf()->plugins->px2dt->contents_area_selector );
+				}
+			}
+
 			// レイアウト編集への対応のための変換処理
-			if($px2ce_edit_mode == 'broccoli.layout'){
+			if( $px2ce_edit_mode == 'broccoli.layout' ){
 				$main_src = self::remake_for_edit_theme_layout($px, $main_src);
 			}
 
@@ -60,7 +67,7 @@ class broccoli_receive_message{
 	 * @param string $src HTMLソース
 	 * @return string 変換されたHTMLソース
 	 */
-	private function detoxify_sabotage_script($px, $src){
+	private static function detoxify_sabotage_script($px, $src){
 		// なぜかBroccoliをフリーズさせる外部のJS。
 		// 無効化したら動くようになった。 (2019/4/22)
 		$src = preg_replace( '/'.preg_quote('//platform.twitter.com/','/').'/', '//platform.twitter.com__/', $src );
@@ -75,7 +82,7 @@ class broccoli_receive_message{
 	 * @param string $src HTMLソース
 	 * @return string 変換されたHTMLソース
 	 */
-	private function remake_for_edit_theme_layout($px, $src){
+	private static function remake_for_edit_theme_layout($px, $src){
 		// bodyセクション全体を bowl で囲む
 		$src = preg_replace('/(\<body.*?\>)/', '$1<div data-pickles2-theme-editor-contents-area="main">', $src);
 		$src = preg_replace('/(\<\/body.*?\>)/', '</div>$1', $src);
@@ -87,7 +94,7 @@ class broccoli_receive_message{
 	 * @param object $plugin_conf プラグイン設定オブジェクト
 	 * @return string       生成されたHTMLソース
 	 */
-	private function generate_receive_message_script($plugin_conf){
+	private static function generate_receive_message_script($plugin_conf){
 		$enabled_origin = $plugin_conf->enabled_origin ?? null;
 		if( !is_array( $enabled_origin ) ){
 			$enabled_origin = array();
@@ -130,7 +137,7 @@ window.removeEventListener('message', f, false);
 	 * @param  object $px Pickles Framework インスタンス
 	 * @return string       生成されたHTMLソース
 	 */
-	private function generate_error_message($px){
+	private static function generate_error_message($px){
 
 		$errorHtml = '';
 		$status = $px->get_status();
@@ -162,4 +169,33 @@ window.removeEventListener('message', f, false);
 		}
 		return $rtn;
 	}
+
+	/**
+	 * HTMLからコンテンツエリアを除去する
+	 * 
+	 * @param string $main_src HTMLソース
+	 * @param object $px Picklesオブジェクト
+	 * @return string 変換されたHTMLソース
+	 */
+	private static function remove_contents_area($main_src, $contents_area_selector){
+
+		$html = \tomk79\pickles2\px2dthelper\str_get_html(
+			$main_src,
+			false, // $lowercase
+			false, // $forceTagsClosed
+			DEFAULT_TARGET_CHARSET, // $target_charset
+			false, // $stripRN
+			DEFAULT_BR_TEXT, // $defaultBRText
+			DEFAULT_SPAN_TEXT // $defaultSpanText
+		);
+		if( $html !== false ){
+			$ret = $html->find($contents_area_selector ?? '');
+			foreach( $ret as $retRow ){
+				$retRow->innertext = '';
+			}
+			$main_src = $html->outertext;
+		}
+		return $main_src;
+	}
+
 }
