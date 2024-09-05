@@ -191,7 +191,7 @@ window.removeEventListener('message', f, false);
 		if( $html !== false ){
 			$ret = $html->find($contents_area_selector ?? '');
 			foreach( $ret as $retRow ){
-				$retRow->innertext = '';
+				$retRow->innertext = '<div style="margin: 200px auto; text-align: center; font-size: 11px; color: #3336;"><p>NOW LOADING...</p></div>';
 			}
 			$main_src = $html->outertext;
 		}
