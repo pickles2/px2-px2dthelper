@@ -42,7 +42,7 @@ class broccoli_receive_message{
 			// HTMLからコンテンツエリアを除去する
 			if( $px2ce_edit_mode == 'broccoli' || $px2ce_edit_mode == 'broccoli.layout' ){
 				if( strlen($px->conf()->plugins->px2dt->contents_area_selector ?? '') ){
-					$main_src = self::remove_contents_area( $main_src, $px->conf()->plugins->px2dt->contents_area_selector );
+					$main_src = self::remove_contents_area( $main_src );
 				}
 			}
 
@@ -174,10 +174,9 @@ window.removeEventListener('message', f, false);
 	 * HTMLからコンテンツエリアを除去する
 	 * 
 	 * @param string $main_src HTMLソース
-	 * @param object $px Picklesオブジェクト
 	 * @return string 変換されたHTMLソース
 	 */
-	private static function remove_contents_area($main_src, $contents_area_selector){
+	private static function remove_contents_area($main_src){
 
 		$html = \tomk79\pickles2\px2dthelper\str_get_html(
 			$main_src,
@@ -189,9 +188,9 @@ window.removeEventListener('message', f, false);
 			DEFAULT_SPAN_TEXT // $defaultSpanText
 		);
 		if( $html !== false ){
-			$ret = $html->find($contents_area_selector ?? '');
+			$ret = $html->find('script,style,iframe,frameset');
 			foreach( $ret as $retRow ){
-				$retRow->innertext = '<div style="margin: 200px auto; text-align: center; font-size: 11px; color: #3336;"><p>NOW LOADING...</p></div>';
+				$retRow->outertext = '';
 			}
 			$main_src = $html->outertext;
 		}
