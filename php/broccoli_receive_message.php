@@ -42,7 +42,7 @@ class broccoli_receive_message{
 			// HTMLからコンテンツエリアを除去する
 			if( $px2ce_edit_mode == 'broccoli' || $px2ce_edit_mode == 'broccoli.layout' ){
 				if( strlen($px->conf()->plugins->px2dt->contents_area_selector ?? '') ){
-					$main_src = self::remove_contents_area( $main_src );
+					$main_src = self::remove_contents_area( $main_src, $px->conf()->plugins->px2dt->contents_area_selector ?? '' );
 				}
 			}
 
@@ -176,7 +176,7 @@ window.removeEventListener('message', f, false);
 	 * @param string $main_src HTMLソース
 	 * @return string 変換されたHTMLソース
 	 */
-	private static function remove_contents_area($main_src){
+	private static function remove_contents_area($main_src, $contents_area_selector){
 
 		$html = \tomk79\pickles2\px2dthelper\str_get_html(
 			$main_src,
@@ -188,7 +188,7 @@ window.removeEventListener('message', f, false);
 			DEFAULT_SPAN_TEXT // $defaultSpanText
 		);
 		if( $html !== false ){
-			$ret = $html->find('script,style,iframe,frameset');
+			$ret = $html->find($contents_area_selector.' script, '.$contents_area_selector.' style, '.$contents_area_selector.' iframe, '.$contents_area_selector.' frameset');
 			foreach( $ret as $retRow ){
 				$retRow->outertext = '';
 			}
