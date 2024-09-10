@@ -421,7 +421,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ## 更新履歴 - Change log
 
-### pickles2/px2-px2dthelper v2.2.4 (リリース日未定)
+### pickles2/px2-px2dthelper v2.2.4 (2024年9月10日)
 
 - Broccoli(ブロックエディタ)の編集時に生成するプレビューから、scriptなどいくつかの要素を除去するようになった。
 

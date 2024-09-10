@@ -36,6 +36,11 @@ Search.appendIndex(
             "summary": "\u30A8\u30E9\u30FC\u30E1\u30C3\u30BB\u30FC\u30B8\u3092\u751F\u6210\u3059\u308B",
             "url": "classes/tomk79-pickles2-px2dthelper-broccoli-receive-message.html#method_generate_error_message"
         },                {
+            "fqsen": "\\tomk79\\pickles2\\px2dthelper\\broccoli_receive_message\u003A\u003Aremove_contents_area\u0028\u0029",
+            "name": "remove_contents_area",
+            "summary": "HTML\u304B\u3089\u30B3\u30F3\u30C6\u30F3\u30C4\u30A8\u30EA\u30A2\u3092\u9664\u53BB\u3059\u308B",
+            "url": "classes/tomk79-pickles2-px2dthelper-broccoli-receive-message.html#method_remove_contents_area"
+        },                {
             "fqsen": "\\tomk79\\pickles2\\px2dthelper\\fncs\\change_content_editor_mode",
             "name": "change_content_editor_mode",
             "summary": "fncs\/change_content_editor_mode.php",
