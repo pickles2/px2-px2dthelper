@@ -90,7 +90,7 @@ class main {
 
 		// LangBank
 		$this->lb = new \tomk79\LangBank(__DIR__.'/../data/language.csv');
-		$this->lb->setLang( 'ja' );
+		$this->lb->setLang( $px->req()->get_param('LANG') ?? $px->req()->get_session('LANG') ?? 'ja' );
 
 		// $px->authorizer を初期化する
 		authorizer::initialize($px);
@@ -197,7 +197,7 @@ class main {
 		$rtn = $this->px->fs()->get_realpath( $this->px->get_realpath_docroot().$rtn );
 		$rtn = $this->px->fs()->normalize_path($rtn);
 		return $rtn;
-	} // realpath_files()
+	}
 
 	/**
 	 * ホームディレクトリのパスを得る。
@@ -618,6 +618,10 @@ class main {
 	private function route(){
 		$this->command = $this->px->get_px_command();
 		$std_output = new std_output($this->px);
+
+		if( strlen($this->px->req()->get_param('lang') ?? '') ){
+			$this->lb->setLang( $this->px->req()->get_param('lang') );
+		}
 
 		$sitemap_filter_options = function($px, $cmd=null){
 			$options = array();

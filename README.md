@@ -421,6 +421,10 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ## 更新履歴 - Change log
 
+### pickles2/px2-px2dthelper v2.2.5 (リリース日未定)
+
+- `LANG`、`lang` パラメータで、言語切替ができるようになった。
+
 ### pickles2/px2-px2dthelper v2.2.4 (2024年9月10日)
 
 - Broccoli(ブロックエディタ)の編集時に生成するプレビューから、scriptなどいくつかの要素を除去するようになった。
@@ -682,7 +686,7 @@ $ composer run-script documentation;
 
 ## ライセンス - License
 
-Copyright (c)2001-2024 Tomoya Koyanagi, and Pickles 2 Project<br />
+Copyright (c)2001-2024 Tomoya Koyanagi, and Pickles Project<br />
 MIT License https://opensource.org/licenses/mit-license.php
 
 
