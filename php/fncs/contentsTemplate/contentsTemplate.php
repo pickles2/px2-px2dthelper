@@ -108,7 +108,11 @@ class contentsTemplate {
 				$lb = new \tomk79\LangBank($this->path_contents_templates_dir.'/'.urlencode($template_info->id).'/language.csv');
 				$lb->setLang( $this->main->lb()->getLang() );
 
-				$template_info->name = $lb->get('name');
+				$tmp_name = $lb->get('name');
+				if( strlen($tmp_name ?? '') && $tmp_name != '---' ){
+					$template_info->name = $tmp_name;
+				}
+				unset($tmp_name);
 			}
 
 			array_push( $rtn->list, $template_info );
