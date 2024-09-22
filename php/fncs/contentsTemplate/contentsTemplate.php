@@ -104,6 +104,13 @@ class contentsTemplate {
 				}
 			}
 
+			if( is_file( $this->path_contents_templates_dir.'/'.urlencode($template_info->id).'/language.csv' ) ){
+				$lb = new \tomk79\LangBank($this->path_contents_templates_dir.'/'.urlencode($template_info->id).'/language.csv');
+				$lb->setLang( $this->main->lb()->getLang() );
+
+				$template_info->name = $lb->get('name');
+			}
+
 			array_push( $rtn->list, $template_info );
 		}
 

@@ -116,6 +116,26 @@ class initContentTest extends PHPUnit\Framework\TestCase{
 		$this->assertEquals( $output->default, 'html.gui' );
 		$this->assertEquals( count($output->list), 3 );
 		$this->assertEquals( $output->list[0]->id, 'html.gui' );
+		$this->assertEquals( $output->list[0]->name, 'ブロックエディタ' );
+		$this->assertEquals( $output->list[0]->type, 'html.gui' );
+		$this->assertEquals( $output->list[0]->thumb, null );
+		$this->assertEquals( $output->list[1]->id, 'html' );
+		$this->assertEquals( $output->list[1]->type, 'html' );
+		$this->assertEquals( $output->list[1]->thumb, null );
+		$this->assertEquals( $output->list[2]->id, 'md' );
+		$this->assertEquals( $output->list[2]->type, 'md' );
+		$this->assertEquals( $output->list[2]->thumb, null );
+
+		$output = $this->px2query->query( [
+			__DIR__.'/testData/standard/.px_execute.php',
+			'/?PX=px2dthelper.contents_template.get_list&lang=en'
+		] );
+		$output = json_decode($output);
+		$this->assertTrue( is_object($output) );
+		$this->assertEquals( $output->default, 'html.gui' );
+		$this->assertEquals( count($output->list), 3 );
+		$this->assertEquals( $output->list[0]->id, 'html.gui' );
+		$this->assertEquals( $output->list[0]->name, 'Block editor' );
 		$this->assertEquals( $output->list[0]->type, 'html.gui' );
 		$this->assertEquals( $output->list[0]->thumb, null );
 		$this->assertEquals( $output->list[1]->id, 'html' );

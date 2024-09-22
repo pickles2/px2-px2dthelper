@@ -424,6 +424,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 ### pickles2/px2-px2dthelper v2.2.5 (リリース日未定)
 
 - `LANG`、`lang` パラメータで、言語切替ができるようになった。
+- コンテンツテンプレートが多言語化に対応できるようになった。
 
 ### pickles2/px2-px2dthelper v2.2.4 (2024年9月10日)
 
