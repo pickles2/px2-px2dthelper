@@ -90,7 +90,7 @@ class main {
 
 		// LangBank
 		$this->lb = new \tomk79\LangBank(__DIR__.'/../data/language.csv');
-		$this->lb->setLang( $px->req()->get_param('LANG') ?? $px->req()->get_session('LANG') ?? 'ja' );
+		$this->lb->setLang( $px->lang() ?? 'ja' );
 
 		// $px->authorizer を初期化する
 		authorizer::initialize($px);
