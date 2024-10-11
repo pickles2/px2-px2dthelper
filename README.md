@@ -425,6 +425,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 - `LANG`、`lang` パラメータで、言語切替ができるようになった。
 - コンテンツテンプレートが多言語化に対応できるようになった。
+- コンテンツテンプレートに、ディレクトリではないファイルが直接配置された場合に、無視するようになった。
 
 ### pickles2/px2-px2dthelper v2.2.4 (2024年9月10日)
 

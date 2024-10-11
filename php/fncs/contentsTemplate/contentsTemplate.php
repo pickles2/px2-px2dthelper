@@ -82,6 +82,10 @@ class contentsTemplate {
 			$template_info->type = 'html';
 			$template_info->thumb = null;
 
+			if( !is_dir( $this->path_contents_templates_dir.'/'.urlencode($template_info->id).'/' ) ){
+				continue;
+			}
+
 			if( is_file( $this->path_contents_templates_dir.'/'.urlencode($template_info->id).'/info.json' ) ){
 				$str_json = file_get_contents( $this->path_contents_templates_dir.'/'.urlencode($template_info->id).'/info.json' );
 				$json = json_decode($str_json);
