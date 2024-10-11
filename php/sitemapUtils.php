@@ -249,7 +249,7 @@ class sitemapUtils{
 						$rtn[$key] = 'path は必須項目です。';
 					}elseif( !preg_match( '/^\//', $val ?? '' ) ){
 						$rtn[$key] = 'path は "/" (スラッシュ) から始まる値である必要があります。';
-					}elseif( !preg_match( '/(?:\/|\.html?)$/', $val ?? '' ) ){
+					}elseif( !preg_match( '/(?:\/|\.html?|\{[\*\$][a-zA-Z0-9\-\_]*\})$/', $val ?? '' ) ){
 						$rtn[$key] = 'path は "/" (スラッシュ) または .html で終わる値である必要があります。';
 					}
 					break;
