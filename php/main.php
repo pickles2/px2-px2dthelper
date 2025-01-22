@@ -493,11 +493,7 @@ class main {
 		if( $path_proc_type == 'html' ){
 			$rtn = 'html';
 			if( is_string( $matched[2] ?? null) ){
-				switch( $matched[2] ?? '' ){
-					case 'md':
-						$rtn = $matched[2] ?? null;
-						break;
-				}
+				$rtn = $matched[2] ?? null;
 			}else{
 				$realpath_data_dir = $this->get_realpath_data_dir($page_path);
 				if( $this->px->fs()->is_file( $realpath_data_dir.'/data.json' ) ){
