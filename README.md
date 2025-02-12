@@ -421,7 +421,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ## 更新履歴 - Change log
 
-### pickles2/px2-px2dthelper v2.2.6 (リリース日未定)
+### pickles2/px2-px2dthelper v2.2.6 (2025年2月12日)
 
 - `PX=px2dthelper.check_editor_mode` で、 `md` 以外の2重拡張子を検出できない問題を修正した。
 
