@@ -96,14 +96,13 @@ class px2ce_apis{
 				break;
 		}
 		return false;
-	} // execute_px_command()
+	}
 
 	/**
 	 * $px2ce オブジェクトを生成する
 	 * @return object $px2ce
 	 */
 	private function create_px2ce(){
-		$current_page_info = $this->px->site()->get_current_page_info();
 		$px2ce = new \pickles2\libs\contentsEditor\main( $this->px );
 		$appMode = $this->px->req()->get_param('appMode');
 		if( !$appMode ){
@@ -116,8 +115,10 @@ class px2ce_apis{
 
 		$init_options = array(
 			'target_mode' => $target_mode,
-			'page_path' => $this->px->req()->get_request_file_path(), // <- 編集対象ページのパス
-			'appMode' => $appMode, // 'web' or 'desktop'. default to 'web'
+			'page_path' => $this->px->req()->get_request_file_path(),
+			'theme_id' => $this->px->req()->get_param('theme_id') ?? null,
+			'layout_id' => $this->px->req()->get_param('layout_id') ?? null,
+			'appMode' => $appMode,
 			'entryScript' => $_SERVER['SCRIPT_FILENAME'],
 			'customFields' => array() ,
 			'log' => function($msg){
