@@ -69,8 +69,8 @@ class packagesTest extends PHPUnit\Framework\TestCase{
 		$result = json_decode($result);
 		$this->assertTrue( is_object( $result ) );
 		$this->assertEquals( count( $result->themes ), 0 );
-		$this->assertEquals( count( $result->broccoliModules ), 3 );
-		$this->assertEquals( count( $result->broccoliFields ), 1 );
+		$this->assertEquals( count( $result->broccoliModules ), 4 );
+		$this->assertEquals( count( $result->broccoliFields ), 4 );
 		$this->assertEquals( count( $result->processors ), 2 );
 		$this->assertEquals( count( $result->plugin ), 0 );
 		$this->assertEquals( count( $result->projects ), 0 );
@@ -81,6 +81,6 @@ class packagesTest extends PHPUnit\Framework\TestCase{
 			'/?PX=clearcache' ,
 		] );
 
-	} // testGettingThemePackageList()
+	}
 
 }
