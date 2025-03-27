@@ -84,7 +84,7 @@ class broccoli_receive_message{
 	 */
 	private static function remake_for_edit_theme_layout($px, $src){
 		// bodyセクション全体を bowl で囲む
-		if(!preg_match('/(\<body.*?\>).*(\<\/body.*?\>)/', $src)){
+		if(!preg_match('/(\<body.*?\>).*(\<\/body.*?\>)/s', $src)){
 			$src = '<body>'.$src.'</body>';
 		}
 		$src = preg_replace('/(\<body.*?\>)/', '$1<div data-pickles2-theme-editor-contents-area="main">', $src);
