@@ -425,6 +425,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 - `PX=px2dthelper.px2ce` で、 `theme_id`、 `layout_id` オプションに対応した。
 - `cceAgent.gpi()` が、コールバックの第2引数にエラー情報を返すようになった。
+- `cceAgent.editThemeLayout()` の引数に、`themeId`, `layoutId` を追加した。
 - その他、内部コードの修正など。
 
 ### pickles2/px2-px2dthelper v2.2.6 (2025年2月12日)

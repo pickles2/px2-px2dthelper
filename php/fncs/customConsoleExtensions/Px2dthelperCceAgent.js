@@ -46,11 +46,11 @@ window.Px2dthelperCceAgent = function(options){
 	this.onBroadcast = function(callback){
 		onBroadcast = callback;
 	};
-	this.editContent = function(target){
-		options.onEditContent(target);
+	this.editContent = function(targetPath){
+		options.onEditContent(targetPath);
 	};
-	this.editThemeLayout = function(target){
-		options.onEditThemeLayout(target);
+	this.editThemeLayout = function(targetPath, themeId, layoutId){
+		options.onEditThemeLayout(targetPath, themeId, layoutId);
 	};
 	this.openInBrowser = function(path){
 		options.onOpenInBrowser(path);
