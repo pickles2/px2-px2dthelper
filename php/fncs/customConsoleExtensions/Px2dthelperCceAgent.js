@@ -23,14 +23,18 @@ window.Px2dthelperCceAgent = function(options){
 	this.lang = function(){return options.lang;}
 	this.gpi = function(request, callback){
 		options.gpiBridge(request, function(res){
+			var error = null;
 			if(!res){
-				console.error('GPI returns:', res);
+				callback(null, {
+					message: 'gpiBridge() returns no value.',
+				});
 				return;
+			}else if(!res.result){
+				error = {
+					message: `GPI Error: ${res.message}`,
+				};
 			}
-			if(!res.result){
-				console.error('GPI Error:', res.message);
-			}
-			callback(res.response);
+			callback(res.response, error);
 		});
 	}
 	this.pxCmd = function(path, _options, callback){
