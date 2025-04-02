@@ -3,6 +3,7 @@ window.Px2dthelperCceAgent = function(options){
 	options = options || {};
 	options.elm = options.elm || false;
 	options.lang = options.lang || 'ja';
+	options.appearance = options.appearance || 'auto';
 	options.gpiBridge = options.gpiBridge || function(request, callback){
 		console.error('This app is not support `gpi()`.');
 	};
@@ -21,6 +22,7 @@ window.Px2dthelperCceAgent = function(options){
 
 	this.elm = function(){return options.elm;}
 	this.lang = function(){return options.lang;}
+	this.appearance = function(){return options.appearance;}
 	this.gpi = function(request, callback){
 		options.gpiBridge(request, function(res){
 			var error = null;
