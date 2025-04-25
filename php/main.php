@@ -469,7 +469,7 @@ class main {
 			array_push($rtn->shoulder_menu_info, $this->px->site()->get_page_info($page_id));
 		}
 
-		$rtn->category_top = $this->px->site()->get_category_top();
+		$rtn->category_top = $this->px->site()->get_category_top($page_path);
 		$rtn->category_top_info = false;
 		if( $rtn->category_top !== false ){
 			$rtn->category_top_info = $this->px->site()->get_page_info($rtn->category_top);
