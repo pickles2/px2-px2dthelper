@@ -457,7 +457,30 @@ class main {
 			array_push($rtn->children_info, $this->px->site()->get_page_info($page_id));
 		}
 
-		// var_dump($rtn);
+		$rtn->global_menu = $this->px->site()->get_global_menu();
+		$rtn->global_menu_info = array();
+		foreach($rtn->global_menu as $page_id){
+			array_push($rtn->global_menu_info, $this->px->site()->get_page_info($page_id));
+		}
+
+		$rtn->shoulder_menu = $this->px->site()->get_shoulder_menu();
+		$rtn->shoulder_menu_info = array();
+		foreach($rtn->shoulder_menu as $page_id){
+			array_push($rtn->shoulder_menu_info, $this->px->site()->get_page_info($page_id));
+		}
+
+		$rtn->category_top = $this->px->site()->get_category_top();
+		$rtn->category_top_info = false;
+		if( $rtn->category_top !== false ){
+			$rtn->category_top_info = $this->px->site()->get_page_info($rtn->category_top);
+		}
+
+		$rtn->category_sub_menu = $this->px->site()->get_children($rtn->category_top, $opt);
+		$rtn->category_sub_menu_info = array();
+		foreach($rtn->category_sub_menu as $page_id){
+			array_push($rtn->category_sub_menu_info, $this->px->site()->get_page_info($page_id));
+		}
+
 		return $rtn;
 	}
 
