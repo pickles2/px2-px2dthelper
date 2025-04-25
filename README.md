@@ -421,6 +421,10 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ## 更新履歴 - Change log
 
+### pickles2/px2-px2dthelper v2.2.8 (リリース日未定)
+
+- SCSSのコンパイルで、 `@import` のパスを処理できない場合がある不具合を修正。
+
 ### pickles2/px2-px2dthelper v2.2.7 (2025年4月3日)
 
 - `PX=px2dthelper.px2ce` で、 `theme_id`、 `layout_id` オプションに対応した。

@@ -185,6 +185,7 @@ class document_modules{
 		foreach( $array_files as $packageId=>$array_files_row ){
 			foreach( $array_files_row as $path ){
 				preg_match( '/\/([a-zA-Z0-9\.\-\_]+?)\/([a-zA-Z0-9\.\-\_]+?)\/[a-zA-Z0-9\.\-\_]+?$/i', $path, $matched );
+				$path = $this->px->fs()->get_realpath($path);
 				$tmp_bin = $this->px->fs()->read_file( $path );
 				if( $this->px->fs()->get_extension( $path ) == 'scss' ){
 					$tmp_current_dir = realpath('./');
@@ -199,7 +200,7 @@ class document_modules{
 						continue;
 					}
 					if( is_callable( array( $scss, 'compileString' ) ) ){
-						$tmp_bin = $scss->compileString( $tmp_bin )->getCss();
+						$tmp_bin = $scss->compileString( $tmp_bin, $path )->getCss();
 					}else{
 						$tmp_bin = $scss->compile( $tmp_bin ); // 古い $scss への配慮
 					}
