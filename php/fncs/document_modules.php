@@ -195,13 +195,15 @@ class document_modules{
 						$scss = new \ScssPhp\ScssPhp\Compiler();
 					} elseif (class_exists('\Leafo\ScssPhp\Compiler')) {
 						$scss = new \Leafo\ScssPhp\Compiler();
-					}else{
+					} else {
 						trigger_error('SCSS Proccessor is NOT available.');
 						continue;
 					}
-					if( is_callable( array( $scss, 'compileString' ) ) ){
+					if (is_callable( array( $scss, 'compileFile' ) )) {
+						$tmp_bin = $scss->compileFile( $path )->getCss();
+					} elseif (is_callable( array( $scss, 'compileString' ) )) {
 						$tmp_bin = $scss->compileString( $tmp_bin, $path )->getCss();
-					}else{
+					} else {
 						$tmp_bin = $scss->compile( $tmp_bin ); // 古い $scss への配慮
 					}
 
