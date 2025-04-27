@@ -424,7 +424,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 ### pickles2/px2-px2dthelper v2.2.8 (リリース日未定)
 
 - SCSSのコンパイルで、 `@import` のパスを処理できない場合がある不具合を修正。
-- PXコマンド `PX=px2dthelper.get.navigation_info` が、`global_menu`, `shoulder_menu`, `category_top`, `category_sub_menu` も返すようになった。
+- PXコマンド `PX=px2dthelper.get.navigation_info` が、`top_page_info`, `global_menu`, `shoulder_menu`, `category_top`, `category_sub_menu` も返すようになった。
 
 ### pickles2/px2-px2dthelper v2.2.7 (2025年4月3日)
 

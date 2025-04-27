@@ -431,6 +431,8 @@ class main {
 			return false;
 		}
 		$rtn = json_decode('{}');
+		$rtn->top_page_info = $this->px->site()->get_page_info('');
+
 		$rtn->page_info = $this->px->site()->get_page_info($page_path);
 
 		$rtn->breadcrumb = $this->px->site()->get_breadcrumb_array($page_path);
