@@ -129,7 +129,7 @@ class main {
 	public function find_page_content( $page_path = null ){
 		// execute Content
 		$path_content = $this->px->req()->get_request_file_path();
-		if( strlen(''.$page_path) ){
+		if( strlen($page_path ?? '') ){
 			$path_content = $page_path;
 		}
 		$ext = $this->px->get_path_proc_type( $this->px->req()->get_request_file_path() );
@@ -818,7 +818,7 @@ class main {
 			case 'check_editor_mode':
 				// コンテンツの編集モードを調べる
 				$request_path = $this->px->req()->get_param('path');
-				if( !strlen( ''.$request_path ) ){
+				if( !strlen( $request_path ?? '' ) ){
 					$request_path = $this->px->req()->get_request_file_path();
 				}
 				print $std_output->data_convert( $this->check_editor_mode( $request_path ) );
@@ -916,12 +916,12 @@ class main {
 
 			case 'page':
 				// サイトマップ/ページ操作
-				$sitemap_editor = new fncs\page\pageEditor( $this, $this->px );
+				$sitemap_page_editor = new fncs\page\pageEditor( $this, $this->px );
 				switch( $this->command[2] ?? '' ){
 					case 'get_page_info_raw':
 						$filename = $this->px->req()->get_param('filefullname');
 						$row = $this->px->req()->get_param('row');
-						$result = $sitemap_editor->get_page_info_raw($filename, $row);
+						$result = $sitemap_page_editor->get_page_info_raw($filename, $row);
 						print $std_output->data_convert( $result );
 						exit;
 						break;
@@ -931,7 +931,7 @@ class main {
 						$filename = $this->px->req()->get_param('filefullname');
 						$row = $this->px->req()->get_param('row');
 						$page_info = $this->px->req()->get_param('page_info');
-						$result = $sitemap_editor->add_page_info_raw($filename, $row, $page_info);
+						$result = $sitemap_page_editor->add_page_info_raw($filename, $row, $page_info);
 						print $std_output->data_convert( $result );
 						exit;
 						break;
@@ -942,7 +942,7 @@ class main {
 						$from_row = $this->px->req()->get_param('from_row');
 						$to_filename = $this->px->req()->get_param('to_filefullname');
 						$to_row = $this->px->req()->get_param('to_row');
-						$result = $sitemap_editor->move_page_info_raw($from_filename, $from_row, $to_filename, $to_row);
+						$result = $sitemap_page_editor->move_page_info_raw($from_filename, $from_row, $to_filename, $to_row);
 						print $std_output->data_convert( $result );
 						exit;
 						break;
@@ -952,7 +952,7 @@ class main {
 						$filename = $this->px->req()->get_param('filefullname');
 						$row = $this->px->req()->get_param('row');
 						$page_info = $this->px->req()->get_param('page_info');
-						$result = $sitemap_editor->update_page_info_raw($filename, $row, $page_info);
+						$result = $sitemap_page_editor->update_page_info_raw($filename, $row, $page_info);
 						print $std_output->data_convert( $result );
 						exit;
 						break;
@@ -961,7 +961,7 @@ class main {
 						$this->route_only_post_and_cli();
 						$filename = $this->px->req()->get_param('filefullname');
 						$row = $this->px->req()->get_param('row');
-						$result = $sitemap_editor->delete_page_info_raw($filename, $row);
+						$result = $sitemap_page_editor->delete_page_info_raw($filename, $row);
 						print $std_output->data_convert( $result );
 						exit;
 						break;
@@ -1021,9 +1021,9 @@ class main {
 				$this->route_only_post_and_cli();
 				$flg_force = $this->px->req()->get_param('force');
 				$path_to = $this->px->req()->get_request_file_path();
-				$param_to = $this->px->req()->get_param('to');
-				if( strlen( ''.$param_to ) ){
-					$path_to = $param_to;
+				$param_path_to = $this->px->req()->get_param('to');
+				if( strlen( $param_path_to ?? '' ) ){
+					$path_to = $param_path_to;
 				}
 				$result = $this->copy_content(
 					$this->px->req()->get_param('from'),
