@@ -116,6 +116,7 @@ class px2ce_apis{
 		$init_options = array(
 			'target_mode' => $target_mode,
 			'page_path' => $this->px->req()->get_request_file_path(),
+			'module_id' => $this->px->req()->get_param('module_id') ?? null,
 			'theme_id' => $this->px->req()->get_param('theme_id') ?? null,
 			'layout_id' => $this->px->req()->get_param('layout_id') ?? null,
 			'appMode' => $appMode,
