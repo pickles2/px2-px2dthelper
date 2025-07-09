@@ -1066,7 +1066,9 @@ class main {
 				switch( $this->command[2] ?? '' ){
 					case 'build_css':
 						if( !is_string($data_type) || !strlen($data_type) ){
-							header('Content-type: text/css; charset=UTF-8');
+							if (!headers_sent()) {
+								header('Content-type: text/css; charset=UTF-8');
+							}
 							$this->px->req()->set_param('type', 'css');
 						}
 						if( strlen(''.$theme_id) ){
@@ -1077,7 +1079,9 @@ class main {
 						break;
 					case 'build_js':
 						if( !is_string($data_type) || !strlen($data_type) ){
-							header('Content-type: text/javascript; charset=UTF-8');
+							if (!headers_sent()) {
+								header('Content-type: text/javascript; charset=UTF-8');
+							}
 							$this->px->req()->set_param('type', 'js');
 						}
 						if( strlen(''.$theme_id) ){
@@ -1088,7 +1092,9 @@ class main {
 						break;
 					case 'load':
 						if( !is_string($data_type) || !strlen($data_type) ){
-							header('Content-type: text/html; charset=UTF-8');
+							if (!headers_sent()) {
+								header('Content-type: text/html; charset=UTF-8');
+							}
 							$this->px->req()->set_param('type', 'html');
 						}
 						$val = $this->document_modules()->load();

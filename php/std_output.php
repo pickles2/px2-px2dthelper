@@ -32,12 +32,14 @@ class std_output{
 		if( !is_string($data_type) || !strlen($data_type) ){
 			$data_type = 'json';
 		}
-		if( $data_type == 'json' ){
-			@header('Content-type: application/json; charset=UTF-8');
-		}elseif( $data_type == 'jsonp' ){
-			@header('Content-type: application/javascript; charset=UTF-8');
-		}elseif( $data_type == 'xml' ){
-			@header('Content-type: application/xml; charset=UTF-8');
+		if (!headers_sent()) {
+			if( $data_type == 'json' ){
+				header('Content-type: application/json; charset=UTF-8');
+			}elseif( $data_type == 'jsonp' ){
+				header('Content-type: application/javascript; charset=UTF-8');
+			}elseif( $data_type == 'xml' ){
+				header('Content-type: application/xml; charset=UTF-8');
+			}
 		}
 		switch( $data_type ){
 			case 'jsonp':

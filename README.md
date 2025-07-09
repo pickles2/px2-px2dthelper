@@ -424,6 +424,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 ### pickles2/px2-px2dthelper v2.3.0 (リリース日未定)
 
 - モジュール編集機能のサポートを追加した。
+- ヘッダー情報の送信に関する改善。
 
 ### pickles2/px2-px2dthelper v2.2.8 (2025年5月9日)
 
