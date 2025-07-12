@@ -425,6 +425,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 - モジュール編集機能のサポートを追加した。
 - ヘッダー情報の送信に関する改善。
+- `PX=px2dthelper.config.update` の反映が遅延する場合がある問題を修正。
 
 ### pickles2/px2-px2dthelper v2.2.8 (2025年5月9日)
 

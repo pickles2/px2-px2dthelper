@@ -154,6 +154,13 @@ class configParser{
 
 		if( !is_null( $set_data ) && $rtn['result'] ){
 			$this->px->fs()->save_file( $path_php, $src_config_php );
+
+			// PHPの opcache をクリア
+			// NOTE: PHPは、パース済みのPHPスクリプトをキャッシュする(opcache)ので、PHPファイルの更新が反映されるまでにタイムラグが生じる場合がある。これを回避するため、明示的にキャッシュをクリアする。
+			// SEE: https://www.php.net/manual/ja/book.opcache.php
+			if (function_exists('opcache_reset')) {
+				opcache_reset();
+			}
 		}
 
 		return $rtn;
