@@ -7,7 +7,7 @@ namespace tomk79\pickles2\px2dthelper\fncs\content;
 /**
  * px2-px2dthelper pathDetector
  */
-class pathDetector{
+class pathDetector {
 
 	/** Picklesオブジェクト */
 	private $px;
@@ -28,6 +28,10 @@ class pathDetector{
 
 	/**
 	 * Markdownファイル中のパスを解決
+	 * 
+	 * @param string $src 変換対象のMarkdownコード
+	 * @param callback $get_new_path 変換前のパスを受け取り、変換後のパスを返すコールバック関数
+	 * @return string 変換後のMarkdownコード
 	 */
 	public function path_detect_in_md( $src, $get_new_path ){
 
@@ -56,6 +60,10 @@ class pathDetector{
 
 	/**
 	 * HTMLファイル中のパスを解決
+	 * 
+	 * @param string $src 変換対象のHTMLコード
+	 * @param callback $get_new_path 変換前のパスを受け取り、変換後のパスを返すコールバック関数
+	 * @return string 変換後のHTMLコード
 	 */
 	public function path_detect_in_html( $src, $get_new_path ){
 
@@ -117,6 +125,10 @@ class pathDetector{
 
 	/**
 	 * CSSファイル中のパスを解決
+	 * 
+	 * @param string $src 変換対象のCSS(またはSCSS)コード
+	 * @param callback $get_new_path 変換前のパスを受け取り、変換後のパスを返すコールバック関数
+	 * @return string 変換後のCSS(またはSCSS)コード
 	 */
 	private function path_detect_in_css( $bin, $get_new_path ){
 
