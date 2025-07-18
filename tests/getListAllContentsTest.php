@@ -28,7 +28,7 @@ class getListAllContentsTest extends PHPUnit\Framework\TestCase{
 
 		$this->assertTrue( is_object($json) );
 		$this->assertTrue( $json->result );
-		$this->assertSame( count(get_object_vars($json->all_contents)), 20 );
+		$this->assertSame( count(get_object_vars($json->all_contents)), 24 );
 
 		// 後始末
 		$output = $this->px2query->query( [

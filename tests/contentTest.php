@@ -207,92 +207,83 @@ class contentTest extends PHPUnit\Framework\TestCase{
 	 * Markdownコンテンツを移動するテスト
 	 */
 	public function testMoveContentMd(){
-		$this->fs->mkdir_r(__DIR__.'/testData/standard/move_test/test_files/');
-		$this->fs->save_file(__DIR__.'/testData/standard/move_test/test.html.md', '<p>test</p>');
-		$this->fs->save_file(__DIR__.'/testData/standard/move_test/test_files/test.txt', 'test');
-
 		// 移動対象ファイルが存在することを確認
-		$this->assertTrue( $this->fs->is_file(__DIR__.'/testData/standard/move_test/test.html.md') );
-		$this->assertTrue( $this->fs->is_dir(__DIR__.'/testData/standard/move_test/test_files/') );
+		$this->assertTrue( $this->fs->is_file(__DIR__.'/testData/standard/move_test/test_md.html.md') );
+		$this->assertTrue( $this->fs->is_dir(__DIR__.'/testData/standard/move_test/test_md_files/') );
 
 		// PX=px2dthelper.content.move
 		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
-			'/?PX=px2dthelper.content.move&from=/move_test/test.html.md&to=/move_test/test2.html.md' ,
+			'/?PX=px2dthelper.content.move&from=/move_test/test_md.html.md&to=/move_test/test_md_moved.html.md' ,
 		] );
 		$result = json_decode($output);
 		$this->assertEquals( $result->result, true );
 		$this->assertEquals( $result->message, 'OK' );
 
 		// 移動対象ファイルが移動されたことを確認
-		$this->assertTrue( $this->fs->is_file(__DIR__.'/testData/standard/move_test/test2.html.md') );
-		$this->assertTrue( $this->fs->is_dir(__DIR__.'/testData/standard/move_test/test2_files/') );
+		$this->assertTrue( $this->fs->is_file(__DIR__.'/testData/standard/move_test/test_md_moved.html.md') );
+		$this->assertTrue( $this->fs->is_dir(__DIR__.'/testData/standard/move_test/test_md_moved_files/') );
 
-		$this->assertTrue( $this->fs->rm(__DIR__.'/testData/standard/move_test/') );
+		// 戻す
+		$output = $this->px2query->query( [
+			__DIR__.'/testData/standard/.px_execute.php' ,
+			'/?PX=px2dthelper.content.move&from=/move_test/test_md_moved.html.md&to=/move_test/test_md.html.md' ,
+		] );
+		$this->assertTrue( $this->fs->is_file(__DIR__.'/testData/standard/move_test/test_md.html.md') );
+		$this->assertTrue( $this->fs->is_dir(__DIR__.'/testData/standard/move_test/test_md_files/') );
 	}
 
 	/**
 	 * Broccoliコンテンツを移動するテスト
 	 */
 	public function testMoveContentBroccoli(){
-		$this->fs->mkdir_r(__DIR__.'/testData/standard/move_test/test_files/guieditor.ignore/');
-		$this->fs->save_file(__DIR__.'/testData/standard/move_test/test.html', '<p>test<a href="../">link</a></p><form action="../index.html"><img src="./test.png" /></form>');
-		$this->fs->save_file(__DIR__.'/testData/standard/move_test/test_files/guieditor.ignore/data.json', json_encode(array(
-			"main" => (object) array(
-				"href" => "../",
-			),
-		)));
-		$this->fs->mkdir_r(__DIR__.'/testData/standard/move_test/link_test_files/guieditor.ignore/');
-		$this->fs->save_file(__DIR__.'/testData/standard/move_test/link_test.html', '<p>link test<a href="./test.html">link</a></p><form action="./test.html"><img src="./test.html" /></form>');
-		$this->fs->save_file(__DIR__.'/testData/standard/move_test/link_test_files/guieditor.ignore/data.json', json_encode(array(
-			"main" => (object) array(
-				"href" => "./test.html",
-			),
-		)));
-
-		$this->fs->mkdir_r(__DIR__.'/testData/standard/move_test/ignored_path_test/');
-		$this->fs->save_file(__DIR__.'/testData/standard/move_test/ignored_path_test/link_test.html', '<p>link test<a href="../test.html">link</a></p><form action="../test.html"><img src="../test.html" /></form>');
-
 		// 移動対象ファイルが存在することを確認
-		$this->assertTrue( $this->fs->is_file(__DIR__.'/testData/standard/move_test/test.html') );
-		$this->assertTrue( $this->fs->is_dir(__DIR__.'/testData/standard/move_test/test_files/') );
+		$this->assertTrue( $this->fs->is_file(__DIR__.'/testData/standard/move_test/test_broccoli.html') );
+		$this->assertTrue( $this->fs->is_dir(__DIR__.'/testData/standard/move_test/test_broccoli_files/') );
 
 		// PX=px2dthelper.content.move
 		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
-			'/?PX=px2dthelper.content.move&from=/move_test/test.html&to=/move_test/subdir/test2.html' ,
+			'/?PX=px2dthelper.content.move&from=/move_test/test_broccoli.html&to=/move_test/subdir/test_broccoli_moved.html' ,
 		] );
 		$result = json_decode($output);
 		$this->assertEquals( $result->result, true );
 		$this->assertEquals( $result->message, 'OK' );
 
 		// 移動対象ファイルが移動されたことを確認
-		$this->assertTrue( $this->fs->is_file(__DIR__.'/testData/standard/move_test/subdir/test2.html') );
-		$this->assertTrue( $this->fs->is_file(__DIR__.'/testData/standard/move_test/subdir/test2_files/guieditor.ignore/data.json') );
+		$this->assertTrue( $this->fs->is_file(__DIR__.'/testData/standard/move_test/subdir/test_broccoli_moved.html') );
+		$this->assertTrue( $this->fs->is_file(__DIR__.'/testData/standard/move_test/subdir/test_broccoli_moved_files/guieditor.ignore/data.json') );
 
 		// 移動されたファイルに含まれる相対パスのリンクが修正されていることを確認
-		$moved_html = file_get_contents(__DIR__.'/testData/standard/move_test/subdir/test2.html');
-		$moved_json = file_get_contents(__DIR__.'/testData/standard/move_test/subdir/test2_files/guieditor.ignore/data.json');
+		$moved_html = file_get_contents(__DIR__.'/testData/standard/move_test/subdir/test_broccoli_moved.html');
+		$moved_json = file_get_contents(__DIR__.'/testData/standard/move_test/subdir/test_broccoli_moved_files/guieditor.ignore/data.json');
 		$this->assertTrue( !!preg_match('/'.preg_quote('<a href="../../">link</a>', '/').'/', $moved_html) );
 		$this->assertTrue( !!preg_match('/'.preg_quote('<form action="../../index.html">', '/').'/', $moved_html) );
 		$this->assertTrue( !!preg_match('/'.preg_quote('<img src="./../test.png" />', '/').'/', $moved_html) );
 		$this->assertTrue( !!preg_match('/'.preg_quote('"../../"', '/').'/', $moved_json) );
 
 		// 移動されたファイルに対して張られたリンクが修正されていることを確認
-		$linked_html = file_get_contents(__DIR__.'/testData/standard/move_test/link_test.html');
-		$linked_json = file_get_contents(__DIR__.'/testData/standard/move_test/link_test_files/guieditor.ignore/data.json');
-		$this->assertTrue( !!preg_match('/'.preg_quote('<a href="./subdir/test2.html">link</a>', '/').'/', $linked_html) );
-		$this->assertTrue( !!preg_match('/'.preg_quote('<form action="./subdir/test2.html">', '/').'/', $linked_html) );
-		$this->assertTrue( !!preg_match('/'.preg_quote('<img src="./subdir/test2.html" />', '/').'/', $linked_html) );
-		$this->assertTrue( !!preg_match('/'.preg_quote('"./subdir/test2.html"', '/').'/', $linked_json) );
+		$linked_html = file_get_contents(__DIR__.'/testData/standard/move_test/link_test_broccoli.html');
+		$linked_json = file_get_contents(__DIR__.'/testData/standard/move_test/link_test_broccoli_files/guieditor.ignore/data.json');
+		$this->assertTrue( !!preg_match('/'.preg_quote('<a href="./subdir/test_broccoli_moved.html">link</a>', '/').'/', $linked_html) );
+		$this->assertTrue( !!preg_match('/'.preg_quote('<form action="./subdir/test_broccoli_moved.html">', '/').'/', $linked_html) );
+		$this->assertTrue( !!preg_match('/'.preg_quote('<img src="./subdir/test_broccoli_moved.html" />', '/').'/', $linked_html) );
+		$this->assertTrue( !!preg_match('/'.preg_quote('"./subdir/test_broccoli_moved.html"', '/').'/', $linked_json) );
 
 		// 除外されたパスでは、移動されたファイルに対して張られたリンクが修正されていないことを確認
 		$linked_html = file_get_contents(__DIR__.'/testData/standard/move_test/ignored_path_test/link_test.html');
-		$this->assertTrue( !!preg_match('/'.preg_quote('<a href="../test.html">link</a>', '/').'/', $linked_html) );
-		$this->assertTrue( !!preg_match('/'.preg_quote('<form action="../test.html">', '/').'/', $linked_html) );
-		$this->assertTrue( !!preg_match('/'.preg_quote('<img src="../test.html" />', '/').'/', $linked_html) );
+		$this->assertTrue( !!preg_match('/'.preg_quote('<a href="../test_broccoli.html">link</a>', '/').'/', $linked_html) );
+		$this->assertTrue( !!preg_match('/'.preg_quote('<form action="../test_broccoli.html">', '/').'/', $linked_html) );
+		$this->assertTrue( !!preg_match('/'.preg_quote('<img src="../test_broccoli.html" />', '/').'/', $linked_html) );
 
-		$this->assertTrue( $this->fs->rm(__DIR__.'/testData/standard/move_test/') );
+		// 戻す
+		$output = $this->px2query->query( [
+			__DIR__.'/testData/standard/.px_execute.php' ,
+			'/?PX=px2dthelper.content.move&from=/move_test/subdir/test_broccoli_moved.html&to=/move_test/test_broccoli.html' ,
+		] );
+		$result = json_decode($output);
+		$this->assertEquals( $result->result, true );
+		$this->assertEquals( $result->message, 'OK' );
 	}
 
 	/**
@@ -300,18 +291,18 @@ class contentTest extends PHPUnit\Framework\TestCase{
 	 */
 	public function testDeleteContent(){
 
-		$this->fs->mkdir_r(__DIR__.'/testData/standard/delete/test_files/');
-		$this->fs->save_file(__DIR__.'/testData/standard/delete/test.html.md', '<p>test</p>');
-		$this->fs->save_file(__DIR__.'/testData/standard/delete/test_files/test.txt', 'test');
+		$this->fs->mkdir_r(__DIR__.'/testData/standard/delete_test/test_files/');
+		$this->fs->save_file(__DIR__.'/testData/standard/delete_test/test.html.md', '<p>test</p>');
+		$this->fs->save_file(__DIR__.'/testData/standard/delete_test/test_files/test.txt', 'test');
 
 		// 削除対象ファイルが存在することを確認
-		$this->assertTrue( $this->fs->is_file(__DIR__.'/testData/standard/delete/test.html.md') );
-		$this->assertTrue( $this->fs->is_dir(__DIR__.'/testData/standard/delete/test_files/') );
+		$this->assertTrue( $this->fs->is_file(__DIR__.'/testData/standard/delete_test/test.html.md') );
+		$this->assertTrue( $this->fs->is_dir(__DIR__.'/testData/standard/delete_test/test_files/') );
 
 		// PX=px2dthelper.content.delete
 		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
-			'/delete/test.html?PX=px2dthelper.content.delete' ,
+			'/delete_test/test.html?PX=px2dthelper.content.delete' ,
 		] );
 		$result = json_decode($output);
 		$this->assertEquals( $result->result, true );
@@ -319,16 +310,14 @@ class contentTest extends PHPUnit\Framework\TestCase{
 
 		// 削除対象ファイルが削除されたことを確認
 		clearstatcache();
-		$this->assertFalse( $this->fs->is_file(__DIR__.'/testData/standard/delete/test.html.md') );
-		$this->assertFalse( $this->fs->is_dir(__DIR__.'/testData/standard/delete/test_files/') );
+		$this->assertFalse( $this->fs->is_file(__DIR__.'/testData/standard/delete_test/test.html.md') );
+		$this->assertFalse( $this->fs->is_dir(__DIR__.'/testData/standard/delete_test/test_files/') );
 
 		// 後始末
-		$this->fs->rm(__DIR__.'/testData/standard/delete/');
+		$this->fs->rm(__DIR__.'/testData/standard/delete_test/');
 		$output = $this->px2query->query( [
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=clearcache' ,
 		] );
-
 	}
-
 }

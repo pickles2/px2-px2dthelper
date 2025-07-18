@@ -52,8 +52,7 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 		$this->assertFalse( $json->result ); // 失敗 `false` が得られる
 		$this->assertTrue( $this->fs->is_file( __DIR__.'/testData/standard/px-files/sitemaps/create_new_sitemap.csv' ) );
 		$this->assertTrue( $this->fs->is_file( __DIR__.'/testData/standard/px-files/sitemaps/create_new_sitemap.xlsx' ) );
-
-	} // testSitemapCreate()
+	}
 
 	/**
 	 * PX=px2dthelper.sitemap.csv2xlsx のテスト
@@ -70,8 +69,7 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 		$this->assertTrue( $json->result );
 		$this->assertTrue( $this->fs->is_file( __DIR__.'/testData/standard/px-files/sitemaps/create_new_sitemap.csv' ) );
 		$this->assertTrue( $this->fs->is_file( __DIR__.'/testData/standard/px-files/sitemaps/create_new_sitemap.xlsx' ) );
-
-	} // testSitemapCsv2Xlsx()
+	}
 
 	/**
 	 * PX=px2dthelper.sitemap.xlsx2csv のテスト
@@ -88,8 +86,7 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 		$this->assertTrue( $json->result );
 		$this->assertTrue( $this->fs->is_file( __DIR__.'/testData/standard/px-files/sitemaps/create_new_sitemap.csv' ) );
 		$this->assertTrue( $this->fs->is_file( __DIR__.'/testData/standard/px-files/sitemaps/create_new_sitemap.xlsx' ) );
-
-	} // testSitemapXlsx2Csv()
+	}
 
 	/**
 	 * PX=px2dthelper.sitemap.filelist のテスト
@@ -109,8 +106,7 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 		$this->assertIsObject( $json->list_origcase );
 		$this->assertIsArray( $json->fullname_list );
 		$this->assertIsArray( $json->fullname_list_origcase );
-
-	} // testSitemapFileList()
+	}
 
 	/**
 	 * PX=px2dthelper.sitemap.download のテスト
@@ -129,8 +125,7 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 		$this->assertSame( $json->filename, 'create_new_sitemap.xlsx' );
 		$this->assertIsString( $json->base64 );
 		$this->assertFalse( isset($json->bin) );
-
-	} // testSitemapFileDownload()
+	}
 
 	/**
 	 * PX=px2dthelper.page.add_page_info_raw のテスト
@@ -176,8 +171,7 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 		$json = json_decode( $output );
 		$this->assertTrue( is_object($json) );
 		$this->assertFalse( $json->result ); // 失敗 `false` が得られる
-
-	} // testPageAddPageInfoRaw()
+	}
 
 	/**
 	 * PX=px2dthelper.page.get_page_info_raw のテスト
@@ -200,8 +194,7 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 		$this->assertIsArray( $json->page_info );
 		$this->assertSame( $json->page_info[0], '/added_page_sample/index.html' );
 		$this->assertSame( $json->page_info[3], 'Page Title' );
-
-	} // testPageGetPageInfoRaw()
+	}
 
 	/**
 	 * PX=px2dthelper.page.move_page_info_raw のテスト
@@ -314,7 +307,6 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 		$this->assertSame( $json->page_info[13], '' );
 
 
-
 		// --------------------------------------
 		// 対象ページがない (エラー)
 		$output = $this->px2query->query( [
@@ -337,9 +329,7 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 		] );
 		$json = json_decode( $output );
 		$this->assertFalse( $json->result );
-
-
-	} // testPageMovePageInfoRaw()
+	}
 
 	/**
 	 * PX=px2dthelper.page.update_page_info_raw のテスト
@@ -377,8 +367,7 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 		$this->assertIsArray( $json->page_info );
 		$this->assertSame( $json->page_info[0], '/added_page_sample/2.html' );
 		$this->assertSame( $json->page_info[3], 'Page Title 2' );
-
-	} // testPageUpdatePageInfoRaw()
+	}
 
 	/**
 	 * PX=px2dthelper.page.update_page_info_raw のテスト - パンくずの変化をともなう変更
@@ -456,8 +445,7 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 		$this->assertSame( $json->page_info[4], '/update_page_test/>/changed_new_path/a/>/add_page_test/a/c/' ); // logical_path
 		$json = json_decode( $this->px2query->query( [__DIR__.'/testData/standard/.px_execute.php', '/?PX=px2dthelper.page.get_page_info_raw&filefullname=create_new_sitemap_4.csv&row=2'] ) );
 		$this->assertSame( $json->page_info[4], '/update_page_test/>/changed_new_path/a/>/add_page_test/a/c/' ); // logical_path
-
-	} // testPageUpdatePageInfoRaw_ChangeLogicalPath()
+	}
 
 	/**
 	 * PX=px2dthelper.page.delete_page_info_raw のテスト
@@ -546,8 +534,7 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 		$this->assertTrue( is_object($json) );
 		$this->assertFalse( $json->result ); // 失敗 `false` が得られる
 		$this->assertSame( $json->message, 'Invalid row number.' );
-
-	} // testPageDeletePageInfoRaw()
+	}
 
 	/**
 	 * PX=px2dthelper.sitemap.delete のテスト
@@ -593,7 +580,5 @@ class sitemapTest extends PHPUnit\Framework\TestCase{
 			__DIR__.'/testData/standard/.px_execute.php' ,
 			'/?PX=clearcache' ,
 		] );
-
-	} // testSitemapDelete()
-
+	}
 }
