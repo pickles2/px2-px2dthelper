@@ -2,10 +2,14 @@
 <ul>
     <li><a href="./test_broccoli.html">A link</a></li>
     <li><a href="./test_broccoli.html?a=b">A link</a></li>
+    <li><a href="./test_broccoli.html#foobar">A link</a></li>
+    <li><a href="./test_broccoli.html?a=b#foobar">A link</a></li>
 </ul>
 
 - [A link](./test_broccoli.html)
 - [A link](./test_broccoli.html?a=b)
+- [A link](./test_broccoli.html#foobar)
+- [A link](./test_broccoli.html?a=b#foobar)
 
 <!-- autoindex -->
 

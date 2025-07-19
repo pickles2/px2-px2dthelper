@@ -270,6 +270,20 @@ class contentTest extends PHPUnit\Framework\TestCase{
 		$this->assertTrue( !!preg_match('/'.preg_quote('<img src="./subdir/test_broccoli_moved.html" />', '/').'/', $linked_html) );
 		$this->assertTrue( !!preg_match('/'.preg_quote('"./subdir/test_broccoli_moved.html"', '/').'/', $linked_json) );
 
+		$linked_md = file_get_contents(__DIR__.'/testData/standard/move_test/test_md.html.md');
+		$this->assertTrue( !!preg_match('/'.preg_quote('<li><a href="./subdir/test_broccoli_moved.html">A link</a></li>', '/').'/', $linked_md) );
+		$this->assertTrue( !!preg_match('/'.preg_quote('<li><a href="./subdir/test_broccoli_moved.html?a=b">A link</a></li>', '/').'/', $linked_md) );
+		$this->assertTrue( !!preg_match('/'.preg_quote('<li><a href="./subdir/test_broccoli_moved.html#foobar">A link</a></li>', '/').'/', $linked_md) );
+		$this->assertTrue( !!preg_match('/'.preg_quote('<li><a href="./subdir/test_broccoli_moved.html?a=b#foobar">A link</a></li>', '/').'/', $linked_md) );
+		$this->assertTrue( !!preg_match('/'.preg_quote('- [A link](./subdir/test_broccoli_moved.html)', '/').'/', $linked_md) );
+		$this->assertTrue( !!preg_match('/'.preg_quote('- [A link](./subdir/test_broccoli_moved.html?a=b)', '/').'/', $linked_md) );
+		$this->assertTrue( !!preg_match('/'.preg_quote('- [A link](./subdir/test_broccoli_moved.html#foobar)', '/').'/', $linked_md) );
+		$this->assertTrue( !!preg_match('/'.preg_quote('- [A link](./subdir/test_broccoli_moved.html?a=b#foobar)', '/').'/', $linked_md) );
+		$this->assertTrue( !!preg_match('/'.preg_quote('<a href="./test_broccoli.html">A link in code block</a>', '/').'/', $linked_md) ); // 変換されないべき
+		$this->assertTrue( !!preg_match('/'.preg_quote('<a href="./test_broccoli.html">A link in HTML comment out</a>', '/').'/', $linked_md) ); // 変換されないべき
+		$this->assertTrue( !!preg_match('/'.preg_quote('echo \'<a href="./test_broccoli.html">A link in PHP block</a>\';', '/').'/', $linked_md) ); // 変換されないべき
+		$this->assertTrue( !!preg_match('/'.preg_quote('paragraph <a href="<?= $px->href("test") ?>">test</a> message.', '/').'/', $linked_md) ); // 変換されないべき
+
 		// 除外されたパスでは、移動されたファイルに対して張られたリンクが修正されていないことを確認
 		$linked_html = file_get_contents(__DIR__.'/testData/standard/move_test/ignored_path_test/link_test.html');
 		$this->assertTrue( !!preg_match('/'.preg_quote('<a href="../test_broccoli.html">link</a>', '/').'/', $linked_html) );

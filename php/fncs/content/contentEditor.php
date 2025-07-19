@@ -424,8 +424,23 @@ class contentEditor{
 		$pre_s = $matched[1];
 		$path = $matched[2];
 		$s_end = $matched[3];
+
 		if( preg_match('/^#/', $path) ){
 			return $pre_s.$path.$s_end;
+		}
+
+		// #〜〜 のアンカーが含まれている場合、一時的に退避する
+		$hash = '';
+		if (preg_match('/^(.*?)(#.+)$/', $path, $matches)) {
+			$path = $matches[1];
+			$hash = $matches[2];
+		}
+
+		// クエリパラメータ (?〜〜〜) が含まれている場合、一時的に退避する
+		$query = '';
+		if (preg_match('/^(.*?)(\?.+)$/', $path, $matches)) {
+			$path = $matches[1];
+			$query = $matches[2];
 		}
 
 		$path_type = 'relative';
@@ -489,6 +504,13 @@ class contentEditor{
 				break;
 		}
 
+		if ($query !== '') {
+			$rtn .= $query;
+		}
+		if ($hash !== '') {
+			$rtn .= $hash;
+		}
+
 		return $pre_s.$rtn.$s_end;
 	}
 
@@ -513,6 +535,20 @@ class contentEditor{
 
 		if( preg_match('/^#/', $path) ){
 			return $pre_s.$path.$s_end;
+		}
+
+		// #〜〜 のアンカーが含まれている場合、一時的に退避する
+		$hash = '';
+		if (preg_match('/^(.*?)(#.+)$/', $path, $matches)) {
+			$path = $matches[1];
+			$hash = $matches[2];
+		}
+
+		// クエリパラメータ (?〜〜〜) が含まれている場合、一時的に退避する
+		$query = '';
+		if (preg_match('/^(.*?)(\?.+)$/', $path, $matches)) {
+			$path = $matches[1];
+			$query = $matches[2];
 		}
 
 		$path_type = 'relative';
@@ -571,6 +607,13 @@ class contentEditor{
 				$path_rel = preg_replace('/^\.\//s', '', $path_rel);
 				$rtn = $path_rel;
 				break;
+		}
+
+		if ($query !== '') {
+			$rtn .= $query;
+		}
+		if ($hash !== '') {
+			$rtn .= $hash;
 		}
 
 		return $pre_s.$rtn.$s_end;

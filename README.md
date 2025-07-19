@@ -424,6 +424,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 ### pickles2/px2-px2dthelper v2.3.1 (リリース日未定)
 
 - `PX=px2dthelper.content.move` で、変換対象のコンテンツにコードブロックやコメントブロックを含む場合の処理を改善した。
+- `PX=px2dthelper.content.move` で、変換対象のリンクが クエリパラメータ(`?〜〜`)やハッシュ(`#〜〜`)を含む場合に、正しく変換されない問題を修正した。
 
 ### pickles2/px2-px2dthelper v2.3.0 (2025年7月12日)
 
