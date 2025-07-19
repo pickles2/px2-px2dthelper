@@ -446,19 +446,19 @@ class contentEditor{
 		$path_type = 'relative';
 		if( preg_match('/^\<\?(?:php|\=)?/', $path) ){
 			$path_type = 'php';
-			return $pre_s.$path.$s_end;
+			return $pre_s.$path.$query.$hash.$s_end;
 		}elseif( preg_match('/^[a-zA-Z0-9]+\:\/\//', $path) ){
 			$path_type = 'url';
-			return $pre_s.$path.$s_end; // TODO: 未実装
+			return $pre_s.$path.$query.$hash.$s_end; // TODO: 未実装
 		}elseif( preg_match('/^\/\//', $path) ){
 			$path_type = 'absolute_double_slashes';
-			return $pre_s.$path.$s_end; // TODO: 未実装
+			return $pre_s.$path.$query.$hash.$s_end; // TODO: 未実装
 		}elseif( preg_match('/^data\:/i', $path) ){
 			$path_type = 'data';
-			return $pre_s.$path.$s_end;
+			return $pre_s.$path.$query.$hash.$s_end;
 		}elseif( preg_match('/^javascript\:/i', $path) ){
 			$path_type = 'javascript';
-			return $pre_s.$path.$s_end;
+			return $pre_s.$path.$query.$hash.$s_end;
 		}elseif( preg_match('/^\//', $path) ){
 			$path_type = 'absolute';
 			$path_abs = $this->px->fs()->get_realpath($path, dirname($from));
@@ -504,14 +504,7 @@ class contentEditor{
 				break;
 		}
 
-		if ($query !== '') {
-			$rtn .= $query;
-		}
-		if ($hash !== '') {
-			$rtn .= $hash;
-		}
-
-		return $pre_s.$rtn.$s_end;
+		return $pre_s.$rtn.$query.$hash.$s_end;
 	}
 
 	/**
@@ -554,19 +547,19 @@ class contentEditor{
 		$path_type = 'relative';
 		if( preg_match('/^\<\?(?:php|\=)?/', $path) ){
 			$path_type = 'php';
-			return $pre_s.$path.$s_end;
+			return $pre_s.$path.$query.$hash.$s_end;
 		}elseif( preg_match('/^[a-zA-Z0-9]+\:\/\//', $path) ){
 			$path_type = 'url';
-			return $pre_s.$path.$s_end; // TODO: 未実装
+			return $pre_s.$path.$query.$hash.$s_end; // TODO: 未実装
 		}elseif( preg_match('/^\/\//', $path) ){
 			$path_type = 'absolute_double_slashes';
-			return $pre_s.$path.$s_end; // TODO: 未実装
+			return $pre_s.$path.$query.$hash.$s_end; // TODO: 未実装
 		}elseif( preg_match('/^data\:/i', $path) ){
 			$path_type = 'data';
-			return $pre_s.$path.$s_end;
+			return $pre_s.$path.$query.$hash.$s_end;
 		}elseif( preg_match('/^javascript\:/i', $path) ){
 			$path_type = 'javascript';
-			return $pre_s.$path.$s_end;
+			return $pre_s.$path.$query.$hash.$s_end;
 		}elseif( preg_match('/^\//', $path) ){
 			$path_type = 'absolute';
 			$path_abs = $this->px->fs()->get_realpath($path, dirname($path_current));
@@ -580,7 +573,7 @@ class contentEditor{
 		$path_abs = $this->px->fs()->normalize_path($path_abs);
 
 		if( $path_abs != $from && $path_abs.$this->directory_index_primary != $from ){
-			return $pre_s.$path.$s_end;
+			return $pre_s.$path.$query.$hash.$s_end;
 		}
 
 		$new_path_abs = $this->px->fs()->get_realpath($to);
@@ -609,14 +602,7 @@ class contentEditor{
 				break;
 		}
 
-		if ($query !== '') {
-			$rtn .= $query;
-		}
-		if ($hash !== '') {
-			$rtn .= $hash;
-		}
-
-		return $pre_s.$rtn.$s_end;
+		return $pre_s.$rtn.$query.$hash.$s_end;
 	}
 
 }
