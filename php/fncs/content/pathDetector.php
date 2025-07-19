@@ -55,7 +55,9 @@ class pathDetector {
 			continue;
 		}
 
-		return $this->path_detect_in_html($src, $get_new_path);
+		$src = $this->path_detect_in_html($src, $get_new_path);
+
+		return $src;
 	}
 
 	/**
@@ -66,6 +68,26 @@ class pathDetector {
 	 * @return string 変換後のHTMLコード
 	 */
 	public function path_detect_in_html( $src, $get_new_path ){
+
+		// コメントブロックとPHPブロックを一時的に退避
+		$placeholders = array();
+		$idx = 0;
+
+		// コメントブロック
+		$src = preg_replace_callback('/<!--.*?-->/s', function($matches) use (&$placeholders, &$idx) {
+			$key = "___COMMENT_BLOCK_PLACEHOLDER_{$idx}___";
+			$placeholders[$key] = $matches[0];
+			$idx++;
+			return $key;
+		}, $src);
+
+		// PHPブロック
+		$src = preg_replace_callback('/<\?(php|=)?[\s\S]*?\?>/i', function($matches) use (&$placeholders, &$idx) {
+			$key = "___PHP_BLOCK_PLACEHOLDER_{$idx}___";
+			$placeholders[$key] = $matches[0];
+			$idx++;
+			return $key;
+		}, $src);
 
 		// HTMLをパース
 		$html = \tomk79\pickles2\px2dthelper\str_get_html(
@@ -119,6 +141,11 @@ class pathDetector {
 		}
 
 		$src = $html->outertext;
+
+		// 一時的に退避したコメントブロックとPHPブロックを復元
+		foreach( $placeholders as $key => $val ){
+			$src = str_replace($key, $val, $src);
+		}
 
 		return $src;
 	}
