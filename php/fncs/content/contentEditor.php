@@ -443,6 +443,12 @@ class contentEditor{
 			$query = $matches[2];
 		}
 
+		// クエリパラメータ (?〜〜〜) が含まれている場合、一時的に退避する
+		$is_end_with_slash = false;
+		if (preg_match('/\/$/', $path)) {
+			$is_end_with_slash = true;
+		}
+
 		$path_type = 'relative';
 		if( preg_match('/^\<\?(?:php|\=)?/', $path) ){
 			$path_type = 'php';
@@ -504,6 +510,16 @@ class contentEditor{
 				break;
 		}
 
+		if($is_end_with_slash){
+			$directory_index = $this->px->conf()->directory_index ?? array();
+			foreach($directory_index as $directory_index_file_name){
+				// $rtn が $directory_index_file_name で終わっていたら、$directory_index_file_name を削除する
+				if (preg_match('/\/'.preg_quote($directory_index_file_name, '/').'$/', $rtn)) {
+					$rtn = preg_replace('/'.preg_quote($directory_index_file_name, '/').'$/', '', $rtn);
+				}
+			}
+		}
+
 		return $pre_s.$rtn.$query.$hash.$s_end;
 	}
 
@@ -542,6 +558,12 @@ class contentEditor{
 		if (preg_match('/^(.*?)(\?.+)$/', $path, $matches)) {
 			$path = $matches[1];
 			$query = $matches[2];
+		}
+
+		// クエリパラメータ (?〜〜〜) が含まれている場合、一時的に退避する
+		$is_end_with_slash = false;
+		if (preg_match('/\/$/', $path)) {
+			$is_end_with_slash = true;
 		}
 
 		$path_type = 'relative';
@@ -600,6 +622,16 @@ class contentEditor{
 				$path_rel = preg_replace('/^\.\//s', '', $path_rel);
 				$rtn = $path_rel;
 				break;
+		}
+
+		if($is_end_with_slash){
+			$directory_index = $this->px->conf()->directory_index ?? array();
+			foreach($directory_index as $directory_index_file_name){
+				// $rtn が $directory_index_file_name で終わっていたら、$directory_index_file_name を削除する
+				if (preg_match('/\/'.preg_quote($directory_index_file_name, '/').'$/', $rtn)) {
+					$rtn = preg_replace('/'.preg_quote($directory_index_file_name, '/').'$/', '', $rtn);
+				}
+			}
 		}
 
 		return $pre_s.$rtn.$query.$hash.$s_end;
