@@ -35,6 +35,20 @@ class pathDetector {
 	 */
 	public function path_detect_in_md( $src, $get_new_path ){
 
+		$code_blocks = array();
+		$src_work = $src;
+		$idx = 0;
+
+		// コードブロック("```"〜"```")を一時的に退避
+		$src_work = preg_replace_callback('/(```+)[\s\S]*?\1/u', function($matches) use (&$code_blocks, &$idx){
+			$key = "___CODE_BLOCK_PLACEHOLDER_{$idx}___";
+			$code_blocks[$key] = $matches[0];
+			$idx++;
+			return $key;
+		}, $src_work);
+
+		$src = $src_work;
+
 		// リンクとイメージを処理
 		$tmp_src = $src;
 		$src = '';
@@ -56,6 +70,11 @@ class pathDetector {
 		}
 
 		$src = $this->path_detect_in_html($src, $get_new_path);
+
+		// 一時的に退避したコードブロックを復元
+		foreach( $code_blocks as $key => $val ){
+			$src = str_replace($key, $val, $src);
+		}
 
 		return $src;
 	}
