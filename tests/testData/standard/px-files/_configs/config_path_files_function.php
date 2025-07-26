@@ -10,6 +10,10 @@ return call_user_func( function(){
 	$conf->copyright = 'Pickles Project'; // 著作権表示
 	$conf->path_controot = '/'; // コンテンツルートディレクトリ
 
+	$conf->default_timezone = 'Asia/Tokyo';
+	$conf->default_lang = 'ja';
+	$conf->accept_langs = array('ja', 'en');
+
 	// paths
 	$conf->path_top = '/'; // トップページのパス(デフォルト "/")
 	$conf->path_publish_dir = null; // パブリッシュ先ディレクトリパス

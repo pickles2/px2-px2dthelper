@@ -344,6 +344,41 @@ class configParser{
 					return true;
 				},
 			),
+			'default_lang' => array(
+				'value_div' => 'values',
+				'preg_pattern' => '/\$conf\-\>default_lang\s*\=\s*(?:(\'|\")([^\1]*?)\1|(null|NULL))\s*\;/s',
+				'parse' => function( $pattern, $src_config_php ){
+					$rtn = array(
+						'matched' => true,
+						'value' => null,
+					);
+					$rtn['value'] = $this->get_escaped_string_value('$conf->default_lang', $src_config_php);
+					if( $rtn['value'] === false ){
+						return array(
+							'matched' => false,
+							'value' => null,
+						);
+					}
+					return $rtn;
+				},
+				'replace' => function( $pattern, $src_config_php, $val ){
+					$src_updated = $this->replace_escaped_string_value('$conf->default_lang', $val, $src_config_php);
+					return $src_updated;
+				},
+				'validator' => function( $val ){
+					if( is_null($val) ){
+						return true; // nullable
+					}
+					if(!is_string($val)){
+						return false;
+					}
+					if(!preg_match('/^[^\r\n]*$/s', $val)){
+						// 禁止文字
+						return false;
+					}
+					return true;
+				},
+			),
 			'theme_id' => array(
 				'value_div' => 'symbols',
 				'preg_pattern' => '/(\'|\")default_theme_id\1\s*\=\>\s*(\'|\")([a-zA-Z0-9\-\_]+)\2/s',

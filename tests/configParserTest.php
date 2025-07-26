@@ -32,6 +32,7 @@ class configParserTest extends PHPUnit\Framework\TestCase{
 		$this->assertSame( $json->values->name, 'px2-px2dthelper-test' );
 		$this->assertSame( $json->values->domain, null );
 		$this->assertSame( $json->values->copyright, 'Pickles Project' );
+		$this->assertSame( $json->values->default_lang, 'ja' );
 		$this->assertSame( $json->symbols->theme_id, 'pickles' );
 
 		// ---------------------------
@@ -43,6 +44,7 @@ class configParserTest extends PHPUnit\Framework\TestCase{
 				'scheme' => 'http',
 				'domain' => 'example.com',
 				'copyright' => 'new copyright',
+				'default_lang' => 'en',
 			),
 			'symbols'=>array(
 				'theme_id' => 'update_test',
@@ -57,6 +59,7 @@ class configParserTest extends PHPUnit\Framework\TestCase{
 		$this->assertSame( $json->values->scheme, 'http' );
 		$this->assertSame( $json->values->domain, 'example.com' );
 		$this->assertSame( $json->values->copyright, 'new copyright' );
+		$this->assertSame( $json->values->default_lang, 'en' );
 		$this->assertSame( $json->symbols->theme_id, 'update_test' );
 
 		// ---------------------------
@@ -68,6 +71,7 @@ class configParserTest extends PHPUnit\Framework\TestCase{
 				'scheme' => 'https',
 				'domain' => null,
 				'copyright' => 'Pickles Project',
+				'default_lang' => 'ja',
 			),
 			'symbols'=>array(
 				'theme_id' => 'pickles',
@@ -82,6 +86,7 @@ class configParserTest extends PHPUnit\Framework\TestCase{
 		$this->assertSame( $json->values->scheme, 'https' );
 		$this->assertSame( $json->values->domain, null );
 		$this->assertSame( $json->values->copyright, 'Pickles Project' );
+		$this->assertSame( $json->values->default_lang, 'ja' );
 		$this->assertSame( $json->symbols->theme_id, 'pickles' );
 
 
@@ -95,6 +100,7 @@ class configParserTest extends PHPUnit\Framework\TestCase{
 		$this->assertSame( $json->values->scheme, 'https' );
 		$this->assertSame( $json->values->domain, null );
 		$this->assertSame( $json->values->copyright, 'Pickles Project' );
+		$this->assertSame( $json->values->default_lang, 'ja' );
 		$this->assertSame( $json->symbols->theme_id, 'pickles' );
 
 
