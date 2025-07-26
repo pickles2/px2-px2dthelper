@@ -426,6 +426,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 - `PX=px2dthelper.content.move` で、変換対象のコンテンツにコードブロックやコメントブロックを含む場合の処理を改善した。
 - `PX=px2dthelper.content.move` で、変換対象のリンクが クエリパラメータ(`?〜〜`)やハッシュ(`#〜〜`)を含む場合に、正しく変換されない問題を修正した。
 - `PX=px2dthelper.content.move` で、変換対象のリンクがスラッシュで終わっていて、変換後のリンクのファイル名を省略できる場合に、省略するようになった。
+- 標準コンテンツテンプレートに `kflow` を追加した。
 
 ### pickles2/px2-px2dthelper v2.3.0 (2025年7月12日)
 

@@ -131,29 +131,45 @@ class contentsTemplate {
 	 * デフォルトのリストを取得する
 	 */
 	private function default_list(){
+		$conf = $this->px->conf();
+
 		$rtn = (object) array(
 			"default" => 'html.gui',
-			"list" => array(
-				(object) array(
-					"id" => 'html.gui',
-					"name" => $this->main->lb()->get('ui_label.blockeditor'),
-					"type" => 'html.gui',
-					"thumb" => null,
-				),
-				(object) array(
-					"id" => 'html',
-					"name" => $this->main->lb()->get('ui_label.html'),
-					"type" => 'html',
-					"thumb" => null,
-				),
-				(object) array(
-					"id" => 'md',
-					"name" => $this->main->lb()->get('ui_label.markdown'),
-					"type" => 'md',
-					"thumb" => null,
-				),
-			),
+			"list" => array(),
 		);
+
+		array_push($rtn->list, (object) array(
+			"id" => 'html.gui',
+			"name" => $this->main->lb()->get('ui_label.blockeditor'),
+			"type" => 'html.gui',
+			"thumb" => null,
+		));
+
+		if( isset($conf->funcs->processor->kflow) ){
+			array_push($rtn->list, (object) array(
+				"id" => 'kflow',
+				"name" => $this->main->lb()->get('ui_label.kflow'),
+				"type" => 'kflow',
+				"thumb" => null,
+			));
+		}
+
+		array_push($rtn->list, (object) array(
+			"id" => 'html',
+			"name" => $this->main->lb()->get('ui_label.html'),
+			"type" => 'html',
+			"thumb" => null,
+		));
+
+		if( isset($conf->funcs->processor->md) ){
+			array_push($rtn->list, (object) array(
+				"id" => 'md',
+				"name" => $this->main->lb()->get('ui_label.markdown'),
+				"type" => 'md',
+				"thumb" => null,
+			));
+		}
+
 		return $rtn;
 	}
 
