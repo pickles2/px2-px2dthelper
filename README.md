@@ -421,6 +421,10 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ## 更新履歴 - Change log
 
+### pickles2/px2-px2dthelper v2.3.2 (リリース日未定)
+
+- サーバーオリジンの取得時に、ポート番号が含まれない場合がある問題を修正。
+
 ### pickles2/px2-px2dthelper v2.3.1 (2025年7月29日)
 
 - `PX=px2dthelper.content.move` で、変換対象のコンテンツにコードブロックやコメントブロックを含む場合の処理を改善した。
