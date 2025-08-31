@@ -279,7 +279,7 @@ class main {
 			if( property_exists( $this->get_px2dtconfig()->guieditor, 'path_data_dir' ) ){
 				$path_template = $this->get_px2dtconfig()->guieditor->path_data_dir;
 			}elseif( property_exists( $this->get_px2dtconfig()->guieditor, 'realpathDataDir' ) ){
-				$path_template = $this->get_px2dtconfig()->guieditor->realpathDataDir; // ← こちらは古い名前。後にスネークケース↑に変更されたため、現在は推奨されない。
+				$path_template = $this->get_px2dtconfig()->guieditor->realpathDataDir; // NOTE: こちらは古い名前。後にスネークケース↑に変更されたため、現在は推奨されない。
 			}
 		}
 		if( $path_template ){
@@ -325,7 +325,7 @@ class main {
 			if( property_exists( $this->get_px2dtconfig()->guieditor, 'path_resource_dir' ) ){
 				$path_template = $this->get_px2dtconfig()->guieditor->path_resource_dir;
 			}elseif( property_exists( $this->get_px2dtconfig()->guieditor, 'pathResourceDir' ) ){
-				$path_template = $this->get_px2dtconfig()->guieditor->pathResourceDir; // ← こちらは古い名前。後にスネークケース↑に変更されたため、現在は推奨されない。
+				$path_template = $this->get_px2dtconfig()->guieditor->pathResourceDir; // NOTE: こちらは古い名前。後にスネークケース↑に変更されたため、現在は推奨されない。
 			}
 		}
 		if( $path_template ){

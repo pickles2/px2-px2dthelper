@@ -84,7 +84,7 @@ class px2me_apis{
 				break;
 		}
 		return false;
-	} // execute_px_command()
+	}
 
 	/**
 	 * $px2me オブジェクトを生成する

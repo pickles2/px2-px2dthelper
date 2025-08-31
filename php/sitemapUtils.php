@@ -241,16 +241,16 @@ class sitemapUtils{
 			switch( $key ){
 				case 'title':
 					if( !strlen( trim($val ?? '') ) ){
-						$rtn[$key] = 'title は必須項目です。';
+						$rtn[$key] = 'The "title" field is required.';
 					}
 					break;
 				case 'path':
 					if( !strlen( $val ?? '' ) ){
-						$rtn[$key] = 'path は必須項目です。';
+						$rtn[$key] = 'The "path" field is required.';
 					}elseif( !preg_match( '/^\//', $val ?? '' ) ){
-						$rtn[$key] = 'path は "/" (スラッシュ) から始まる値である必要があります。';
+						$rtn[$key] = 'The "path" must start with "/".';
 					}elseif( !preg_match( '/(?:\/|\.html?|\{[\*\$][a-zA-Z0-9\-\_]*\})$/', $val ?? '' ) ){
-						$rtn[$key] = 'path は "/" (スラッシュ) または .html で終わる値である必要があります。';
+						$rtn[$key] = 'The "path" must end with "/" or ".html".';
 					}
 					break;
 			}
