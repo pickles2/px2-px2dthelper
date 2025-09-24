@@ -421,7 +421,7 @@ $ php .px_execute.php "/path/to/target/page_path.html?PX=px2dthelper.packages.ge
 
 ## 更新履歴 - Change log
 
-### pickles2/px2-px2dthelper v2.3.2 (リリース日未定)
+### pickles2/px2-px2dthelper v2.3.2 (2025年9月24日)
 
 - サーバーオリジンの取得時に、ポート番号が含まれない場合がある問題を修正。
 - 日本語でハードコーディングされていたエラーメッセージなどを英語に置き換えた。
